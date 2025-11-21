@@ -1,6 +1,7 @@
 'use client'
 
 import { Brain, Layers, Target, Sparkles, ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const aiFeatures = [
   {
@@ -61,8 +62,12 @@ export default function AIPoweredShowcase() {
               orange: 'bg-orange-50 border-orange-200 text-orange-600',
             }
             return (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300"
               >
                 <div className={`inline-flex p-3 rounded-lg ${colorClasses[feature.color as keyof typeof colorClasses]} mb-4`}>
@@ -70,7 +75,7 @@ export default function AIPoweredShowcase() {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
-              </div>
+              </motion.div>
             )
           })}
         </div>

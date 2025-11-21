@@ -1,6 +1,7 @@
 'use client'
 
 import { Star, Quote } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const testimonials = [
   {
@@ -50,23 +51,31 @@ export default function Testimonials() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           {stats.map((stat, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="text-center p-6 bg-white rounded-xl border border-gray-200 shadow-sm"
             >
               <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
                 {stat.number}
               </div>
               <div className="text-sm text-gray-600">{stat.label}</div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Testimonials */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div
+            <motion.div
               key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 relative"
             >
               <Quote className="absolute top-6 right-6 w-8 h-8 text-gray-200" />
@@ -90,7 +99,7 @@ export default function Testimonials() {
                   <div className="text-sm text-gray-600">{testimonial.role}</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

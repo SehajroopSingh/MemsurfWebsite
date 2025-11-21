@@ -1,6 +1,7 @@
 'use client'
 
 import { TrendingUp, Calendar, Target, Zap } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const benefits = [
   {
@@ -63,14 +64,18 @@ export default function SpacedRepetitionShowcase() {
               orange: 'bg-orange-50 text-orange-600 border-orange-200',
             }
             return (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
                 className={`p-6 rounded-xl border-2 ${colorClasses[benefit.color as keyof typeof colorClasses]} text-center`}
               >
                 <Icon className="w-8 h-8 mx-auto mb-3" />
                 <div className="text-3xl font-bold mb-1">{benefit.stat}</div>
                 <div className="text-sm text-gray-600">{benefit.description}</div>
-              </div>
+              </motion.div>
             )
           })}
         </div>

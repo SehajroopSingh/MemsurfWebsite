@@ -1,6 +1,7 @@
 'use client'
 
 import { FileText, Sparkles, BookOpen, ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const steps = [
   {
@@ -56,7 +57,14 @@ export default function QuickCaptureShowcase() {
                 green: 'bg-green-50 border-green-200 text-green-600',
               }
               return (
-                <div key={index} className="relative">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative"
+                >
                   <div className="bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
                     {/* Step Number */}
                     <div className="flex items-center justify-between mb-6">
@@ -85,7 +93,7 @@ export default function QuickCaptureShowcase() {
                       </div>
                     </div>
                   )}
-                </div>
+                </motion.div>
               )
             })}
           </div>

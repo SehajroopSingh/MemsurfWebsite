@@ -1,0 +1,32 @@
+{
+  "name": "memsurfwebsite",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "autoprefixer": "^10.0.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^10.0.0",
+    "lucide-react": "^0.300.0",
+    "next": "^14.0.0",
+    "postcss": "^8.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "description": "A modern, responsive marketing landing page for Memsurf (Rememq) - an AI-powered learning platform. This website showcases the platform's features including AI quiz generation, quick capture, spaced repetition, and intelligent learning paths.",
+  "main": "next.config.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

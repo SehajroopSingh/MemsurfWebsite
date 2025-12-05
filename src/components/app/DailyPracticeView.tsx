@@ -11,7 +11,8 @@ interface DailyPracticeViewProps {
 }
 
 export default function DailyPracticeView({ onBack }: DailyPracticeViewProps = {}) {
-  const [quizzes, setQuizzes] = useState<ScheduledQuiz[]>([])
+  const [quizzes, setQuizzes] = useState<Quiz[]>([])
+  const [sessionId, setSessionId] = useState<string | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: any }>({})
   const [results, setResults] = useState<{ [key: number]: boolean }>({})
@@ -21,18 +22,37 @@ export default function DailyPracticeView({ onBack }: DailyPracticeViewProps = {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const fetchQuizzes = async () => {
+    const fetchFeed = async () => {
       try {
-        const data = await apiClient.getScheduledQuizzes()
-        setQuizzes(data)
+        const data = await apiClient.getDailyPracticeFeed()
+        console.log('📚 Daily Practice Feed loaded:', {
+          itemsCount: data.items.length,
+          sessionId: data.session_id,
+          startingHearts: data.starting_hearts
+        })
+        
+        // Extract quizzes from items (filter items with type "quiz")
+        const quizItems = data.items.filter((item: any) => item.type === 'quiz')
+        const extractedQuizzes = quizItems.map((item: any) => item.payload)
+        
+        console.log('📚 Extracted quizzes:', extractedQuizzes.length, 'sessionId:', data.session_id)
+        
+        setQuizzes(extractedQuizzes)
+        setSessionId(data.session_id)
+        
+        if (!data.session_id && extractedQuizzes.length > 0) {
+          console.warn('⚠️ No session_id returned but quizzes exist!')
+          setError('Session ID missing. Please refresh the page.')
+        }
       } catch (err: any) {
-        setError(err.message || 'Failed to load quizzes')
+        console.error('❌ Failed to load practice feed:', err)
+        setError(err.message || 'Failed to load practice feed')
       } finally {
         setLoading(false)
       }
     }
 
-    fetchQuizzes()
+    fetchFeed()
   }, [])
 
   const handleAnswer = (quizId: number, answer: any) => {
@@ -40,25 +60,66 @@ export default function DailyPracticeView({ onBack }: DailyPracticeViewProps = {
   }
 
   const handleSubmit = async () => {
-    if (quizzes.length === 0) return
+    if (quizzes.length === 0) {
+      setError('No quizzes to submit.')
+      return
+    }
+    
+    if (!sessionId) {
+      console.error('❌ Cannot submit: sessionId is null/undefined')
+      setError('No session ID available. Cannot submit. Please refresh the page.')
+      return
+    }
+
+    console.log('📤 Submitting session:', {
+      sessionId,
+      quizCount: quizzes.length,
+      answeredCount: Object.keys(userAnswers).length
+    })
 
     setSubmitting(true)
     try {
-      const sessions: QuizSession[] = quizzes.map((sq) => ({
-        quiz_id: sq.quiz.id,
-        user_answer: userAnswers[sq.quiz.id],
-        time_taken: 0,
-      }))
+      // Format results according to backend expectations
+      const results = quizzes.map((quiz) => {
+        const userAnswer = userAnswers[quiz.id]
+        let wasCorrect = false
+        let score = 0
 
-      const response = await apiClient.submitQuizSession(sessions)
+        // Determine correctness based on quiz type
+        if (quiz.quiz_type === 'multiple_choice') {
+          wasCorrect = userAnswer === quiz.correctAnswerIndex || userAnswer === quiz.correct_answer_index
+          score = wasCorrect ? 10 : 0
+        } else if (quiz.quiz_type === 'true_false') {
+          const correctAnswer = quiz.trueFalseAnswer || quiz.true_false_answer
+          wasCorrect = userAnswer?.toLowerCase() === correctAnswer?.toLowerCase()
+          score = wasCorrect ? 10 : 0
+        } else if (quiz.quiz_type === 'fill_in_the_blank') {
+          const correctAnswer = quiz.fillBlankAnswer || quiz.fill_blank_answer
+          wasCorrect = userAnswer?.toLowerCase().trim() === correctAnswer?.toLowerCase().trim()
+          score = wasCorrect ? 10 : 0
+        }
+
+        return {
+          quiz_id: quiz.id,
+          was_correct: wasCorrect,
+          score: score,
+          response_data: {
+            user_answer: userAnswer,
+            quiz_type: quiz.quiz_type
+          }
+        }
+      })
+
+      const response = await apiClient.submitQuizSession({
+        session_id: sessionId,
+        results: results
+      })
       
-      // Process results
+      // Update results state for display
       const newResults: { [key: number]: boolean } = {}
-      if (response.results) {
-        response.results.forEach((r: any) => {
-          newResults[r.quiz_id] = r.is_correct
-        })
-      }
+      results.forEach((r) => {
+        newResults[r.quiz_id] = r.was_correct
+      })
       setResults(newResults)
       setSubmitted(true)
     } catch (err: any) {
@@ -122,8 +183,16 @@ export default function DailyPracticeView({ onBack }: DailyPracticeViewProps = {
     )
   }
 
+  if (!quizzes[currentIndex]) {
+    return (
+      <div className="min-h-screen flex items-center justify-center pt-16">
+        <LoadingSpinner size="lg" />
+      </div>
+    )
+  }
+
   const currentQuiz = quizzes[currentIndex]
-  const quiz = currentQuiz.quiz
+  const quiz = currentQuiz
   const isAnswered = userAnswers[quiz.id] !== undefined
   const isCorrect = results[quiz.id]
   const showResult = submitted && results[quiz.id] !== undefined

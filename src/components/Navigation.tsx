@@ -31,20 +31,23 @@ export default function Navigation() {
           <div className="hidden md:flex md:items-center md:space-x-8">
             {!isAuthenticated ? (
               <>
-            <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">
-              Features
-            </a>
-            <a href="#how-it-works" className="text-gray-700 hover:text-blue-600 transition-colors">
-              How It Works
-            </a>
-            <a href="#testimonials" className="text-gray-700 hover:text-blue-600 transition-colors">
-              Testimonials
-            </a>
+                <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  Features
+                </a>
+                <a href="#how-it-works" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  How It Works
+                </a>
+                <a href="#testimonials" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  Testimonials
+                </a>
+                <a href="/research" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  Research
+                </a>
                 <a href="/login" className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors">
-              Sign In
+                  Sign In
                 </a>
                 <a href="/register" className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all">
-              Get Started
+                  Get Started
                 </a>
               </>
             ) : (
@@ -68,7 +71,7 @@ export default function Navigation() {
                 >
                   <LogOut className="w-4 h-4" />
                   Logout
-            </button>
+                </button>
               </>
             )}
           </div>
@@ -91,40 +94,47 @@ export default function Navigation() {
           <div className="px-4 pt-2 pb-4 space-y-2 bg-white border-t border-gray-200">
             {!isAuthenticated ? (
               <>
-            <a
-              href="#features"
-              className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              Features
-            </a>
-            <a
-              href="#how-it-works"
-              className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              How It Works
-            </a>
-            <a
-              href="#testimonials"
-              className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              Testimonials
-            </a>
+                <a
+                  href="#features"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Features
+                </a>
+                <a
+                  href="#how-it-works"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  How It Works
+                </a>
+                <a
+                  href="#testimonials"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Testimonials
+                </a>
+                <a
+                  href="/research"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Research
+                </a>
                 <a
                   href="/login"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
-              Sign In
+                  Sign In
                 </a>
                 <a
                   href="/register"
                   className="block px-3 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
-              Get Started
+                  Get Started
                 </a>
               </>
             ) : (
@@ -160,7 +170,7 @@ export default function Navigation() {
                 >
                   <LogOut className="w-4 h-4" />
                   Logout
-            </button>
+                </button>
               </>
             )}
           </div>

@@ -6,42 +6,39 @@ import { motion } from 'framer-motion'
 const features = [
   {
     icon: Brain,
-    title: 'AI Quiz Generation',
-    description: 'Create quizzes from any content instantly. Our AI analyzes your material and generates multiple question types automatically.',
-    gradient: 'from-blue-500 to-cyan-500',
+    title: 'AI GENERATION',
+    description: 'We generate the quizzes. You just click the buttons. It\'s almost too easy for you.',
+    gradient: 'from-gray-800 to-gray-900',
   },
   {
     icon: Zap,
-    title: 'Quick Capture',
-    description: 'Capture and organize learning materials effortlessly. Transform articles, notes, and documents into structured learning content.',
-    gradient: 'from-purple-500 to-pink-500',
+    title: 'QUICK CAPTURE',
+    description: 'Save it now. Read it never. We know your habits.',
+    gradient: 'from-gray-800 to-gray-900',
   },
   {
     icon: Calendar,
-    title: 'Spaced Repetition',
-    description: 'Master knowledge with science-backed scheduling. Our algorithm optimizes review timing to maximize long-term retention.',
-    gradient: 'from-green-500 to-emerald-500',
+    title: 'SPACED REPETITION',
+    description: 'We\'ll annoy you with notifications until you actually learn it. You\'re welcome.',
+    gradient: 'from-gray-800 to-gray-900',
   },
   {
     icon: TrendingUp,
-    title: 'Smart Learning',
-    description: 'AI-powered insights and personalized learning paths. Track progress, identify weak areas, and adapt to your learning style.',
-    gradient: 'from-orange-500 to-red-500',
+    title: 'SMART INSIGHTS',
+    description: 'Graphs that show exactly how much you\'re procrastinating.',
+    gradient: 'from-gray-800 to-gray-900',
   },
 ]
 
 export default function Features() {
   return (
-    <section id="features" className="py-24 bg-white">
+    <section id="features" className="py-24 bg-black border-t border-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Powerful Features for
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Modern Learners</span>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 uppercase tracking-tighter">
+            We did the work.
+            <span className="text-gray-500 block text-2xl mt-2 font-mono font-normal">So you don't have to.</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Everything you need to transform how you learn and retain information
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -54,13 +51,13 @@ export default function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative p-8 bg-white rounded-2xl border border-gray-200 hover:border-transparent hover:shadow-xl transition-all duration-300"
+                className="group relative p-8 bg-gray-900/20 border border-gray-800 hover:border-white/50 hover:bg-gray-900/40 transition-all duration-300"
               >
-                <div className={`inline-flex p-4 rounded-xl bg-gradient-to-r ${feature.gradient} mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`inline-flex p-3 rounded-none bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-wide font-mono">{feature.title}</h3>
+                <p className="text-gray-500 leading-relaxed font-mono text-sm">{feature.description}</p>
               </motion.div>
             )
           })}

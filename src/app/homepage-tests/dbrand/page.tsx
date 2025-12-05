@@ -10,21 +10,20 @@ import CTA from '@/components/CTA'
 import Footer from '@/components/Footer'
 import ScrollMocker from '@/components/ScrollMocker'
 
-export default function Home() {
-  return (
-    <main className="min-h-screen bg-black">
-      <ScrollMocker />
-      <Navigation />
-      <Hero />
-      <Features />
-      <QuizShowcase />
-      <QuickCaptureShowcase />
-      <SpacedRepetitionShowcase />
-      <AIPoweredShowcase />
-      <Testimonials />
-      <CTA />
-      <Footer />
-    </main>
-  )
+export default function DbrandHome() {
+    return (
+        <main className="min-h-screen bg-black">
+            <ScrollMocker />
+            <Navigation />
+            <Hero />
+            <Features />
+            <QuizShowcase />
+            <QuickCaptureShowcase />
+            <SpacedRepetitionShowcase />
+            <AIPoweredShowcase />
+            <Testimonials />
+            <CTA />
+            <Footer />
+        </main>
+    )
 }
-

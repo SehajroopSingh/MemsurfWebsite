@@ -10,21 +10,15 @@ const footerLinks = {
     { name: 'Testimonials', href: '#testimonials' },
   ],
   company: [
-    { name: 'About', href: '#' },
+    { name: 'About', href: '/about' },
     { name: 'Blog', href: '#' },
-    { name: 'Careers', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: 'Careers', href: '/careers' },
+    { name: 'Contact', href: '/contact' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
-    { name: 'Cookie Policy', href: '#' },
-  ],
-  resources: [
-    { name: 'Documentation', href: '#' },
-    { name: 'Help Center', href: '#' },
-    { name: 'API Docs', href: '#' },
-    { name: 'Community', href: '#' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Service', href: '/terms-of-service' },
+    { name: 'Cookie Policy', href: '/cookie-policy' },
   ],
 }
 
@@ -39,7 +33,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <a href="#" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 block">
@@ -93,20 +87,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Resources */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2">
-              {footerLinks.resources.map((link, index) => (
-                <li key={index}>
-                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Legal */}
           <div>
             <h3 className="text-white font-semibold mb-4">Legal</h3>
@@ -135,4 +115,3 @@ export default function Footer() {
     </footer>
   )
 }
-

@@ -27,44 +27,17 @@ const testimonials = [
   },
 ]
 
-const stats = [
-  { number: '10K+', label: 'Active Learners' },
-  { number: '500K+', label: 'Quizzes Created' },
-  { number: '95%', label: 'Retention Rate' },
-  { number: '4.9/5', label: 'User Rating' },
-]
-
 export default function Testimonials() {
   return (
     <section id="testimonials" className="py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Trusted by
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Thousands</span>
+            1000s of thousands of lessons created, and millions of quizzes created by users.
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             See what learners are saying about their experience with Memsurf
           </p>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="text-center p-6 bg-white rounded-xl border border-gray-200 shadow-sm"
-            >
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                {stat.number}
-              </div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
-            </motion.div>
-          ))}
         </div>
 
         {/* Testimonials */}
@@ -76,27 +49,31 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 relative"
             >
-              <Quote className="absolute top-6 right-6 w-8 h-8 text-gray-200" />
-              
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
+              <div className="group relative">
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-emerald-500/5 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+                <div className="relative bg-white/80 backdrop-blur border border-gray-200/80 rounded-3xl p-8 shadow-sm group-hover:border-blue-200 group-hover:shadow-xl transition-all duration-500">
+                  <Quote className="absolute top-6 right-6 w-8 h-8 text-gray-200" />
 
-              <p className="text-gray-700 mb-6 leading-relaxed relative z-10">
-                "{testimonial.content}"
-              </p>
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
-                  {testimonial.avatar}
-                </div>
-                <div>
-                  <div className="font-bold text-gray-900">{testimonial.name}</div>
-                  <div className="text-sm text-gray-600">{testimonial.role}</div>
+                  <p className="text-gray-700 mb-6 leading-relaxed relative z-10">
+                    "{testimonial.content}"
+                  </p>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                      {testimonial.avatar}
+                    </div>
+                    <div>
+                      <div className="font-bold text-gray-900">{testimonial.name}</div>
+                      <div className="text-sm text-gray-600">{testimonial.role}</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -106,4 +83,3 @@ export default function Testimonials() {
     </section>
   )
 }
-

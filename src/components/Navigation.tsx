@@ -31,15 +31,6 @@ export default function Navigation() {
           <div className="hidden md:flex md:items-center md:space-x-8">
             {!isAuthenticated ? (
               <>
-                <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Features
-                </a>
-                <a href="#how-it-works" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  How It Works
-                </a>
-                <a href="#testimonials" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Testimonials
-                </a>
                 <a href="/research" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Research
                 </a>
@@ -94,27 +85,6 @@ export default function Navigation() {
           <div className="px-4 pt-2 pb-4 space-y-2 bg-white border-t border-gray-200">
             {!isAuthenticated ? (
               <>
-                <a
-                  href="#features"
-                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Features
-                </a>
-                <a
-                  href="#how-it-works"
-                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  How It Works
-                </a>
-                <a
-                  href="#testimonials"
-                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Testimonials
-                </a>
                 <a
                   href="/research"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
@@ -179,4 +149,3 @@ export default function Navigation() {
     </nav>
   )
 }
-

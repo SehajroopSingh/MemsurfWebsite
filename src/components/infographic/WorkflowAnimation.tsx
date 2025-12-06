@@ -1,8 +1,7 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { FileText, CheckCircle2 } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import PhoneScreen from './PhoneScreen'
 import FlyingIcon from './FlyingIcon'
 import DepthVisualization from './DepthVisualization'
@@ -18,19 +17,6 @@ export default function WorkflowAnimation() {
     const [contextText, setContextText] = useState("")
     const [showProcessingPhone, setShowProcessingPhone] = useState(false)
     const { BULLET_ONE_DELAY, BULLET_TWO_DELAY, BULLET_THREE_DELAY } = PROCESSING_TIMINGS
-    const scrollSectionRef = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: scrollSectionRef,
-        offset: ['start 100%', 'end 35%']
-    })
-    const nowX = useTransform(scrollYProgress, [0, 0.06], [80, 0])
-    const nowOpacity = useTransform(scrollYProgress, [0, 0.04], [0, 1])
-    const justX = useTransform(scrollYProgress, [0.02, 0.08], [90, 0])
-    const justOpacity = useTransform(scrollYProgress, [0.03, 0.09], [0, 1])
-    const practiceX = useTransform(scrollYProgress, [0.04, 0.1], [100, 0])
-    const practiceOpacity = useTransform(scrollYProgress, [0.05, 0.11], [0, 1])
-    const phoneOpacity = useTransform(scrollYProgress, [0, 0.05], [0, 1])
-    const phoneY = useTransform(scrollYProgress, [0, 0.05], [60, 0])
 
     // 'capturing' -> 'combining' -> 'condensing' -> 'context' -> 'settings' -> 'flash' -> 'processing'
     const [animationStage, setAnimationStage] = useState<'capturing' | 'combining' | 'condensing' | 'context' | 'settings' | 'flash' | 'processing'>('capturing')
@@ -678,53 +664,6 @@ export default function WorkflowAnimation() {
             </AnimatePresence>
 
             </div>
-
-            <section
-                ref={scrollSectionRef}
-                className="w-full px-4 mt-32 md:mt-48 pb-32 overflow-hidden"
-            >
-                <div className="max-w-6xl mx-auto grid items-center gap-12 md:grid-cols-[minmax(0,1fr)_340px]">
-                    <div className="space-y-10 text-left">
-                        <motion.h2
-                            style={{ x: nowX, opacity: nowOpacity }}
-                            className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-gray-900"
-                        >
-                            NOW
-                        </motion.h2>
-                        <motion.h2
-                            style={{ x: justX, opacity: justOpacity }}
-                            className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-gray-900"
-                        >
-                            Just
-                        </motion.h2>
-                        <motion.h2
-                            style={{ x: practiceX, opacity: practiceOpacity }}
-                            className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-gray-900"
-                        >
-                            Practice
-                        </motion.h2>
-                    </div>
-                    <motion.div
-                        style={{ opacity: phoneOpacity, y: phoneY }}
-                        className="flex justify-center md:justify-end min-h-[620px]"
-                    >
-                        <div className="w-full max-w-[300px]">
-                            <PhoneScreen>
-                                <div className="absolute inset-0 bg-white flex flex-col px-5 pt-16 pb-8 gap-6">
-                                    <div className="h-10 rounded-full bg-gray-100 border border-gray-200" />
-                                    <div className="flex-1 rounded-[32px] border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center text-gray-400 text-xs uppercase tracking-[0.3em]">
-                                        Empty Canvas
-                                        <span className="mt-2 text-[10px] normal-case tracking-normal text-gray-400/80">
-                                            Add your UI here
-                                        </span>
-                                    </div>
-                                </div>
-                            </PhoneScreen>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
         </div>
     )
 }

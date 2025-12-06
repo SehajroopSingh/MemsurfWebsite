@@ -34,6 +34,10 @@ export default function Navigation() {
                 <a href="/research" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Research
                 </a>
+                <a href="/homepage-tests" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-1">
+                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">Tests</span>
+                  Homepage Tests
+                </a>
                 <a href="/login" className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors">
                   Sign In
                 </a>
@@ -91,6 +95,16 @@ export default function Navigation() {
                   onClick={() => setIsOpen(false)}
                 >
                   Research
+                </a>
+                <a
+                  href="/homepage-tests"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="inline-flex items-center gap-2">
+                    Homepage Tests
+                    <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">New</span>
+                  </span>
                 </a>
                 <a
                   href="/login"

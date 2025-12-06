@@ -14,28 +14,29 @@ export default function FlyingIcon({ data }: { data: any }) {
                 opacity: 0,
                 scale: 0.5,
                 top: data.position.top,
-                left: isLeft ? data.position.left : 'auto',
-                right: !isLeft ? data.position.right : 'auto',
-                x: 0,
-                y: 0,
+                left: data.position.left,
+                x: data.position.x || 0,
                 width: "auto"
             }}
             animate={{
-                opacity: [0, 1, 1],
-                scale: [0.8, 1.1, 1],
+                opacity: [0, 1, 1, 0],
+                scale: [0.8, 1, 1, 1.5],
                 left: '50%',
                 x: '-50%',
                 top: '90px', // Matches pt-20 (80px) + inset
-                y: 0,
                 right: 'auto',
-                width: "274px" // Wider width (300 phone - 12 frame - 14 padding)
+                width: "auto"
             }}
-            transition={{ duration: 0.6, times: [0, 0.6, 1], ease: "circOut" }}
-            className={`absolute z-50 p-3 rounded-2xl shadow-xl backdrop-blur-md border border-white/50 flex items-center gap-3 ${data.color}`}
+            transition={{
+                duration: 0.6,
+                times: [0, 0.2, 0.8, 1],
+                ease: "circOut", // Default for x/left
+                top: { duration: 0.6, ease: "circIn" }, // Gravity effect for drop
+            }}
+            className="absolute z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-sm border border-white/60 shadow-sm text-sm font-medium text-gray-500"
         >
-            {/* Render full card content to match list look */}
-            <div className="shrink-0">{data.icon}</div>
-            <span className="text-sm font-semibold text-gray-900 truncate opacity-0 animate-[fadeIn_0.3s_0.3s_forwards]">{data.label}</span>
+            <div className="grayscale opacity-50 scale-75">{data.icon}</div>
+            {data.source}
         </motion.div>
     )
 }

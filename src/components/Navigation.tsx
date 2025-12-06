@@ -31,18 +31,8 @@ export default function Navigation() {
           <div className="hidden md:flex md:items-center md:space-x-8">
             {!isAuthenticated ? (
               <>
-                <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Features
-                </a>
-                <a href="#how-it-works" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  How It Works
-                </a>
-                <a href="#testimonials" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Testimonials
-                </a>
-                <a href="/homepage-tests" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-1">
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">New</span>
-                  Tests
+                <a href="/research" className="text-gray-700 hover:text-blue-600 transition-colors">
+                  Research
                 </a>
                 <a href="/login" className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors">
                   Sign In
@@ -96,25 +86,11 @@ export default function Navigation() {
             {!isAuthenticated ? (
               <>
                 <a
-                  href="#features"
+                  href="/research"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
-                  Features
-                </a>
-                <a
-                  href="#how-it-works"
-                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  How It Works
-                </a>
-                <a
-                  href="#testimonials"
-                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Testimonials
+                  Research
                 </a>
                 <a
                   href="/login"
@@ -173,4 +149,3 @@ export default function Navigation() {
     </nav>
   )
 }
-

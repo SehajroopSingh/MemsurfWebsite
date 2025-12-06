@@ -212,10 +212,38 @@ class ApiClient {
     return this.request<ScheduledQuiz[]>('scheduler/scheduled-quizzes/')
   }
 
-  async submitQuizSession(sessions: QuizSession[]) {
-    return this.request<{ results: any[] }>('scheduler/submit-session/', {
+  async getDailyPracticeFeed() {
+    return this.request<{ 
+      items: any[]
+      meta: any
+      session_id: string | null
+      starting_hearts: number
+    }>('scheduler/daily-practice/')
+  }
+
+  async submitQuizSession(data: {
+    session_id: string
+    results: Array<{
+      quiz_id: number
+      was_correct: boolean
+      score: number
+      response_data?: any
+    }>
+    session_start_time?: string
+    session_end_time?: string
+    total_session_time_seconds?: number
+  }) {
+    return this.request<{ 
+      message: string
+      performance_percentage: number
+      session_stats: any
+      xp_delta?: number
+      coins_delta?: number
+      streak_updated?: boolean
+      current_streak?: number
+    }>('scheduler/submit-session/', {
       method: 'POST',
-      body: JSON.stringify({ sessions }),
+      body: JSON.stringify(data),
     })
   }
 

@@ -26,7 +26,7 @@ export const steps = [
         color: "text-gray-900 border-gray-200 bg-white",
         label: "Research Notes",
         source: "Notion",
-        position: { top: "-100px", left: "50%", x: "-170px" }
+        position: { top: "-100px", left: "50%", x: "-130px" }
     },
     {
         id: 2,
@@ -34,7 +34,7 @@ export const steps = [
         color: "text-red-500 border-red-100 bg-red-50",
         label: "Lecture Audio",
         source: "Voice Note",
-        position: { top: "-100px", left: "50%", x: "-60px" }
+        position: { top: "-100px", left: "50%", x: "-45px" }
     },
     {
         id: 3,
@@ -42,7 +42,7 @@ export const steps = [
         color: "text-blue-500 border-blue-100 bg-blue-50",
         label: "Project Specs",
         source: "Google Drive",
-        position: { top: "-100px", left: "50%", x: "60px" }
+        position: { top: "-100px", left: "50%", x: "45px" }
     },
     {
         id: 4,
@@ -50,7 +50,7 @@ export const steps = [
         color: "text-purple-500 border-purple-100 bg-purple-50",
         label: "Interesting Article",
         source: "Clipboard",
-        position: { top: "-100px", left: "50%", x: "170px" }
+        position: { top: "-100px", left: "50%", x: "130px" }
     }
 ]
 

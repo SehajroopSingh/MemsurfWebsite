@@ -51,7 +51,7 @@ export default function InstitutionScroll() {
       const formats = ['svg', 'png', 'jpg', 'jpeg']
       const pathsMap = new Map<string, string>()
       const available: Institution[] = []
-      
+
       const checkPromises = allInstitutions.map(async (institution) => {
         // First check for local logo files
         for (const format of formats) {
@@ -66,21 +66,21 @@ export default function InstitutionScroll() {
             // Continue to next format
           }
         }
-        
+
         // If no local logo found, use CDN fallback
         pathsMap.set(institution.key, institution.cdnUrl)
         return institution
       })
-      
+
       const results = await Promise.all(checkPromises)
       results.forEach((inst) => {
         if (inst) available.push(inst)
       })
-      
+
       setLogoPaths(pathsMap)
       setAvailableInstitutions(available)
     }
-    
+
     checkLogos()
   }, [])
 
@@ -134,49 +134,46 @@ export default function InstitutionScroll() {
   const duplicatedInstitutions = [...availableInstitutions, ...availableInstitutions, ...availableInstitutions]
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-24 md:py-6 bg-white border-y border-gray-100/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <p className="text-lg md:text-xl text-gray-600 font-medium">
-            Used by professionals and students from
+        <div className="text-center mb-10">
+          <p className="text-sm font-semibold tracking-wider text-gray-400 uppercase">
+            Trusted by learners from
           </p>
         </div>
-        
+
         <div className="relative overflow-hidden">
           {/* Gradient overlays for fade effect */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 via-gray-50 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-50 via-gray-50 to-transparent z-10 pointer-events-none" />
-          
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
+
           <div className="flex overflow-hidden">
             <motion.div
               ref={containerRef}
               style={{ x }}
-              className="flex gap-6 md:gap-8 flex-shrink-0"
+              className="flex gap-12 md:gap-16 flex-shrink-0 items-center"
             >
               {duplicatedInstitutions.length > 0 ? (
                 duplicatedInstitutions
                   .map((institution, index) => {
                     const logoPath = logoPaths.get(institution.key) || institution.cdnUrl
-                    
+
                     return (
                       <div
                         key={`${institution.key}-${index}`}
-                        className="flex-shrink-0 flex flex-col items-center justify-center gap-3 px-4"
+                        className="group flex-shrink-0 flex flex-col items-center justify-center cursor-default"
                       >
-                        <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
+                        <div className="relative w-24 h-12 md:w-32 md:h-16 flex items-center justify-center opacity-40 grayscale transition-all duration-300 hover:grayscale-0 hover:opacity-100">
                           <Image
                             src={logoPath}
                             alt={institution.alt}
-                            width={96}
-                            height={96}
+                            width={120}
+                            height={60}
                             className="object-contain max-w-full max-h-full"
                             unoptimized
                             onError={() => handleImageError(institution.key, institution)}
                           />
                         </div>
-                        <p className="text-sm md:text-base font-medium text-gray-700 whitespace-nowrap">
-                          {institution.name}
-                        </p>
                       </div>
                     )
                   })

@@ -7,7 +7,7 @@ import WorkflowAnimation from './infographic/WorkflowAnimation'
 export default function Hero() {
     return (
         <section className="relative min-h-screen bg-white">
-            <div className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center pt-20">
+            <div className="relative min-h-screen flex flex-col items-center justify-center pt-20">
 
                 {/* Background Ambience */}
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4=')] opacity-20 pointer-events-none"></div>

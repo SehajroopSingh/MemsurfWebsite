@@ -29,17 +29,17 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
     return (
         <div className="relative flex items-center justify-center w-[300px] z-30">
             {/* Processing annotations anchored outside the phone */}
-            <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[-320px] z-40 flex flex-col gap-2 items-end max-w-[260px] text-gray-800 text-xs sm:text-sm leading-relaxed">
+            <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[-320px] z-40 flex flex-col gap-2 items-end max-w-[260px] text-gray-800 text-sm sm:text-base leading-relaxed">
 
                 {/* Bullet 1 */}
                 <motion.div
                     className="relative text-left"
                     style={{ opacity: bullet1Opacity, y: bullet1Y }}
                 >
-                    <span className="absolute left-full top-[14px] ml-4 w-16 h-px bg-blue-300" />
-                    <span className="absolute left-full top-[14px] ml-[4.75rem] w-2 h-2 rounded-full bg-blue-500" />
-                    <p className="font-semibold text-[11px] sm:text-xs uppercase tracking-wide text-blue-600">Extract relevant content</p>
-                    <p className="leading-relaxed mt-1">Raw content is extracted from sources and turned into content based on depth and context.</p>
+                    <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-orange-300" />
+                    <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-orange-500" />
+                    <p className="font-semibold text-xs sm:text-sm uppercase tracking-wide text-orange-600">Extract relevant content</p>
+                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">Raw content is extracted from sources and turned into content based on depth and context.</p>
                 </motion.div>
 
                 <motion.div
@@ -55,10 +55,10 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative text-left"
                     style={{ opacity: bullet2Opacity, y: bullet2Y }}
                 >
-                    <span className="absolute left-full top-[14px] ml-4 w-16 h-px bg-indigo-300" />
-                    <span className="absolute left-full top-[14px] ml-[4.75rem] w-2 h-2 rounded-full bg-indigo-500" />
-                    <p className="font-semibold text-[11px] sm:text-xs uppercase tracking-wide text-indigo-600">Build lesson plan and modules</p>
-                    <p className="leading-relaxed mt-1">The extracted content is then turned into an organized lesson plan and modules for the user to learn in an organized, fun, and directional way.</p>
+                    <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-orange-300" />
+                    <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-orange-500" />
+                    <p className="font-semibold text-xs sm:text-sm uppercase tracking-wide text-orange-600">Build lesson plan and modules</p>
+                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">The extracted content is then turned into an organized lesson plan and modules for the user to learn in an organized, fun, and directional way.</p>
                 </motion.div>
 
                 <motion.div
@@ -74,10 +74,10 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative text-left"
                     style={{ opacity: bullet3Opacity, y: bullet3Y }}
                 >
-                    <span className="absolute left-full top-[14px] ml-4 w-16 h-px bg-purple-300" />
-                    <span className="absolute left-full top-[14px] ml-[4.75rem] w-2 h-2 rounded-full bg-purple-500" />
-                    <p className="font-semibold text-[11px] sm:text-xs uppercase tracking-wide text-purple-600">Generate quizzes</p>
-                    <p className="leading-relaxed mt-1">Then the quizzes are generated to test the content and the learning objectives.</p>
+                    <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-orange-300" />
+                    <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-orange-500" />
+                    <p className="font-semibold text-xs sm:text-sm uppercase tracking-wide text-orange-600">Generate quizzes</p>
+                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">Then the quizzes are generated to test the content and the learning objectives.</p>
                 </motion.div>
             </div>
 
@@ -87,5 +87,7 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
         </div>
     )
 }
+
+
 
 

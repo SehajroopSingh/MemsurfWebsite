@@ -33,3 +33,5 @@ Logo files should be named using the institution's key (lowercase, with spaces r
 - Only institutions with logos in this folder will be displayed
 - The component automatically checks for logo files and only shows available ones
 
+
+

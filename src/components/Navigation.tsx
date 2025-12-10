@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Menu, X, LogOut, User } from 'lucide-react'
+import Link from 'next/link'
+import { Menu, X, LogOut, User, ChevronDown } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function Navigation() {
@@ -22,40 +23,54 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Memsurf
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
             {!isAuthenticated ? (
               <>
-                <a href="/research" className="text-gray-700 hover:text-blue-600 transition-colors">
+                <div className="relative group">
+                  <button className="flex items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors py-2">
+                    Product
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  <div className="absolute top-full left-0 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-1">
+                      <Link href="/method" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600">
+                        How it works
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                <Link href="/research" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Research
-                </a>
-                <a href="/homepage-tests" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-1">
+                </Link>
+                <Link href="/homepage-tests" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-1">
                   <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">Tests</span>
                   Homepage Tests
-                </a>
-                <a href="/login" className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors">
+                </Link>
+                <Link href="/login" className="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors">
                   Sign In
-                </a>
-                <a href="/register" className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all">
+                </Link>
+                <Link href="/register" className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all">
                   Get Started
-                </a>
+                </Link>
               </>
             ) : (
               <>
-                <a href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors">
+                <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Dashboard
-                </a>
-                <a href="/practice" className="text-gray-700 hover:text-blue-600 transition-colors">
+                </Link>
+                <Link href="/practice" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Practice
-                </a>
-                <a href="/capture/new" className="text-gray-700 hover:text-blue-600 transition-colors">
+                </Link>
+                <Link href="/capture/new" className="text-gray-700 hover:text-blue-600 transition-colors">
                   New Capture
-                </a>
+                </Link>
                 <div className="flex items-center gap-2 px-4 py-2 text-gray-700">
                   <User className="w-4 h-4" />
                   <span className="text-sm">{user?.username}</span>
@@ -89,14 +104,22 @@ export default function Navigation() {
           <div className="px-4 pt-2 pb-4 space-y-2 bg-white border-t border-gray-200">
             {!isAuthenticated ? (
               <>
-                <a
+                <div className="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Product</div>
+                <Link
+                  href="/method"
+                  className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md pl-6 border-l-2 border-transparent hover:border-blue-500"
+                  onClick={() => setIsOpen(false)}
+                >
+                  How it works
+                </Link>
+                <Link
                   href="/research"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   Research
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/homepage-tests"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsOpen(false)}
@@ -105,45 +128,45 @@ export default function Navigation() {
                     Homepage Tests
                     <span className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">New</span>
                   </span>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/login"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   Sign In
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/register"
                   className="block px-3 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   Get Started
-                </a>
+                </Link>
               </>
             ) : (
               <>
-                <a
+                <Link
                   href="/dashboard"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   Dashboard
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/practice"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   Practice
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/capture/new"
                   className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   New Capture
-                </a>
+                </Link>
                 <div className="px-3 py-2 text-gray-700 flex items-center gap-2">
                   <User className="w-4 h-4" />
                   <span>{user?.username}</span>

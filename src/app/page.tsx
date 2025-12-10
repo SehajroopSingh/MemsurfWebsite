@@ -1,6 +1,5 @@
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
-import PracticeScrollShowcase from '@/components/infographic/PracticeScrollShowcase'
 import InstitutionScroll from '@/components/InstitutionScroll'
 import Testimonials from '@/components/Testimonials'
 import Footer from '@/components/Footer'
@@ -14,7 +13,6 @@ export default function Home() {
       <ScrollMocker />
       <Navigation />
       <Hero />
-      <PracticeScrollShowcase />
       <InstitutionScroll />
       <section className="py-24 bg-gray-50 border-t border-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +33,7 @@ export default function Home() {
                   className="group relative inline-flex items-center justify-center transition-transform active:scale-95 hover:scale-105"
                   aria-label="Download on the App Store"
                 >
-                  <img 
+                  <img
                     src="/Download_on_App_Store/Black_lockup/SVG/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
                     alt="Download on the App Store"
                     className="h-[60px] w-auto"

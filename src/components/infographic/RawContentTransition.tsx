@@ -8,7 +8,7 @@ export default function RawContentTransition() {
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ["start end", "center 45%"]
+        offset: ["start 60%", "end center"]
     })
 
     // Smooth out the scroll progress
@@ -21,7 +21,7 @@ export default function RawContentTransition() {
     // Map scroll progress to vertical position
     // Start: Align with create button (approx bottom of phone 1)
     // End: Top of Phone 2
-    const y = useTransform(smoothProgress, [0, 1], ['10vh', '65vh'])
+    const y = useTransform(smoothProgress, [0, 1], ['10vh', '125vh'])
     const scale = useTransform(smoothProgress, [0, 0.2, 0.9], [0.2, 1, 0.8])
     const opacity = useTransform(smoothProgress, [0, 0.05, 0.8, 0.9], [0, 1, 1, 0])
     const rotate = useTransform(smoothProgress, [0, 1], [-5, 5])

@@ -10,6 +10,7 @@ import CapturePhoneContent from './CapturePhone/CapturePhoneContent'
 import SettingsPopout from './CapturePhone/SettingsPopout'
 import RawContentTransition from './RawContentTransition'
 import ProcessingPhoneWithAnnotations from './ProcessingPhone/ProcessingPhoneWithAnnotations'
+import PracticeScrollShowcase from './PracticeScrollShowcase'
 import { useTimeProgress } from '../../hooks/useTimeProgress'
 
 export default function WorkflowAnimation() {
@@ -130,132 +131,196 @@ export default function WorkflowAnimation() {
     })
 
     return (
-        <div className="w-full flex flex-col items-center origin-top scale-[0.65] sm:scale-100">
-            <div
-                ref={phone1ContainerRef}
-                className="relative w-full min-h-[100vh] mt-[100vh] flex items-center justify-center mb-[10vh]"
-            >
+        <div className="w-full flex flex-col items-center">
+            {/* HOW IT WORKS Section with Grey Background */}
+            <div className="w-full bg-gray-200/70">
+                <div
+                    ref={phone1ContainerRef}
+                    className="relative w-full min-h-[80vh] flex flex-col items-center justify-center mb-[10vh]"
+                >
+                    {/* HOW IT WORKS Heading */}
+                    <div className="w-full flex justify-center mb-8 z-40">
+                        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
+                            HOW IT WORKS
+                        </h1>
+                    </div>
+
+                    <div className="sticky top-0 h-screen flex items-center justify-center overflow-visible">
+
+                        <motion.div
+                            className="relative flex flex-col items-center justify-center z-30 overflow-visible w-[95vw] max-w-[1800px] gap-4 sm:gap-6"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                        >
 
 
-                <div className="sticky top-0 h-screen flex items-center justify-center overflow-visible">
-
-                    <motion.div
-                        className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-purple-50 rounded-[3rem] z-30 overflow-visible shadow-xl w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[650px] lg:min-w-[620px]"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center">
-                            Capture Everything
-                        </h2>
-
-                        <div className="relative w-full grid grid-cols-[620px] lg:grid-cols-[minmax(0,1fr)_620px] gap-0 items-center justify-center lg:justify-start">
-
-                            {/* Text Area (Left Side of Outer Card) */}
-                            <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
-                                <div className="text-gray-600 text-lg md:text-xl font-medium max-w-xs whitespace-normal">
-                                    Capture content from any source instantly, preserving context and depth.
-                                </div>
+                            {/* Mobile Text (Visible only on small screens) */}
+                            <div className="block lg:hidden w-full max-w-[620px] text-center mb-4 px-4">
+                                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-600 mb-2">Universal Capture</p>
+                                <h2 className="text-3xl font-bold text-gray-900 leading-tight">
+                                    Capture anything, from anywhere. Articles, videos, PDFs, web pages, and more—all in one tap.
+                                </h2>
                             </div>
 
-                            {/* Inner Card Background (Spans Phone + Annotation) */}
-                            <div className="block col-start-1 lg:col-start-2 col-end-1 lg:col-end-3 row-start-1 bg-[#764ba2] rounded-[2.5rem] lg:rounded-r-[2.5rem] lg:rounded-l-[2rem] shadow-sm border border-white/50 w-full lg:w-[calc(100%+20px)] h-full lg:-ml-[20px]" />
+                            {/* Main Layout: Flex col on mobile, Grid on desktop */}
+                            <div className="relative w-full flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_620px] gap-0 items-center justify-center">
 
-<<<<<<< ours
-<<<<<<< ours
-                            {/* Phone Content (Left-aligned, full-width on mobile) */}
-                            <div className="col-start-1 lg:col-start-2 col-end-1 lg:col-end-3 row-start-1 relative w-full max-w-[620px] flex justify-start pb-6 sm:pb-10 pt-32 sm:pt-40 z-20">
-=======
-                            {/* Phone Content (Centered on Mobile, Left-aligned in fixed column on Desktop) */}
-                            <div className="col-start-1 lg:col-start-2 col-end-1 lg:col-end-3 row-start-1 relative w-[620px] flex justify-center lg:justify-start pb-6 sm:pb-10 pt-32 sm:pt-40 z-20">
->>>>>>> theirs
-=======
-                            {/* Phone Content (Centered on Mobile, Left-aligned in fixed column on Desktop) */}
-                            <div className="col-start-1 lg:col-start-2 col-end-1 lg:col-end-3 row-start-1 relative w-full max-w-[620px] flex justify-center lg:justify-start pb-6 sm:pb-10 pt-32 sm:pt-40 z-20">
->>>>>>> theirs
-                                <div className="relative w-[300px]">
-                                    {/* Flying Icons */}
-                                    <div className="absolute inset-0 overflow-visible pointer-events-none">
-                                        <AnimatePresence>
-                                            {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
-                                                <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />
-                                            )}
-                                        </AnimatePresence>
-                                        <StaticSourceIcons activeStep={phone1State.activeStep} animationStage={phone1State.animationStage} />
+                                {/* Desktop Text Area (Hidden on mobile) */}
+                                <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
+                                    <div className="space-y-4 text-left">
+                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-600">Universal Capture</p>
+                                        <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                                            Capture anything, from anywhere. Articles, videos, PDFs, web pages, and more—all in one tap.
+                                        </h2>
+                                        <p className="text-base md:text-lg text-gray-600 max-w-xl">
+                                            Transform any content into personalized learning material. Whether it's a research paper, a YouTube video, or a news article, capture it instantly and let AI turn it into your next study session.
+                                        </p>
+                                        <div className="space-y-2 mt-4">
+                                            <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Use cases:</p>
+                                            <ul className="space-y-2 text-base text-gray-700">
+                                                <li className="flex items-start">
+                                                    <span className="text-purple-600 mr-2">•</span>
+                                                    <span>Remembering my friend's children's names</span>
+                                                </li>
+                                                <li className="flex items-start">
+                                                    <span className="text-purple-600 mr-2">•</span>
+                                                    <span>Remembering a cool new concept</span>
+                                                </li>
+                                                <li className="flex items-start">
+                                                    <span className="text-purple-600 mr-2">•</span>
+                                                    <span>Learning a new programming language</span>
+                                                </li>
+                                                <li className="flex items-start">
+                                                    <span className="text-purple-600 mr-2">•</span>
+                                                    <span>Memorizing key points from a business meeting</span>
+                                                </li>
+                                                <li className="flex items-start">
+                                                    <span className="text-purple-600 mr-2">•</span>
+                                                    <span>Studying for an upcoming exam</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Phone + Background Container (Right Side) */}
+                                {/* This wrapper ensures the background sizes to the phone content, not the grid row */}
+                                <div className="relative col-start-2 col-end-3 row-start-1 w-full max-w-[620px] flex justify-start z-20 lg:pt-0">
+
+                                    {/* Inner Card Background */}
+                                    <div className="hidden lg:block absolute inset-y-0 left-0 bg-[#764ba2] rounded-r-[2.5rem] rounded-l-[2rem] shadow-sm border border-white/50 w-[calc(100%+20px)] -ml-[20px]" />
+                                    {/* Mobile Background (Different constraints) */}
+                                    <div className="block lg:hidden absolute inset-0 bg-[#764ba2] rounded-[2.5rem] shadow-sm border border-white/50 w-full h-full" />
+
+                                    {/* "INPUT FROM ANY SOURCE" Text - Centered in Card */}
+                                    <div className="absolute top-[-3rem] sm:top-[-4rem] lg:top-[-5rem] w-full flex justify-center z-30 pointer-events-none">
+                                        <p className="text-3xl font-semibold text-[#764ba2] tracking-wide whitespace-nowrap">INPUT FROM ANY SOURCE</p>
                                     </div>
 
-                                    {/* Annotation Line */}
-                                    <ContextAnnotation show={phone1State.animationStage === 'context'} />
+                                    {/* Phone Content */}
+                                    <div className="relative w-full flex justify-start pb-6 sm:pb-10 pt-28 sm:pt-32 lg:pt-36 z-20 pl-4">
+                                        <div className="relative w-[300px]">
+                                            {/* Flying Icons */}
+                                            <div className="absolute inset-0 overflow-visible pointer-events-none">
+                                                <AnimatePresence>
+                                                    {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
+                                                        <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />
+                                                    )}
+                                                </AnimatePresence>
+                                                <StaticSourceIcons activeStep={phone1State.activeStep} animationStage={phone1State.animationStage} />
+                                            </div>
+
+                                            {/* Annotation Line */}
+                                            <ContextAnnotation show={phone1State.animationStage === 'context'} />
+
+                                            {/* Phone Content */}
+                                            <CapturePhoneContent
+                                                animationStage={phone1State.animationStage}
+                                                capturedItems={phone1State.capturedItems}
+                                                contextText={phone1State.contextText}
+                                                depthStage={settingsState.depthStage}
+                                                difficultyStage={settingsState.difficultyStage}
+                                                timeStage={settingsState.timeStage}
+                                            />
+
+                                            {/* Settings Pop-out */}
+                                            <SettingsPopout
+                                                show={['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(phone1State.animationStage)}
+                                                depthStage={settingsState.depthStage}
+                                                difficultyStage={settingsState.difficultyStage}
+                                                timeStage={settingsState.timeStage}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* TRANSITION ZONE */}
+                <div className="relative w-full h-[80vh] -mt-[25vh] -mb-[55vh] z-[50] pointer-events-none">
+                    <RawContentTransition />
+                </div>
+
+                {/* PHONE 2 SECTION */}
+                <div
+                    ref={phone2ContainerRef}
+                    className="relative w-full z-40 min-h-[100vh] flex items-center justify-center -mt-10 pb-8"
+                >
+
+                    <div className="sticky top-0 h-screen flex items-start justify-center overflow-visible pt-[5vh]">
+                        <motion.div
+                            className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-purple-50 rounded-[3rem] z-30 overflow-visible shadow-xl w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px]"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center">
+                                Process Content
+                            </h2>
+
+                            {/* Processing Section Layout: Flex col mobile, Grid desktop */}
+                            <div className="relative w-full flex flex-col-reverse xl:grid xl:grid-cols-[650px_minmax(0,1fr)] gap-0 items-center justify-center">
+
+                                {/* Phone + Background Container (Left Side) */}
+                                <div className="relative col-start-1 col-end-2 row-start-1 w-full max-w-[680px] flex justify-end z-20">
+
+                                    {/* Inner Card Background */}
+                                    <div className="hidden xl:block absolute inset-y-0 right-0 bg-[#764ba2] rounded-l-[2.5rem] rounded-r-[2rem] shadow-sm border border-white/50 w-[calc(100%+20px)] -mr-[20px]" />
+                                    {/* Mobile Background */}
+                                    <div className="block xl:hidden absolute inset-0 bg-[#764ba2] rounded-[2.5rem] shadow-sm border border-white/50 w-full h-full" />
 
                                     {/* Phone Content */}
-                                    <CapturePhoneContent
-                                        animationStage={phone1State.animationStage}
-                                        capturedItems={phone1State.capturedItems}
-                                        contextText={phone1State.contextText}
-                                        depthStage={settingsState.depthStage}
-                                        difficultyStage={settingsState.difficultyStage}
-                                        timeStage={settingsState.timeStage}
-                                    />
+                                    <div className="relative w-full flex justify-end pb-6 sm:pb-10 pt-10 sm:pt-10 xl:pt-32 z-20 pr-4 xl:pr-2">
+                                        <ProcessingPhoneWithAnnotations progress={phone2Progress} />
+                                    </div>
+                                </div>
 
-                                    {/* Settings Pop-out */}
-                                    <SettingsPopout
-                                        show={['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(phone1State.animationStage)}
-                                        depthStage={settingsState.depthStage}
-                                        difficultyStage={settingsState.difficultyStage}
-                                        timeStage={settingsState.timeStage}
-                                    />
+                                {/* Text Area (Right Side) */}
+                                <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pl-0 xl:pl-8 z-10 pr-0 xl:pr-6 min-w-0 overflow-hidden mb-8 xl:mb-0">
+                                    <div className="space-y-4 text-center xl:text-left px-4 xl:px-0">
+                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-600">Smart Processing</p>
+                                        <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                                            Our AI creates a plan on how to quiz you so you learn what you want in the time you want, to the level you want.
+                                        </h2>
+                                        <p className="text-base md:text-lg text-gray-600 max-w-xl mx-auto xl:mx-0">
+                                            Based on your depth, difficulty, and mastery time settings, we generate a personalized learning path tailored to your goals.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </div>
                 </div>
-            </div>
 
-            {/* TRANSITION ZONE */}
-            <div className="relative w-full h-[80vh] -mt-[25vh] -mb-[55vh] z-[50] pointer-events-none">
-                <RawContentTransition />
-            </div>
-
-            {/* PHONE 2 SECTION */}
-            <div
-                ref={phone2ContainerRef}
-                className="relative w-full z-40 bg-white min-h-[120vh] flex items-center justify-center -mt-10 pb-32"
-            >
-
-                <div className="sticky top-0 h-screen flex items-start justify-center overflow-visible pt-[5vh]">
-                    <motion.div
-                        className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-purple-50 rounded-[3rem] z-30 overflow-visible shadow-xl w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[700px] lg:min-w-[680px]"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center">
-                            Process Content
-                        </h2>
-
-                        <div className="relative w-full grid grid-cols-[680px] lg:grid-cols-[680px_minmax(0,1fr)] gap-0 items-center justify-center lg:justify-start">
-
-                            {/* Inner Card Background (Spans Left Side + Phone) */}
-                            <div className="block col-start-1 col-end-1 lg:col-end-2 row-start-1 bg-[#764ba2] rounded-[2.5rem] lg:rounded-l-[2.5rem] lg:rounded-r-[2rem] shadow-sm border border-white/50 w-full lg:w-[calc(100%+20px)] h-full lg:-mr-[20px]" />
-
-                            {/* Text Area (Right Side of Outer Card) */}
-                            <div className="hidden lg:flex col-start-2 col-end-3 row-start-1 flex-col justify-center pl-8 z-10 pr-6 min-w-0 overflow-hidden">
-                                <div className="text-gray-600 text-lg md:text-xl font-medium max-w-xs whitespace-normal">
-                                    {/* Placeholder for future text if needed */}
-                                </div>
-                            </div>
-
-                            {/* Phone Content (Right-aligned in fixed LEFT column) */}
-                            <div className="col-start-1 col-end-1 lg:col-end-2 row-start-1 relative w-[680px] flex justify-center lg:justify-end pb-6 sm:pb-10 pt-32 sm:pt-40 z-20 pr-0 lg:pr-10">
-                                <ProcessingPhoneWithAnnotations progress={phone2Progress} />
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
+                {/* Practice Phone Section */}
+                <PracticeScrollShowcase />
             </div>
         </div>
     )

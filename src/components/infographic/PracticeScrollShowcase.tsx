@@ -22,20 +22,18 @@ export default function PracticeScrollShowcase() {
     })
 
     // Intro Animations
-    // 0.0 - 0.25: Intro & Button Click
-    const copyStageOneOpacity = useTransform(progress, [0.08, 0.18], [1, 0])
-    const copyStageOneY = useTransform(progress, [0.08, 0.18], [0, -30])
+    // Intro Animations
+    // Stage One: 0.02 - 0.08
+    const copyStageOneOpacity = useTransform(progress, [0.02, 0.08], [0, 1])
+    const copyStageOneY = useTransform(progress, [0.02, 0.08], [30, 0])
 
-    const copyStageTwoOpacity = useTransform(progress, [0.18, 0.25, 0.28, 0.32], [0, 1, 1, 0])
-    const copyStageTwoY = useTransform(progress, [0.18, 0.25, 0.28, 0.32], [30, 0, -50, -140])
-    const copyStageTwoX = useTransform(progress, [0.18, 0.32], [30, 30])
+    // Stage Two: 0.18 - 0.25 (Persists)
+    const copyStageTwoOpacity = useTransform(progress, [0.18, 0.25], [0, 1])
+    const copyStageTwoY = useTransform(progress, [0.18, 0.25], [30, 0])
 
-    const lessonBulletOpacity = useTransform(progress, [0.22, 0.26], [0, 1])
-    const lessonBulletY = useTransform(progress, [0.22, 0.26], [20, 0])
-
-    // Stage Three: Starts just before quiz section
+    // Stage Three: 0.58 - 0.65 (Persists)
     const copyStageThreeOpacity = useTransform(progress, [0.58, 0.65], [0, 1])
-    const copyStageThreeY = useTransform(progress, [0.58, 0.65], [40, 0])
+    const copyStageThreeY = useTransform(progress, [0.58, 0.65], [30, 0])
 
     const phoneOpacity = useTransform(progress, [0.02, 0.08], [0, 1])
     const phoneY = useTransform(progress, [0.02, 0.08], [100, 0])
@@ -65,7 +63,7 @@ export default function PracticeScrollShowcase() {
         if (v < 0.35) return 0
         if (v < 0.45) return 1
         return 2
-    })
+    }) as unknown as import('framer-motion').MotionValue<number>
 
     // Exit lesson, enter quiz: 0.55 -> 0.60
     const lessonX = useTransform(progress, [0.55, 0.60], [0, -420])
@@ -109,30 +107,43 @@ export default function PracticeScrollShowcase() {
 
     // Increase height enough to scroll past but not be huge
     return (
-        <section className="relative w-full bg-white z-50">
+        <section className="relative w-full z-50 mt-24 xl:-mt-16">
             <div
                 ref={containerRef}
-                className="relative min-h-[120vh] flex items-center"
+                className="relative min-h-[100vh] flex items-center"
             >
-                <div className="sticky top-0 h-screen w-full flex items-center">
-                    <div className="w-full px-4 pb-12">
-                        <div className="max-w-6xl mx-auto grid items-center gap-12 md:grid-cols-[minmax(0,1fr)_360px]">
-                            <PracticeScrollCopy
-                                copyStageOneOpacity={copyStageOneOpacity}
-                                copyStageOneY={copyStageOneY}
-                                copyStageTwoOpacity={copyStageTwoOpacity}
-                                copyStageTwoY={copyStageTwoY}
-                                copyStageTwoX={copyStageTwoX}
-                                lessonBulletOpacity={lessonBulletOpacity}
-                                lessonBulletY={lessonBulletY}
-                                copyStageThreeOpacity={copyStageThreeOpacity}
-                                copyStageThreeY={copyStageThreeY}
-                            />
-                            <motion.div
-                                style={{ opacity: phoneOpacity, y: phoneY }}
-                                className="flex justify-center md:justify-end min-h-[620px]"
-                            >
-                                <div className="w-full max-w-[320px]">
+                <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+                    <motion.div
+                        className="relative flex flex-col items-center justify-center z-30 overflow-visible w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px]"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center mb-4">
+                            Reinforce Knowledge
+                        </h2>
+
+                        <div className="relative w-full grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_320px] gap-0 sm:gap-x-5 items-center">
+
+                            {/* Text Content (Left) */}
+                            <div className="col-start-1 col-end-2 row-start-1 h-full w-full z-10 relative">
+                                <PracticeScrollCopy
+                                    copyStageOneOpacity={copyStageOneOpacity}
+                                    copyStageOneY={copyStageOneY}
+                                    copyStageTwoOpacity={copyStageTwoOpacity}
+                                    copyStageTwoY={copyStageTwoY}
+                                    copyStageThreeOpacity={copyStageThreeOpacity}
+                                    copyStageThreeY={copyStageThreeY}
+                                />
+                            </div>
+
+                            {/* Phone Content (Right) */}
+                            <div className="col-start-1 sm:col-start-2 col-end-2 sm:col-end-3 row-start-1 relative w-full flex justify-center sm:justify-end z-20 pl-0">
+                                <motion.div
+                                    style={{ opacity: phoneOpacity, y: phoneY }}
+                                    className="flex justify-center min-h-[540px] w-full max-w-[320px]"
+                                >
                                     <PracticePhoneContent
                                         baseScreenOpacity={baseScreenOpacity}
                                         buttonScale={buttonScale}
@@ -148,10 +159,10 @@ export default function PracticeScrollShowcase() {
                                         quizX={quizX}
                                         lockedQuiz={lockedQuiz}
                                     />
-                                </div>
-                            </motion.div>
+                                </motion.div>
+                            </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

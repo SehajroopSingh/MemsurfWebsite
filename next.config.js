@@ -13,6 +13,12 @@ const nextConfig = {
       },
     ],
   },
+  // Force Next.js to use localhost instead of 0.0.0.0
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+  },
 }
 
 module.exports = nextConfig

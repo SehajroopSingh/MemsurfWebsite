@@ -14,7 +14,7 @@ export default function ContextAnnotation({ show }: ContextAnnotationProps) {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 10 }}
-                    className="absolute right-[-240px] top-[45%] w-[220px] z-50 pointer-events-none hidden md:block"
+                    className="absolute right-[-220px] top-[45%] w-[220px] z-50 pointer-events-none hidden md:block"
                 >
                     <div className="flex items-center gap-2">
                         <div className="h-[1px] w-8 bg-blue-300"></div>

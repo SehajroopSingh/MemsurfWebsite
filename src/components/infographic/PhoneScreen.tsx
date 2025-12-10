@@ -7,7 +7,7 @@ type PhoneScreenProps = {
 
 export default function PhoneScreen({ children, allowOverflow = false }: PhoneScreenProps) {
     return (
-        <div className={`relative w-full h-[600px] bg-gray-950 rounded-[55px] shadow-2xl border-[6px] border-[#3b3b3b] ${allowOverflow ? 'overflow-visible' : 'overflow-hidden'} transform-style-3d`}>
+        <div className={`relative w-full h-[540px] bg-gray-950 rounded-[55px] shadow-2xl border-[6px] border-[#3b3b3b] ${allowOverflow ? 'overflow-visible' : 'overflow-hidden'} transform-style-3d`}>
             {/* Titanium Frame Highlights */}
             <div className="absolute inset-0 rounded-[50px] border-[2px] border-[#555555]/40 pointer-events-none z-50"></div>
             <div className="absolute inset-[-2px] rounded-[58px] border-[1px] border-[#1a1a1a] pointer-events-none z-50 opacity-50"></div>

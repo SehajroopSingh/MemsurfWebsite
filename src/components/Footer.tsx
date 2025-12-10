@@ -1,13 +1,15 @@
 'use client'
 
+import React from 'react'
+import Link from 'next/link'
 import { Github, Twitter, Linkedin, Mail } from 'lucide-react'
 
 const footerLinks = {
   product: [
-    { name: 'Features', href: '#features' },
-    { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Pricing', href: '#' },
-    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Features', href: '/#features' },
+    { name: 'How It Works', href: '/#how-it-works' },
+    { name: 'Pricing', href: '/#pricing' }, // Updated to point to main page sections
+    { name: 'Testimonials', href: '/#testimonials' },
   ],
   company: [
     { name: 'About', href: '/about' },
@@ -36,9 +38,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <a href="#" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 block">
+            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 block">
               Memsurf
-            </a>
+            </Link>
             <p className="text-gray-400 text-sm mb-4">
               AI-powered learning platform that transforms content into interactive quizzes and helps you master knowledge with spaced repetition.
             </p>
@@ -65,9 +67,9 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -79,9 +81,9 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -93,9 +95,9 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.legal.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

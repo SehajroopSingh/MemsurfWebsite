@@ -11,11 +11,11 @@ type SettingsPopoutProps = {
     timeStage: number
 }
 
-export default function SettingsPopout({ 
-    show, 
-    depthStage, 
-    difficultyStage, 
-    timeStage 
+export default function SettingsPopout({
+    show,
+    depthStage,
+    difficultyStage,
+    timeStage
 }: SettingsPopoutProps) {
     if (!show) return null
 
@@ -23,28 +23,30 @@ export default function SettingsPopout({
         <AnimatePresence>
             <>
                 {/* Pop-out Content (No Card Background) */}
+                {/* DEPTH - NOW BOTTOM RIGHT */}
                 <motion.div
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
+                    exit={{ opacity: 0, x: 10 }}
                     transition={{ duration: 0.5, delay: 0.8 }}
-                    className="absolute top-[18%] left-[-480px] w-[280px] z-50 text-right"
+                    className="absolute top-[270px] left-[325px] w-[280px] z-50 text-left"
                 >
                     <div className="mb-4">
-                        <h4 className="text-lg font-bold text-gray-900 leading-tight">
-                            <AnimatePresence mode="wait">
-                                <motion.span
-                                    key={depthStage}
-                                    initial={{ opacity: 0, y: 5 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -5 }}
-                                    className="block text-blue-600"
-                                >
-                                    {DEPTH_STATES[depthStage].label} Points
-                                </motion.span>
-                            </AnimatePresence>
+                        <h4 className="text-lg font-bold text-orange-600 leading-tight">
+                            Depth
                         </h4>
-                        <p className="text-sm text-gray-500 mt-1">Decide how much detail<br />you want to retain.</p>
+                        <p className="text-sm text-white/70 mt-1">Choose how much detail you want to retain.</p>
+                        <AnimatePresence mode="wait">
+                            <motion.p
+                                key={depthStage}
+                                initial={{ opacity: 0, y: 5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -5 }}
+                                className="text-sm font-medium text-white/90 mt-1"
+                            >
+                                {DEPTH_STATES[depthStage].label} Points
+                            </motion.p>
+                        </AnimatePresence>
                     </div>
 
                     {/* Depth Visualization reused (aligned right) */}
@@ -54,7 +56,7 @@ export default function SettingsPopout({
                 </motion.div>
 
                 {/* UNIFIED OVERLAY: Depth, Time & Level Lines (Layered OVER Phone) */}
-                <svg className="absolute inset-0 z-50 pointer-events-none overflow-visible">
+                {/* <svg className="absolute inset-0 z-50 pointer-events-none overflow-visible">
                     <defs>
                         <linearGradient id="line-gradient-right" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stopColor="#93C5FD" />
@@ -66,28 +68,25 @@ export default function SettingsPopout({
                         </linearGradient>
                     </defs>
 
-                    {/* Depth Line (Left Button -> Left Pop-out) */}
                     <motion.path
                         initial={{ pathLength: 0, opacity: 0 }}
                         animate={{ pathLength: 1, opacity: 1 }}
                         exit={{ pathLength: 0, opacity: 0 }}
                         transition={{ duration: 1.2, delay: 0, ease: "easeInOut" }}
-                        d="M 50 471 L 50 540 L -100 540 L -100 200 L -420 200"
+                        d="M 50 471 L 50 550 L 380 550 L 380 380 L 400 380"
                         fill="none"
-                        stroke="url(#line-gradient-left)"
+                        stroke="url(#line-gradient-right)"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                     />
 
-                    {/* Mastery Time Line (Middle Button -> Bottom Text) */}
-                    {/* Goes DEEPER to pass under Difficulty line */}
                     <motion.path
                         initial={{ pathLength: 0, opacity: 0 }}
                         animate={{ pathLength: 1, opacity: 1 }}
                         exit={{ pathLength: 0, opacity: 0 }}
                         transition={{ duration: 1.2, delay: 0.2, ease: "easeInOut" }}
-                        d="M 150 471 L 150 560 L 380 560 L 380 450 L 400 450"
+                        d="M 150 471 L 150 520 L 360 520 L 360 210 L 400 210"
                         fill="none"
                         stroke="url(#line-gradient-right)"
                         strokeWidth="2"
@@ -95,24 +94,22 @@ export default function SettingsPopout({
                         strokeLinejoin="round"
                     />
 
-                    {/* Adaptive Difficulty Line (Right Button -> Top Text) */}
-                    {/* Updated: M 250 471 -> Right L 350 471 -> Up L 350 150 -> Right L 400 150 */}
                     <motion.path
                         initial={{ pathLength: 0, opacity: 0 }}
                         animate={{ pathLength: 1, opacity: 1 }}
                         exit={{ pathLength: 0, opacity: 0 }}
                         transition={{ duration: 1.2, delay: 0.4, ease: "easeInOut" }}
-                        d="M 250 471 L 350 471 L 350 150 L 400 150"
+                        d="M 250 471 L 340 471 L 340 40 L 400 40"
                         fill="none"
                         stroke="url(#line-gradient-right)"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                     />
-                </svg>
+                </svg> */}
 
                 {/* Connector Dots (Absolute on top of SVG start points) */}
-                <motion.div
+                {/* <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
@@ -132,7 +129,7 @@ export default function SettingsPopout({
                     exit={{ scale: 0 }}
                     transition={{ duration: 0.3, delay: 0.4 }}
                     className="absolute top-[465px] left-[244px] w-3 h-3 rounded-full bg-blue-300 z-50 ring-4 ring-blue-50"
-                />
+                /> */}
 
                 {/* Text Pop-outs (Positioned at end of SVG lines) */}
 
@@ -142,48 +139,48 @@ export default function SettingsPopout({
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 10 }}
                     transition={{ duration: 0.5, delay: 1.6 }}
-                    className="absolute top-[120px] left-[400px] w-[280px] z-50 text-left"
+                    className="absolute top-[5px] left-[325px] w-[280px] z-50 text-left"
                 >
-                    <h4 className="text-xl font-bold text-blue-600 leading-tight mb-2">
-                        Adaptive Difficulty
+                    <h4 className="text-xl font-bold text-orange-600 leading-tight mb-2">
+                        Quiz Difficulty
                     </h4>
+                    <p className="text-sm text-white/70 mb-2">Choose quiz difficulty levels.</p>
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={difficultyStage}
                             initial={{ opacity: 0, y: 5 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -5 }}
-                            className="text-sm text-gray-600"
+                            className="text-sm"
                         >
-                            <p className="font-bold text-gray-900 mb-1">{DIFFICULTY_STATES[difficultyStage].label}</p>
-                            <p className="leading-relaxed mb-1">{DIFFICULTY_STATES[difficultyStage].desc}</p>
-                            <p className="text-xs text-gray-400">{DIFFICULTY_STATES[difficultyStage].detail}</p>
+                            <p className="font-bold text-white/90 mb-1">{DIFFICULTY_STATES[difficultyStage].label}</p>
+                            <p className="leading-relaxed mb-1 text-white/80">{DIFFICULTY_STATES[difficultyStage].desc}</p>
                         </motion.div>
                     </AnimatePresence>
                 </motion.div>
 
-                {/* Mastery Time Text (NOW BOTTOM) */}
+                {/* Mastery Time Text (NOW MIDDLE) */}
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 10 }}
                     transition={{ duration: 0.5, delay: 1.4 }}
-                    className="absolute top-[420px] left-[400px] w-[260px] z-50 text-left"
+                    className="absolute top-[130px] left-[325px] w-[260px] z-50 text-left"
                 >
-                    <h4 className="text-xl font-bold text-blue-600 leading-tight mb-2">
+                    <h4 className="text-xl font-bold text-orange-600 leading-tight mb-2">
                         Mastery Time
                     </h4>
+                    <p className="text-sm text-white/70 mb-2">Master the material by?</p>
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={timeStage}
                             initial={{ opacity: 0, y: 5 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -5 }}
-                            className="text-sm text-gray-600"
+                            className="text-sm"
                         >
-                            <p className="font-bold text-gray-900 mb-1">{TIME_STATES[timeStage].label}</p>
-                            <p className="leading-relaxed mb-1">{TIME_STATES[timeStage].desc}</p>
-                            <p className="text-xs text-gray-400">{TIME_STATES[timeStage].detail}</p>
+                            <p className="font-bold text-white/90 mb-1">{TIME_STATES[timeStage].label}</p>
+                            <p className="leading-relaxed mb-1 text-white/80">{TIME_STATES[timeStage].desc}</p>
                         </motion.div>
                     </AnimatePresence>
                 </motion.div>

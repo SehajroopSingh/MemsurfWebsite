@@ -29,6 +29,9 @@ export default function GreenScreenVideo({
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [videoError, setVideoError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [firstFrameUrl, setFirstFrameUrl] = useState<string | null>(null)
+  const firstFrameCapturedRef = useRef(false)
   const hasPlayedOnceRef = useRef(false)
   const isPingPongModeRef = useRef(false)
   const pingPongDirectionRef = useRef<'forward' | 'backward'>('forward')
@@ -288,7 +291,57 @@ export default function GreenScreenVideo({
       pingPongAnimationFrameRef.current = requestAnimationFrame(loop)
     }
 
-    const handleLoadedMetadata = () => updateCanvasSize()
+    const handleLoadedMetadata = () => {
+      updateCanvasSize()
+      
+      // Capture first frame for loading placeholder
+      const captureFirstFrame = () => {
+        if (firstFrameCapturedRef.current) return // Already captured
+        
+        if (video.readyState >= 2 && video.videoWidth > 0 && video.videoHeight > 0) {
+          const tempCanvas = document.createElement('canvas')
+          // Use same size constraints as main canvas
+          const aspect = video.videoWidth / video.videoHeight
+          let w = video.videoWidth
+          let h = video.videoHeight
+          
+          if (w > MAX_PROCESSING_WIDTH) {
+            w = MAX_PROCESSING_WIDTH
+            h = w / aspect
+          }
+          
+          tempCanvas.width = w
+          tempCanvas.height = h
+          const tempCtx = tempCanvas.getContext('2d')
+          if (tempCtx) {
+            tempCtx.drawImage(video, 0, 0, w, h)
+            // Apply chroma key to first frame
+            const imageData = tempCtx.getImageData(0, 0, w, h)
+            const processedData = chromaKey(imageData)
+            tempCtx.putImageData(processedData, 0, 0)
+            // Convert to data URL
+            const dataUrl = tempCanvas.toDataURL('image/png')
+            setFirstFrameUrl(dataUrl)
+            firstFrameCapturedRef.current = true
+          }
+        }
+      }
+      
+      // Try to capture immediately
+      captureFirstFrame()
+      
+      // Also try after a short delay in case video isn't fully ready
+      if (video.readyState < 2 && !firstFrameCapturedRef.current) {
+        const checkReady = () => {
+          if (video.readyState >= 2 && !firstFrameCapturedRef.current) {
+            captureFirstFrame()
+          } else if (video.readyState < 2) {
+            setTimeout(checkReady, 100)
+          }
+        }
+        setTimeout(checkReady, 100)
+      }
+    }
 
     // Trigger logic
     const handleTimeUpdate = () => {
@@ -406,7 +459,12 @@ export default function GreenScreenVideo({
 
   const handleVideoLoaded = () => {
     setVideoError(null)
+    setIsLoading(false)
     console.log('Video loaded successfully:', src)
+  }
+
+  const handleVideoLoading = () => {
+    setIsLoading(true)
   }
 
   return (
@@ -422,7 +480,9 @@ export default function GreenScreenVideo({
         preload="auto"
         onError={handleVideoError}
         onLoadedData={handleVideoLoaded}
+        onLoadStart={handleVideoLoading}
         onCanPlay={() => {
+          setIsLoading(false)
           console.log('Video can play:', src)
           if (autoPlay && videoRef.current) {
             videoRef.current.play().catch(e => {
@@ -439,6 +499,24 @@ export default function GreenScreenVideo({
         className="w-full h-full object-contain"
         style={{ display: 'block' }}
       />
+
+      {/* Loading state - show first frame if available, otherwise show spinner */}
+      {isLoading && !videoError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden">
+          {firstFrameUrl ? (
+            <img
+              src={firstFrameUrl}
+              alt="Loading video"
+              className="w-full h-full object-contain"
+            />
+          ) : (
+            <div className="text-center">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
+              <p className="text-gray-500 text-sm">Loading video...</p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Error message if video fails to load */}
       {videoError && (

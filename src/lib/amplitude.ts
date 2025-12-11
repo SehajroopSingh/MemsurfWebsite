@@ -26,20 +26,24 @@ export function trackEvent(eventName: string, eventProperties?: Record<string, a
   amplitude.track(eventName, eventProperties)
 }
 
-// Set user properties
+// Set user properties (uses identify internally)
 export function setUserProperties(properties: Record<string, any>) {
-  amplitude.setUserProperties(properties)
+  const identifyObj = new amplitude.Identify()
+  Object.entries(properties).forEach(([key, value]) => {
+    identifyObj.set(key, value)
+  })
+  amplitude.identify(identifyObj)
 }
 
 // Identify user
 export function identify(userId: string, userProperties?: Record<string, any>) {
-  const identifyObj = amplitude.Identify()
+  amplitude.setUserId(userId)
+  const identifyObj = new amplitude.Identify()
   if (userProperties) {
     Object.entries(userProperties).forEach(([key, value]) => {
       identifyObj.set(key, value)
     })
   }
-  amplitude.setUserId(userId)
   amplitude.identify(identifyObj)
 }
 

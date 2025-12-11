@@ -3,45 +3,9 @@
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
-import { useAmplitude } from '@/hooks/useAmplitude'
+import WaitlistForm from '@/components/WaitlistForm'
 
 export default function ComingSoonPage() {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const { track } = useAmplitude()
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
-    const trimmedEmail = email.trim()
-    const isValidEmail = /\S+@\S+\.\S+/.test(trimmedEmail)
-
-    track('waitlist_submitted', {
-      source: 'coming_soon_page',
-      status: isValidEmail ? 'success' : 'invalid_email',
-      is_valid_email: isValidEmail,
-      email_length: trimmedEmail.length,
-    })
-
-    if (!isValidEmail) {
-      setIsSubmitting(false)
-      setError('Please enter a valid email address.')
-      return
-    }
-    
-    // TODO: Add API call to save email
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    setSubmitted(true)
-    setIsSubmitting(false)
-    setEmail('')
-  }
-
   return (
     <main className="min-h-screen flex flex-col bg-white">
       <Navigation />
@@ -111,41 +75,10 @@ export default function ComingSoonPage() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="w-full max-w-xl space-y-4 pt-8"
             >
-              {submitted ? (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                  <p className="text-green-800 font-medium">
-                    ✓ Thanks! We&apos;ll notify you when the app is available.
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <p className="text-sm text-gray-500">
-                    Want to be the first to know? Sign up to get notified when we launch.
-                  </p>
-                  <form onSubmit={handleSubmit} className="flex flex-col sm:relative sm:block gap-3 sm:gap-0">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email address"
-                      required
-                      className="w-full px-6 py-4 rounded-full border-0 bg-gray-50 ring-1 ring-gray-200 shadow-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow sm:pr-40"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 px-6 py-4 sm:py-0 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors shadow-sm text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Notify Me'}
-                    </button>
-                  </form>
-                  {error && (
-                    <p className="text-sm text-red-600 pt-2">
-                      {error}
-                    </p>
-                  )}
-                </>
-              )}
+              <p className="text-sm text-gray-500">
+                Want to be the first to know? Sign up to get notified when we launch.
+              </p>
+              <WaitlistForm source="coming_soon_page" />
             </motion.div>
 
           </div>

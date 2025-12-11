@@ -34,6 +34,7 @@ export default function GreenScreenVideo({
   const [isLoading, setIsLoading] = useState(true)
   const [showPlaceholder, setShowPlaceholder] = useState(true)
   const [placeholderLoaded, setPlaceholderLoaded] = useState(false)
+  const [canvasVisible, setCanvasVisible] = useState(false)
   const canvasHasDrawnRef = useRef(false)
   const hasPlayedOnceRef = useRef(false)
   
@@ -288,10 +289,12 @@ export default function GreenScreenVideo({
               ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
               canvasHasDrawnRef.current = true
               setIsLoading(false)
-              // Fade out placeholder smoothly after first frame is drawn
+              setCanvasVisible(true) // Make canvas visible (renders on top of placeholder)
+              // Keep placeholder visible for a few seconds while video renders on top
+              // Then fade it out smoothly
               setTimeout(() => {
                 setShowPlaceholder(false)
-              }, 200)
+              }, 2000) // 2 seconds - enough time for video to render smoothly
               video.removeEventListener('seeked', onSeeked)
             }
             video.addEventListener('seeked', onSeeked, { once: true })
@@ -301,10 +304,12 @@ export default function GreenScreenVideo({
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
             canvasHasDrawnRef.current = true
             setIsLoading(false)
-            // Fade out placeholder smoothly after first frame is drawn
+            setCanvasVisible(true) // Make canvas visible (renders on top of placeholder)
+            // Keep placeholder visible for a few seconds while video renders on top
+            // Then fade it out smoothly
             setTimeout(() => {
               setShowPlaceholder(false)
-            }, 200)
+            }, 2000) // 2 seconds - enough time for video to render smoothly
           }
         }
       }
@@ -476,6 +481,7 @@ export default function GreenScreenVideo({
   const handleVideoLoading = () => {
     setIsLoading(true)
     setShowPlaceholder(true)
+    setCanvasVisible(false)
     canvasHasDrawnRef.current = false
   }
 
@@ -514,16 +520,16 @@ export default function GreenScreenVideo({
         className="absolute opacity-0 pointer-events-none"
       />
 
-      {/* Canvas displaying video */}
+      {/* Canvas displaying video - rendered on top of placeholder */}
       <canvas
         ref={canvasRef}
         className="w-full h-full object-contain"
         style={{ 
           display: 'block', 
-          opacity: showPlaceholder ? 0 : 1, 
-          transition: 'opacity 0.4s ease-in-out',
+          opacity: canvasVisible ? 1 : 0, // Fade in when video starts rendering
+          transition: 'opacity 0.3s ease-in-out',
           position: 'relative',
-          zIndex: showPlaceholder ? 0 : 1
+          zIndex: 2 // Always on top of placeholder
         }}
       />
 
@@ -532,10 +538,10 @@ export default function GreenScreenVideo({
         <div 
           className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden"
           style={{ 
-            opacity: 1, 
-            transition: 'opacity 0.4s ease-in-out', 
-            pointerEvents: 'auto',
-            zIndex: 2
+            opacity: showPlaceholder ? 1 : 0, 
+            transition: 'opacity 0.6s ease-in-out', 
+            pointerEvents: showPlaceholder ? 'auto' : 'none',
+            zIndex: 1 // Behind the canvas (video)
           }}
         >
           {placeholder ? (

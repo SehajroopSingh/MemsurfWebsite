@@ -110,7 +110,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                 {/* Label 3: Quizzes */}
                 <motion.p
                     style={{ opacity: labelQuizOpacity, y: labelQuizY }}
-                    className="text-xs font-bold text-purple-700 bg-purple-50/90 backdrop-blur px-4 py-2 rounded-full border border-purple-100 shadow-sm absolute"
+                    className="text-xs font-bold text-[#8c648d] bg-[#8c648d]/10 backdrop-blur px-4 py-2 rounded-full border border-[#8c648d]/30 shadow-sm absolute"
                 >
                     Generating quizzes
                 </motion.p>
@@ -220,7 +220,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                                                         <motion.div
                                                             key={`top-row1-${q}`}
                                                             style={{ scale: s }}
-                                                            className="w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-[9px] font-bold border border-purple-200"
+                                                            className="w-5 h-5 bg-[#8c648d]/20 text-[#8c648d] rounded-full flex items-center justify-center text-[9px] font-bold border border-[#8c648d]/30"
                                                         >
                                                             ?
                                                         </motion.div>
@@ -243,7 +243,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                                                         <motion.div
                                                             key={`top-row2-${q}`}
                                                             style={{ scale: s }}
-                                                            className="w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-[9px] font-bold border border-purple-200"
+                                                            className="w-5 h-5 bg-[#8c648d]/20 text-[#8c648d] rounded-full flex items-center justify-center text-[9px] font-bold border border-[#8c648d]/30"
                                                         >
                                                             ?
                                                         </motion.div>
@@ -322,7 +322,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                                                         <motion.div
                                                             key={`bottom-row1-${q}`}
                                                             style={{ scale: s }}
-                                                            className="w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-[9px] font-bold border border-purple-200"
+                                                            className="w-5 h-5 bg-[#8c648d]/20 text-[#8c648d] rounded-full flex items-center justify-center text-[9px] font-bold border border-[#8c648d]/30"
                                                         >
                                                             ?
                                                         </motion.div>
@@ -345,7 +345,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                                                         <motion.div
                                                             key={`bottom-row2-${q}`}
                                                             style={{ scale: s }}
-                                                            className="w-5 h-5 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-[9px] font-bold border border-purple-200"
+                                                            className="w-5 h-5 bg-[#8c648d]/20 text-[#8c648d] rounded-full flex items-center justify-center text-[9px] font-bold border border-[#8c648d]/30"
                                                         >
                                                             ?
                                                         </motion.div>

@@ -47,7 +47,7 @@ export const steps = [
     {
         id: 4,
         icon: <Copy className="w-6 h-6" />,
-        color: "text-purple-500 border-purple-100 bg-purple-50",
+        color: "text-[#8c648d] border-[#8c648d]/20 bg-[#8c648d]/10",
         label: "Interesting Article",
         source: "Clipboard",
         position: { top: "-100px", left: "45%", x: "370px" }

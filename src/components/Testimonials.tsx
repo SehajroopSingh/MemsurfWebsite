@@ -38,13 +38,37 @@ export default function Testimonials() {
     offset: ["start end", "end start"]
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+  // Adjusted parallax for smoother feel
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50])
+
+  const coloredTestimonials = [
+    {
+      ...testimonials[0],
+      color: 'purple',
+      cardStyle: 'bg-[#8c648d]/10 border-[#8c648d]/30 hover:border-[#8c648d]/50',
+      iconColor: 'text-[#8c648d]',
+      roleColor: 'text-[#8c648d]'
+    },
+    {
+      ...testimonials[1],
+      color: 'white',
+      cardStyle: 'bg-white border-gray-200 hover:border-gray-300 shadow-sm',
+      iconColor: 'text-blue-500',
+      roleColor: 'text-blue-600'
+    },
+    {
+      ...testimonials[2],
+      color: 'orange',
+      cardStyle: 'bg-orange-50 border-orange-200 hover:border-orange-300',
+      iconColor: 'text-orange-500',
+      roleColor: 'text-orange-600'
+    }
+  ]
 
   return (
-    <section ref={containerRef} className="relative py-32 bg-black text-white overflow-hidden">
-      {/* Abstract Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+    <section ref={containerRef} className="py-32 bg-white relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-10">
@@ -53,62 +77,62 @@ export default function Testimonials() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-6"
+              className="text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-6 text-gray-900"
             >
               LEARNING<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">EVOLVED.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-[#8c648d]">EVOLVED.</span>
             </motion.h2>
-            <p className="text-xl text-gray-400 max-w-lg leading-relaxed border-l-2 border-white/20 pl-6">
+            <p className="text-xl text-gray-600 max-w-lg leading-relaxed border-l-2 border-[#8c648d]/30 pl-6">
               Join the new wave of learners who have ditched static notes for active recall.
             </p>
           </div>
 
           <div className="flex gap-12 text-right hidden md:block">
             <div>
-              <div className="text-4xl font-mono font-bold">1M+</div>
+              <div className="text-4xl font-mono font-bold text-gray-900">1M+</div>
               <div className="text-sm text-gray-500 uppercase tracking-widest mt-1">Users</div>
             </div>
             <div>
-              <div className="text-4xl font-mono font-bold">10M+</div>
+              <div className="text-4xl font-mono font-bold text-gray-900">10M+</div>
               <div className="text-sm text-gray-500 uppercase tracking-widest mt-1">Quizzes</div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {coloredTestimonials.map((testimonial, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative flex flex-col justify-between h-full min-h-[400px] p-8 bg-zinc-900/50 backdrop-blur-sm border border-white/10 hover:border-white/30 transition-colors duration-500"
+              className={`group relative flex flex-col justify-between h-full min-h-[400px] p-8 rounded-3xl border-2 ${testimonial.cardStyle} transition-all duration-300`}
             >
               <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ArrowUpRight className="w-6 h-6 text-white/50" />
+                <ArrowUpRight className="w-6 h-6 text-gray-400" />
               </div>
 
               <div className="relative">
-                <Quote className="w-10 h-10 text-blue-500 mb-8 opacity-50" />
-                <p className="text-xl md:text-2xl font-light leading-snug text-gray-200">
-                  {testimonial.content}
+                <Quote className={`w-10 h-10 mb-8 opacity-50 ${testimonial.iconColor}`} />
+                <p className="text-xl font-medium leading-relaxed text-gray-800">
+                  "{testimonial.content}"
                 </p>
               </div>
 
-              <div className="mt-12 flex items-center gap-4 pt-6 border-t border-white/10">
+              <div className="mt-12 flex items-center gap-4 pt-6 border-t border-gray-100">
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover ring-2 ring-white/20 grayscale group-hover:grayscale-0 transition-all duration-500"
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow-sm"
                 />
                 <div>
-                  <div className="font-bold text-white tracking-wide">{testimonial.name}</div>
-                  <div className="text-sm font-mono text-blue-400">{testimonial.role}</div>
+                  <div className="font-bold text-gray-900 tracking-wide">{testimonial.name}</div>
+                  <div className={`text-sm font-semibold ${testimonial.roleColor}`}>{testimonial.role}</div>
                 </div>
                 <div className="ml-auto flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3 h-3 fill-white text-white" />
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
               </div>

@@ -8,12 +8,12 @@ const footerLinks = {
   product: [
     { name: 'Features', href: '/#features' },
     { name: 'How It Works', href: '/#how-it-works' },
-    { name: 'Pricing', href: '/#pricing' }, // Updated to point to main page sections
+    { name: 'Pricing', href: '/pricing' },
     { name: 'Testimonials', href: '/#testimonials' },
   ],
   company: [
     { name: 'About', href: '/about' },
-    { name: 'Blog', href: '#' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Careers', href: '/careers' },
     { name: 'Contact', href: '/contact' },
   ],
@@ -28,20 +28,20 @@ const socialLinks = [
   { icon: Github, href: '#', label: 'GitHub' },
   { icon: Twitter, href: '#', label: 'Twitter' },
   { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Mail, href: '#', label: 'Email' },
+  { icon: Mail, href: 'mailto:support@memsurf.app', label: 'Email' },
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+    <footer className="bg-white border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-16">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 block">
+          <div className="col-span-2 lg:col-span-2">
+            <Link href="/" className="inline-block text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 tracking-tight">
               Memsurf
             </Link>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-sm">
               AI-powered learning platform that transforms content into interactive quizzes and helps you master knowledge with spaced repetition.
             </p>
             <div className="flex gap-4">
@@ -52,7 +52,7 @@ export default function Footer() {
                     key={index}
                     href={social.href}
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors"
+                    className="w-10 h-10 rounded-full bg-gray-50 text-gray-500 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border border-gray-100"
                   >
                     <Icon className="w-5 h-5" />
                   </a>
@@ -62,12 +62,12 @@ export default function Footer() {
           </div>
 
           {/* Product */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Product</h3>
-            <ul className="space-y-2">
+          <div className="col-span-1">
+            <h3 className="text-gray-900 font-semibold mb-6 tracking-tight">Product</h3>
+            <ul className="space-y-4">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link href={link.href} className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium">
                     {link.name}
                   </Link>
                 </li>
@@ -76,12 +76,12 @@ export default function Footer() {
           </div>
 
           {/* Company */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Company</h3>
-            <ul className="space-y-2">
+          <div className="col-span-1">
+            <h3 className="text-gray-900 font-semibold mb-6 tracking-tight">Company</h3>
+            <ul className="space-y-4">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link href={link.href} className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium">
                     {link.name}
                   </Link>
                 </li>
@@ -90,12 +90,12 @@ export default function Footer() {
           </div>
 
           {/* Legal */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2">
+          <div className="col-span-1">
+            <h3 className="text-gray-900 font-semibold mb-6 tracking-tight">Legal</h3>
+            <ul className="space-y-4">
               {footerLinks.legal.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link href={link.href} className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium">
                     {link.name}
                   </Link>
                 </li>
@@ -105,12 +105,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} Memsurf. All rights reserved.
+            © 2025 Memsurf. All rights reserved.
           </p>
-          <p className="text-gray-400 text-sm mt-4 md:mt-0">
-            Built with ❤️ for learners everywhere
+          <p className="text-gray-400 text-sm flex items-center gap-1">
+            Built with <span className="text-red-500 animate-pulse">❤️</span> for learners everywhere
           </p>
         </div>
       </div>

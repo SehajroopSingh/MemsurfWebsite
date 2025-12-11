@@ -124,7 +124,7 @@ export default function PracticeScrollShowcase() {
                             Reinforce Knowledge
                         </h2>
 
-                        <div className="relative w-full grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_320px] gap-0 sm:gap-x-5 items-center">
+                        <div className="relative w-full max-w-[680px] md:max-w-none mx-auto grid grid-cols-[minmax(0,1fr)_280px] gap-4 items-center">
 
                             {/* Text Content (Left) */}
                             <div className="col-start-1 col-end-2 row-start-1 h-full w-full z-10 relative">
@@ -139,10 +139,10 @@ export default function PracticeScrollShowcase() {
                             </div>
 
                             {/* Phone Content (Right) */}
-                            <div className="col-start-1 sm:col-start-2 col-end-2 sm:col-end-3 row-start-1 relative w-full flex justify-center sm:justify-end z-20 pl-0">
+                            <div className="col-start-2 col-end-3 row-start-1 relative w-full flex justify-end z-20 pl-0">
                                 <motion.div
                                     style={{ opacity: phoneOpacity, y: phoneY }}
-                                    className="flex justify-center min-h-[540px] w-full max-w-[320px]"
+                                    className="flex justify-center min-h-[540px] w-full max-w-[280px]"
                                 >
                                     <PracticePhoneContent
                                         baseScreenOpacity={baseScreenOpacity}

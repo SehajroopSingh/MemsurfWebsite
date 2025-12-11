@@ -35,6 +35,17 @@ jobs:
       - name: Build
         run: npm run build
       
+      - name: Verify CNAME file
+        run: |
+          if [ -f ./out/CNAME ]; then
+            echo "CNAME file found in out directory:"
+            cat ./out/CNAME
+          else
+            echo "Warning: CNAME file not found in out directory"
+            echo "Creating CNAME file..."
+            echo "memsurf.com" > ./out/CNAME
+          fi
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
       

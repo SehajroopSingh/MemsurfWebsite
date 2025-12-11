@@ -127,17 +127,16 @@ export default function GreenScreenVideo({
       lastDrawTimeRef.current = now - (elapsed % MS_PER_FRAME)
 
       if (video.readyState >= 2) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-        
-        // Mark that canvas has drawn at least one frame
+        // Only draw if we've already drawn the first frame at time 0
+        // This prevents drawing random frames before the video is properly initialized
         if (!canvasHasDrawnRef.current) {
-          canvasHasDrawnRef.current = true
-          setIsLoading(false)
-          // Fade out placeholder smoothly after first frame is drawn
-          setTimeout(() => {
-            setShowPlaceholder(false)
-          }, 150) // Small delay to ensure smooth transition
+          // First frame hasn't been drawn yet - don't draw random frames
+          // The drawFirstFrame function will handle drawing at time 0
+          return
         }
+        
+        // Draw the current frame (video is playing normally now)
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
 
         // Capture frames throughout playback, but prioritize the last 2 seconds
         if (video.duration) {
@@ -280,20 +279,50 @@ export default function GreenScreenVideo({
       if (video.readyState >= 2 && canvas && video.videoWidth > 0 && video.videoHeight > 0) {
         const ctx = canvas.getContext('2d', { willReadFrequently: true })
         if (ctx && !canvasHasDrawnRef.current) {
-          updateCanvasSize()
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-          canvasHasDrawnRef.current = true
-          setIsLoading(false)
-          // Fade out placeholder smoothly after first frame is drawn
-          setTimeout(() => {
-            setShowPlaceholder(false)
-          }, 200)
+          // Ensure video is at the beginning (time 0) before drawing
+          if (video.currentTime !== 0) {
+            video.currentTime = 0
+            // Wait for seek to complete before drawing
+            const onSeeked = () => {
+              updateCanvasSize()
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+              canvasHasDrawnRef.current = true
+              setIsLoading(false)
+              // Fade out placeholder smoothly after first frame is drawn
+              setTimeout(() => {
+                setShowPlaceholder(false)
+              }, 200)
+              video.removeEventListener('seeked', onSeeked)
+            }
+            video.addEventListener('seeked', onSeeked, { once: true })
+          } else {
+            // Video is already at time 0, draw immediately
+            updateCanvasSize()
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+            canvasHasDrawnRef.current = true
+            setIsLoading(false)
+            // Fade out placeholder smoothly after first frame is drawn
+            setTimeout(() => {
+              setShowPlaceholder(false)
+            }, 200)
+          }
         }
       }
     }
 
     const handleLoadedMetadata = () => {
-      drawFirstFrame()
+      // Ensure video is at time 0 before drawing first frame
+      if (Math.abs(video.currentTime) > 0.1) {
+        video.currentTime = 0
+        // Wait for seek to complete
+        const onSeeked = () => {
+          drawFirstFrame()
+          video.removeEventListener('seeked', onSeeked)
+        }
+        video.addEventListener('seeked', onSeeked, { once: true })
+      } else {
+        drawFirstFrame()
+      }
     }
 
     // Trigger logic
@@ -329,7 +358,10 @@ export default function GreenScreenVideo({
     const handlePlay = () => {
       if (!isPingPongModeRef.current) {
         setIsPlaying(true)
-        drawFrame()
+        // Only start drawing if first frame has been drawn
+        if (canvasHasDrawnRef.current) {
+          drawFrame()
+        }
       }
     }
 
@@ -360,23 +392,38 @@ export default function GreenScreenVideo({
     video.addEventListener('timeupdate', handleTimeUpdate)
     video.addEventListener('seeking', handleSeeking)
 
-    if (video.readyState >= 2) {
-      drawFirstFrame()
-      if (!video.paused) {
-        setIsPlaying(true)
-        drawFrame()
-      }
-    } else {
-      // Wait for video to be ready
-      const checkReady = () => {
-        if (video.readyState >= 2) {
-          drawFirstFrame()
+    // Ensure video starts at time 0 and draw first frame
+    const initializeVideo = () => {
+      if (video.readyState >= 2) {
+        // Always reset to beginning before drawing first frame
+        if (Math.abs(video.currentTime) > 0.1) { // Use small threshold to account for floating point
+          video.currentTime = 0
+          // Wait for seek to complete before drawing first frame
+          const onSeeked = () => {
+            drawFirstFrame()
+            // After first frame is drawn, start normal playback if needed
+            if (!video.paused && canvasHasDrawnRef.current) {
+              setIsPlaying(true)
+              drawFrame()
+            }
+            video.removeEventListener('seeked', onSeeked)
+          }
+          video.addEventListener('seeked', onSeeked, { once: true })
         } else {
-          setTimeout(checkReady, 50)
+          // Video is already at time 0
+          drawFirstFrame()
+          if (!video.paused && canvasHasDrawnRef.current) {
+            setIsPlaying(true)
+            drawFrame()
+          }
         }
+      } else {
+        // Wait for video to be ready
+        setTimeout(initializeVideo, 50)
       }
-      setTimeout(checkReady, 50)
     }
+    
+    initializeVideo()
 
     if (autoPlay && !hasPlayedOnceRef.current) {
       video.play().catch(e => console.log("Autoplay prevented", e))
@@ -446,33 +493,17 @@ export default function GreenScreenVideo({
         onError={handleVideoError}
         onLoadedData={handleVideoLoaded}
         onLoadStart={handleVideoLoading}
+        onLoadedMetadata={() => {
+          // Ensure video starts at time 0 when metadata loads
+          if (videoRef.current && Math.abs(videoRef.current.currentTime) > 0.1) {
+            videoRef.current.currentTime = 0
+          }
+        }}
         onCanPlay={() => {
           console.log('Video can play:', src)
-          // Draw first frame when video can play
-          if (videoRef.current && canvasRef.current) {
-            const v = videoRef.current
-            const c = canvasRef.current
-            if (v.readyState >= 2 && v.videoWidth > 0 && v.videoHeight > 0 && !canvasHasDrawnRef.current) {
-              const ctx = c.getContext('2d', { willReadFrequently: true })
-              if (ctx) {
-                const aspect = v.videoWidth / v.videoHeight
-                let w = v.videoWidth
-                let h = v.videoHeight
-                const MAX_PROCESSING_WIDTH = 960
-                if (w > MAX_PROCESSING_WIDTH) {
-                  w = MAX_PROCESSING_WIDTH
-                  h = w / aspect
-                }
-                c.width = w
-                c.height = h
-                ctx.drawImage(v, 0, 0, w, h)
-                canvasHasDrawnRef.current = true
-                setIsLoading(false)
-                setTimeout(() => {
-                  setShowPlaceholder(false)
-                }, 200)
-              }
-            }
+          // Ensure video is at time 0 before playing
+          if (videoRef.current && Math.abs(videoRef.current.currentTime) > 0.1) {
+            videoRef.current.currentTime = 0
           }
           if (autoPlay && videoRef.current) {
             videoRef.current.play().catch(e => {

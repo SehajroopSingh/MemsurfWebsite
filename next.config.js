@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: 'export', // Enable static export
   images: {
+    unoptimized: true, // Required for static export
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,12 +14,6 @@ const nextConfig = {
         hostname: 'www.tinderpressroom.com',
       },
     ],
-  },
-  // Force Next.js to use localhost instead of 0.0.0.0
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '2mb',
-    },
   },
 }
 

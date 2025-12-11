@@ -32,6 +32,7 @@ export default function GreenScreenVideo({
   const isPingPongModeRef = useRef(false)
   const pingPongDirectionRef = useRef<'forward' | 'backward'>('forward')
   const pingPongAnimationFrameRef = useRef<number | null>(null)
+  const lastDrawTimeRef = useRef(0)
 
   useEffect(() => {
     const video = videoRef.current
@@ -41,15 +42,31 @@ export default function GreenScreenVideo({
     const ctx = canvas.getContext('2d', { willReadFrequently: true })
     if (!ctx) return
 
-    // Limit buffer to ~3 seconds @ 60fps to prevent OOM
-    const MAX_BUFFER_FRAMES = 180
-    const capturedFramesRef = { current: [] as ImageData[] }
+    // Limit buffer to ~3 seconds @ 30fps
+    const TARGET_FPS = 30 // Keep 30, but playback is dynamic
+    const MS_PER_FRAME = 1000 / TARGET_FPS
+    const MAX_BUFFER_FRAMES = TARGET_FPS * 3
+    // Store data + timestamp to calculate true playback speed per frame
+    const capturedFramesRef = { current: [] as { data: ImageData, timestamp: number }[] }
+    const MAX_PROCESSING_WIDTH = 960 // Cap resolution for performance (960x540 is ~44% fewer pixels than 720p)
 
     // Set canvas size to match video
+    // Set canvas size to match video but capped for performance
     const updateCanvasSize = () => {
       if (video.videoWidth && video.videoHeight) {
-        canvas.width = video.videoWidth
-        canvas.height = video.videoHeight
+        // Calculate aspect ratio
+        const aspect = video.videoWidth / video.videoHeight
+        let w = video.videoWidth
+        let h = video.videoHeight
+
+        // Cap width if needed to prevent huge canvas operations on Safari
+        if (w > MAX_PROCESSING_WIDTH) {
+          w = MAX_PROCESSING_WIDTH
+          h = w / aspect
+        }
+
+        canvas.width = w
+        canvas.height = h
       } else if (video.clientWidth && video.clientHeight) {
         canvas.width = video.clientWidth
         canvas.height = video.clientHeight
@@ -59,24 +76,52 @@ export default function GreenScreenVideo({
     // Chroma key function to remove green
     const chromaKey = (imageData: ImageData) => {
       const data = imageData.data
-      const threshold = greenThreshold
+      // Pre-calculate thresholds in 0-255 range to avoid division in loop
+      const threshold = greenThreshold * 255
       const satThreshold = greenSaturation
-      const edge = edgeSoftness
+      const edge = edgeSoftness * 255
 
-      // Standard green screen color (RGB: 0, 177, 64 or similar)
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i] / 255
-        const g = data[i + 1] / 255
-        const b = data[i + 2] / 255
+      // Optimization: Cache length
+      const len = data.length
 
-        const max = Math.max(r, g, b)
-        const min = Math.min(r, g, b)
-        const saturation = max === 0 ? 0 : (max - min) / max
-        const greenness = g - Math.max(r, b)
+      for (let i = 0; i < len; i += 4) {
+        const r = data[i]
+        const g = data[i + 1]
+        const b = data[i + 2]
 
-        if (greenness > threshold && saturation > satThreshold && g > r && g > b) {
-          const greenAmount = Math.min(1, (greenness - threshold) / edge)
-          data[i + 3] = (1 - greenAmount) * 255
+        // Integer-based optimization (no division by 255)
+        // Greenness: G - Max(R, B) > Threshold
+        // Saturation: (Max - Min) / Max > SatThreshold
+        //   => (Max - Min) > SatThreshold * Max
+
+        let rbMax = r
+        if (b > r) rbMax = b
+
+        let gl = g
+        let min = r
+        if (g < min) min = g
+        if (b < min) min = b
+
+        let max = rbMax
+        if (g > max) max = g
+
+        // Greenness check
+        const greenness = g - rbMax
+
+        if (greenness > threshold) {
+          // Saturation check
+          // Avoid division: (max - min) / max > satThreshold  --> (max - min) > satThreshold * max
+          // But 'max' can be 0.
+          if (max !== 0 && (max - min) > (satThreshold * max)) {
+            // It matches green screen
+            // Calculate alpha
+            // greenAmount = (greenness - threshold) / edge
+            let greenAmount = (greenness - threshold) / edge
+            if (greenAmount > 1) greenAmount = 1
+
+            // Apply alpha
+            data[i + 3] = (1 - greenAmount) * 255
+          }
         }
       }
       return imageData
@@ -89,6 +134,20 @@ export default function GreenScreenVideo({
         // Handled by renderPingPongLoop
         return
       }
+
+      const now = performance.now()
+      const elapsed = now - lastDrawTimeRef.current
+
+      // Throttle capture to TARGET_FPS
+      if (elapsed < MS_PER_FRAME) {
+        if (isPlaying && !isPingPongModeRef.current) {
+          requestAnimationFrame(drawFrame)
+        }
+        return
+      }
+
+      // Adjust for drifting
+      lastDrawTimeRef.current = now - (elapsed % MS_PER_FRAME)
 
       if (video.readyState >= 2) {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
@@ -108,11 +167,11 @@ export default function GreenScreenVideo({
             // If the user watches, we fill the buffer.
             // We'll slice the last N frames when the loop starts.
             if (capturedFramesRef.current.length < MAX_BUFFER_FRAMES) {
-              capturedFramesRef.current.push(processedData)
+              capturedFramesRef.current.push({ data: processedData, timestamp: now })
             } else {
               // Buffer full, rotate (keep latest)
               capturedFramesRef.current.shift()
-              capturedFramesRef.current.push(processedData)
+              capturedFramesRef.current.push({ data: processedData, timestamp: now })
             }
           } else {
             // If we are far from end, clear buffer to save memory
@@ -152,12 +211,29 @@ export default function GreenScreenVideo({
       let currentIndex = frames.length - 1
       let direction = 'backward'
       let lastFrameTime = performance.now()
-      const fps = 30 // Playback fps for the loop (or estimate from capture?)
-      // We'll try to match capture rate roughly (one frame per RAF is usually 60fps)
-      // If we captured at 60fps, we play at 60fps.
-      const msPerFrame = 1000 / 60
 
-      console.log('Starting Buffered Ping-Pong', { frames: frames.length })
+      // Calculate dynamic playback speed
+      // If we have N frames covering T milliseconds, the average frame interval is T / N
+      let dynamicMsPerFrame = MS_PER_FRAME
+      if (frames.length > 1) {
+        const first = frames[0]
+        const last = frames[frames.length - 1]
+        const duration = last.timestamp - first.timestamp
+        if (duration > 0) {
+          dynamicMsPerFrame = duration / (frames.length - 1)
+        }
+      }
+
+      // Sanity check: if dynamic speed is crazy, fallback to default
+      if (dynamicMsPerFrame < 10 || dynamicMsPerFrame > 200) {
+        dynamicMsPerFrame = MS_PER_FRAME
+      }
+
+      console.log('Starting Buffered Ping-Pong', {
+        frames: frames.length,
+        dynamicMsPerFrame,
+        defaultMs: MS_PER_FRAME
+      })
 
       const loop = () => {
         if (!isPingPongModeRef.current) return
@@ -165,13 +241,13 @@ export default function GreenScreenVideo({
         const now = performance.now()
         const elapsed = now - lastFrameTime
 
-        if (elapsed > msPerFrame) {
-          lastFrameTime = now - (elapsed % msPerFrame)
+        if (elapsed > dynamicMsPerFrame) {
+          lastFrameTime = now - (elapsed % dynamicMsPerFrame)
 
           // Draw current frame
           const frame = frames[currentIndex]
           if (frame) {
-            ctx.putImageData(frame, 0, 0)
+            ctx.putImageData(frame.data, 0, 0)
           }
 
           // Update index
@@ -298,7 +374,7 @@ export default function GreenScreenVideo({
         muted={muted}
         playsInline
         preload="auto"
-        className="hidden"
+        className="absolute opacity-0 pointer-events-none"
       />
 
       {/* Canvas with chroma key applied */}

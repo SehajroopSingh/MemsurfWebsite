@@ -21,10 +21,10 @@ export default function Home() {
             {/* App Store Section */}
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-                Get started with Memsurf
+                Your Personal Learning Architect
               </h2>
               <p className="text-lg text-gray-600 max-w-lg mx-auto">
-                The best way to learn is on the go. Download the app to start your personalized learning journey today.
+                Offload the planning to an agent that knows how you learn. Download Memsurf to turn your information consumption into lasting mastery.
               </p>
 
               <div className="pt-4 flex flex-col items-center gap-3">
@@ -64,7 +64,7 @@ export default function Home() {
             {/* Email Subscription Section */}
             <div className="w-full max-w-xl space-y-4 pt-4">
               <p className="text-sm text-gray-500">
-                Want to be the first to know? Sign up for updates and TestFlight access.
+                Join the Future of Learning
               </p>
               <form className="flex flex-col sm:relative sm:block gap-3 sm:gap-0">
                 <input

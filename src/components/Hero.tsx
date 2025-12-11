@@ -30,11 +30,11 @@ export default function Hero() {
                     >
                         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight">
                             <span className="bg-gradient-to-r from-blue-600 via-[#8c648d] to-pink-600 bg-clip-text text-transparent">
-                                Don&apos;t Forget to Remember
+                                Your Memory Is Leaking.
                             </span>
                         </h1>
                         <p className="text-xl md:text-2xl text-gray-600 mb-0 max-w-3xl mx-auto lg:mx-0 leading-relaxed">
-                            Don&apos;t surf the web, surf what you wanted to remember. Use <span style={{ color: '#8c648d' }}>Memsurf</span>.
+                            It&apos;s a biological fact: you forget 90% of what you read. Stop trusting your brain. Trust our agent to patch the leak.
                         </p>
                     </motion.div>
 
@@ -58,7 +58,7 @@ export default function Hero() {
 
                 {/* App Store Links - Below both text and video */}
                 <motion.div
-                    className="relative w-full max-w-7xl mx-auto px-4 z-20 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-16 mt-8"
+                    className="relative w-full max-w-7xl mx-auto px-4 z-20 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mt-8"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}

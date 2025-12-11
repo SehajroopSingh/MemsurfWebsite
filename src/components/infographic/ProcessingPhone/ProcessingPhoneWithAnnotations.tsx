@@ -39,7 +39,9 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-orange-300" />
                     <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-orange-500" />
                     <p className="font-semibold text-xs sm:text-sm uppercase tracking-wide text-orange-600">Extract relevant content</p>
-                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">Raw content is extracted from sources and turned into content based on depth and context.</p>
+                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
+                        The agent analyzes raw input, extracting key insights based on depth and context to identify what matters.
+                    </p>
                 </motion.div>
 
                 <motion.div
@@ -58,7 +60,9 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-orange-300" />
                     <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-orange-500" />
                     <p className="font-semibold text-xs sm:text-sm uppercase tracking-wide text-orange-600">Build lesson plan and modules</p>
-                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">The extracted content is then turned into an organized lesson plan and modules for the user to learn in an organized, fun, and directional way.</p>
+                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
+                        It organizes this content into a structured lesson plan, breaking complex topics into clear, digestible modules.
+                    </p>
                 </motion.div>
 
                 <motion.div
@@ -77,7 +81,9 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-orange-300" />
                     <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-orange-500" />
                     <p className="font-semibold text-xs sm:text-sm uppercase tracking-wide text-orange-600">Generate quizzes</p>
-                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">Then the quizzes are generated to test the content and the learning objectives.</p>
+                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
+                        Finally, it generates targeted quizzes to test your understanding and reinforce the learning objectives.
+                    </p>
                 </motion.div>
             </div>
 

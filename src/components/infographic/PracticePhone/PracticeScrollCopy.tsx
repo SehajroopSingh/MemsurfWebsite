@@ -27,12 +27,12 @@ export default function PracticeScrollCopy({
                 className="flex-1 bg-[#8c648d] rounded-l-[2.5rem] rounded-r-[1.5rem] shadow-sm border border-white/50 p-6 flex flex-col justify-center w-full z-10"
             >
                 <div className="max-w-xl">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-300 mb-2">Daily reps</p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-300 mb-2">The Bar Is Low</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
-                        Tap Daily Practice to prime.
+                        Your Only Job is to Tap.
                     </h2>
                     <p className="text-sm md:text-base text-blue-100/80">
-                        See the button slide in—one tap gets you into the flow.
+                        We prepped the lesson. We organized the quiz. If you can&apos;t manage this, we can&apos;t help you. (Kidding, we can).
                     </p>
                 </div>
             </motion.div>
@@ -43,12 +43,12 @@ export default function PracticeScrollCopy({
                 className="flex-1 bg-[#8c648d] rounded-l-[2.5rem] rounded-r-[1.5rem] shadow-sm border border-white/50 p-6 flex flex-col justify-center w-full z-10"
             >
                 <div className="max-w-xl">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-300 mb-2">Lesson view</p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-300 mb-2">Spoon-Fed Wisdom</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
-                        Lessons show up for new info.
+                        We Read It So You Don&apos;t Have To.
                     </h2>
                     <p className="text-sm md:text-base text-indigo-100/80">
-                        Next lesson slides in automatically so you keep absorbing.
+                        No planning. No &quot;strategy&quot;. Just sit down and let the knowledge wash over you. Maximum output, minimum effort.
                     </p>
                 </div>
             </motion.div>
@@ -59,12 +59,12 @@ export default function PracticeScrollCopy({
                 className="flex-1 bg-[#8c648d] rounded-l-[2.5rem] rounded-r-[1.5rem] shadow-sm border border-white/50 p-6 flex flex-col justify-center w-full z-10"
             >
                 <div className="max-w-xl">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]/70 mb-2">Quiz follow-up</p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-200 mb-2">The Ghost of Lessons Past</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
-                        Quizzes for retention.
+                        We Will Haunt You With Knowledge.
                     </h2>
-                    <p className="text-sm md:text-base text-[#8c648d]/60">
-                        Spaced quizzes target fresh material so it sticks.
+                    <p className="text-sm md:text-base text-purple-100">
+                        We bring back things you learned weeks ago, right before they slip into the void of forgetfulness. It&apos;s annoying, but it works.
                     </p>
                 </div>
             </motion.div>

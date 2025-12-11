@@ -162,9 +162,9 @@ export default function WorkflowAnimation() {
 
                             {/* Mobile Text (Visible only on small screens) */}
                             <div className="block lg:hidden w-full max-w-[620px] text-center mb-24 px-4">
-                                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d] mb-2">Universal Capture</p>
+                                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d] mb-2">Universal Input</p>
                                 <h2 className="text-3xl font-bold text-gray-900 leading-tight">
-                                    Capture anything, from anywhere. Articles, videos, PDFs, web pages, and more—all in one tap.
+                                    We Are Not Picky Eaters.
                                 </h2>
                             </div>
 
@@ -174,35 +174,35 @@ export default function WorkflowAnimation() {
                                 {/* Desktop Text Area (Hidden on mobile) */}
                                 <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
                                     <div className="space-y-4 text-left">
-                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-600">Universal Capture</p>
+                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-600">Universal Input</p>
                                         <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                                            Capture anything, from anywhere. Articles, videos, PDFs, web pages, and more—all in one tap.
+                                            We Are Not Picky Eaters.
                                         </h2>
                                         <p className="text-base md:text-lg text-gray-600 max-w-xl">
-                                            Transform any content into personalized learning material. Whether it's a research paper, a YouTube video, or a news article, capture it instantly and let AI turn it into your next study session.
+                                            Connect your apps, upload PDFs, or just copy-paste a chaotic wall of text. We digest it all. You used to have &quot;compatibility issues&quot;, now you just have no excuses.
                                         </p>
                                         <div className="space-y-2 mt-4">
                                             <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Use cases:</p>
                                             <ul className="space-y-2 text-base text-gray-700">
                                                 <li className="flex items-start">
                                                     <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>Remembering my friend's children's names</span>
+                                                    <span>Incoherent voice notes you recorded at 3 AM</span>
                                                 </li>
                                                 <li className="flex items-start">
                                                     <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>Remembering a cool new concept</span>
+                                                    <span>That Notion database you spent a week building and never used</span>
                                                 </li>
                                                 <li className="flex items-start">
                                                     <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>Learning a new programming language</span>
+                                                    <span>Panic-copying mostly unread walls of text</span>
                                                 </li>
                                                 <li className="flex items-start">
                                                     <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>Memorizing key points from a business meeting</span>
+                                                    <span>Doom-scrolling finds you want to save &quot;for later&quot;</span>
                                                 </li>
                                                 <li className="flex items-start">
                                                     <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>Studying for an upcoming exam</span>
+                                                    <span>The 50-page PDF you opened once</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -285,7 +285,7 @@ export default function WorkflowAnimation() {
                             transition={{ duration: 0.8 }}
                         >
                             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center">
-                                Process Content
+                                Your Agent Designs The Learning
                             </h2>
 
                             {/* Processing Section Layout: Flex col mobile, Grid desktop */}
@@ -308,12 +308,12 @@ export default function WorkflowAnimation() {
                                 {/* Text Area (Right Side) */}
                                 <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pl-0 xl:pl-24 z-10 pr-0 xl:pr-6 min-w-0 overflow-hidden mb-8 xl:mb-0">
                                     <div className="space-y-4 text-center xl:text-left px-4 xl:px-0">
-                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]">Smart Processing</p>
+                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]">Intelligent Curriculum</p>
                                         <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                                            Our AI creates a plan on how to quiz you so you learn what you want in the time you want, to the level you want.
+                                            We Do The Thinking For You.
                                         </h2>
                                         <p className="text-base md:text-lg text-gray-600 max-w-xl mx-auto xl:mx-0">
-                                            Based on your depth, difficulty, and mastery time settings, we generate a personalized learning path tailored to your goals.
+                                            Our agent ruthlessly optimizes your learning path. It cuts the fluff and feeds you the good stuff. It&apos;s like having a strict tutor, but one you can mute.
                                         </p>
                                     </div>
                                 </div>

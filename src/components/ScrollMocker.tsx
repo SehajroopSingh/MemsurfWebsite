@@ -27,7 +27,7 @@ export default function ScrollMocker() {
                     showMessage("Whoa, slow down. You can't read that fast.", 3000)
                 } else if (speed < 0.1 && scrollDiff > 50) {
                     // Only trigger slow message if they moved a significant amount but slowly
-                    // showMessage("Sound it out. You can do it.", 3000)
+                    showMessage("Sound it out. You can do it.", 3000)
                 }
 
                 lastScrollY.current = currentScrollY

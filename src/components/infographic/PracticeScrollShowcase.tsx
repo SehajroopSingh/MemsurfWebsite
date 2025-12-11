@@ -121,7 +121,7 @@ export default function PracticeScrollShowcase() {
                         transition={{ duration: 0.8 }}
                     >
                         <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center mb-4">
-                            Reinforce Knowledge
+                            Daily Reinforcement
                         </h2>
 
                         <div className="relative w-full max-w-[680px] md:max-w-none mx-auto grid grid-cols-[minmax(0,1fr)_280px] gap-4 items-center">

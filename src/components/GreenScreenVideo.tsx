@@ -28,6 +28,7 @@ export default function GreenScreenVideo({
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [videoError, setVideoError] = useState<string | null>(null)
   const hasPlayedOnceRef = useRef(false)
   const isPingPongModeRef = useRef(false)
   const pingPongDirectionRef = useRef<'forward' | 'backward'>('forward')
@@ -155,17 +156,12 @@ export default function GreenScreenVideo({
         const processedData = chromaKey(imageData)
         ctx.putImageData(processedData, 0, 0)
 
-        // Capture frames for the last 2 seconds
+        // Capture frames throughout playback, but prioritize the last 2 seconds
         if (video.duration) {
           const bufferStartTime = Math.max(0, video.duration - 2.2) // Start slightly earlier to be safe
+          
           if (video.currentTime >= bufferStartTime) {
-            // If we seeked back, clear future frames? No, just keep appending/overwriting?
-            // Simplest: Just append. If we have too many, shift? where to slice?
-            // Let's just keep appending unique frames.
-
-            // We just capture everything near the end.
-            // If the user watches, we fill the buffer.
-            // We'll slice the last N frames when the loop starts.
+            // Near the end - capture frames for ping-pong loop
             if (capturedFramesRef.current.length < MAX_BUFFER_FRAMES) {
               capturedFramesRef.current.push({ data: processedData, timestamp: now })
             } else {
@@ -174,10 +170,23 @@ export default function GreenScreenVideo({
               capturedFramesRef.current.push({ data: processedData, timestamp: now })
             }
           } else {
-            // If we are far from end, clear buffer to save memory
-            if (capturedFramesRef.current.length > 0) {
-              capturedFramesRef.current = []
+            // Before the end - keep a rolling buffer of recent frames
+            // This ensures we have frames even if video ends early
+            if (capturedFramesRef.current.length < MAX_BUFFER_FRAMES) {
+              capturedFramesRef.current.push({ data: processedData, timestamp: now })
+            } else {
+              // Keep only the most recent frames (rolling window)
+              capturedFramesRef.current.shift()
+              capturedFramesRef.current.push({ data: processedData, timestamp: now })
             }
+          }
+        } else {
+          // Video duration not available yet - still capture frames
+          if (capturedFramesRef.current.length < MAX_BUFFER_FRAMES) {
+            capturedFramesRef.current.push({ data: processedData, timestamp: now })
+          } else {
+            capturedFramesRef.current.shift()
+            capturedFramesRef.current.push({ data: processedData, timestamp: now })
           }
         }
       }
@@ -198,8 +207,15 @@ export default function GreenScreenVideo({
 
       const frames = capturedFramesRef.current
       if (frames.length === 0) {
-        console.error("No frames buffered for ping pong loop!")
-        return // Fail gracefully (video stays paused at end)
+        console.warn("No frames buffered for ping pong loop! Falling back to video loop.")
+        // Fallback: just loop the video normally
+        if (video.duration) {
+          video.currentTime = 0
+          video.play().catch(e => console.log("Fallback play failed:", e))
+        }
+        isPingPongModeRef.current = false
+        hasPlayedOnceRef.current = false
+        return
       }
 
       // We want to loop the "Last 2 Seconds".
@@ -363,6 +379,36 @@ export default function GreenScreenVideo({
     }
   }, [isPlaying, greenThreshold, greenSaturation, edgeSoftness, autoPlay, loop, muted, src])
 
+  // Handle video loading errors
+  const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+    const video = e.currentTarget
+    const error = video.error
+    if (error) {
+      let errorMsg = 'Video failed to load'
+      switch (error.code) {
+        case error.MEDIA_ERR_ABORTED:
+          errorMsg = 'Video loading aborted'
+          break
+        case error.MEDIA_ERR_NETWORK:
+          errorMsg = 'Network error loading video'
+          break
+        case error.MEDIA_ERR_DECODE:
+          errorMsg = 'Video decode error'
+          break
+        case error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+          errorMsg = 'Video format not supported'
+          break
+      }
+      console.error('Video error:', errorMsg, error)
+      setVideoError(errorMsg)
+    }
+  }
+
+  const handleVideoLoaded = () => {
+    setVideoError(null)
+    console.log('Video loaded successfully:', src)
+  }
+
   return (
     <div className={`relative inline-block ${className}`}>
       {/* Hidden video element */}
@@ -374,6 +420,16 @@ export default function GreenScreenVideo({
         muted={muted}
         playsInline
         preload="auto"
+        onError={handleVideoError}
+        onLoadedData={handleVideoLoaded}
+        onCanPlay={() => {
+          console.log('Video can play:', src)
+          if (autoPlay && videoRef.current) {
+            videoRef.current.play().catch(e => {
+              console.log("Autoplay prevented or failed:", e)
+            })
+          }
+        }}
         className="absolute opacity-0 pointer-events-none"
       />
 
@@ -383,6 +439,16 @@ export default function GreenScreenVideo({
         className="w-full h-full object-contain"
         style={{ display: 'block' }}
       />
+
+      {/* Error message if video fails to load */}
+      {videoError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg">
+          <div className="text-center p-4">
+            <p className="text-red-600 text-sm mb-2">Video Error: {videoError}</p>
+            <p className="text-gray-500 text-xs">Source: {src}</p>
+          </div>
+        </div>
+      )}
 
       {/* Optional: Show controls overlay */}
       {controls && (

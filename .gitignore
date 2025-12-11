@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# GitHub Pages
+/CNAME
+
 # production
 /build
 

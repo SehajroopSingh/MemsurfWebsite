@@ -2,8 +2,27 @@
 
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useAmplitude } from '@/hooks/useAmplitude'
 
 export default function CTA() {
+  const { track } = useAmplitude()
+
+  const handleTakeMoneyClick = () => {
+    track('cta_button_clicked', {
+      button_type: 'primary',
+      button_text: 'Take My Money',
+      location: 'cta_section'
+    })
+  }
+
+  const handleHateLearningClick = () => {
+    track('cta_button_clicked', {
+      button_type: 'secondary',
+      button_text: 'I Hate Learning',
+      location: 'cta_section'
+    })
+  }
+
   return (
     <section className="py-24 bg-yellow-400 relative overflow-hidden">
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -45,11 +64,17 @@ export default function CTA() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <button className="group px-8 py-4 bg-black text-white rounded-none font-bold text-lg hover:scale-105 transition-all duration-200 flex items-center gap-2 uppercase tracking-widest">
+          <button 
+            onClick={handleTakeMoneyClick}
+            className="group px-8 py-4 bg-black text-white rounded-none font-bold text-lg hover:scale-105 transition-all duration-200 flex items-center gap-2 uppercase tracking-widest"
+          >
             Take My Money
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-          <button className="px-8 py-4 bg-transparent text-black border-2 border-black rounded-none font-bold text-lg hover:bg-black hover:text-white transition-all duration-200 uppercase tracking-widest">
+          <button 
+            onClick={handleHateLearningClick}
+            className="px-8 py-4 bg-transparent text-black border-2 border-black rounded-none font-bold text-lg hover:bg-black hover:text-white transition-all duration-200 uppercase tracking-widest"
+          >
             I Hate Learning
           </button>
         </motion.div>

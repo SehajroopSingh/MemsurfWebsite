@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
+import { useAmplitude } from '@/hooks/useAmplitude'
 
 interface GreenScreenVideoProps {
   src: string
@@ -13,6 +14,8 @@ interface GreenScreenVideoProps {
   greenThreshold?: number // 0-1, how sensitive to green (default: 0.4)
   greenSaturation?: number // 0-1, minimum saturation to consider green (default: 0.3)
   edgeSoftness?: number // 0-1, softness of the edge (default: 0.1)
+  trackingLabel?: string
+  trackingLocation?: string
 }
 
 export default function GreenScreenVideo({
@@ -26,7 +29,10 @@ export default function GreenScreenVideo({
   greenThreshold = 0.4,
   greenSaturation = 0.3,
   edgeSoftness = 0.1,
+  trackingLabel = 'greenscreen_video',
+  trackingLocation = 'hero',
 }: GreenScreenVideoProps) {
+  const { track } = useAmplitude()
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -37,6 +43,9 @@ export default function GreenScreenVideo({
   const [canvasVisible, setCanvasVisible] = useState(false)
   const canvasHasDrawnRef = useRef(false)
   const hasPlayedOnceRef = useRef(false)
+  const hasTrackedFirstPlayRef = useRef(false)
+  const hasTrackedLoopRef = useRef(false)
+  const hasTrackedErrorRef = useRef(false)
   
   // Preload placeholder image immediately
   useEffect(() => {
@@ -58,6 +67,12 @@ export default function GreenScreenVideo({
       setPlaceholderLoaded(false)
     }
   }, [placeholder])
+
+  useEffect(() => {
+    hasTrackedFirstPlayRef.current = false
+    hasTrackedLoopRef.current = false
+    hasTrackedErrorRef.current = false
+  }, [src])
   const isPingPongModeRef = useRef(false)
   const pingPongDirectionRef = useRef<'forward' | 'backward'>('forward')
   const pingPongAnimationFrameRef = useRef<number | null>(null)
@@ -357,12 +372,28 @@ export default function GreenScreenVideo({
       setIsPlaying(true)
       video.pause()
 
+      if (!hasTrackedLoopRef.current) {
+        track('video_loop_started', {
+          video_name: trackingLabel,
+          location: trackingLocation,
+        })
+        hasTrackedLoopRef.current = true
+      }
+
       startPingPongLoop()
     }
 
     const handlePlay = () => {
       if (!isPingPongModeRef.current) {
         setIsPlaying(true)
+        if (!hasTrackedFirstPlayRef.current) {
+          track('video_started', {
+            video_name: trackingLabel,
+            location: trackingLocation,
+            autoplay: autoPlay,
+          })
+          hasTrackedFirstPlayRef.current = true
+        }
         // Only start drawing if first frame has been drawn
         if (canvasHasDrawnRef.current) {
           drawFrame()
@@ -445,7 +476,7 @@ export default function GreenScreenVideo({
         cancelAnimationFrame(pingPongAnimationFrameRef.current)
       }
     }
-  }, [isPlaying, greenThreshold, greenSaturation, edgeSoftness, autoPlay, loop, muted, src])
+  }, [isPlaying, greenThreshold, greenSaturation, edgeSoftness, autoPlay, loop, muted, src, track, trackingLabel, trackingLocation])
 
   // Handle video loading errors
   const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
@@ -469,6 +500,15 @@ export default function GreenScreenVideo({
       }
       console.error('Video error:', errorMsg, error)
       setVideoError(errorMsg)
+      if (!hasTrackedErrorRef.current) {
+        track('video_error', {
+          video_name: trackingLabel,
+          location: trackingLocation,
+          error_message: errorMsg,
+          error_code: error.code,
+        })
+        hasTrackedErrorRef.current = true
+      }
     }
   }
 
@@ -596,4 +636,3 @@ export default function GreenScreenVideo({
     </div>
   )
 }
-

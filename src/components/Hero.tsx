@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import WorkflowAnimation from './infographic/WorkflowAnimation'
 import GreenScreenVideo from './GreenScreenVideo'
 import { VIDEO_PATH, VIDEO_PLACEHOLDER } from '@/config/video'
+import StoreBadges from './StoreBadges'
 
 // import RippleBackground from './RippleBackground'
 
@@ -53,6 +54,8 @@ export default function Hero() {
                             loop={true}
                             muted={true}
                             controls={false}
+                            trackingLabel="hero_demo_video"
+                            trackingLocation="hero"
                         />
                     </motion.div>
                 </div>
@@ -64,28 +67,7 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
                 >
-                    <a
-                        href="/coming-soon"
-                        className="group relative inline-flex items-center justify-center transition-transform active:scale-95 hover:scale-105"
-                        aria-label="Download on the App Store"
-                    >
-                        <img
-                            src="/Download_on_App_Store/Black_lockup/SVG/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
-                            alt="Download on the App Store"
-                            className="h-[50px] md:h-[60px] w-auto"
-                        />
-                    </a>
-                    <a
-                        href="/coming-soon"
-                        className="group relative inline-flex items-center justify-center transition-transform active:scale-95 hover:scale-105"
-                        aria-label="Get it on Google Play"
-                    >
-                        <img
-                            src="/Get_it_on_Google_Play/GetItOnGooglePlay_Badge_Web_color_English.svg"
-                            alt="Get it on Google Play"
-                            className="h-[50px] md:h-[60px] w-auto"
-                        />
-                    </a>
+                    <StoreBadges location="hero" />
                 </motion.div>
 
                 <div className="w-full z-10 mt-10">

@@ -3,6 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { Github, Twitter, Linkedin, Mail } from 'lucide-react'
+import { useAmplitude } from '@/hooks/useAmplitude'
 
 const footerLinks = {
   product: [
@@ -32,13 +33,36 @@ const socialLinks = [
 ]
 
 export default function Footer() {
+  const { track } = useAmplitude()
+
+  const trackFooterNav = (label: string, href: string, section: string) => {
+    track('navigation_link_clicked', {
+      label,
+      href,
+      location: 'footer',
+      menu_variant: section,
+    })
+  }
+
+  const trackSocialClick = (platform: string, href: string) => {
+    track('social_link_clicked', {
+      platform,
+      href,
+      location: 'footer',
+    })
+  }
+
   return (
     <footer className="bg-white border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-16">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
-            <Link href="/" className="inline-block text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 tracking-tight">
+            <Link
+              href="/"
+              className="inline-block text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 tracking-tight"
+              onClick={() => trackFooterNav('logo', '/', 'brand')}
+            >
               Memsurf
             </Link>
             <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-sm">
@@ -52,6 +76,7 @@ export default function Footer() {
                     key={index}
                     href={social.href}
                     aria-label={social.label}
+                    onClick={() => trackSocialClick(social.label.toLowerCase(), social.href)}
                     className="w-10 h-10 rounded-full bg-gray-50 text-gray-500 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border border-gray-100"
                   >
                     <Icon className="w-5 h-5" />
@@ -67,7 +92,11 @@ export default function Footer() {
             <ul className="space-y-4">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium">
+                  <Link
+                    href={link.href}
+                    className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium"
+                    onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'product')}
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -81,7 +110,11 @@ export default function Footer() {
             <ul className="space-y-4">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium">
+                  <Link
+                    href={link.href}
+                    className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium"
+                    onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'company')}
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -95,7 +128,11 @@ export default function Footer() {
             <ul className="space-y-4">
               {footerLinks.legal.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href} className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium">
+                  <Link
+                    href={link.href}
+                    className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium"
+                    onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'legal')}
+                  >
                     {link.name}
                   </Link>
                 </li>

@@ -4,15 +4,34 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useAmplitude } from '@/hooks/useAmplitude'
 
 export default function ComingSoonPage() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const { track } = useAmplitude()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
+    const trimmedEmail = email.trim()
+    const isValidEmail = /\S+@\S+\.\S+/.test(trimmedEmail)
+
+    track('waitlist_submitted', {
+      source: 'coming_soon_page',
+      status: isValidEmail ? 'success' : 'invalid_email',
+      is_valid_email: isValidEmail,
+      email_length: trimmedEmail.length,
+    })
+
+    if (!isValidEmail) {
+      setIsSubmitting(false)
+      setError('Please enter a valid email address.')
+      return
+    }
     
     // TODO: Add API call to save email
     // Simulate API call
@@ -120,6 +139,11 @@ export default function ComingSoonPage() {
                       {isSubmitting ? 'Submitting...' : 'Notify Me'}
                     </button>
                   </form>
+                  {error && (
+                    <p className="text-sm text-red-600 pt-2">
+                      {error}
+                    </p>
+                  )}
                 </>
               )}
             </motion.div>

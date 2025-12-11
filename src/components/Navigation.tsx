@@ -3,9 +3,28 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, ChevronDown } from 'lucide-react'
+import { useAmplitude } from '@/hooks/useAmplitude'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const { track } = useAmplitude()
+
+  const handleMenuToggle = () => {
+    const nextState = !isOpen
+    setIsOpen(nextState)
+    track('mobile_menu_toggled', {
+      state: nextState ? 'opened' : 'closed',
+    })
+  }
+
+  const handleNavClick = (label: string, href: string, menuVariant: 'desktop' | 'mobile' | 'logo') => {
+    track('navigation_link_clicked', {
+      label,
+      href,
+      location: 'header',
+      menu_variant: menuVariant,
+    })
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md">
@@ -13,7 +32,11 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-[#8c648d] bg-clip-text text-transparent">
+            <Link
+              href="/"
+              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-[#8c648d] bg-clip-text text-transparent"
+              onClick={() => handleNavClick('logo', '/', 'logo')}
+            >
               Memsurf
             </Link>
           </div>
@@ -27,17 +50,29 @@ export default function Navigation() {
               </button>
               <div className="absolute top-full left-0 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden py-1">
-                  <Link href="/method" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+                  <Link
+                    href="/method"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                    onClick={() => handleNavClick('method', '/method', 'desktop')}
+                  >
                     How it works
                   </Link>
-                  <Link href="/use-cases" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900">
+                  <Link
+                    href="/use-cases"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                    onClick={() => handleNavClick('use-cases', '/use-cases', 'desktop')}
+                  >
                     Customer Use cases
                   </Link>
                 </div>
               </div>
             </div>
 
-            <Link href="/research" className="text-gray-800 hover:text-gray-900 transition-colors text-sm font-medium">
+            <Link
+              href="/research"
+              className="text-gray-800 hover:text-gray-900 transition-colors text-sm font-medium"
+              onClick={() => handleNavClick('research', '/research', 'desktop')}
+            >
               Research
             </Link>
           </div>
@@ -45,7 +80,7 @@ export default function Navigation() {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={handleMenuToggle}
               className="text-gray-800 hover:text-gray-900"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -62,21 +97,30 @@ export default function Navigation() {
             <Link
               href="/method"
               className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md pl-6"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                handleNavClick('method', '/method', 'mobile')
+                setIsOpen(false)
+              }}
             >
               How it works
             </Link>
             <Link
               href="/use-cases"
               className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md pl-6"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                handleNavClick('use-cases', '/use-cases', 'mobile')
+                setIsOpen(false)
+              }}
             >
               Customer Use cases
             </Link>
             <Link
               href="/research"
               className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                handleNavClick('research', '/research', 'mobile')
+                setIsOpen(false)
+              }}
             >
               Research
             </Link>

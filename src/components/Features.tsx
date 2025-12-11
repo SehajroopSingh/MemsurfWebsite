@@ -2,6 +2,7 @@
 
 import { Brain, Zap, Calendar, TrendingUp } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useAmplitude } from '@/hooks/useAmplitude'
 
 const features = [
   {
@@ -31,6 +32,15 @@ const features = [
 ]
 
 export default function Features() {
+  const { track } = useAmplitude()
+
+  const handleFeatureView = (featureTitle: string) => {
+    track('feature_viewed', {
+      feature_name: featureTitle.toLowerCase().replace(/\s+/g, '_'),
+      location: 'features_section'
+    })
+  }
+
   return (
     <section id="features" className="py-24 bg-black border-t border-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,6 +61,7 @@ export default function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                onViewportEnter={() => handleFeatureView(feature.title)}
                 className="group relative p-8 bg-gray-900/20 border border-gray-800 hover:border-white/50 hover:bg-gray-900/40 transition-all duration-300"
               >
                 <div className={`inline-flex p-3 rounded-none bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300`}>

@@ -32,7 +32,31 @@ export default function GreenScreenVideo({
   const [isPlaying, setIsPlaying] = useState(false)
   const [videoError, setVideoError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [showPlaceholder, setShowPlaceholder] = useState(true)
+  const [placeholderLoaded, setPlaceholderLoaded] = useState(false)
+  const canvasHasDrawnRef = useRef(false)
   const hasPlayedOnceRef = useRef(false)
+  
+  // Preload placeholder image immediately
+  useEffect(() => {
+    if (placeholder) {
+      const img = new Image()
+      img.onload = () => {
+        setPlaceholderLoaded(true)
+      }
+      img.onerror = () => {
+        console.warn('Placeholder image failed to load:', placeholder)
+        setPlaceholderLoaded(false)
+      }
+      img.src = placeholder
+      // If image is already cached, trigger onload manually
+      if (img.complete) {
+        setPlaceholderLoaded(true)
+      }
+    } else {
+      setPlaceholderLoaded(false)
+    }
+  }, [placeholder])
   const isPingPongModeRef = useRef(false)
   const pingPongDirectionRef = useRef<'forward' | 'backward'>('forward')
   const pingPongAnimationFrameRef = useRef<number | null>(null)
@@ -104,10 +128,16 @@ export default function GreenScreenVideo({
 
       if (video.readyState >= 2) {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-        // Chroma key processing disabled - video doesn't have green screen
-        // const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-        // const processedData = chromaKey(imageData)
-        // ctx.putImageData(processedData, 0, 0)
+        
+        // Mark that canvas has drawn at least one frame
+        if (!canvasHasDrawnRef.current) {
+          canvasHasDrawnRef.current = true
+          setIsLoading(false)
+          // Fade out placeholder smoothly after first frame is drawn
+          setTimeout(() => {
+            setShowPlaceholder(false)
+          }, 150) // Small delay to ensure smooth transition
+        }
 
         // Capture frames throughout playback, but prioritize the last 2 seconds
         if (video.duration) {
@@ -245,8 +275,25 @@ export default function GreenScreenVideo({
       pingPongAnimationFrameRef.current = requestAnimationFrame(loop)
     }
 
+    // Draw first frame immediately when video is ready
+    const drawFirstFrame = () => {
+      if (video.readyState >= 2 && canvas && video.videoWidth > 0 && video.videoHeight > 0) {
+        const ctx = canvas.getContext('2d', { willReadFrequently: true })
+        if (ctx && !canvasHasDrawnRef.current) {
+          updateCanvasSize()
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+          canvasHasDrawnRef.current = true
+          setIsLoading(false)
+          // Fade out placeholder smoothly after first frame is drawn
+          setTimeout(() => {
+            setShowPlaceholder(false)
+          }, 200)
+        }
+      }
+    }
+
     const handleLoadedMetadata = () => {
-      updateCanvasSize()
+      drawFirstFrame()
     }
 
     // Trigger logic
@@ -314,11 +361,21 @@ export default function GreenScreenVideo({
     video.addEventListener('seeking', handleSeeking)
 
     if (video.readyState >= 2) {
-      updateCanvasSize()
+      drawFirstFrame()
       if (!video.paused) {
         setIsPlaying(true)
         drawFrame()
       }
+    } else {
+      // Wait for video to be ready
+      const checkReady = () => {
+        if (video.readyState >= 2) {
+          drawFirstFrame()
+        } else {
+          setTimeout(checkReady, 50)
+        }
+      }
+      setTimeout(checkReady, 50)
     }
 
     if (autoPlay && !hasPlayedOnceRef.current) {
@@ -365,12 +422,14 @@ export default function GreenScreenVideo({
 
   const handleVideoLoaded = () => {
     setVideoError(null)
-    setIsLoading(false)
     console.log('Video loaded successfully:', src)
+    // Don't set isLoading to false here - wait for canvas to draw
   }
 
   const handleVideoLoading = () => {
     setIsLoading(true)
+    setShowPlaceholder(true)
+    canvasHasDrawnRef.current = false
   }
 
   return (
@@ -388,8 +447,33 @@ export default function GreenScreenVideo({
         onLoadedData={handleVideoLoaded}
         onLoadStart={handleVideoLoading}
         onCanPlay={() => {
-          setIsLoading(false)
           console.log('Video can play:', src)
+          // Draw first frame when video can play
+          if (videoRef.current && canvasRef.current) {
+            const v = videoRef.current
+            const c = canvasRef.current
+            if (v.readyState >= 2 && v.videoWidth > 0 && v.videoHeight > 0 && !canvasHasDrawnRef.current) {
+              const ctx = c.getContext('2d', { willReadFrequently: true })
+              if (ctx) {
+                const aspect = v.videoWidth / v.videoHeight
+                let w = v.videoWidth
+                let h = v.videoHeight
+                const MAX_PROCESSING_WIDTH = 960
+                if (w > MAX_PROCESSING_WIDTH) {
+                  w = MAX_PROCESSING_WIDTH
+                  h = w / aspect
+                }
+                c.width = w
+                c.height = h
+                ctx.drawImage(v, 0, 0, w, h)
+                canvasHasDrawnRef.current = true
+                setIsLoading(false)
+                setTimeout(() => {
+                  setShowPlaceholder(false)
+                }, 200)
+              }
+            }
+          }
           if (autoPlay && videoRef.current) {
             videoRef.current.play().catch(e => {
               console.log("Autoplay prevented or failed:", e)
@@ -403,17 +487,36 @@ export default function GreenScreenVideo({
       <canvas
         ref={canvasRef}
         className="w-full h-full object-contain"
-        style={{ display: 'block' }}
+        style={{ 
+          display: 'block', 
+          opacity: showPlaceholder ? 0 : 1, 
+          transition: 'opacity 0.4s ease-in-out',
+          position: 'relative',
+          zIndex: showPlaceholder ? 0 : 1
+        }}
       />
 
       {/* Loading state - show placeholder image if available, otherwise show spinner */}
-      {isLoading && !videoError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden">
+      {showPlaceholder && !videoError && (
+        <div 
+          className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden"
+          style={{ 
+            opacity: 1, 
+            transition: 'opacity 0.4s ease-in-out', 
+            pointerEvents: 'auto',
+            zIndex: 2
+          }}
+        >
           {placeholder ? (
             <img
               src={placeholder}
               alt="Loading video"
               className="w-full h-full object-contain"
+              onLoad={() => setPlaceholderLoaded(true)}
+              onError={() => {
+                console.warn('Placeholder image failed to load')
+                setPlaceholderLoaded(false)
+              }}
             />
           ) : (
             <div className="text-center">

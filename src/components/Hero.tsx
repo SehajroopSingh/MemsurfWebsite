@@ -4,7 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import WorkflowAnimation from './infographic/WorkflowAnimation'
 import GreenScreenVideo from './GreenScreenVideo'
-import { VIDEO_PATH } from '@/config/video'
+import { VIDEO_PATH, VIDEO_PLACEHOLDER } from '@/config/video'
 
 // import RippleBackground from './RippleBackground'
 
@@ -47,6 +47,7 @@ export default function Hero() {
                     >
                         <GreenScreenVideo
                             src={VIDEO_PATH}
+                            placeholder={VIDEO_PLACEHOLDER}
                             className="w-full"
                             autoPlay={true}
                             loop={true}

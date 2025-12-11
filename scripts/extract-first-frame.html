@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract First Frame from Video</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            width: 100%;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #0051cc;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #preview {
+            margin: 20px 0;
+            text-align: center;
+        }
+        #preview img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        .success {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Extract First Frame from Video</h1>
+        <p>Select a video file to extract its first frame as a PNG image.</p>
+        
+        <input type="file" id="videoInput" accept="video/*">
+        
+        <div id="preview"></div>
+        
+        <div id="info" class="info" style="display: none;"></div>
+        
+        <button id="extractBtn" disabled>Extract First Frame</button>
+        <button id="downloadBtn" disabled>Download Image</button>
+        
+        <div class="info" style="margin-top: 30px;">
+            <strong>Instructions:</strong>
+            <ol>
+                <li>Select your video file (e.g., <code>veo3.1_with_reference_images.mp4</code>)</li>
+                <li>Click "Extract First Frame"</li>
+                <li>Review the preview</li>
+                <li>Click "Download Image" to save it</li>
+                <li>Save the image as <code>veo3.1_with_reference_images_placeholder.png</code> in <code>public/videos/</code></li>
+            </ol>
+            <p><strong>Note:</strong> This extracts the raw first frame. You may want to apply chroma key (green screen removal) to match the video appearance.</p>
+        </div>
+    </div>
+
+    <script>
+        const videoInput = document.getElementById('videoInput');
+        const extractBtn = document.getElementById('extractBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const preview = document.getElementById('preview');
+        const info = document.getElementById('info');
+        
+        let extractedImageDataUrl = null;
+        let video = null;
+
+        videoInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const videoElement = document.createElement('video');
+            videoElement.preload = 'metadata';
+            videoElement.src = URL.createObjectURL(file);
+            
+            videoElement.addEventListener('loadedmetadata', () => {
+                extractBtn.disabled = false;
+                video = videoElement;
+                info.style.display = 'block';
+                info.className = 'info';
+                info.innerHTML = `✅ Video loaded: ${file.name}<br>Duration: ${videoElement.duration.toFixed(2)}s<br>Resolution: ${videoElement.videoWidth}x${videoElement.videoHeight}`;
+            });
+
+            videoElement.addEventListener('error', () => {
+                info.style.display = 'block';
+                info.className = 'info';
+                info.style.background = '#ffebee';
+                info.style.borderLeftColor = '#f44336';
+                info.innerHTML = '❌ Error loading video file';
+            });
+        });
+
+        extractBtn.addEventListener('click', () => {
+            if (!video) return;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+
+            // Seek to first frame
+            video.currentTime = 0;
+            
+            video.addEventListener('seeked', () => {
+                // Draw the first frame
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // Convert to data URL
+                extractedImageDataUrl = canvas.toDataURL('image/png');
+                
+                // Show preview
+                const img = document.createElement('img');
+                img.src = extractedImageDataUrl;
+                preview.innerHTML = '';
+                preview.appendChild(img);
+                
+                downloadBtn.disabled = false;
+                
+                info.style.display = 'block';
+                info.className = 'info success';
+                info.innerHTML = '✅ First frame extracted successfully! Click "Download Image" to save it.';
+            }, { once: true });
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            if (!extractedImageDataUrl) return;
+
+            const link = document.createElement('a');
+            link.download = videoInput.files[0].name.replace(/\.[^/.]+$/, '_placeholder.png');
+            link.href = extractedImageDataUrl;
+            link.click();
+        });
+    </script>
+</body>
+</html>

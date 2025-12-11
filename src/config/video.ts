@@ -9,3 +9,7 @@ export const VIDEO_FILENAME = 'veo3.1_with_reference_images.mp4'
 // Full video path (automatically constructed)
 export const VIDEO_PATH = `/videos/${VIDEO_FILENAME}`
 
+// Placeholder image (first frame of the video)
+// This should be extracted from the video and saved as a static image
+export const VIDEO_PLACEHOLDER = `/videos/${VIDEO_FILENAME.replace('.mp4', '_placeholder.png')}`
+

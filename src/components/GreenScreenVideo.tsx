@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react'
 
 interface GreenScreenVideoProps {
   src: string
+  placeholder?: string // Optional placeholder image path
   className?: string
   autoPlay?: boolean
   loop?: boolean
@@ -16,6 +17,7 @@ interface GreenScreenVideoProps {
 
 export default function GreenScreenVideo({
   src,
+  placeholder,
   className = '',
   autoPlay = true,
   loop = true,
@@ -30,8 +32,6 @@ export default function GreenScreenVideo({
   const [isPlaying, setIsPlaying] = useState(false)
   const [videoError, setVideoError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [firstFrameUrl, setFirstFrameUrl] = useState<string | null>(null)
-  const firstFrameCapturedRef = useRef(false)
   const hasPlayedOnceRef = useRef(false)
   const isPingPongModeRef = useRef(false)
   const pingPongDirectionRef = useRef<'forward' | 'backward'>('forward')
@@ -77,59 +77,8 @@ export default function GreenScreenVideo({
       }
     }
 
-    // Chroma key function to remove green
-    const chromaKey = (imageData: ImageData) => {
-      const data = imageData.data
-      // Pre-calculate thresholds in 0-255 range to avoid division in loop
-      const threshold = greenThreshold * 255
-      const satThreshold = greenSaturation
-      const edge = edgeSoftness * 255
-
-      // Optimization: Cache length
-      const len = data.length
-
-      for (let i = 0; i < len; i += 4) {
-        const r = data[i]
-        const g = data[i + 1]
-        const b = data[i + 2]
-
-        // Integer-based optimization (no division by 255)
-        // Greenness: G - Max(R, B) > Threshold
-        // Saturation: (Max - Min) / Max > SatThreshold
-        //   => (Max - Min) > SatThreshold * Max
-
-        let rbMax = r
-        if (b > r) rbMax = b
-
-        let gl = g
-        let min = r
-        if (g < min) min = g
-        if (b < min) min = b
-
-        let max = rbMax
-        if (g > max) max = g
-
-        // Greenness check
-        const greenness = g - rbMax
-
-        if (greenness > threshold) {
-          // Saturation check
-          // Avoid division: (max - min) / max > satThreshold  --> (max - min) > satThreshold * max
-          // But 'max' can be 0.
-          if (max !== 0 && (max - min) > (satThreshold * max)) {
-            // It matches green screen
-            // Calculate alpha
-            // greenAmount = (greenness - threshold) / edge
-            let greenAmount = (greenness - threshold) / edge
-            if (greenAmount > 1) greenAmount = 1
-
-            // Apply alpha
-            data[i + 3] = (1 - greenAmount) * 255
-          }
-        }
-      }
-      return imageData
-    }
+    // Chroma key processing disabled - video doesn't have green screen
+    // const chromaKey = (imageData: ImageData) => { ... }
 
     // Main render loop
     const drawFrame = () => {
@@ -155,41 +104,46 @@ export default function GreenScreenVideo({
 
       if (video.readyState >= 2) {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-        const processedData = chromaKey(imageData)
-        ctx.putImageData(processedData, 0, 0)
+        // Chroma key processing disabled - video doesn't have green screen
+        // const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+        // const processedData = chromaKey(imageData)
+        // ctx.putImageData(processedData, 0, 0)
 
         // Capture frames throughout playback, but prioritize the last 2 seconds
         if (video.duration) {
           const bufferStartTime = Math.max(0, video.duration - 2.2) // Start slightly earlier to be safe
           
+          // Capture frame data for ping-pong loop
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+          
           if (video.currentTime >= bufferStartTime) {
             // Near the end - capture frames for ping-pong loop
             if (capturedFramesRef.current.length < MAX_BUFFER_FRAMES) {
-              capturedFramesRef.current.push({ data: processedData, timestamp: now })
+              capturedFramesRef.current.push({ data: imageData, timestamp: now })
             } else {
               // Buffer full, rotate (keep latest)
               capturedFramesRef.current.shift()
-              capturedFramesRef.current.push({ data: processedData, timestamp: now })
+              capturedFramesRef.current.push({ data: imageData, timestamp: now })
             }
           } else {
             // Before the end - keep a rolling buffer of recent frames
             // This ensures we have frames even if video ends early
             if (capturedFramesRef.current.length < MAX_BUFFER_FRAMES) {
-              capturedFramesRef.current.push({ data: processedData, timestamp: now })
+              capturedFramesRef.current.push({ data: imageData, timestamp: now })
             } else {
               // Keep only the most recent frames (rolling window)
               capturedFramesRef.current.shift()
-              capturedFramesRef.current.push({ data: processedData, timestamp: now })
+              capturedFramesRef.current.push({ data: imageData, timestamp: now })
             }
           }
         } else {
           // Video duration not available yet - still capture frames
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
           if (capturedFramesRef.current.length < MAX_BUFFER_FRAMES) {
-            capturedFramesRef.current.push({ data: processedData, timestamp: now })
+            capturedFramesRef.current.push({ data: imageData, timestamp: now })
           } else {
             capturedFramesRef.current.shift()
-            capturedFramesRef.current.push({ data: processedData, timestamp: now })
+            capturedFramesRef.current.push({ data: imageData, timestamp: now })
           }
         }
       }
@@ -293,54 +247,6 @@ export default function GreenScreenVideo({
 
     const handleLoadedMetadata = () => {
       updateCanvasSize()
-      
-      // Capture first frame for loading placeholder
-      const captureFirstFrame = () => {
-        if (firstFrameCapturedRef.current) return // Already captured
-        
-        if (video.readyState >= 2 && video.videoWidth > 0 && video.videoHeight > 0) {
-          const tempCanvas = document.createElement('canvas')
-          // Use same size constraints as main canvas
-          const aspect = video.videoWidth / video.videoHeight
-          let w = video.videoWidth
-          let h = video.videoHeight
-          
-          if (w > MAX_PROCESSING_WIDTH) {
-            w = MAX_PROCESSING_WIDTH
-            h = w / aspect
-          }
-          
-          tempCanvas.width = w
-          tempCanvas.height = h
-          const tempCtx = tempCanvas.getContext('2d')
-          if (tempCtx) {
-            tempCtx.drawImage(video, 0, 0, w, h)
-            // Apply chroma key to first frame
-            const imageData = tempCtx.getImageData(0, 0, w, h)
-            const processedData = chromaKey(imageData)
-            tempCtx.putImageData(processedData, 0, 0)
-            // Convert to data URL
-            const dataUrl = tempCanvas.toDataURL('image/png')
-            setFirstFrameUrl(dataUrl)
-            firstFrameCapturedRef.current = true
-          }
-        }
-      }
-      
-      // Try to capture immediately
-      captureFirstFrame()
-      
-      // Also try after a short delay in case video isn't fully ready
-      if (video.readyState < 2 && !firstFrameCapturedRef.current) {
-        const checkReady = () => {
-          if (video.readyState >= 2 && !firstFrameCapturedRef.current) {
-            captureFirstFrame()
-          } else if (video.readyState < 2) {
-            setTimeout(checkReady, 100)
-          }
-        }
-        setTimeout(checkReady, 100)
-      }
     }
 
     // Trigger logic
@@ -493,19 +399,19 @@ export default function GreenScreenVideo({
         className="absolute opacity-0 pointer-events-none"
       />
 
-      {/* Canvas with chroma key applied */}
+      {/* Canvas displaying video */}
       <canvas
         ref={canvasRef}
         className="w-full h-full object-contain"
         style={{ display: 'block' }}
       />
 
-      {/* Loading state - show first frame if available, otherwise show spinner */}
+      {/* Loading state - show placeholder image if available, otherwise show spinner */}
       {isLoading && !videoError && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden">
-          {firstFrameUrl ? (
+          {placeholder ? (
             <img
-              src={firstFrameUrl}
+              src={placeholder}
               alt="Loading video"
               className="w-full h-full object-contain"
             />

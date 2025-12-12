@@ -15,7 +15,7 @@ export default function Home() {
       <Hero />
 
       <section className="pb-24 pt-12 bg-gray-100">
-        <div className="max-w-sm sm:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center space-y-10">
 
             {/* App Store Section */}
@@ -27,9 +27,9 @@ export default function Home() {
                 Offload the planning to an agent that knows how you learn. Download Memsurf to turn your information consumption into lasting mastery.
               </p>
 
-              <div className="pt-4 flex flex-col items-center gap-3">
-                <div className="flex flex-col sm:flex-row items-center gap-4">
-                  <StoreBadges location="app_store_section" imageClassName="h-[60px] w-auto" />
+              <div className="pt-4 flex flex-col items-center gap-3 w-full">
+                <div className="w-full px-4">
+                  <StoreBadges location="app_store_section" />
                 </div>
                 <span className="text-xs text-gray-500 font-medium tracking-wide uppercase mt-1">
                   Download from iPhone & Android
@@ -41,7 +41,7 @@ export default function Home() {
             </div>
 
             {/* Email Subscription Section */}
-            <div className="w-full max-w-sm sm:max-w-xl space-y-4 pt-4">
+            <div className="w-full max-w-xl space-y-4 pt-4">
               <p className="text-sm text-gray-500">
                 Sign up for email list to hear updates.
               </p>

@@ -136,7 +136,7 @@ export default function WorkflowAnimation() {
             <InstitutionScroll />
             {/* HOW IT WORKS Heading */}
             <div className="w-full flex justify-center mb-8 mt-[50px] z-40">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
+                <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
                     HOW IT WORKS
                 </h1>
             </div>
@@ -160,8 +160,8 @@ export default function WorkflowAnimation() {
                         >
 
 
-                            {/* Mobile Text (Visible only on small screens) */}
-                            <div className="block lg:hidden w-full max-w-[620px] text-center mb-24 px-4">
+                            {/* Mobile Text (Hidden on mobile browsers) */}
+                            <div className="hidden w-full max-w-[620px] text-center mb-24 px-4">
                                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d] mb-2">Universal Input</p>
                                 <h2 className="text-3xl font-bold text-gray-900 leading-tight">
                                     We Are Not Picky Eaters.
@@ -224,8 +224,8 @@ export default function WorkflowAnimation() {
                                     </div>
 
                                     {/* Phone Content */}
-                                    <div className="relative w-full flex justify-start pb-6 sm:pb-10 pt-28 sm:pt-32 lg:pt-36 z-20 pl-4">
-                                        <div className="relative w-[300px]">
+                                    <div className="relative w-full flex justify-start pb-6 sm:pb-10 pt-40 sm:pt-32 lg:pt-36 z-20 pl-4">
+                                        <div className="relative w-[280px]">
                                             {/* Flying Icons */}
                                             <div className="absolute inset-0 overflow-visible pointer-events-none">
                                                 <AnimatePresence>
@@ -284,7 +284,7 @@ export default function WorkflowAnimation() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center">
+                            <h2 className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap text-center">
                                 Your Agent Designs The Learning
                             </h2>
 
@@ -308,11 +308,11 @@ export default function WorkflowAnimation() {
                                 {/* Text Area (Right Side) */}
                                 <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pl-0 xl:pl-24 z-10 pr-0 xl:pr-6 min-w-0 overflow-hidden mb-8 xl:mb-0">
                                     <div className="space-y-4 text-center xl:text-left px-4 xl:px-0">
-                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]">Intelligent Curriculum</p>
-                                        <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                                        <p className="hidden xl:block text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]">Intelligent Curriculum</p>
+                                        <h2 className="hidden md:block text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
                                             We Do The Thinking For You.
                                         </h2>
-                                        <p className="text-base md:text-lg text-gray-600 max-w-xl mx-auto xl:mx-0">
+                                        <p className="text-xl md:text-lg text-gray-600 max-w-xl mx-auto xl:mx-0">
                                             Our agent ruthlessly optimizes your learning path. It cuts the fluff and feeds you the good stuff. It&apos;s like having a strict tutor, but one you can mute.
                                         </p>
                                     </div>

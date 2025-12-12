@@ -1,0 +1,63 @@
+# Ngrok Authtokens - Saved for easy switching
+# To switch accounts, update the authtoken in: ~/Library/Application Support/ngrok/ngrok.yml
+
+# Account 1 (Original - Active)
+31oyXERRDo6Uvnt2bzIXMj8JywS_5vvxQSUzGXKZQ2nhnpuVh
+
+# Account 2 (New)
+35iYGcscPgFpfQTwFd2JhZoh59x_2J3dVgDZTKjWXAL3v6xYK
+
+# ============================================================================
+# CURRENT ACTIVE NGROK URL
+# ============================================================================
+# Current URL (as of last update): https://dad6756444bd.ngrok-free.app
+# This URL is configured in:
+#   - localdev.py (line 10)
+#   - APIService.swift (lines 27, 33)
+# ============================================================================
+
+# ============================================================================
+# HOW TO SWITCH NGROK ACCOUNTS
+# ============================================================================
+# 
+# Step 1: Update ngrok authtoken
+#   Run: ngrok config add-authtoken <authtoken>
+#   OR manually edit: ~/Library/Application Support/ngrok/ngrok.yml
+#
+# Step 2: Start ngrok and get the new forwarding URL
+#   Run: ngrok http 8000
+#   Copy the forwarding URL (e.g., https://abc123.ngrok-free.app)
+#
+# Step 3: Update Django Backend (localdev.py)
+#   File: RememqBackend/RememqBackend/settings/localdev.py
+#   Line 10: Update the default NGROK_URL value:
+#     NGROK_URL = os.environ.get('NGROK_URL', 'https://YOUR_NEW_NGROK_URL.ngrok-free.app')
+#   
+#   Note: You can also set it via environment variable:
+#     export NGROK_URL=https://YOUR_NEW_NGROK_URL.ngrok-free.app
+#
+# Step 4: Update iOS App (APIService.swift)
+#   File: Rememq/SharedAPI/APIService.swift
+#   
+#   Option A - Update default URLs (lines 27 and 33):
+#     Line 27 (dev): return "https://YOUR_NEW_NGROK_URL.ngrok-free.app/api/"
+#     Line 33 (staging): return "https://YOUR_NEW_NGROK_URL.ngrok-free.app/api/"
+#   
+#   Option B - Use custom URL in UserDefaults (recommended for testing):
+#     The app already supports custom_ngrok_url in UserDefaults.
+#     You can update it programmatically or use the NgrokURLConfigView in the app.
+#     This allows switching without rebuilding the app.
+#
+# ============================================================================
+# QUICK REFERENCE - File Locations
+# ============================================================================
+# 
+# Ngrok Config: ~/Library/Application Support/ngrok/ngrok.yml
+# Django Settings: RememqBackend/RememqBackend/settings/localdev.py (line 10)
+# iOS API Service: Rememq/SharedAPI/APIService.swift (lines 27, 33)
+#
+# ============================================================================
+
+
+
+

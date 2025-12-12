@@ -121,7 +121,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                 {/* PHASE 1: RAW CONTENT (Enters -> Morphs to Strip) */}
                 <motion.div
                     style={{ opacity: rawContentOpacity, scale: rawContentScale }}
-                    className="absolute flex flex-col items-start justify-start p-4 bg-white rounded-xl shadow-lg border border-gray-200 z-30 w-[220px]"
+                    className="absolute flex flex-col items-start justify-start p-4 bg-white rounded-xl shadow-lg border border-gray-200 z-30 w-[205px]"
                 >
                     <div className="flex items-center gap-3 mb-3 w-full">
                         <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
@@ -146,7 +146,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                     {/* Unified blob before split */}
                     <motion.div
                         style={{ opacity: unifiedOpacity, y: unifiedY, scale: unifiedScale }}
-                        className="absolute z-10 flex flex-col items-start gap-1.5 w-[230px] sm:w-[260px]"
+                        className="absolute z-10 flex flex-col items-start gap-1.5 w-[215px] sm:w-[243px]"
                     >
                         {Array.from({ length: 7 }).map((_, i) => {
                             const { start, end } = getUnifiedLineStats(i);
@@ -168,7 +168,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                     {/* LESSON 1 GROUP (TOP) */}
                     <motion.div
                         style={{ y: topGroupY, opacity: splitGroupOpacity }}
-                        className="absolute z-20 flex flex-col items-start gap-1.5 w-[230px] sm:w-[260px]"
+                        className="absolute z-20 flex flex-col items-start gap-1.5 w-[215px] sm:w-[243px]"
                     >
                         {/* THE CARD CONTAINER (Fades in AROUND content) */}
                         <motion.div
@@ -270,7 +270,7 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                     {/* LESSON 2 GROUP (BOTTOM) */}
                     <motion.div
                         style={{ y: bottomGroupY, opacity: splitGroupOpacity }}
-                        className="absolute z-20 flex flex-col items-start gap-1.5 w-[230px] sm:w-[260px]"
+                        className="absolute z-20 flex flex-col items-start gap-1.5 w-[215px] sm:w-[243px]"
                     >
                         {/* THE CARD CONTAINER */}
                         <motion.div

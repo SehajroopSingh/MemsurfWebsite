@@ -24,9 +24,27 @@ body {
   overflow-x: auto;
 }
 
-@media (min-width: 640px) {
+/* Desktop min-width */
+@media (min-width: 641px) {
   body {
     min-width: 700px;
+  }
+}
+
+/* Mobile - match purple card width (620px) */
+@media (max-width: 640px) {
+  html,
+  body {
+    min-width: 620px !important;
+    width: 620px !important;
+    margin: 0 auto !important;
+    overflow-x: auto !important;
+  }
+  
+  main {
+    min-width: 620px !important;
+    width: 620px !important;
+    margin: 0 auto !important;
   }
 }
 

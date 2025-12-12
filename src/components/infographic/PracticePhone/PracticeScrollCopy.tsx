@@ -27,7 +27,7 @@ export default function PracticeScrollCopy({
                 className="flex-1 bg-[#8c648d] rounded-l-[2.5rem] rounded-r-[1.5rem] shadow-sm border border-white/50 p-6 flex flex-col justify-center w-full z-10"
             >
                 <div className="max-w-xl">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-300 mb-2">The Bar Is Low</p>
+                    <p className="hidden md:block text-xs font-semibold uppercase tracking-[0.3em] text-blue-300 mb-2">The Bar Is Low</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                         Your Only Job is to Tap.
                     </h2>
@@ -43,7 +43,7 @@ export default function PracticeScrollCopy({
                 className="flex-1 bg-[#8c648d] rounded-l-[2.5rem] rounded-r-[1.5rem] shadow-sm border border-white/50 p-6 flex flex-col justify-center w-full z-10"
             >
                 <div className="max-w-xl">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-300 mb-2">Spoon-Fed Wisdom</p>
+                    <p className="hidden md:block text-xs font-semibold uppercase tracking-[0.3em] text-indigo-300 mb-2">Spoon-Fed Wisdom</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                         We Read It So You Don&apos;t Have To.
                     </h2>
@@ -59,7 +59,7 @@ export default function PracticeScrollCopy({
                 className="flex-1 bg-[#8c648d] rounded-l-[2.5rem] rounded-r-[1.5rem] shadow-sm border border-white/50 p-6 flex flex-col justify-center w-full z-10"
             >
                 <div className="max-w-xl">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-200 mb-2">The Ghost of Lessons Past</p>
+                    <p className="hidden md:block text-xs font-semibold uppercase tracking-[0.3em] text-purple-200 mb-2">The Ghost of Lessons Past</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                         We Will Haunt You With Knowledge.
                     </h2>

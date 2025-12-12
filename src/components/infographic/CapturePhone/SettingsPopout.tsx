@@ -32,17 +32,17 @@ export default function SettingsPopout({
                     className="absolute top-[270px] left-[325px] w-[280px] z-50 text-left"
                 >
                     <div className="mb-4">
-                        <h4 className="text-lg font-bold text-orange-600 leading-tight">
+                        <h4 className="text-xl font-bold text-white leading-tight">
                             Depth
                         </h4>
-                        <p className="text-sm text-white/70 mt-1">Choose how much detail you want to retain.</p>
+                        <p className="text-sm text-white/90 mt-2">Choose how much detail you want to retain.</p>
                         <AnimatePresence mode="wait">
                             <motion.p
                                 key={depthStage}
                                 initial={{ opacity: 0, y: 5 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -5 }}
-                                className="text-sm font-medium text-white/90 mt-1"
+                                className="text-sm font-medium text-white mt-2"
                             >
                                 {DEPTH_STATES[depthStage].label} Points
                             </motion.p>
@@ -141,10 +141,10 @@ export default function SettingsPopout({
                     transition={{ duration: 0.5, delay: 1.6 }}
                     className="absolute top-[5px] left-[325px] w-[280px] z-50 text-left"
                 >
-                    <h4 className="text-xl font-bold text-orange-600 leading-tight mb-2">
+                    <h4 className="text-xl font-bold text-white leading-tight mb-3">
                         Quiz Difficulty
                     </h4>
-                    <p className="text-sm text-white/70 mb-2">Choose quiz difficulty levels.</p>
+                    <p className="text-sm text-white/90 mb-3">Choose quiz difficulty levels.</p>
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={difficultyStage}
@@ -153,8 +153,7 @@ export default function SettingsPopout({
                             exit={{ opacity: 0, y: -5 }}
                             className="text-sm"
                         >
-                            <p className="font-bold text-white/90 mb-1">{DIFFICULTY_STATES[difficultyStage].label}</p>
-                            <p className="leading-relaxed mb-1 text-white/80">{DIFFICULTY_STATES[difficultyStage].desc}</p>
+                            <p className="font-bold text-white leading-relaxed">{DIFFICULTY_STATES[difficultyStage].label} - {DIFFICULTY_STATES[difficultyStage].desc}</p>
                         </motion.div>
                     </AnimatePresence>
                 </motion.div>
@@ -167,10 +166,10 @@ export default function SettingsPopout({
                     transition={{ duration: 0.5, delay: 1.4 }}
                     className="absolute top-[130px] left-[325px] w-[260px] z-50 text-left"
                 >
-                    <h4 className="text-xl font-bold text-orange-600 leading-tight mb-2">
+                    <h4 className="text-xl font-bold text-white leading-tight mb-3">
                         Mastery Time
                     </h4>
-                    <p className="text-sm text-white/70 mb-2">Master the material by?</p>
+                    <p className="text-sm text-white/90 mb-3">Master the material by?</p>
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={timeStage}
@@ -179,8 +178,8 @@ export default function SettingsPopout({
                             exit={{ opacity: 0, y: -5 }}
                             className="text-sm"
                         >
-                            <p className="font-bold text-white/90 mb-1">{TIME_STATES[timeStage].label}</p>
-                            <p className="leading-relaxed mb-1 text-white/80">{TIME_STATES[timeStage].desc}</p>
+                            <p className="font-bold text-white mb-2">{TIME_STATES[timeStage].label}</p>
+                            <p className="leading-relaxed mb-1 text-white/90">{TIME_STATES[timeStage].desc}</p>
                         </motion.div>
                     </AnimatePresence>
                 </motion.div>

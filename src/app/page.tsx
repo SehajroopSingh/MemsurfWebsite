@@ -43,7 +43,7 @@ export default function Home() {
             {/* Email Subscription Section */}
             <div className="w-full max-w-xl space-y-4 pt-4">
               <p className="text-sm text-gray-500">
-                Join the Future of Learning
+                Sign up for email list to hear updates.
               </p>
               <WaitlistForm source="homepage_waitlist" />
             </div>

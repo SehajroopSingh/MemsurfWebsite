@@ -15,7 +15,7 @@ export default function Home() {
       <Hero />
 
       <section className="pb-24 pt-12 bg-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-sm sm:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center space-y-10">
 
             {/* App Store Section */}
@@ -41,7 +41,7 @@ export default function Home() {
             </div>
 
             {/* Email Subscription Section */}
-            <div className="w-full max-w-xl space-y-4 pt-4">
+            <div className="w-full max-w-sm sm:max-w-xl space-y-4 pt-4">
               <p className="text-sm text-gray-500">
                 Sign up for email list to hear updates.
               </p>

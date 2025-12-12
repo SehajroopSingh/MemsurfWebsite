@@ -10,7 +10,7 @@ export default function ComingSoonPage() {
     <main className="min-h-screen flex flex-col bg-white">
       <Navigation />
       <section className="flex-1 pt-24 pb-16 flex items-center justify-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="max-w-sm sm:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="flex flex-col items-center text-center space-y-8">
             
             {/* Coming Soon Badge */}
@@ -73,7 +73,7 @@ export default function ComingSoonPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="w-full max-w-xl space-y-4 pt-8"
+              className="w-full max-w-sm sm:max-w-xl space-y-4 pt-8"
             >
               <p className="text-sm text-gray-500">
                 Want to be the first to know? Sign up to get notified when we launch.

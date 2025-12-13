@@ -31,11 +31,11 @@ export default function Hero() {
                     >
                         <h1 className="text-7xl sm:text-8xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight">
                             <span className="bg-gradient-to-r from-blue-600 via-[#8c648d] to-pink-600 bg-clip-text text-transparent">
-                                Your Memory Is Leaking.
+                                The Memory Agent.
                             </span>
                         </h1>
                         <p className="text-3xl sm:text-4xl md:text-2xl text-gray-600 mb-0 max-w-3xl mx-auto lg:mx-0 leading-relaxed">
-                            It&apos;s a biological fact: you forget 90% of what you read. Stop trusting your brain. Trust our agent to patch the leak.
+                            You decide what&apos;s worth remembering. The agent optimizes how it sticks.
                         </p>
                     </motion.div>
 

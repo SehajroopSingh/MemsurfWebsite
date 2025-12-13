@@ -12,8 +12,18 @@ module.exports = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      animation: {
+        scan: 'scan 3s linear infinite',
+      },
+      keyframes: {
+        scan: {
+          '0%': { left: '-100%' },
+          '100%': { left: '100%' },
+        },
+      },
     },
   },
+  darkMode: 'class',
   plugins: [],
 }
 

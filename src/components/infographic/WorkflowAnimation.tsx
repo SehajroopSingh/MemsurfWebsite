@@ -145,7 +145,7 @@ export default function WorkflowAnimation() {
             <div className="w-full bg-gray-100">
                 <div
                     ref={phone1ContainerRef}
-                    className="relative w-full min-h-[80vh] flex flex-col items-center justify-center mb-[10vh]"
+                    className="relative w-full min-h-[80vh] flex flex-col items-center justify-center mb-0"
                 >
 
                     <div className="sticky top-0 h-screen flex items-center justify-center overflow-visible">
@@ -265,14 +265,14 @@ export default function WorkflowAnimation() {
                 </div>
 
                 {/* TRANSITION ZONE */}
-                <div className="relative w-full h-[80vh] -mt-[25vh] -mb-[55vh] z-[50] pointer-events-none">
+                <div className="relative w-full h-[30vh] lg:h-[10vh] -mt-[5vh] lg:-mt-0 -mb-[25vh] lg:-mb-[10vh] z-[50] pointer-events-none">
                     <RawContentTransition />
                 </div>
 
                 {/* PHONE 2 SECTION */}
                 <div
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[100vh] flex items-center justify-center -mt-10 pb-8"
+                    className="relative w-full z-40 min-h-[100vh] flex items-center justify-center -mt-0 lg:-mt-[20vh] pb-0"
                 >
 
                     <div className="sticky top-0 h-screen flex items-start justify-center overflow-visible pt-[5vh]">

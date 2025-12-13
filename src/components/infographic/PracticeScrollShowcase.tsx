@@ -107,7 +107,7 @@ export default function PracticeScrollShowcase() {
 
     // Increase height enough to scroll past but not be huge
     return (
-        <section className="relative w-full z-50 mt-24 xl:-mt-16">
+        <section className="relative w-full z-50 mt-0 xl:-mt-56">
             <div
                 ref={containerRef}
                 className="relative min-h-[100vh] flex items-center"

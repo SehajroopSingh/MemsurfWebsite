@@ -294,7 +294,7 @@ const SECTIONS: SectionData[] = [
     {
         id: 0,
         title: "Morphic Learning",
-        shortDesc: "The only learning system that adapts to your content, not a textbook's.",
+        shortDesc: "Where a memory agent adapts to your content, your context, and your goals.",
         color: "#1f2937", // dim
         align: 'left',
         details: (

@@ -21,9 +21,27 @@ export function initAmplitude() {
   })
 }
 
+// Check if user is internal (for adding to events)
+function isInternalUser(): boolean {
+  if (typeof window === 'undefined') return false
+  // Check localStorage for cached value (set when ?internal=true is used)
+  try {
+    const stored = localStorage.getItem('amplitude_internal_user')
+    return stored === 'true'
+  } catch {
+    return false
+  }
+}
+
 // Track events
 export function trackEvent(eventName: string, eventProperties?: Record<string, any>) {
-  amplitude.track(eventName, eventProperties)
+  // Add is_internal to event properties if user is internal
+  // This makes it visible in Live Events stream
+  const enrichedProperties = {
+    ...eventProperties,
+    ...(isInternalUser() && { is_internal: true }),
+  }
+  amplitude.track(eventName, enrichedProperties)
 }
 
 // Set user properties (uses identify internally)

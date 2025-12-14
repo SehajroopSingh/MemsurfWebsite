@@ -20,6 +20,10 @@ export function useAmplitudeInit() {
         // Small delay to ensure Amplitude is fully initialized
         setTimeout(() => {
           setUserProperties({ is_internal: true })
+          // Also cache in localStorage so we can add it to events
+          try {
+            localStorage.setItem('amplitude_internal_user', 'true')
+          } catch {}
           console.log('✅ Tagged as internal user in Amplitude')
         }, 100)
       }

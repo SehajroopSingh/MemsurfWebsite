@@ -163,9 +163,12 @@ export default function WorkflowAnimation() {
                             {/* Mobile Text (Hidden on mobile browsers) */}
                             <div className="hidden w-full max-w-[620px] text-center mb-24 px-4">
                                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d] mb-2">Universal Input</p>
-                                <h2 className="text-3xl font-bold text-gray-900 leading-tight">
-                                    We Are Not Picky Eaters.
+                                <h2 className="text-2xl font-bold text-gray-900 leading-tight mb-2">
+                                    The agent meets you where your information lives.
                                 </h2>
+                                <p className="text-base text-gray-600 mb-4">
+                                    Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
+                                </p>
                             </div>
 
                             {/* Main Layout: Flex col on mobile, Grid on desktop */}
@@ -175,37 +178,12 @@ export default function WorkflowAnimation() {
                                 <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
                                     <div className="space-y-4 text-left">
                                         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-600">Universal Input</p>
-                                        <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                                            We Are Not Picky Eaters.
+                                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                                            The agent meets you where your information lives.
                                         </h2>
                                         <p className="text-base md:text-lg text-gray-600 max-w-xl">
-                                            Connect your apps, upload PDFs, or just copy-paste a chaotic wall of text. We digest it all. You used to have &quot;compatibility issues&quot;, now you just have no excuses.
+                                            Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
                                         </p>
-                                        <div className="space-y-2 mt-4">
-                                            <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Use cases:</p>
-                                            <ul className="space-y-2 text-base text-gray-700">
-                                                <li className="flex items-start">
-                                                    <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>Incoherent voice notes you recorded at 3 AM</span>
-                                                </li>
-                                                <li className="flex items-start">
-                                                    <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>That Notion database you spent a week building and never used</span>
-                                                </li>
-                                                <li className="flex items-start">
-                                                    <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>Panic-copying mostly unread walls of text</span>
-                                                </li>
-                                                <li className="flex items-start">
-                                                    <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>Doom-scrolling finds you want to save &quot;for later&quot;</span>
-                                                </li>
-                                                <li className="flex items-start">
-                                                    <span className="text-[#8c648d] mr-2">•</span>
-                                                    <span>The 50-page PDF you opened once</span>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
 

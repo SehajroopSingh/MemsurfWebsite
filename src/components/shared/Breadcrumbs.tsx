@@ -11,7 +11,7 @@ interface BreadcrumbItem {
 export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
     <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
-      <Link href="/dashboard" className="hover:text-gray-900 transition-colors">
+      <Link href="/" className="hover:text-gray-900 transition-colors">
         <Home className="w-4 h-4" />
       </Link>
       {items.map((item, index) => (

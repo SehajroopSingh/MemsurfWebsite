@@ -11,13 +11,6 @@ export const metadata: Metadata = {
   keywords: ['learning', 'quizzes', 'spaced repetition', 'AI learning', 'education', 'study tools'],
 }
 
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -25,7 +18,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head />
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var contentWidth = 620;
+                var deviceWidth = window.screen.width || window.innerWidth || 375;
+                var calculatedScale = Math.min(deviceWidth / contentWidth, 1);
+                var viewportContent = 'width=' + contentWidth + ', initial-scale=' + calculatedScale + ', maximum-scale=5, user-scalable=yes';
+                var meta = document.createElement('meta');
+                meta.name = 'viewport';
+                meta.content = viewportContent;
+                document.getElementsByTagName('head')[0].appendChild(meta);
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <AmplitudeProvider>
           {children}

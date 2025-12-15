@@ -35,16 +35,16 @@ body {
 @media (max-width: 640px) {
   html,
   body {
-    min-width: 620px !important;
-    width: 620px !important;
-    margin: 0 auto !important;
-    overflow-x: auto !important;
+    min-width: 620px;
+    width: 620px;
+    margin: 0 auto;
+    overflow-x: auto;
   }
   
   main {
-    min-width: 620px !important;
-    width: 620px !important;
-    margin: 0 auto !important;
+    min-width: 620px;
+    width: 620px;
+    margin: 0 auto;
   }
 }
 

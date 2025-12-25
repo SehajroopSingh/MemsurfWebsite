@@ -8,13 +8,13 @@ import WaitlistForm from '@/components/WaitlistForm'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen">
       <ScrollToTop />
       <ScrollMocker />
       <Navigation />
       <Hero />
 
-      <section className="pb-24 pt-12 bg-gray-100">
+      <section className="pb-24 pt-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center space-y-10">
 
@@ -49,6 +49,24 @@ export default function Home() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* Meet the Founder Section */}
+      <section className="py-20 border-t border-gray-100/10">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            Built for Mastery
+          </h3>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            Memsurf is built effectively by a team passionate about solving the memory problem.
+          </p>
+          <a
+            href="/team"
+            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors duration-200"
+          >
+            Meet the Founder
+          </a>
         </div>
       </section>
 

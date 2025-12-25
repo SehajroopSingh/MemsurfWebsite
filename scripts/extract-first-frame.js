@@ -64,3 +64,4 @@ try {
   console.error('❌ Failed to extract first frame:', error.message);
   process.exit(1);
 }
+

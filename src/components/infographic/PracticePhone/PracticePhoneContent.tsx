@@ -4,7 +4,7 @@ import React from 'react'
 import { AnimatePresence, motion, MotionValue } from 'framer-motion'
 import PhoneScreen from '../PhoneScreen'
 
-type QuizStage = 'trueFalse' | 'multiple' | 'matching' | 'fill' | 'ordering' | 'errorSpotting' | 'shortAnswer' | 'caseStudy' | null
+type QuizStage = 'trueFalse' | 'multiple' | 'matching' | 'fill' | 'ordering' | 'errorSpotting' | 'shortAnswer' | 'caseStudy' | 'sorting' | null
 
 const QUIZ_LABELS: Record<string, string> = {
     trueFalse: 'True or False',
@@ -14,7 +14,8 @@ const QUIZ_LABELS: Record<string, string> = {
     ordering: 'Put in Order',
     errorSpotting: 'Find the Error',
     shortAnswer: 'Short Answer',
-    caseStudy: 'Case Study'
+    caseStudy: 'Case Study',
+    sorting: 'Sort into Buckets'
 }
 
 type PracticePhoneContentProps = {
@@ -461,6 +462,82 @@ export default function PracticePhoneContent({
                                                         <div className="h-2 w-2/3 bg-[#8c648d]/30 rounded-full" />
                                                     </div>
                                                 ))}
+                                            </div>
+                                        </>
+                                    )}
+                                    {lockedQuiz === 'sorting' && (
+                                        <>
+                                            <div className="h-2 w-1/3 bg-[#8c648d]/30 rounded-full" />
+                                            <div className="flex-1 flex flex-col justify-between mt-2">
+                                                {/* The Item being sorted */}
+                                                <div className="flex-1 flex items-center justify-center relative">
+                                                    <motion.div
+                                                        key="sorting-item-1"
+                                                        initial={{ scale: 0.8, opacity: 0, y: 0, x: 0 }}
+                                                        animate={{
+                                                            scale: [0.8, 1, 1, 0.6, 0.4],
+                                                            opacity: [0, 1, 1, 0.8, 0],
+                                                            x: [0, 0, 0, -50, -65],
+                                                            y: [0, 0, 0, 45, 90]
+                                                        }}
+                                                        transition={{
+                                                            duration: 2,
+                                                            times: [0, 0.2, 0.5, 0.8, 1],
+                                                            repeat: Infinity,
+                                                            ease: "easeInOut"
+                                                        }}
+                                                        className="w-24 h-12 rounded-xl bg-white border border-blue-200 shadow-[0_4px_12px_rgba(59,130,246,0.1)] flex flex-col gap-1.5 p-2.5 z-10"
+                                                    >
+                                                        <div className="h-1.5 w-full bg-blue-100 rounded-full" />
+                                                        <div className="h-1.5 w-2/3 bg-blue-50 rounded-full" />
+                                                    </motion.div>
+
+                                                    <motion.div
+                                                        key="sorting-item-2"
+                                                        initial={{ scale: 0.8, opacity: 0, y: 0, x: 0 }}
+                                                        animate={{
+                                                            scale: [0.8, 1, 1, 0.6, 0.4],
+                                                            opacity: [0, 1, 1, 0.8, 0],
+                                                            x: [0, 0, 0, 50, 65],
+                                                            y: [0, 0, 0, 45, 90]
+                                                        }}
+                                                        transition={{
+                                                            duration: 2,
+                                                            delay: 1,
+                                                            times: [0, 0.2, 0.5, 0.8, 1],
+                                                            repeat: Infinity,
+                                                            ease: "easeInOut"
+                                                        }}
+                                                        className="absolute w-24 h-12 rounded-xl bg-white border border-indigo-200 shadow-[0_4px_12px_rgba(99,102,241,0.1)] flex flex-col gap-1.5 p-2.5 z-10"
+                                                    >
+                                                        <div className="h-1.5 w-full bg-indigo-100 rounded-full" />
+                                                        <div className="h-1.5 w-1/2 bg-indigo-50 rounded-full" />
+                                                        <div className="h-1.5 w-3/4 bg-indigo-50 rounded-full" />
+                                                    </motion.div>
+                                                </div>
+
+                                                {/* Differentiated Buckets */}
+                                                <div className="flex gap-4 mb-2">
+                                                    {/* Bucket A: Causes */}
+                                                    <div className="flex-1 h-24 rounded-t-[2rem] border-t-2 border-x-2 border-dashed border-blue-200 bg-blue-50/30 flex flex-col items-center justify-end pb-4 gap-2 relative overflow-hidden">
+                                                        <div className="absolute top-2 flex gap-1">
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-300/40" />
+                                                            <div className="w-4 h-1.5 rounded-full bg-blue-300/40" />
+                                                        </div>
+                                                        <div className="h-2 w-12 bg-blue-400/20 rounded-full" />
+                                                        <span className="text-[9px] font-black text-blue-500/50 uppercase tracking-widest">Causes</span>
+                                                    </div>
+
+                                                    {/* Bucket B: Effects */}
+                                                    <div className="flex-1 h-24 rounded-t-[2rem] border-t-2 border-x-2 border-dashed border-indigo-200 bg-indigo-50/30 flex flex-col items-center justify-end pb-4 gap-2 relative overflow-hidden">
+                                                        <div className="absolute top-2 flex flex-col gap-1">
+                                                            <div className="w-6 h-1 rounded-full bg-indigo-300/40" />
+                                                            <div className="w-4 h-1 rounded-full bg-indigo-300/40" />
+                                                        </div>
+                                                        <div className="h-2 w-12 bg-indigo-400/20 rounded-full" />
+                                                        <span className="text-[9px] font-black text-indigo-500/50 uppercase tracking-widest">Effects</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </>
                                     )}

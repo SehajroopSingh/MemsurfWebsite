@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { AmplitudeProvider } from '@/components/AmplitudeProvider'
+import BlobbyBackground from '@/components/BlobbyBackground'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,6 +38,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <BlobbyBackground />
         <AmplitudeProvider>
           {children}
         </AmplitudeProvider>

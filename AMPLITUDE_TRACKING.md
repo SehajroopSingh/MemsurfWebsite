@@ -205,3 +205,4 @@ const handleLogout = () => {
 - Footer links/social: `src/components/Footer.tsx`
 - Feature impressions: `src/components/Features.tsx`
 - CTA buttons: `src/components/CTA.tsx`
+

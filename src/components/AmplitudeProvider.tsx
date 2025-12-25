@@ -12,3 +12,4 @@ export function AmplitudeProvider({ children }: { children: React.ReactNode }) {
 
   return <>{children}</>
 }
+

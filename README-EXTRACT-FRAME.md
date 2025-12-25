@@ -36,3 +36,4 @@ The script will automatically:
 - Extract the first frame at 0 seconds
 - Save it as a high-quality PNG
 - Use the correct filename format
+

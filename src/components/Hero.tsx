@@ -11,7 +11,7 @@ import StoreBadges from './StoreBadges'
 
 export default function Hero() {
     return (
-        <section className="relative bg-white">
+        <section className="relative">
             <div className="relative min-h-screen flex flex-col items-center justify-start pt-24 sm:pt-28 pb-0 gap-10">
 
                 {/* Background Ambience */}

@@ -6,9 +6,9 @@ import PracticePhoneContent from './PracticePhone/PracticePhoneContent'
 import PracticeScrollCopy from './PracticePhone/PracticeScrollCopy'
 import { useTimeProgress } from '../../hooks/useTimeProgress'
 
-type QuizStage = 'trueFalse' | 'multiple' | 'matching' | 'fill' | 'ordering' | 'errorSpotting' | 'shortAnswer' | 'caseStudy' | null
+type QuizStage = 'trueFalse' | 'multiple' | 'matching' | 'fill' | 'ordering' | 'errorSpotting' | 'shortAnswer' | 'caseStudy' | 'sorting' | null
 const QUIZ_START_THRESHOLD = 0.47
-const STAGES: Exclude<QuizStage, null>[] = ['trueFalse', 'multiple', 'shortAnswer', 'caseStudy', 'matching', 'fill', 'ordering', 'errorSpotting']
+const STAGES: Exclude<QuizStage, null>[] = ['trueFalse', 'multiple', 'shortAnswer', 'caseStudy', 'matching', 'fill', 'ordering', 'errorSpotting', 'sorting']
 
 export default function PracticeScrollShowcase() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -90,7 +90,7 @@ export default function PracticeScrollShowcase() {
                             const nextIndex = (currentIndex + 1) % STAGES.length
                             return STAGES[nextIndex]
                         })
-                    }, 1800) // Cycle every 1.8 seconds
+                    }, 2500) // Cycle every 2.5 seconds (balanced pacing)
                 }
             } else {
                 if (interval) clearInterval(interval)

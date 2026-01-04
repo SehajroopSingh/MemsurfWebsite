@@ -38,7 +38,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <BlobbyBackground />
+        {/* <BlobbyBackground /> */}
         <AmplitudeProvider>
           {children}
         </AmplitudeProvider>

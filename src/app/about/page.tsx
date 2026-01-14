@@ -11,7 +11,7 @@ export default function AboutPage() {
             About Memsurf
           </h1>
           <p className="text-gray-700 text-lg mb-4">
-            Memsurf is an AI-powered learning platform that helps you turn any content
+            Memsurf is an adaptive learning platform that helps you turn any content
             into interactive quizzes, and master knowledge with spaced repetition.
           </p>
           <p className="text-gray-700 text-lg">

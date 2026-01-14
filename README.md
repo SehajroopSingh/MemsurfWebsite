@@ -1,6 +1,6 @@
 # Memsurf Marketing Website
 
-A modern, responsive marketing landing page for Memsurf (Rememq) - an AI-powered learning platform. This website showcases the platform's features including AI quiz generation, quick capture, spaced repetition, and intelligent learning paths.
+A modern, responsive marketing landing page for Memsurf (Rememq) - an adaptive learning platform. This website showcases the platform's features including smart quiz generation, quick capture, spaced repetition, and intelligent learning paths.
 
 ## 🚀 Features
 
@@ -81,7 +81,7 @@ MemsurfWebsite/
 4. **Quiz Showcase** - Interactive quiz type demonstrations
 5. **Quick Capture** - Content transformation flow
 6. **Spaced Repetition** - Science-backed learning visualization
-7. **AI-Powered** - AI features and processing flow
+7. **Smart Processing** - Intelligent analysis and processing flow
 8. **Testimonials** - Social proof and statistics
 9. **CTA** - Final call-to-action section
 10. **Footer** - Links and company information

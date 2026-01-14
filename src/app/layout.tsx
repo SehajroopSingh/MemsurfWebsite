@@ -7,9 +7,9 @@ import BlobbyBackground from '@/components/BlobbyBackground'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Memsurf - AI-Powered Learning Platform',
-  description: 'Transform any content into interactive quizzes. Master knowledge with spaced repetition and AI-powered learning.',
-  keywords: ['learning', 'quizzes', 'spaced repetition', 'AI learning', 'education', 'study tools'],
+  title: 'Memsurf – Make Knowledge Stick',
+  description: 'Transform any content into interactive quizzes. Master knowledge with spaced repetition and adaptive learning.',
+  keywords: ['learning', 'quizzes', 'spaced repetition', 'education', 'study tools', 'adaptive learning'],
 }
 
 export default function RootLayout({

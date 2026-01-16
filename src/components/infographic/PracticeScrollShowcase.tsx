@@ -107,12 +107,12 @@ export default function PracticeScrollShowcase() {
 
     // Increase height enough to scroll past but not be huge
     return (
-        <section className="relative w-full z-50 mt-0 xl:-mt-56">
+        <section className="relative w-full z-40 -mt-[8vh] lg:mt-0 xl:-mt-4">
             <div
                 ref={containerRef}
-                className="relative min-h-[100vh] flex items-center"
+                className="relative min-h-[65vh] lg:min-h-[100vh] flex items-center"
             >
-                <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+                <div className="sticky top-0 h-[80vh] lg:h-screen w-full flex items-center justify-center">
                     <motion.div
                         className="relative flex flex-col items-center justify-center z-30 overflow-visible w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px]"
                         initial={{ opacity: 0, scale: 0.9 }}

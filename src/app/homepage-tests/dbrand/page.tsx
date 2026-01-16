@@ -8,12 +8,10 @@ import AIPoweredShowcase from '@/components/AIPoweredShowcase'
 import Testimonials from '@/components/Testimonials'
 import CTA from '@/components/CTA'
 import Footer from '@/components/Footer'
-import ScrollMocker from '@/components/ScrollMocker'
 
 export default function DbrandHome() {
     return (
         <main className="min-h-screen bg-black">
-            <ScrollMocker />
             <Navigation />
             <Hero />
             <Features />

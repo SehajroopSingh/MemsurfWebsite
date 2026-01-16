@@ -100,7 +100,7 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 h-14 sm:h-auto px-6 rounded-full bg-black text-white font-semibold text-sm hover:bg-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center"
+          className="w-full sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 h-14 sm:h-auto px-6 rounded-full bg-black text-white font-semibold text-xl sm:text-base hover:bg-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center"
         >
           {isLoading ? (
             <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

@@ -134,10 +134,10 @@ export default function InstitutionScroll() {
   const duplicatedInstitutions = [...availableInstitutions, ...availableInstitutions, ...availableInstitutions]
 
   return (
-    <section className="py-10 md:py-6 bg-white border-y border-gray-100/50">
+    <section className="py-10 md:py-6 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <p className="text-sm font-semibold tracking-wider text-gray-400 uppercase">
+          <p className="text-sm font-semibold tracking-wider text-gray-600 uppercase">
             Trusted by learners from
           </p>
         </div>
@@ -163,7 +163,7 @@ export default function InstitutionScroll() {
                         key={`${institution.key}-${index}`}
                         className="group flex-shrink-0 flex flex-col items-center justify-center cursor-default"
                       >
-                        <div className="relative w-24 h-12 md:w-32 md:h-16 flex items-center justify-center opacity-40 grayscale transition-all duration-300 hover:grayscale-0 hover:opacity-100">
+                        <div className="relative w-24 h-12 md:w-32 md:h-16 flex items-center justify-center opacity-80 transition-all duration-300 hover:opacity-100">
                           <Image
                             src={logoPath}
                             alt={institution.alt}

@@ -23,7 +23,7 @@ export default function StoreBadges({
   }
 
   return (
-    <div className="w-full sm:w-auto flex flex-row gap-3 sm:gap-4 sm:gap-6">
+    <div className="w-full sm:w-auto flex flex-row gap-3 sm:gap-4 sm:gap-6 justify-center items-center">
       <a
         href="/coming-soon"
         onClick={() => handleClick('app_store')}

@@ -18,7 +18,7 @@ export default function ContactPage() {
               You can reach the Memsurf team at:
             </p>
             <p className="font-medium">
-              support@memsurf.ai
+              contact@memsurf.com
             </p>
             <p>
               We aim to respond to most inquiries within 1–2 business days.

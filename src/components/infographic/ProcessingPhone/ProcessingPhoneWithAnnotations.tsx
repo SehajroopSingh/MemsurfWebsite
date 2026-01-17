@@ -27,17 +27,23 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
     const bullet3Y = useTransform(progress, [0.70, 0.80], [10, 0])
 
     return (
-        <div className="relative flex items-center w-[620px] z-30">
+        <div className="relative flex items-center w-full z-30">
+            <div className="flex-shrink-0 relative w-[280px]">
+                <PhoneScreen>
+                    <ProcessingScreen progress={progress} />
+                </PhoneScreen>
+            </div>
+
             {/* Processing annotations anchored outside the phone */}
-            <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-4 z-40 flex flex-col gap-2 items-start max-w-[260px] text-gray-800 text-sm sm:text-base leading-relaxed">
+            <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[calc(280px+1rem)] z-40 flex flex-col gap-2 items-start max-w-[260px] text-gray-800 text-sm sm:text-base leading-relaxed">
 
                 {/* Bullet 1 */}
                 <motion.div
                     className="relative text-left"
                     style={{ opacity: bullet1Opacity, y: bullet1Y }}
                 >
-                    <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-white/60" />
-                    <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-white" />
+                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-white/60" />
+                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-white" />
                     <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-white">Extract relevant content</p>
                     <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
                         The agent analyzes raw input, extracting key insights based on depth and context to identify what matters.
@@ -57,8 +63,8 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative text-left"
                     style={{ opacity: bullet2Opacity, y: bullet2Y }}
                 >
-                    <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-white/60" />
-                    <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-white" />
+                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-white/60" />
+                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-white" />
                     <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-white">Build lesson plan and modules</p>
                     <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
                         It organizes this content into a structured lesson plan, breaking complex topics into clear, digestible modules.
@@ -78,19 +84,13 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative text-left"
                     style={{ opacity: bullet3Opacity, y: bullet3Y }}
                 >
-                    <span className="absolute left-full top-[16px] ml-4 w-16 h-px bg-white/60" />
-                    <span className="absolute left-full top-[16px] ml-[4.75rem] w-2 h-2 rounded-full bg-white" />
+                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-white/60" />
+                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-white" />
                     <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-white">Generate quizzes</p>
                     <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
                         Finally, it generates targeted quizzes to test your understanding and reinforce the learning objectives.
                     </p>
                 </motion.div>
-            </div>
-
-            <div className="flex-shrink-0 ml-auto w-[280px]">
-                <PhoneScreen>
-                    <ProcessingScreen progress={progress} />
-                </PhoneScreen>
             </div>
         </div>
     )

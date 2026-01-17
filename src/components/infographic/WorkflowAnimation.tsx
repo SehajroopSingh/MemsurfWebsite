@@ -151,7 +151,7 @@ export default function WorkflowAnimation() {
                     <div className="sticky top-0 h-screen flex items-center justify-center overflow-visible">
 
                         <motion.div
-                            className="relative flex flex-col items-start lg:items-center justify-center z-30 overflow-visible w-full lg:w-[95vw] max-w-[1800px] gap-4 sm:gap-6"
+                            className="relative flex flex-col items-center justify-center z-30 overflow-visible w-full max-w-[1800px] gap-4 sm:gap-6"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
@@ -172,7 +172,7 @@ export default function WorkflowAnimation() {
                             </div>
 
                             {/* Main Layout: Flex col on mobile, Grid on desktop */}
-                            <div className="relative w-full flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_620px] gap-0 items-start lg:items-center justify-center">
+                            <div className="relative w-full flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_620px] gap-0 items-center justify-center">
 
                                 {/* Desktop Text Area (Hidden on mobile) */}
                                 <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
@@ -191,18 +191,15 @@ export default function WorkflowAnimation() {
                                 {/* This wrapper ensures the background sizes to the phone content, not the grid row */}
                                 <div className="relative col-start-2 col-end-3 row-start-1 w-full min-w-[620px] max-w-[620px] flex justify-start z-20 lg:pt-0">
 
-                                    {/* Inner Card Background */}
-                                    <div className="hidden lg:block absolute inset-y-0 left-0 bg-[#8c648d] rounded-r-[2.5rem] rounded-l-[2rem] shadow-sm border border-white/50 w-[calc(100%+20px)] -ml-[20px]" />
-                                    {/* Mobile Background (Different constraints) */}
-                                    <div className="block lg:hidden absolute inset-0 bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 w-full h-full" />
+                                    {/* Purple Card Background */}
+                                    <div className="relative w-full min-w-[620px] max-w-[620px] bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col">
+                                        {/* "INPUT FROM ANY SOURCE" Text - Centered in Card */}
+                                        <div className="absolute top-[-3rem] sm:top-[-4rem] lg:top-[-5rem] w-full flex justify-center z-30 pointer-events-none">
+                                            <p className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap">INPUT FROM ANY SOURCE</p>
+                                        </div>
 
-                                    {/* "INPUT FROM ANY SOURCE" Text - Centered in Card */}
-                                    <div className="absolute top-[-3rem] sm:top-[-4rem] lg:top-[-5rem] w-full flex justify-center z-30 pointer-events-none">
-                                        <p className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap">INPUT FROM ANY SOURCE</p>
-                                    </div>
-
-                                    {/* Phone Content */}
-                                    <div className="relative w-full flex justify-start pb-6 sm:pb-10 pt-40 sm:pt-32 lg:pt-36 z-20 pl-4">
+                                        {/* Phone Content */}
+                                        <div className="relative w-full flex justify-start pb-6 sm:pb-10 pt-40 sm:pt-32 lg:pt-36 z-20 pl-4">
                                         <div className="relative w-[280px]">
                                             {/* Flying Icons */}
                                             <div className="absolute inset-0 overflow-visible pointer-events-none">
@@ -236,6 +233,7 @@ export default function WorkflowAnimation() {
                                             />
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
@@ -255,7 +253,7 @@ export default function WorkflowAnimation() {
 
                     <div className="sticky top-0 h-[60vh] md:h-[80vh] lg:h-screen flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh]">
                         <motion.div
-                            className="relative flex flex-col items-center justify-center px-0 py-4 md:py-6 sm:p-8 z-30 overflow-visible w-[95vw] max-w-[1800px] gap-2 md:gap-4 sm:gap-6 min-w-[620px]"
+                            className="relative flex flex-col items-center justify-center px-0 py-4 md:py-6 sm:p-8 z-30 overflow-visible w-full max-w-[1800px] gap-2 md:gap-4 sm:gap-6"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
@@ -267,19 +265,19 @@ export default function WorkflowAnimation() {
                             </h2>
 
                             {/* Processing Section Layout: Flex col mobile, Grid desktop */}
-                            <div className="relative w-full flex flex-col-reverse xl:grid xl:grid-cols-[650px_minmax(0,1fr)] gap-0 items-center justify-center">
+                            <div className="relative w-full flex flex-col-reverse xl:grid xl:grid-cols-[620px_minmax(0,1fr)] gap-0 items-center justify-center">
 
                                 {/* Phone + Background Container (Left Side) */}
-                                <div className="relative col-start-1 col-end-2 row-start-1 w-full max-w-[680px] flex justify-end z-20">
+                                <div className="relative col-start-1 col-end-2 row-start-1 w-full min-w-[620px] max-w-[620px] flex justify-center z-20">
 
                                     {/* Phone Content with Purple Card Wrapper */}
-                                    <div className="relative w-[620px] bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 flex justify-center items-center py-10 px-4 z-20">
+                                    <div className="relative w-full min-w-[620px] max-w-[620px] bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 flex justify-center items-center py-10 px-4 z-20">
                                         <ProcessingPhoneWithAnnotations progress={phone2Progress} />
                                     </div>
                                 </div>
 
                                 {/* Text Area (Right Side) */}
-                                <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pl-0 xl:pl-24 z-10 pr-0 xl:pr-6 min-w-0 overflow-hidden mb-8 xl:mb-0">
+                                <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pr-0 xl:pr-24 z-10 pl-0 xl:pl-6 min-w-0 overflow-hidden mb-8 xl:mb-0">
                                     <div className="space-y-4 text-center xl:text-left px-4 xl:px-0">
                                         <p className="hidden xl:block text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]">Intelligent Curriculum</p>
                                         <h2 className="hidden md:block text-4xl md:text-6xl font-bold text-gray-900 leading-tight">

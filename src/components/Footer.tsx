@@ -55,18 +55,18 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-gray-100/20 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+      <div className="max-w-sm sm:max-w-7xl mx-auto px-8 sm:px-4 md:px-6 lg:px-8 py-16 lg:py-20">
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-1 md:gap-4 lg:gap-10 mb-16 justify-items-center">
 
           {/* Product */}
-          <div className="col-span-1">
-            <h3 className="text-gray-900 font-semibold mb-6 tracking-tight">Product</h3>
-            <ul className="space-y-4">
+          <div className="col-span-1 text-center">
+            <h3 className="text-gray-900 font-semibold mb-2 md:mb-6 tracking-tight text-sm md:text-base">Product</h3>
+            <ul className="space-y-1 md:space-y-4">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium"
+                    className="text-gray-500 hover:text-purple-600 transition-colors text-base md:text-sm font-medium"
                     onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'product')}
                   >
                     {link.name}
@@ -77,14 +77,14 @@ export default function Footer() {
           </div>
 
           {/* Company */}
-          <div className="col-span-1">
-            <h3 className="text-gray-900 font-semibold mb-6 tracking-tight">Company</h3>
-            <ul className="space-y-4">
+          <div className="col-span-1 text-center">
+            <h3 className="text-gray-900 font-semibold mb-2 md:mb-6 tracking-tight text-sm md:text-base">Company</h3>
+            <ul className="space-y-1 md:space-y-4">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium"
+                    className="text-gray-500 hover:text-purple-600 transition-colors text-base md:text-sm font-medium"
                     onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'company')}
                   >
                     {link.name}
@@ -95,14 +95,14 @@ export default function Footer() {
           </div>
 
           {/* Legal */}
-          <div className="col-span-1">
-            <h3 className="text-gray-900 font-semibold mb-6 tracking-tight">Legal</h3>
-            <ul className="space-y-4">
+          <div className="col-span-1 text-center">
+            <h3 className="text-gray-900 font-semibold mb-2 md:mb-6 tracking-tight text-sm md:text-base">Legal</h3>
+            <ul className="space-y-1 md:space-y-4">
               {footerLinks.legal.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium"
+                    className="text-gray-500 hover:text-purple-600 transition-colors text-base md:text-sm font-medium"
                     onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'legal')}
                   >
                     {link.name}

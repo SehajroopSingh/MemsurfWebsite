@@ -42,10 +42,10 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative text-left"
                     style={{ opacity: bullet1Opacity, y: bullet1Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-white/60" />
-                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-white" />
-                    <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-white">Extract relevant content</p>
-                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
+                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-[#8c648d]/60" />
+                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-[#8c648d]" />
+                    <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-[#8c648d]">Extract relevant content</p>
+                    <p className="leading-relaxed mt-1 text-gray-700 text-sm sm:text-base">
                         The agent analyzes raw input, extracting key insights based on depth and context to identify what matters.
                     </p>
                 </motion.div>
@@ -54,8 +54,8 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     style={{ opacity: connector1Opacity, y: connector1Y }}
                     className="flex flex-col items-center self-stretch"
                 >
-                    <div className="w-[1px] h-6 bg-white/40" />
-                    <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-t-white/40 border-l-transparent border-r-transparent" />
+                    <div className="w-[1px] h-6 bg-[#8c648d]/40" />
+                    <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-t-[#8c648d]/40 border-l-transparent border-r-transparent" />
                 </motion.div>
 
                 {/* Bullet 2 */}
@@ -63,10 +63,10 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative text-left"
                     style={{ opacity: bullet2Opacity, y: bullet2Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-white/60" />
-                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-white" />
-                    <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-white">Build lesson plan and modules</p>
-                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
+                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-[#8c648d]/60" />
+                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-[#8c648d]" />
+                    <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-[#8c648d]">Build lesson plan and modules</p>
+                    <p className="leading-relaxed mt-1 text-gray-700 text-sm sm:text-base">
                         It organizes this content into a structured lesson plan, breaking complex topics into clear, digestible modules.
                     </p>
                 </motion.div>
@@ -75,8 +75,8 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     style={{ opacity: connector2Opacity, y: connector2Y }}
                     className="flex flex-col items-center self-stretch"
                 >
-                    <div className="w-[1px] h-6 bg-white/40" />
-                    <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-t-white/40 border-l-transparent border-r-transparent" />
+                    <div className="w-[1px] h-6 bg-[#8c648d]/40" />
+                    <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-t-[#8c648d]/40 border-l-transparent border-r-transparent" />
                 </motion.div>
 
                 {/* Bullet 3 */}
@@ -84,10 +84,10 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative text-left"
                     style={{ opacity: bullet3Opacity, y: bullet3Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-white/60" />
-                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-white" />
-                    <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-white">Generate quizzes</p>
-                    <p className="leading-relaxed mt-1 text-white/70 text-sm sm:text-base">
+                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-[#8c648d]/60" />
+                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-[#8c648d]" />
+                    <p className="font-semibold text-lg sm:text-xl uppercase tracking-wide text-[#8c648d]">Generate quizzes</p>
+                    <p className="leading-relaxed mt-1 text-gray-700 text-sm sm:text-base">
                         Finally, it generates targeted quizzes to test your understanding and reinforce the learning objectives.
                     </p>
                 </motion.div>

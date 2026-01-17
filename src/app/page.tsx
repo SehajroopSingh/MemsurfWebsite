@@ -32,7 +32,7 @@ export default function Home() {
           <div className="flex flex-col items-center text-center space-y-10">
 
             {/* App Store Section */}
-            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 drop-shadow-lg">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
                 Your Personal Learning Architect
               </h2>
@@ -49,7 +49,7 @@ export default function Home() {
 
             {/* Email Subscription Section */}
             <div className="w-full max-w-xl space-y-4 pt-4">
-              <p className="text-sm text-gray-500">
+              <p className="text-3xl sm:text-sm text-gray-500">
                 Sign up for email list to hear updates.
               </p>
               <WaitlistForm source="homepage_waitlist" />
@@ -57,40 +57,40 @@ export default function Home() {
 
             {/* Social Icons - Full width on mobile */}
             <div className="w-full pt-6 -mx-4 sm:mx-0">
-              <div className="flex gap-4 sm:gap-6 md:gap-8 justify-between sm:justify-center items-center w-full px-4 sm:px-0 sm:max-w-xl sm:mx-auto">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 justify-between sm:justify-center items-stretch sm:items-center w-full px-4 sm:px-0 sm:max-w-xl sm:mx-auto">
                 <a
                   href="https://www.linkedin.com/company/memsurf/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md flex-1 sm:flex-none"
+                  className="w-full sm:w-24 sm:h-24 md:w-20 md:h-20 h-32 sm:h-24 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
                 >
-                  <Linkedin className="w-10 h-10 sm:w-12 sm:h-12 md:w-8 md:h-8" />
+                  <Linkedin className="w-16 h-16 sm:w-12 sm:h-12 md:w-8 md:h-8" />
                 </a>
                 <a
                   href="https://www.tiktok.com/@memsurf"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="TikTok"
-                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md flex-1 sm:flex-none"
+                  className="w-full sm:w-24 sm:h-24 md:w-20 md:h-20 h-32 sm:h-24 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
                 >
-                  <TikTokIcon className="w-10 h-10 sm:w-12 sm:h-12 md:w-8 md:h-8" />
+                  <TikTokIcon className="w-16 h-16 sm:w-12 sm:h-12 md:w-8 md:h-8" />
                 </a>
                 <a
                   href="https://x.com/memsurf"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="X"
-                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md flex-1 sm:flex-none"
+                  className="w-full sm:w-24 sm:h-24 md:w-20 md:h-20 h-32 sm:h-24 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
                 >
-                  <XIcon className="w-10 h-10 sm:w-12 sm:h-12 md:w-8 md:h-8" />
+                  <XIcon className="w-16 h-16 sm:w-12 sm:h-12 md:w-8 md:h-8" />
                 </a>
                 <a
                   href="mailto:contact@memsurf.com"
                   aria-label="Email"
-                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md flex-1 sm:flex-none"
+                  className="w-full sm:w-24 sm:h-24 md:w-20 md:h-20 h-32 sm:h-24 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
                 >
-                  <Mail className="w-10 h-10 sm:w-12 sm:h-12 md:w-8 md:h-8" />
+                  <Mail className="w-16 h-16 sm:w-12 sm:h-12 md:w-8 md:h-8" />
                 </a>
               </div>
             </div>

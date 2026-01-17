@@ -87,23 +87,23 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
 
   return (
     <form onSubmit={handleSubmit} className="w-full">
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-0 sm:relative">
+      <div className="space-y-4 sm:space-y-0 sm:flex sm:flex-row sm:relative">
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="w-full h-14 px-6 sm:pr-36 rounded-full bg-white text-gray-900 text-base outline-none shadow-sm border-0 focus:ring-2 focus:ring-blue-500"
+          className="w-full h-28 sm:h-14 px-8 sm:pr-36 rounded-full bg-white text-gray-900 text-3xl sm:text-base outline-none shadow-sm border-0 focus:ring-2 focus:ring-blue-500"
           disabled={isLoading}
           required
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 h-14 sm:h-auto px-6 rounded-full bg-black text-white font-semibold text-xl sm:text-base hover:bg-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center"
+          className="w-full sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 h-28 sm:h-auto px-8 rounded-full bg-black text-white font-semibold text-4xl sm:text-base hover:bg-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center"
         >
           {isLoading ? (
-            <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            <span className="inline-block w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin" />
           ) : (
             'Subscribe'
           )}

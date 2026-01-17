@@ -135,14 +135,14 @@ export default function WorkflowAnimation() {
         <div className="w-full flex flex-col items-center">
             <InstitutionScroll />
             {/* HOW IT WORKS Heading */}
-            <div className="w-full flex justify-center mb-8 mt-48 md:mt-32 z-40">
+            <div className="w-full flex justify-center mb-16 md:mb-8 mt-48 md:mt-32 z-40">
                 <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
                     HOW IT WORKS
                 </h1>
             </div>
 
-            {/* HOW IT WORKS Section with Grey Background */}
-            <div className="w-full bg-gray-100">
+            {/* HOW IT WORKS Section */}
+            <div className="w-full">
                 <div
                     ref={phone1ContainerRef}
                     className="relative w-full min-h-[60vh] md:min-h-[80vh] flex flex-col items-center justify-center mb-0 pb-0"
@@ -160,28 +160,17 @@ export default function WorkflowAnimation() {
                         >
 
 
-                            {/* Mobile Text (Hidden on mobile browsers) */}
-                            <div className="hidden w-full max-w-[620px] text-center mb-24 px-4">
-                                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d] mb-2">Universal Input</p>
-                                <h2 className="text-2xl font-bold text-gray-900 leading-tight mb-2">
-                                    The agent meets you where your information lives.
-                                </h2>
-                                <p className="text-base text-gray-600 mb-4">
-                                    Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
-                                </p>
-                            </div>
-
                             {/* Main Layout: Flex col on mobile, Grid on desktop */}
                             <div className="relative w-full flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_620px] gap-0 items-center justify-center">
 
                                 {/* Desktop Text Area (Hidden on mobile) */}
                                 <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
-                                    <div className="space-y-4 text-left">
+                                    <div className="space-y-4 text-left drop-shadow-lg">
                                         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-600">Universal Input</p>
-                                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                                        <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
                                             The agent meets you where your information lives.
                                         </h2>
-                                        <p className="text-base md:text-lg text-gray-600 max-w-xl">
+                                        <p className="text-xl md:text-lg text-gray-600 max-w-xl">
                                             Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
                                         </p>
                                     </div>
@@ -194,8 +183,14 @@ export default function WorkflowAnimation() {
                                     {/* Purple Card Background */}
                                     <div className="relative w-full min-w-[620px] max-w-[620px] bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col">
                                         {/* "INPUT FROM ANY SOURCE" Text - Centered in Card */}
-                                        <div className="absolute top-[-3rem] sm:top-[-4rem] lg:top-[-5rem] w-full flex justify-center z-30 pointer-events-none">
+                                        <div className="absolute top-[-12rem] sm:top-[-14rem] lg:top-[-5rem] w-full flex flex-col items-center z-30 pointer-events-none">
                                             <p className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap">INPUT FROM ANY SOURCE</p>
+                                            {/* Mobile-only text below */}
+                                            <div className="lg:hidden flex flex-col items-center mt-4 px-4">
+                                                <p className="text-xl text-gray-600 text-center max-w-xl">
+                                                    Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
+                                                </p>
+                                            </div>
                                         </div>
 
                                         {/* Phone Content */}
@@ -248,7 +243,7 @@ export default function WorkflowAnimation() {
                 {/* PHONE 2 SECTION */}
                 <div
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex items-center justify-center -mt-0 pb-0 mb-64 md:mb-80 lg:mb-96 xl:mb-[120px]"
+                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex items-center justify-center -mt-0 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
                 >
 
                     <div className="sticky top-0 h-[60vh] md:h-[80vh] lg:h-screen flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh]">
@@ -260,30 +255,30 @@ export default function WorkflowAnimation() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap text-center">
+                            <h2 className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap text-center mb-6 lg:mb-8">
                                 Your Agent Designs The Learning
                             </h2>
 
                             {/* Processing Section Layout: Flex col mobile, Grid desktop */}
-                            <div className="relative w-full flex flex-col-reverse xl:grid xl:grid-cols-[620px_minmax(0,1fr)] gap-0 items-center justify-center">
+                            <div className="relative w-full flex flex-col-reverse lg:grid lg:grid-cols-[620px_minmax(0,1fr)] gap-0 items-center justify-center">
 
                                 {/* Phone + Background Container (Left Side) */}
                                 <div className="relative col-start-1 col-end-2 row-start-1 w-full min-w-[620px] max-w-[620px] flex justify-center z-20">
 
                                     {/* Phone Content with Purple Card Wrapper */}
-                                    <div className="relative w-full min-w-[620px] max-w-[620px] bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 flex justify-center items-center py-10 px-4 z-20">
+                                    <div className="relative w-full min-w-[620px] max-w-[620px] bg-transparent border-[6px] border-[#8c648d] rounded-[2.5rem] shadow-lg flex justify-center items-center py-10 px-4 z-20" style={{ backgroundColor: 'transparent' }}>
                                         <ProcessingPhoneWithAnnotations progress={phone2Progress} />
                                     </div>
                                 </div>
 
                                 {/* Text Area (Right Side) */}
-                                <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pr-0 xl:pr-24 z-10 pl-0 xl:pl-6 min-w-0 overflow-hidden mb-8 xl:mb-0">
-                                    <div className="space-y-4 text-center xl:text-left px-4 xl:px-0">
-                                        <p className="hidden xl:block text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]">Intelligent Curriculum</p>
+                                <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pr-0 lg:pr-4 z-10 pl-0 lg:pl-6 min-w-0 overflow-hidden mb-8 lg:mb-0">
+                                    <div className="space-y-4 text-center lg:text-left px-4 lg:px-0 drop-shadow-lg">
+                                        <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]">Intelligent Curriculum</p>
                                         <h2 className="hidden md:block text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
                                             We Do The Thinking For You.
                                         </h2>
-                                        <p className="text-xl md:text-lg text-gray-600 max-w-xl mx-auto xl:mx-0">
+                                        <p className="text-xl md:text-lg text-gray-600 max-w-xl mx-auto lg:mx-0">
                                             Our agent ruthlessly optimizes your learning path. It cuts the fluff and feeds you the good stuff. It&apos;s like having a strict tutor, but one you can mute.
                                         </p>
                                     </div>

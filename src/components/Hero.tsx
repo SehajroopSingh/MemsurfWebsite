@@ -34,7 +34,7 @@ export default function Hero() {
                                 The Memory Agent.
                             </span>
                         </h1>
-                        <p className="text-3xl sm:text-4xl md:text-2xl text-gray-600 mb-0 max-w-3xl mx-auto lg:mx-0 leading-relaxed">
+                        <p className="text-3xl sm:text-4xl md:text-2xl text-gray-600 mb-0 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto lg:mx-0 leading-relaxed">
                             You decide what&apos;s worth remembering. The agent optimizes how it sticks.
                         </p>
                     </motion.div>

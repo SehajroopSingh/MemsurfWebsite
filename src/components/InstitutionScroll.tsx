@@ -151,7 +151,7 @@ export default function InstitutionScroll() {
             <motion.div
               ref={containerRef}
               style={{ x }}
-              className="flex gap-8 md:gap-48 flex-shrink-0 items-center"
+              className="flex gap-8 md:gap-16 flex-shrink-0 items-center"
             >
               {duplicatedInstitutions.length > 0 ? (
                 duplicatedInstitutions
@@ -163,7 +163,7 @@ export default function InstitutionScroll() {
                         key={`${institution.key}-${index}`}
                         className="group flex-shrink-0 flex flex-col items-center justify-center cursor-default"
                       >
-                        <div className="relative w-72 h-36 md:w-96 md:h-48 flex items-center justify-center opacity-80 transition-all duration-300 hover:opacity-100">
+                        <div className="relative w-72 h-36 md:w-48 md:h-24 flex items-center justify-center opacity-80 transition-all duration-300 hover:opacity-100">
                           <Image
                             src={logoPath}
                             alt={institution.alt}

@@ -1,9 +1,12 @@
+'use client'
+
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 import StoreBadges from '@/components/StoreBadges'
 import WaitlistForm from '@/components/WaitlistForm'
+import ScrollTracker from '@/components/ScrollTracker'
 import { Linkedin, Mail } from 'lucide-react'
 
 // Custom TikTok Icon
@@ -23,16 +26,28 @@ const XIcon = ({ className }: { className?: string }) => (
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <ScrollTracker 
+        page="homepage"
+        sections={[
+          { id: 'hero-section', name: 'Hero' },
+          { id: 'app-store-section', name: 'App Store' },
+          { id: 'waitlist-section', name: 'Waitlist' },
+          { id: 'social-section', name: 'Social Links' },
+          { id: 'footer-section', name: 'Footer' },
+        ]}
+      />
       <ScrollToTop />
       <Navigation />
-      <Hero />
+      <div id="hero-section">
+        <Hero />
+      </div>
 
       <section className="pb-24 pt-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center space-y-10">
 
             {/* App Store Section */}
-            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 drop-shadow-lg">
+            <div id="app-store-section" className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 drop-shadow-lg">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
                 Your Personal Learning Architect
               </h2>
@@ -48,7 +63,7 @@ export default function Home() {
             </div>
 
             {/* Email Subscription Section */}
-            <div className="w-full max-w-xl space-y-4 pt-4">
+            <div id="waitlist-section" className="w-full max-w-xl space-y-4 pt-4">
               <p className="text-3xl sm:text-sm text-gray-500">
                 Sign up for email list to hear updates.
               </p>
@@ -56,7 +71,7 @@ export default function Home() {
             </div>
 
             {/* Social Icons - Full width on mobile */}
-            <div className="w-full pt-6 -mx-4 sm:mx-0">
+            <div id="social-section" className="w-full pt-6 -mx-4 sm:mx-0">
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 justify-between sm:justify-center items-stretch sm:items-center w-full px-4 sm:px-0 sm:max-w-xl sm:mx-auto">
                 <a
                   href="https://www.linkedin.com/company/memsurf/"
@@ -99,8 +114,9 @@ export default function Home() {
         </div>
       </section>
 
-
-      <Footer />
+      <div id="footer-section">
+        <Footer />
+      </div>
     </main>
   )
 }

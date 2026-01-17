@@ -195,6 +195,12 @@ const handleLogout = () => {
 | Engagement | `cta_button_clicked` | CTA component buttons | `button_type`, `button_text`, `location` |
 | UX quality | `mobile_menu_toggled` | Header mobile menu | `state` (`opened`/`closed`) |
 | Brand | `social_link_clicked` | Footer social icons | `platform`, `href`, `location` |
+| Engagement | `scroll_milestone_reached` | Homepage scroll tracking | `page`, `scroll_percent` (10/25/50/75/90/100), `scroll_position`, `total_page_height`, `viewport_height`, `time_on_page` |
+| Engagement | `scroll_depth` | Homepage scroll tracking (every 5% after 10%) | `page`, `scroll_percent`, `scroll_position`, `time_on_page` |
+| Engagement | `section_viewed` | Homepage section visibility | `page`, `section_id`, `section_name`, `scroll_percent`, `scroll_position`, `time_on_page`, `viewport_height` |
+| Engagement | `time_at_scroll_position` | Time spent at scroll positions | `page`, `scroll_position`, `scroll_percent`, `time_spent_seconds` |
+| Engagement | `page_scroll_tracked` | Initial scroll tracking setup | `page`, `initial_scroll_position`, `total_page_height`, `viewport_height` |
+| Engagement | `page_scroll_session_end` | When user leaves page | `page`, `final_scroll_percent`, `max_scroll_percent`, `total_time_seconds`, `sections_viewed`, `milestones_reached` |
 
 ## Instrumentation map
 
@@ -205,4 +211,5 @@ const handleLogout = () => {
 - Footer links/social: `src/components/Footer.tsx`
 - Feature impressions: `src/components/Features.tsx`
 - CTA buttons: `src/components/CTA.tsx`
+- Scroll tracking: `src/components/ScrollTracker.tsx` (all `scroll_*` and `section_viewed` events) - Used on homepage
 

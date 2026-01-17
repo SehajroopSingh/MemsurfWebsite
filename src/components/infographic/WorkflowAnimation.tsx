@@ -255,7 +255,7 @@ export default function WorkflowAnimation() {
 
                     <div className="sticky top-0 h-[80vh] lg:h-screen flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh]">
                         <motion.div
-                            className="relative flex flex-col items-center justify-center px-0 py-6 sm:p-8 bg-[#8c648d]/10 rounded-[3rem] z-30 overflow-visible shadow-xl w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px]"
+                            className="relative flex flex-col items-center justify-center px-0 py-6 sm:p-8 z-30 overflow-visible w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px]"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
@@ -272,13 +272,8 @@ export default function WorkflowAnimation() {
                                 {/* Phone + Background Container (Left Side) */}
                                 <div className="relative col-start-1 col-end-2 row-start-1 w-full max-w-[680px] flex justify-end z-20">
 
-                                    {/* Inner Card Background */}
-                                    <div className="hidden xl:block absolute inset-y-0 right-0 bg-[#8c648d] rounded-l-[2.5rem] rounded-r-[2rem] shadow-sm border border-white/50 w-[calc(100%+20px)] -mr-[20px]" />
-                                    {/* Mobile Background */}
-                                    <div className="block xl:hidden absolute inset-0 bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 w-full h-full" />
-
-                                    {/* Phone Content */}
-                                    <div className="relative w-full flex justify-end pb-6 sm:pb-10 pt-10 sm:pt-10 xl:pt-32 z-20 pr-4 xl:pr-2">
+                                    {/* Phone Content with Purple Card Wrapper */}
+                                    <div className="relative w-[620px] bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 flex justify-center items-center py-10 px-4 z-20">
                                         <ProcessingPhoneWithAnnotations progress={phone2Progress} />
                                     </div>
                                 </div>

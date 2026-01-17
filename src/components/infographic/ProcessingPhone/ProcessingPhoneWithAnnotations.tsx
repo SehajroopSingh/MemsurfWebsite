@@ -27,9 +27,9 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
     const bullet3Y = useTransform(progress, [0.70, 0.80], [10, 0])
 
     return (
-        <div className="relative flex items-center justify-center w-[280px] z-30">
+        <div className="relative flex items-center w-[620px] z-30">
             {/* Processing annotations anchored outside the phone */}
-            <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[-320px] z-40 flex flex-col gap-2 items-end max-w-[260px] text-gray-800 text-sm sm:text-base leading-relaxed">
+            <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-4 z-40 flex flex-col gap-2 items-start max-w-[260px] text-gray-800 text-sm sm:text-base leading-relaxed">
 
                 {/* Bullet 1 */}
                 <motion.div
@@ -87,9 +87,11 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                 </motion.div>
             </div>
 
-            <PhoneScreen>
-                <ProcessingScreen progress={progress} />
-            </PhoneScreen>
+            <div className="flex-shrink-0 ml-auto w-[280px]">
+                <PhoneScreen>
+                    <ProcessingScreen progress={progress} />
+                </PhoneScreen>
+            </div>
         </div>
     )
 }

@@ -145,7 +145,7 @@ export default function WorkflowAnimation() {
             <div className="w-full bg-gray-100">
                 <div
                     ref={phone1ContainerRef}
-                    className="relative w-full min-h-[80vh] flex flex-col items-center justify-center mb-0 pb-0"
+                    className="relative w-full min-h-[60vh] md:min-h-[80vh] flex flex-col items-center justify-center mb-0 pb-0"
                 >
 
                     <div className="sticky top-0 h-screen flex items-center justify-center overflow-visible">
@@ -243,19 +243,19 @@ export default function WorkflowAnimation() {
                 </div>
 
                 {/* TRANSITION ZONE */}
-                <div className="relative w-full h-[5vh] lg:h-[6vh] -mt-[2vh] lg:-mt-0 -mb-[5vh] lg:-mb-[2vh] z-[50] pointer-events-none">
+                <div className="relative w-full h-0 -mt-0 -mb-0 z-[50] pointer-events-none">
                     <RawContentTransition />
                 </div>
 
                 {/* PHONE 2 SECTION */}
                 <div
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[65vh] lg:min-h-[100vh] flex items-center justify-center -mt-[5vh] lg:-mt-[4vh] pb-0 -mb-[5vh] lg:mb-0 xl:-mb-8"
+                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex items-center justify-center -mt-0 pb-0 mb-64 md:mb-80 lg:mb-96 xl:mb-[120px]"
                 >
 
-                    <div className="sticky top-0 h-[80vh] lg:h-screen flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh]">
+                    <div className="sticky top-0 h-[60vh] md:h-[80vh] lg:h-screen flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh]">
                         <motion.div
-                            className="relative flex flex-col items-center justify-center px-0 py-6 sm:p-8 z-30 overflow-visible w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px]"
+                            className="relative flex flex-col items-center justify-center px-0 py-4 md:py-6 sm:p-8 z-30 overflow-visible w-[95vw] max-w-[1800px] gap-2 md:gap-4 sm:gap-6 min-w-[620px]"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}

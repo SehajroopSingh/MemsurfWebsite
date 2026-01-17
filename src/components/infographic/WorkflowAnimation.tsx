@@ -135,7 +135,7 @@ export default function WorkflowAnimation() {
         <div className="w-full flex flex-col items-center">
             <InstitutionScroll />
             {/* HOW IT WORKS Heading */}
-            <div className="w-full flex justify-center mb-16 md:mb-8 mt-48 md:mt-32 z-40">
+            <div className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-48 md:mt-32 z-40">
                 <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
                     HOW IT WORKS
                 </h1>
@@ -183,7 +183,7 @@ export default function WorkflowAnimation() {
                                     {/* Purple Card Background */}
                                     <div className="relative w-full min-w-[620px] max-w-[620px] bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col">
                                         {/* "INPUT FROM ANY SOURCE" Text - Centered in Card */}
-                                        <div className="absolute top-[-12rem] sm:top-[-14rem] lg:top-[-5rem] w-full flex flex-col items-center z-30 pointer-events-none">
+                                        <div className="absolute top-[-12rem] sm:top-[-14rem] lg:top-[-4rem] xl:top-[-3rem] w-full flex flex-col items-center z-30 pointer-events-none">
                                             <p className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap">INPUT FROM ANY SOURCE</p>
                                             {/* Mobile-only text below */}
                                             <div className="lg:hidden flex flex-col items-center mt-4 px-4">

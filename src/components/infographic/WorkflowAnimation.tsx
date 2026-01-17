@@ -144,6 +144,7 @@ export default function WorkflowAnimation() {
             {/* HOW IT WORKS Section */}
             <div className="w-full">
                 <div
+                    id="capture-section"
                     ref={phone1ContainerRef}
                     className="relative w-full min-h-[60vh] md:min-h-[80vh] flex flex-col items-center justify-center mb-0 pb-0"
                 >
@@ -242,6 +243,7 @@ export default function WorkflowAnimation() {
 
                 {/* PHONE 2 SECTION */}
                 <div
+                    id="processing-section"
                     ref={phone2ContainerRef}
                     className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex items-center justify-center -mt-0 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
                 >

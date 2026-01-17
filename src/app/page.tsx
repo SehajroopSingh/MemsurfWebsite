@@ -30,6 +30,9 @@ export default function Home() {
         page="homepage"
         sections={[
           { id: 'hero-section', name: 'Hero' },
+          { id: 'capture-section', name: 'Capture' },
+          { id: 'processing-section', name: 'Processing' },
+          { id: 'practice-section', name: 'Practice' },
           { id: 'app-store-section', name: 'App Store' },
           { id: 'waitlist-section', name: 'Waitlist' },
           { id: 'social-section', name: 'Social Links' },

@@ -135,9 +135,9 @@ export default function InstitutionScroll() {
 
   return (
     <section className="py-10 md:py-6 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-xl md:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <p className="text-sm font-semibold tracking-wider text-gray-600 uppercase">
+          <p className="text-3xl md:text-4xl font-semibold tracking-wider text-gray-600 uppercase">
             Trusted by learners from
           </p>
         </div>
@@ -151,7 +151,7 @@ export default function InstitutionScroll() {
             <motion.div
               ref={containerRef}
               style={{ x }}
-              className="flex gap-12 md:gap-16 flex-shrink-0 items-center"
+              className="flex gap-8 md:gap-48 flex-shrink-0 items-center"
             >
               {duplicatedInstitutions.length > 0 ? (
                 duplicatedInstitutions
@@ -163,12 +163,12 @@ export default function InstitutionScroll() {
                         key={`${institution.key}-${index}`}
                         className="group flex-shrink-0 flex flex-col items-center justify-center cursor-default"
                       >
-                        <div className="relative w-24 h-12 md:w-32 md:h-16 flex items-center justify-center opacity-80 transition-all duration-300 hover:opacity-100">
+                        <div className="relative w-72 h-36 md:w-96 md:h-48 flex items-center justify-center opacity-80 transition-all duration-300 hover:opacity-100">
                           <Image
                             src={logoPath}
                             alt={institution.alt}
-                            width={120}
-                            height={60}
+                            width={360}
+                            height={180}
                             className="object-contain max-w-full max-h-full"
                             unoptimized
                             onError={() => handleImageError(institution.key, institution)}

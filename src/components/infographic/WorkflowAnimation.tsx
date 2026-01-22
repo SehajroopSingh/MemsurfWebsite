@@ -255,7 +255,7 @@ export default function WorkflowAnimation() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-20 z-30 flex flex-col items-center min-h-[600px] justify-start pt-20"
+                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-20 z-30 flex flex-col items-center min-h-[600px] justify-start pt-4"
                     >
                         {/* ANIMATION LOGIC */}
                         <ChatGptIntegrationSection />

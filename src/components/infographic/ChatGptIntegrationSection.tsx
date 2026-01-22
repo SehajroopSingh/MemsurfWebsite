@@ -5,8 +5,8 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import VideoOverlayContainer from './VideoOverlayContainer'
 
 export default function ChatGptIntegrationSection() {
-    // idle -> icon-entry -> icon-spinning -> icon-moving -> header-settled -> overlay-text -> video-pre-entry -> video-playing
-    const [stage, setStage] = useState<'idle' | 'icon-entry' | 'icon-spinning' | 'icon-moving' | 'header-settled' | 'overlay-text' | 'video-pre-entry' | 'video-playing'>('idle')
+    // idle -> icon-entry -> icon-spinning -> icon-moving -> header-settled -> initial-overlay -> text-exiting -> video-fading-in -> video-playing -> showing-bullets -> overlay-loop
+    const [stage, setStage] = useState<'idle' | 'icon-entry' | 'icon-spinning' | 'icon-moving' | 'header-settled' | 'initial-overlay' | 'text-exiting' | 'video-fading-in' | 'video-playing' | 'showing-bullets' | 'overlay-loop'>('idle')
     const containerRef = useRef(null)
     const inView = useInView(containerRef, { once: true, amount: 0.5 })
 
@@ -30,25 +30,49 @@ export default function ChatGptIntegrationSection() {
                 setStage('header-settled')
             }, 3000)
 
-            // 4. Header Settled -> Show Overlay Text
+            // 4. Header Settled -> Show Initial Overlay
             setTimeout(() => {
-                setStage('overlay-text')
-            }, 3800) // Give it a moment after settling
+                setStage('initial-overlay')
+            }, 3800)
 
-            // 5. Overlay Text -> Text Exit (Video Pre-Entry)
+            // 5. Initial Overlay -> Text Exiting (Wait for read)
             setTimeout(() => {
-                setStage('video-pre-entry')
-            }, 7000) // Show text for ~3 seconds
-
-            // 6. Video Pre-Entry -> Play Video
-            setTimeout(() => {
-                setStage('video-playing')
-            }, 9000) // 2 seconds after text starts fading out (0.8s fade out)
+                setStage('text-exiting')
+            }, 6800) // Show initial text for 3s
         }
     }, [inView, stage])
 
-    const isHeaderState = stage === 'icon-moving' || stage === 'header-settled' || stage === 'overlay-text' || stage === 'video-pre-entry' || stage === 'video-playing'
-    const isTextTyping = stage === 'header-settled' || stage === 'overlay-text' || stage === 'video-pre-entry' || stage === 'video-playing'
+    // Effect to handle transitions from text-exiting -> video-fading-in -> video-playing
+    useEffect(() => {
+        if (stage === 'text-exiting') {
+            // Wait for text exit animation (0.8s) + buffer
+            setTimeout(() => {
+                setStage('video-fading-in')
+            }, 1000)
+        } else if (stage === 'video-fading-in') {
+            // Wait for video fade in (transition-opacity duration-500) + buffer
+            setTimeout(() => {
+                setStage('video-playing')
+            }, 600)
+        }
+    }, [stage])
+
+    const handleVideoEnded = () => {
+        setStage('showing-bullets')
+
+        // Show bullets for a duration (e.g., 6 seconds to read), then move to final overlay
+        setTimeout(() => {
+            setStage('overlay-loop')
+
+            // Show final text for 3 seconds, then restart sequence (text-exiting -> video-fading-in -> video-playing)
+            setTimeout(() => {
+                setStage('text-exiting')
+            }, 3000)
+        }, 8000)
+    }
+
+    const isHeaderState = stage !== 'idle' && stage !== 'icon-entry' && stage !== 'icon-spinning'
+    const isTextTyping = isHeaderState
 
     // Typewriter effect variants
     const sentence = "ChatGPT Integration"
@@ -69,6 +93,30 @@ export default function ChatGptIntegrationSection() {
         hidden: { opacity: 0, y: 10 },
         visible: { opacity: 1, y: 0 }
     }
+
+    const bullets = [
+        "After an intense rabbit hole, send key insights into Memsurf.",
+        "Interact with files in ChatGPT, extract what you want into Memsurf to learn it better.",
+        "Use ChatGPT as your interface, use Memsurf as your retention layer."
+    ]
+
+    // Video container visibility: visible during video playing, bullets, loop (but NOT during text-exiting initially? No, we want the container to be there, but maybe the video invisible?)
+    // Actually, we want the container frame to be visible always after 'header-settled' or 'initial-overlay'?
+    // The previous code had: animate={{ opacity: isCardVisible ? 1 : 0 }}
+    // where isCardVisible = initial-overlay || video-playing || showing-bullets || overlay-loop
+    // We want the CARD to be visible during text-exiting too, but the VIDEO content to be hidden?
+    // Let's keep the CARD visible from initial-overlay onwards.
+    const isCardVisible = stage !== 'idle' && stage !== 'icon-entry' && stage !== 'icon-spinning' && stage !== 'icon-moving' && stage !== 'header-settled'
+
+    // Video content visibility: Only visible when fading in, playing, or showing bullets (if we want bg).
+    // The user wants: "video fades in after text disappears".
+    // So video should be hidden during 'initial-overlay' and 'text-exiting' (or at least fading IN during video-fading-in).
+    // isVideoVisible true for: video-fading-in, video-playing
+    // REMOVED 'showing-bullets' so video fades out before bullets appear.
+    const isVideoVisible = stage === 'video-fading-in' || stage === 'video-playing'
+
+    // Overlay text visibility
+    const isOverlayTextVisible = stage === 'initial-overlay' || stage === 'overlay-loop'
 
     return (
         <div ref={containerRef} className="relative w-full flex flex-col items-center">
@@ -116,28 +164,62 @@ export default function ChatGptIntegrationSection() {
                 <motion.div
                     className="w-full"
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: stage === 'video-playing' ? 1 : 0 }}
+                    animate={{ opacity: isCardVisible ? 1 : 0 }} // Only visible when active
                     transition={{ duration: 1 }}
                 >
-                    <VideoOverlayContainer className="w-full" shouldPlay={stage === 'video-playing'} />
-                </motion.div>
+                    <VideoOverlayContainer
+                        className="w-full"
+                        shouldPlay={stage === 'video-playing'}
+                        isVideoVisible={isVideoVisible}
+                        onEnded={handleVideoEnded}
+                    >
+                        <AnimatePresence mode="wait">
+                            {/* Bullet Points Overlay */}
+                            {stage === 'showing-bullets' && (
+                                <motion.div
+                                    key="bullets"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute inset-0 flex items-center justify-center z-40 px-8 py-12 pointer-events-none"
+                                >
+                                    <div className="flex flex-col gap-6 max-w-3xl">
+                                        {bullets.map((bullet, index) => (
+                                            <motion.div
+                                                key={index}
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.8 + (index * 2.5), duration: 0.5 }} // Stagger appearance + delay for video fadeout
+                                                className="flex items-start gap-4"
+                                            >
+                                                <div className="w-2 h-2 rounded-full bg-gray-400 mt-2.5 shrink-0" />
+                                                <p className="text-xl md:text-3xl font-medium text-gray-900 leading-relaxed">
+                                                    {bullet}
+                                                </p>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            )}
 
-                {/* Overlay Text Step */}
-                <AnimatePresence mode="wait">
-                    {stage === 'overlay-text' && (
-                        <div className="absolute inset-0 flex items-center justify-center z-40 pointer-events-none">
-                            <motion.p
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.8 }}
-                                className="text-3xl md:text-5xl font-medium text-gray-600 text-center px-4"
-                            >
-                                From any chat, send to Memsurf.
-                            </motion.p>
-                        </div>
-                    )}
-                </AnimatePresence>
+                            {/* Overlay Text Step (Final/Initial) */}
+                            {isOverlayTextVisible && (
+                                <motion.div
+                                    key="final-text"
+                                    className="absolute inset-0 flex items-center justify-center z-40 pointer-events-none"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    transition={{ duration: 0.8 }}
+                                >
+                                    <p className="text-3xl md:text-5xl font-medium text-gray-900 text-center px-4">
+                                        From any chat, send to Memsurf.
+                                    </p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </VideoOverlayContainer>
+                </motion.div>
 
                 {/* The Centered Icon (For Entry/Spinning) */}
                 {!isHeaderState && stage !== 'idle' && (

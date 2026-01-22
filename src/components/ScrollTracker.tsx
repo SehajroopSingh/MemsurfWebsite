@@ -26,6 +26,7 @@ export default function ScrollTracker({
   const lastScrollPosition = useRef<number>(0)
   const timeAtPosition = useRef<Map<number, number>>(new Map())
   const sectionObservers = useRef<Map<string, IntersectionObserver>>(new Map())
+  const trackedSectionsRef = useRef<Set<string>>(new Set()) // Ref to avoid stale closures
 
   // Track scroll percentage milestones
   useEffect(() => {
@@ -114,56 +115,125 @@ export default function ScrollTracker({
     }
   }, [track, page, trackedMilestones, maxScrollReached])
 
+  // Keep ref in sync with state
+  useEffect(() => {
+    trackedSectionsRef.current = new Set(trackedSections)
+  }, [trackedSections])
+
   // Track section visibility using Intersection Observer
   useEffect(() => {
     if (sections.length === 0) return
 
-    sections.forEach(({ id, name }) => {
-      const element = document.getElementById(id)
-      if (!element) return
+    // Use a timeout to ensure DOM is ready, especially for dynamically rendered sections
+    const setupObservers = () => {
+      sections.forEach(({ id, name }) => {
+        // Skip if already tracked (using ref to avoid stale closure)
+        if (trackedSectionsRef.current.has(id)) return
 
-      // Skip if already tracked
-      if (trackedSections.has(id)) return
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-              // Section is at least 50% visible
-              const scrollTop = window.scrollY || document.documentElement.scrollTop
-              const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
-              const scrollPercent = scrollHeight > 0 ? Math.round((scrollTop / scrollHeight) * 100) : 0
-
-              track('section_viewed', {
-                page,
-                section_id: id,
-                section_name: name,
-                scroll_percent: scrollPercent,
-                scroll_position: scrollTop,
-                time_on_page: Math.round((Date.now() - scrollStartTime.current) / 1000),
-                viewport_height: window.innerHeight,
-              })
-
-              setTrackedSections((prev) => new Set(prev).add(id))
-              observer.disconnect()
-            }
-          })
-        },
-        {
-          threshold: 0.5, // Trigger when 50% of section is visible
-          rootMargin: '-50px 0px', // Only count when section is well into viewport
+        // Try to find the element
+        const element = document.getElementById(id)
+        if (!element) {
+          // Log missing elements for debugging (only in dev)
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`[ScrollTracker] Element not found: ${id}`)
+          }
+          return
         }
-      )
 
-      observer.observe(element)
-      sectionObservers.current.set(id, observer)
-    })
+        // Check if observer already exists
+        if (sectionObservers.current.has(id)) {
+          return
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              // Use a lower threshold and check intersection ratio
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+                // Section is at least 25% visible (more lenient)
+                const scrollTop = window.scrollY || document.documentElement.scrollTop
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+                const scrollPercent = scrollHeight > 0 ? Math.round((scrollTop / scrollHeight) * 100) : 0
+
+                // Double-check we haven't already tracked this (using ref)
+                if (trackedSectionsRef.current.has(id)) {
+                  observer.disconnect()
+                  sectionObservers.current.delete(id)
+                  return
+                }
+
+                // Mark as tracked immediately to prevent duplicate events
+                trackedSectionsRef.current.add(id)
+
+                track('section_viewed', {
+                  page,
+                  section_id: id,
+                  section_name: name,
+                  scroll_percent: scrollPercent,
+                  scroll_position: scrollTop,
+                  time_on_page: Math.round((Date.now() - scrollStartTime.current) / 1000),
+                  viewport_height: window.innerHeight,
+                  intersection_ratio: entry.intersectionRatio,
+                })
+
+                setTrackedSections((prev) => {
+                  const newSet = new Set(prev).add(id)
+                  return newSet
+                })
+                observer.disconnect()
+                sectionObservers.current.delete(id)
+
+                // Log for debugging (only in dev)
+                if (process.env.NODE_ENV === 'development') {
+                  console.log(`[ScrollTracker] Section viewed: ${id} (${name}) at ${scrollPercent}%`)
+                }
+              }
+            })
+          },
+          {
+            threshold: [0.25, 0.5, 0.75], // Multiple thresholds for better detection
+            rootMargin: '0px', // No margin adjustment - simpler detection
+          }
+        )
+
+        observer.observe(element)
+        sectionObservers.current.set(id, observer)
+
+        // Log setup for debugging (only in dev)
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`[ScrollTracker] Observer set up for: ${id} (${name})`)
+        }
+      })
+    }
+
+    // Initial setup with a small delay to ensure DOM is ready
+    const timeoutId = setTimeout(setupObservers, 100)
+
+    // Also retry after a longer delay for dynamically rendered content
+    const retryTimeoutId = setTimeout(() => {
+      setupObservers()
+    }, 1000)
+
+    // Periodic check for missing elements (every 2 seconds, max 5 times)
+    let retryCount = 0
+    const maxRetries = 5
+    const periodicCheck = setInterval(() => {
+      if (retryCount >= maxRetries) {
+        clearInterval(periodicCheck)
+        return
+      }
+      retryCount++
+      setupObservers()
+    }, 2000)
 
     return () => {
+      clearTimeout(timeoutId)
+      clearTimeout(retryTimeoutId)
+      clearInterval(periodicCheck)
       sectionObservers.current.forEach((observer) => observer.disconnect())
       sectionObservers.current.clear()
     }
-  }, [sections, track, page, trackedSections])
+  }, [sections, track, page]) // Removed trackedSections from deps to avoid re-running
 
   // Track final scroll depth when component unmounts or user leaves
   useEffect(() => {

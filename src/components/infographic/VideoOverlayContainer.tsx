@@ -1,0 +1,33 @@
+'use client'
+
+import React, { useRef } from 'react'
+import { motion } from 'framer-motion'
+
+interface VideoOverlayContainerProps {
+    className?: string
+    // We can add props for overlay data later
+}
+
+export default function VideoOverlayContainer({ className = '' }: VideoOverlayContainerProps) {
+    const videoRef = useRef<HTMLVideoElement>(null)
+
+    return (
+        <div className={`relative overflow-hidden rounded-[2.5rem] border-[6px] border-[#8c648d] shadow-lg bg-gray-900 ${className}`}>
+            {/* Video Layer */}
+            <video
+                ref={videoRef}
+                className="w-full h-auto block"
+                autoPlay
+                loop
+                muted
+                playsInline
+                src="/TestLoop.mp4"
+            />
+
+            {/* Overlay Container - ready for absolute positioned elements */}
+            <div className="absolute inset-0 pointer-events-none">
+                {/* Future overlays go here */}
+            </div>
+        </div>
+    )
+}

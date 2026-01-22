@@ -55,8 +55,8 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-gray-100/20 backdrop-blur-sm">
-      <div className="max-w-sm sm:max-w-7xl mx-auto px-8 sm:px-4 md:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-3 md:grid-cols-4 gap-1 md:gap-4 lg:gap-10 mb-16 justify-items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        <div className="grid grid-cols-3 gap-4 md:gap-12 lg:gap-24 mb-16 justify-items-center max-w-4xl mx-auto">
 
           {/* Product */}
           <div className="col-span-1 text-center">

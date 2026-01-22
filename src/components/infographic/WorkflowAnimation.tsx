@@ -13,6 +13,7 @@ import ProcessingPhoneWithAnnotations from './ProcessingPhone/ProcessingPhoneWit
 import PracticeScrollShowcase from './PracticeScrollShowcase'
 import { useTimeProgress } from '../../hooks/useTimeProgress'
 import InstitutionScroll from '../InstitutionScroll'
+import VideoOverlayContainer from './VideoOverlayContainer'
 
 export default function WorkflowAnimation() {
     // --- SETTINGS CYCLING LOGIC ---
@@ -152,7 +153,7 @@ export default function WorkflowAnimation() {
                     <div className="sticky top-0 h-screen flex items-center justify-center overflow-visible">
 
                         <motion.div
-                            className="relative flex flex-col items-center justify-center z-30 overflow-visible w-full max-w-[1800px] gap-4 sm:gap-6"
+                            className="relative flex flex-col items-center justify-center z-30 overflow-visible w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 gap-4 sm:gap-6"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
@@ -196,39 +197,39 @@ export default function WorkflowAnimation() {
 
                                         {/* Phone Content */}
                                         <div className="relative w-full flex justify-start pb-6 sm:pb-10 pt-40 sm:pt-32 lg:pt-36 z-20 pl-4">
-                                        <div className="relative w-[280px]">
-                                            {/* Flying Icons */}
-                                            <div className="absolute inset-0 overflow-visible pointer-events-none">
-                                                <AnimatePresence>
-                                                    {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
-                                                        <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />
-                                                    )}
-                                                </AnimatePresence>
-                                                <StaticSourceIcons activeStep={phone1State.activeStep} animationStage={phone1State.animationStage} />
+                                            <div className="relative w-[280px]">
+                                                {/* Flying Icons */}
+                                                <div className="absolute inset-0 overflow-visible pointer-events-none">
+                                                    <AnimatePresence>
+                                                        {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
+                                                            <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />
+                                                        )}
+                                                    </AnimatePresence>
+                                                    <StaticSourceIcons activeStep={phone1State.activeStep} animationStage={phone1State.animationStage} />
+                                                </div>
+
+                                                {/* Annotation Line */}
+                                                <ContextAnnotation show={phone1State.animationStage === 'context'} />
+
+                                                {/* Phone Content */}
+                                                <CapturePhoneContent
+                                                    animationStage={phone1State.animationStage}
+                                                    capturedItems={phone1State.capturedItems}
+                                                    contextText={phone1State.contextText}
+                                                    depthStage={settingsState.depthStage}
+                                                    difficultyStage={settingsState.difficultyStage}
+                                                    timeStage={settingsState.timeStage}
+                                                />
+
+                                                {/* Settings Pop-out */}
+                                                <SettingsPopout
+                                                    show={['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(phone1State.animationStage)}
+                                                    depthStage={settingsState.depthStage}
+                                                    difficultyStage={settingsState.difficultyStage}
+                                                    timeStage={settingsState.timeStage}
+                                                />
                                             </div>
-
-                                            {/* Annotation Line */}
-                                            <ContextAnnotation show={phone1State.animationStage === 'context'} />
-
-                                            {/* Phone Content */}
-                                            <CapturePhoneContent
-                                                animationStage={phone1State.animationStage}
-                                                capturedItems={phone1State.capturedItems}
-                                                contextText={phone1State.contextText}
-                                                depthStage={settingsState.depthStage}
-                                                difficultyStage={settingsState.difficultyStage}
-                                                timeStage={settingsState.timeStage}
-                                            />
-
-                                            {/* Settings Pop-out */}
-                                            <SettingsPopout
-                                                show={['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(phone1State.animationStage)}
-                                                depthStage={settingsState.depthStage}
-                                                difficultyStage={settingsState.difficultyStage}
-                                                timeStage={settingsState.timeStage}
-                                            />
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -245,12 +246,32 @@ export default function WorkflowAnimation() {
                 <div
                     id="processing-section"
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex items-center justify-center -mt-0 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
+                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center -mt-0 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
                 >
+                    {/* Video Loop Snippet */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.8 }}
+                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 lg:mb-20 z-30 flex flex-col items-center"
+                    >
+                        <div className="flex items-center gap-4 mb-8">
+                            <img
+                                src="/logos/OpenAI-black-monoblossom.svg"
+                                alt="OpenAI Logo"
+                                className="w-20 h-20 md:w-32 md:h-32"
+                            />
+                            <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                                ChatGPT App Integration
+                            </h2>
+                        </div>
+                        <VideoOverlayContainer className="w-full" />
+                    </motion.div>
 
                     <div className="sticky top-0 h-[60vh] md:h-[80vh] lg:h-screen flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh]">
                         <motion.div
-                            className="relative flex flex-col items-center justify-center px-0 py-4 md:py-6 sm:p-8 z-30 overflow-visible w-full max-w-[1800px] gap-2 md:gap-4 sm:gap-6"
+                            className="relative flex flex-col items-center justify-center px-0 py-4 md:py-6 sm:p-8 z-30 overflow-visible w-full max-w-7xl mx-auto gap-2 md:gap-4 sm:gap-6"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}

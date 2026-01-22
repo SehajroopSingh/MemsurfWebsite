@@ -50,7 +50,7 @@ export default function SettingsPopout({
                     </div>
 
                     {/* Depth Visualization reused (aligned right) */}
-                    <div className="h-[240px] w-full">
+                    <div className="h-[185px] w-full overflow-hidden">
                         <DepthVisualization stage={depthStage} />
                     </div>
                 </motion.div>

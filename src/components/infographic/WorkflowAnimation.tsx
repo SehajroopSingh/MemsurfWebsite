@@ -14,6 +14,7 @@ import PracticeScrollShowcase from './PracticeScrollShowcase'
 import { useTimeProgress } from '../../hooks/useTimeProgress'
 import InstitutionScroll from '../InstitutionScroll'
 import VideoOverlayContainer from './VideoOverlayContainer'
+import ChatGptIntegrationSection from './ChatGptIntegrationSection'
 
 export default function WorkflowAnimation() {
     // --- SETTINGS CYCLING LOGIC ---
@@ -147,7 +148,7 @@ export default function WorkflowAnimation() {
                 <div
                     id="capture-section"
                     ref={phone1ContainerRef}
-                    className="relative w-full min-h-[60vh] md:min-h-[80vh] flex flex-col items-center justify-center mb-0 pb-0"
+                    className="relative w-full min-h-[45vh] md:min-h-[80vh] flex flex-col items-center justify-center mb-0 pb-0"
                 >
 
                     <div className="sticky top-0 h-screen flex items-center justify-center overflow-visible">
@@ -246,7 +247,7 @@ export default function WorkflowAnimation() {
                 <div
                     id="processing-section"
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center -mt-0 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
+                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center -mt-48 md:-mt-0 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
                 >
                     {/* Video Loop Snippet */}
                     <motion.div
@@ -254,19 +255,10 @@ export default function WorkflowAnimation() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 lg:mb-20 z-30 flex flex-col items-center"
+                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-20 z-30 flex flex-col items-center min-h-[600px] justify-start pt-20"
                     >
-                        <div className="flex items-center gap-4 mb-8">
-                            <img
-                                src="/logos/OpenAI-black-monoblossom.svg"
-                                alt="OpenAI Logo"
-                                className="w-20 h-20 md:w-32 md:h-32"
-                            />
-                            <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-                                ChatGPT App Integration
-                            </h2>
-                        </div>
-                        <VideoOverlayContainer className="w-full" />
+                        {/* ANIMATION LOGIC */}
+                        <ChatGptIntegrationSection />
                     </motion.div>
 
                     <div className="sticky top-0 h-[60vh] md:h-[80vh] lg:h-screen flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh]">

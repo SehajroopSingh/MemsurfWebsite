@@ -16,6 +16,7 @@ import InstitutionScroll from '../InstitutionScroll'
 import VideoOverlayContainer from './VideoOverlayContainer'
 import ChatGptIntegrationSection from './ChatGptIntegrationSection'
 import EmotionalVideosSection from './EmotionalVideosSection'
+import RandomizedTextReveal from '../ui/RandomizedTextReveal'
 
 export default function WorkflowAnimation() {
     // --- SETTINGS CYCLING LOGIC ---
@@ -159,24 +160,24 @@ export default function WorkflowAnimation() {
                             'If life gives you something worth keeping,',
                             'Memsurf helps you remember it.'
                         ].map((sentence, idx) => (
-                                <motion.p
-                                    key={sentence}
-                                    initial={{ opacity: 0, y: 12 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, amount: 0.4 }}
-                                    transition={{ duration: 1.25, ease: 'easeOut', delay: 1.25 * idx }}
-                                    className="text-2xl md:text-3xl leading-relaxed max-w-5xl text-center"
-                                >
-                                    {sentence}
-                                </motion.p>
-                            ))}
+                            <motion.p
+                                key={sentence}
+                                initial={{ opacity: 0, y: 12 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.4 }}
+                                transition={{ duration: 1.25, ease: 'easeOut', delay: 1.25 * idx }}
+                                className="text-2xl md:text-3xl leading-relaxed max-w-5xl text-center"
+                            >
+                                {sentence}
+                            </motion.p>
+                        ))}
                     </div>
                 </div>
             </div>
             {/* HOW IT WORKS Heading */}
             <div className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-48 md:mt-32 z-40">
                 <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
-                    HOW IT WORKS
+                    <RandomizedTextReveal text="HOW IT WORKS" />
                 </h1>
             </div>
 

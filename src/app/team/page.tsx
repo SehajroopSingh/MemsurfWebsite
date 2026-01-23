@@ -9,117 +9,147 @@ import { Linkedin, ArrowRight } from 'lucide-react'
 
 export default function TeamPage() {
     return (
-        <main className="min-h-screen text-white selection:bg-blue-500/30">
+        <main className="min-h-screen bg-white text-gray-900 selection:bg-blue-100">
             <Navigation />
 
-            {/* Hero Section */}
-            <section className="relative pt-32 pb-20 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="max-w-3xl">
-                        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-                            Built by learners, <br />
-                            for learners.
-                        </h1>
-                        <p className="text-xl md:text-2xl text-gray-400 leading-relaxed max-w-2xl">
-                            Memsurf is on a mission to put your memory on autopilot. We're building the tools we wished we had.
-                        </p>
-                    </div>
+            <section className="relative pt-28 pb-16 bg-gradient-to-b from-blue-50/60 via-white to-white">
+                <div className="absolute inset-x-0 -top-32 h-64 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.16),_transparent_55%)] pointer-events-none" />
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <p className="text-sm font-semibold text-blue-600 uppercase tracking-[0.2em] mb-4">
+                        Meet the founders
+                    </p>
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+                        Built by learners,
+                        <br />
+                        for learners.
+                    </h1>
+                    <p className="text-xl text-gray-600 max-w-2xl">
+                        Memsurf is on a mission to put your memory on autopilot. We are building the tools we wished we had.
+                    </p>
                 </div>
             </section>
 
-            {/* Founder Profile */}
-            <section className="py-24 border-t border-white/5 bg-[#050505]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <section className="py-16 border-t border-gray-100">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+                    <div className="space-y-4 max-w-3xl">
+                        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
+                            The people behind the product
+                        </h2>
+                        <p className="text-lg text-gray-600">
+                            Two founders obsessed with making follow-through easier for every learner.
+                        </p>
+                    </div>
 
-                        {/* Image Column */}
-                        <div className="col-span-1 md:col-span-5 relative group">
-                            <div className="relative aspect-[10/9] w-full max-w-md mx-auto md:mr-auto overflow-hidden rounded-2xl bg-gray-900 border border-white/10 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
-                                <Image
-                                    src="/sehajroop.png"
-                                    alt="Sehajroop Singh"
-                                    fill
-                                    className="object-cover object-top scale-125 origin-top"
-                                    priority
-                                />
-
-                                {/* Overlay gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-
-                                <div className="absolute bottom-6 left-6 right-6">
-                                    <h3 className="text-2xl font-bold text-white mb-1">Sehajroop Singh</h3>
-                                    <p className="text-blue-400 font-medium tracking-wide text-sm uppercase">Founder & CEO</p>
+                    <div className="grid gap-12">
+                        <div className="grid md:grid-cols-5 gap-10 items-start">
+                            <div className="md:col-span-2">
+                                <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
+                                    <Image
+                                        src="/sehajroop.png"
+                                        alt="Sehajroop Singh"
+                                        fill
+                                        className="object-cover object-top"
+                                        sizes="(min-width: 1024px) 480px, (min-width: 768px) 50vw, 100vw"
+                                        priority
+                                    />
                                 </div>
                             </div>
 
-                            {/* Decorative elements */}
-                            <div className="absolute -z-10 top-10 -right-10 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl opacity-50 animate-pulse" />
-                            <div className="absolute -z-10 -bottom-10 -left-10 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl opacity-50 animate-pulse" style={{ animationDelay: '1s' }} />
-                        </div>
-
-                        {/* Content Column */}
-                        <div className="col-span-1 md:col-span-7 space-y-8">
-                            <div className="space-y-6">
-                                <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                                    The Vision
-                                </h2>
-
-                                <div className="prose prose-lg prose-invert text-gray-400">
-                                    <p>
-                                        Hi, I'm Sehajroop. I founded Memsurf with a simple but ambitious goal: to fix the "leaky bucket" of human memory.
-                                    </p>
-                                    <p>
-                                        We consume more information today than ever before, but we retain a fraction of it. Whether it's articles, podcasts, or technical documentation, most of that knowledge disappears within days.
-                                    </p>
-                                    <p>
-                                        I believe that learning shouldn't be about endless consumption—it should be about mastery. Memsurf is the result of my obsession with cognitive science and AI, designed to be the "missing hard drive" for your brain.
-                                    </p>
-                                    <p>
-                                        By combining intelligent processing with effortless spaced repetition, we're building a future where you don't just read information—you own it forever.
+                            <div className="md:col-span-3 space-y-4">
+                                <div>
+                                    <h3 className="text-2xl font-bold">Sehajroop Singh</h3>
+                                    <p className="text-blue-600 font-semibold uppercase tracking-[0.14em] text-xs mt-1">
+                                        Founder & CEO
                                     </p>
                                 </div>
 
-                                <div className="pt-6">
+                                <div className="prose prose-lg text-gray-700">
+                                    <p>
+                                        Hi, I’m Sehajroop, founder and CEO of MemSurf, and a lifelong learner with a mild intolerance for forgetting things I know I’ve already learned.
+                                    </p>
+                                    <p>
+                                        I’ve worked across hospital environments, med tech, AI, and educational VR/XR. From volunteering in clinical settings as a pre med to building learning technology, one problem kept showing up everywhere. Human memory is a leaky bucket. We consume more information than ever and lose most of it within days, not because we are careless, but because our tools were not built for how memory actually works.
+                                    </p>
+                                    <p>
+                                        I don’t think learning should be about endless consumption. It should be about mastery, being able to recall, connect, and actually use what you have learned when it matters. MemSurf grew out of an obsession with cognitive science and AI and a belief that memory, while fragile, is highly trainable. With the right reinforcement, what would normally fade can become durable. By combining intelligent processing with effortless spaced repetition, MemSurf provides a timely jolt of reinforcement for memories on the verge of fading, helping knowledge stay accessible when it matters.
+                                    </p>
+                                    <p>
+                                        If this problem resonates with you, we are probably thinking about the same things. I would love to hear how you learn, forget, and try again.
+                                    </p>
+                                </div>
+
+                                <div>
                                     <Link
                                         href="https://www.linkedin.com/in/sehajroop-singh/"
                                         target="_blank"
-                                        className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors group"
+                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-700 transition-colors"
                                     >
-                                        <Linkedin className="w-5 h-5 text-blue-400" />
+                                        <Linkedin className="w-5 h-5" />
                                         <span>Connect on LinkedIn</span>
-                                        <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" />
+                                        <ArrowRight className="w-4 h-4" />
                                     </Link>
                                 </div>
                             </div>
                         </div>
 
+                        <div className="grid md:grid-cols-5 gap-10 items-start">
+                            <div className="md:col-span-2">
+                                <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
+                                    <Image
+                                        src="/Alessia.jpg"
+                                        alt="Alessia"
+                                        fill
+                                        className="object-cover object-center"
+                                        sizes="(min-width: 1024px) 480px, (min-width: 768px) 50vw, 100vw"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="md:col-span-3 space-y-4">
+                                <div>
+                                    <h3 className="text-2xl font-bold">Alessia</h3>
+                                    <p className="text-blue-600 font-semibold uppercase tracking-[0.14em] text-xs mt-1">
+                                        Co-founder & COO
+                                    </p>
+                                </div>
+
+                                <div className="prose prose-lg text-gray-700">
+                                    <p>Hi, I'm Alessia, co-founder and COO of Memsurf.</p>
+                                    <p>
+                                        I've spent most of my career in consulting, policy, and strategy roles, trying to understand why so many systems do not work the way they are supposed to, and why the people who need them most usually get the short end of the stick.
+                                    </p>
+                                    <p>
+                                        I care deeply about access: to education, opportunity, and the tools that help us actually move forward in our lives. Growth should not be a luxury product.
+                                    </p>
+                                    <p>
+                                        At some point, it clicked that most people do not lack motivation or ambition, they lack time and structure. Good intentions are everywhere. Follow-through is hard. That realization is what led me to team up with Sehaj to build Memsurf: something that takes some of the mental load off and helps people make progress without having to rearrange their entire lives.
+                                    </p>
+                                    <p>
+                                        My background is in behavioral science, economics, and public policy, and I've written a lot about cognitive biases, education reform, and access to opportunity. But more than anything, I'm focused on building things that are actually useful, not just theoretically elegant.
+                                    </p>
+                                    <p>
+                                        Feel free to send me an email, DM me on social, or reach out just to say hi. Tell me what you are trying to learn, build, or get unstuck on--I'm always up for a chat :)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Join Section */}
-            <section className="py-24 relative overflow-hidden">
-                <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
-                    <h2 className="text-3xl font-semibold text-white mb-6">
-                        Join us on this journey
-                    </h2>
-                    <p className="text-gray-400 mb-10 max-w-xl mx-auto">
-                        We're just getting started. If you're passionate about the future of learning and human augmentation, we'd love to hear from you.
+            <section className="py-16 bg-gray-50 border-t border-gray-100">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 className="text-3xl font-semibold tracking-tight">Get in touch</h2>
+                    <p className="text-lg text-gray-600 mb-8">
+                        Have questions about Memsurf or want to collaborate? We would love to hear from you.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link
-                            href="/careers"
-                            className="px-8 py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-colors"
-                        >
-                            View Careers
-                        </Link>
+                    <div className="flex justify-center">
                         <Link
                             href="mailto:contact@memsurf.app"
-                            className="px-8 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-700 transition-colors"
                         >
-                            Contact Us
+                            <span>Email us</span>
+                            <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>
                 </div>

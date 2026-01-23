@@ -4,6 +4,7 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { motion } from 'framer-motion'
 import WaitlistForm from '@/components/WaitlistForm'
+import JoinCommunity from '@/components/JoinCommunity'
 
 export default function ComingSoonPage() {
   return (
@@ -45,27 +46,14 @@ export default function ComingSoonPage() {
               We&apos;re putting the finishing touches on our mobile app. Be the first to know when it&apos;s available on the App Store and Google Play.
             </motion.p>
 
-            {/* App Store Badges */}
+            {/* Discord Community */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center gap-4 pt-4"
+              className="pt-4"
             >
-              <div className="group relative inline-flex items-center justify-center transition-transform active:scale-95 hover:scale-105 opacity-60">
-                <img
-                  src="/Download_on_App_Store/Black_lockup/SVG/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
-                  alt="Download on the App Store"
-                  className="h-[60px] w-auto"
-                />
-              </div>
-              <div className="group relative inline-flex items-center justify-center transition-transform active:scale-95 hover:scale-105 opacity-60">
-                <img
-                  src="/Get_it_on_Google_Play/GetItOnGooglePlay_Badge_Web_color_English.svg"
-                  alt="Get it on Google Play"
-                  className="h-[60px] w-auto"
-                />
-              </div>
+              <JoinCommunity delay={0} centered={true} />
             </motion.div>
 
             {/* Email Signup Form */}
@@ -75,8 +63,8 @@ export default function ComingSoonPage() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="w-full max-w-xl space-y-4 pt-8"
             >
-              <p className="text-sm text-gray-500">
-                Want to be the first to know? Sign up to get notified when we launch.
+              <p className="text-center text-lg text-gray-600 mb-4">
+                and/or sign up for our email list for updates
               </p>
               <WaitlistForm source="coming_soon_page" />
             </motion.div>

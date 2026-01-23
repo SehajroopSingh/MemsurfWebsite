@@ -7,6 +7,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import StoreBadges from '@/components/StoreBadges'
 import WaitlistForm from '@/components/WaitlistForm'
 import ScrollTracker from '@/components/ScrollTracker'
+import JoinCommunity from '@/components/JoinCommunity'
 import { Linkedin, Mail } from 'lucide-react'
 
 // Custom TikTok Icon
@@ -69,13 +70,14 @@ export default function Home() {
                 <div className="w-full flex justify-center px-4">
                   <StoreBadges location="app_store_section" />
                 </div>
+                <JoinCommunity className="mt-4" delay={0} centered={true} />
               </div>
             </div>
 
             {/* Email Subscription Section */}
             <div id="waitlist-section" className="w-full max-w-xl space-y-4 pt-4">
-              <p className="text-3xl sm:text-sm text-gray-500">
-                Sign up for email list to hear updates.
+              <p className="text-center text-lg text-gray-600 mb-4">
+                and/or sign up for our email list for updates
               </p>
               <WaitlistForm source="homepage_waitlist" />
             </div>

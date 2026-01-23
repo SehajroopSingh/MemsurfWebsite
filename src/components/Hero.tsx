@@ -6,6 +6,7 @@ import WorkflowAnimation from './infographic/WorkflowAnimation'
 import GreenScreenVideo from './GreenScreenVideo'
 import { VIDEO_PATH, VIDEO_PLACEHOLDER } from '@/config/video'
 import StoreBadges from './StoreBadges'
+import JoinCommunity from './JoinCommunity'
 
 // import RippleBackground from './RippleBackground'
 
@@ -60,9 +61,12 @@ export default function Hero() {
                     </motion.div>
                 </div>
 
-                {/* App Store Links - Below both text and video */}
+                {/* Join Our Community Section - Above App Store Links */}
+                <JoinCommunity className="mt-8" />
+
+                {/* App Store Links - Below community section */}
                 <motion.div
-                    className="relative w-full max-w-7xl mx-auto px-4 sm:px-4 z-20 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-0 sm:gap-6 mt-8"
+                    className="relative w-full max-w-7xl mx-auto px-4 sm:px-4 z-20 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-0 sm:gap-6 mt-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}

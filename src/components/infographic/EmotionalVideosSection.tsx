@@ -241,51 +241,51 @@ export default function EmotionalVideosSection() {
                 {/* Images Layer */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none z-20">
                     <div className="relative w-full h-full px-2 sm:px-4 lg:px-12 max-w-[95vw] xl:max-w-[1400px] mx-auto">
-                    {reorderedImages.map((src, i) => {
-                        const rangeSize = revealConfig.rangeSize
-                        const start = revealConfig.starts[i] ?? 0
-                        const endHold = revealConfig.endHolds[i] ?? start + rangeSize
-                        const end = revealConfig.ends[i] ?? endHold + revealConfig.gap
+                        {reorderedImages.map((src, i) => {
+                            const rangeSize = revealConfig.rangeSize
+                            const start = revealConfig.starts[i] ?? 0
+                            const endHold = revealConfig.endHolds[i] ?? start + rangeSize
+                            const end = revealConfig.ends[i] ?? endHold + revealConfig.gap
 
-                        let maxRadius = '260%'
-                        // On Mobile, if we want to fill usage more, maybe larger radius? 
-                        // But 42% of 100vw is 84vw width. That's a good "Center" size.
+                            let maxRadius = '260%'
+                            // On Mobile, if we want to fill usage more, maybe larger radius? 
+                            // But 42% of 100vw is 84vw width. That's a good "Center" size.
 
-                        // Conditionals for Desktop Motion
-                        // If Mobile: x is always 0.
-                        // If Desktop: Use globalShiftX logic.
+                            // Conditionals for Desktop Motion
+                            // If Mobile: x is always 0.
+                            // If Desktop: Use globalShiftX logic.
 
-                        let x: MotionValue<string> | string = isMobile ? '0vw' : globalShiftX
+                            let x: MotionValue<string> | string = isMobile ? '0vw' : globalShiftX
 
-                        if (i < 3) {
-                            maxRadius = '42%'
-                        } else if (i === 3) {
-                            // Transition Card
-                            maxRadius = '360%'
-                        } else {
-                            // Images 4+ (Left Side on Desktop)
-                            maxRadius = '360%'
-                            if (!isMobile) x = '-50vw'
-                        }
+                            if (i < 3) {
+                                maxRadius = '42%'
+                            } else if (i === 3) {
+                                // Transition Card
+                                maxRadius = '360%'
+                            } else {
+                                // Images 4+ (Left Side on Desktop)
+                                maxRadius = '360%'
+                                if (!isMobile) x = '-50vw'
+                            }
 
-                        // Optimization for static post-transition state on desktop
-                        if (!isMobile && i > 3) x = '-40vw'
+                            // Optimization for static post-transition state on desktop
+                            if (!isMobile && i > 3) x = '-40vw'
 
-                        return (
-                            <Card
-                                key={i}
-                                index={i + 1}
-                                src={src}
-                                progress={scrollYProgress}
-                                range={[start - rangeSize, start]}
-                                maxRadius={maxRadius}
-                                x={x}
-                                isMobile={isMobile}
-                                holdEnd={endHold}
-                                fadeEnd={end}
-                            />
-                        )
-                    })}
+                            return (
+                                <Card
+                                    key={i}
+                                    index={i + 1}
+                                    src={src}
+                                    progress={scrollYProgress}
+                                    range={[start - rangeSize, start]}
+                                    maxRadius={maxRadius}
+                                    x={x}
+                                    isMobile={isMobile}
+                                    holdEnd={endHold}
+                                    fadeEnd={end}
+                                />
+                            )
+                        })}
                     </div>
                 </div>
 

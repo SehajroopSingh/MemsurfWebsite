@@ -65,7 +65,7 @@ const Card = ({ src, index, progress, range, maxRadius, x, isMobile }: CardProps
             {/* 
                 Constrained Height: h-[75vh]
             */}
-            <div className="relative w-full h-[75vh] rounded-3xl shadow-2xl overflow-hidden bg-black">
+            <div className="relative w-full h-[75vh] rounded-3xl overflow-hidden bg-black">
                 <Image
                     src={src}
                     alt={`Emotional graphic ${index}`}

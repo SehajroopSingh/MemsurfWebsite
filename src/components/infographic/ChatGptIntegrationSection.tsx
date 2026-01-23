@@ -38,7 +38,7 @@ export default function ChatGptIntegrationSection() {
             // 5. Initial Overlay -> Text Exiting (Wait for read)
             setTimeout(() => {
                 setStage('text-exiting')
-            }, 6800) // Show initial text for 3s
+            }, 5300) // Show initial text for 1.5s
         }
     }, [inView, stage])
 
@@ -64,10 +64,10 @@ export default function ChatGptIntegrationSection() {
         setTimeout(() => {
             setStage('overlay-loop')
 
-            // Show final text for 3 seconds, then restart sequence (text-exiting -> video-fading-in -> video-playing)
+            // Show final text for 1.5 seconds, then restart sequence (text-exiting -> video-fading-in -> video-playing)
             setTimeout(() => {
                 setStage('text-exiting')
-            }, 3000)
+            }, 1500)
         }, 8000)
     }
 

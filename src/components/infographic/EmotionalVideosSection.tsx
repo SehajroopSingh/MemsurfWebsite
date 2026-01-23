@@ -1,19 +1,19 @@
 'use client'
 
 import React, { useRef, useState, useEffect, useMemo } from 'react'
-import { motion, useScroll, useTransform, MotionValue, useMotionValueEvent } from 'framer-motion'
+import { motion, useScroll, useTransform, MotionValue, useMotionValueEvent, useMotionTemplate } from 'framer-motion'
 import Image from 'next/image'
 import EmotionalVideosSectionMobile from './EmotionalVideosSectionMobile'
 
 const IMAGES = [
-    '/EmotionImageFolders/image-1.png',
-    '/EmotionImageFolders/image-2.png',
-    '/EmotionImageFolders/image-3.png',
-    '/EmotionImageFolders/image-4.png',
-    '/EmotionImageFolders/image-5.png',
-    '/EmotionImageFolders/image-6.png',
-    '/EmotionImageFolders/image-7.png',
-    '/EmotionImageFolders/image-8.png'
+    '/EmotionImageFolders/1.%20photo%20shower.png',
+    '/EmotionImageFolders/2.%20coffee.png',
+    '/EmotionImageFolders/3.%20traffic.png',
+    '/EmotionImageFolders/4.%20lunch%20break.png',
+    '/EmotionImageFolders/5.%20meeting.png',
+    '/EmotionImageFolders/6.%20supermarket.png',
+    '/EmotionImageFolders/7.%20dinner%20and%20podcast.png',
+    '/EmotionImageFolders/8.%20bed.png'
 ]
 
 const HEADLINES = [
@@ -35,15 +35,21 @@ interface CardProps {
     maxRadius: string
     x: MotionValue<string> | string
     isMobile: boolean
+    holdEnd: number
+    fadeEnd: number
 }
 
-const Card = ({ src, index, progress, range, maxRadius, x, isMobile }: CardProps) => {
+const Card = ({ src, index, progress, range, maxRadius, x, isMobile, holdEnd, fadeEnd }: CardProps) => {
     // Reveal via clip-path circle expansion
     // 0% -> 0% radius
     // 100% -> maxRadius
     const radius = useTransform(progress, [range[0], range[1]], ['0%', maxRadius])
-
     const clipPath = useTransform(radius, (r) => `circle(${r} at 50% 50%)`)
+    // Shadow only while this card is active to avoid stacking
+    const shadowOpacity = useTransform(progress, [range[0], range[1], range[1] + 0.05], [0, 1, 0])
+    const shadowFilter = useMotionTemplate`drop-shadow(0 30px 80px rgba(0,0,0,${shadowOpacity}))`
+    // Opacity to ensure only one image shows at a time
+    const opacity = useTransform(progress, [range[0], range[1], holdEnd, fadeEnd], [0, 1, 1, 0])
 
     // Responsive Styles
     const width = isMobile ? '100vw' : '60vw'
@@ -52,29 +58,32 @@ const Card = ({ src, index, progress, range, maxRadius, x, isMobile }: CardProps
     return (
         <motion.div
             style={{
-                clipPath,
                 x,
                 zIndex: index,
                 left,
                 width,
                 top: '50%',
                 y: '-50%', // Vertically centered
+                filter: shadowFilter,
+                opacity
             }}
             className="absolute flex items-center justify-center pointer-events-none"
         >
-            {/* 
-                Constrained Height: h-[75vh]
-            */}
-            <div className="relative w-full h-[75vh] rounded-3xl overflow-hidden bg-black">
-                <Image
-                    src={src}
-                    alt={`Emotional graphic ${index}`}
-                    fill
-                    className="object-cover"
-                    priority={index === 1}
-                    unoptimized
-                />
-            </div>
+            <motion.div style={{ clipPath, overflow: 'hidden' }} className="w-full h-full">
+                {/* 
+                    Constrained Height: h-[75vh]
+                */}
+                <div className="relative w-full h-[75vh] rounded-3xl overflow-hidden bg-black">
+                    <Image
+                        src={src}
+                        alt={`Emotional graphic ${index}`}
+                        fill
+                        className="object-cover"
+                        priority={index === 1}
+                        unoptimized
+                    />
+                </div>
+            </motion.div>
         </motion.div>
     )
 }
@@ -110,8 +119,8 @@ export default function EmotionalVideosSection() {
     }, [])
 
     // --- Transition Constants ---
-    const TRANSITION_START = 0.3
-    const TRANSITION_END = 0.4
+    const TRANSITION_START = 0.25
+    const TRANSITION_END = 0.55
 
     // --- Global X Shift ---
     // Desktop: Moves from Right Center to Left Center (-50vw).
@@ -135,17 +144,61 @@ export default function EmotionalVideosSection() {
     // const sideHeight = useTransform(borderSideProgress, (p) => `${p * 100}%`)
     // const bottomHalfWidth = useTransform(borderBottomProgress, (p) => `${p * 55}%`)
 
-    // Track which headline to show based on scroll progress
+    // Precompute reveal timing so text and images stay in sync and linger
+    const revealConfig = useMemo(() => {
+        // Per-image timing: reveal -> hold -> gap; lunch break (index 3) lingers longer but total stays within 0-1
+        const rangeSize = 0.045
+        const baseHold = 0.045
+        const gap = 0.01
+        const baseStart = 0.04
+
+        const starts: number[] = []
+        const endHolds: number[] = []
+        const ends: number[] = []
+
+        let current = baseStart
+        const count = reorderedImages.length || 0
+        for (let i = 0; i < count; i++) {
+            const extraHold = i === 3 ? 0.18 : 0 // lunch break lingers longer
+            const hold = baseHold + extraHold
+            starts.push(current)
+            const endHold = current + rangeSize + hold
+            endHolds.push(endHold)
+            const end = endHold + gap
+            ends.push(end)
+            current = end
+        }
+
+        return {
+            rangeSize,
+            gap,
+            starts,
+            endHolds,
+            ends
+        }
+    }, [reorderedImages.length])
+
+    // Track which headline to show based on scroll progress, using hold windows
     useMotionValueEvent(scrollYProgress, 'change', (value) => {
         if (!reorderedImages.length) return
-        const idx = Math.min(reorderedImages.length - 1, Math.max(0, Math.floor(value * reorderedImages.length)))
-        setActiveHeadlineIndex(idx)
+        const count = reorderedImages.length
+        if (!count) return
+        let idx = count - 1
+        for (let i = 0; i < count; i++) {
+            const endHold = revealConfig.endHolds[i] ?? 1
+            if (value < endHold) {
+                idx = i
+                break
+            }
+        }
+        if (idx !== activeHeadlineIndex) setActiveHeadlineIndex(idx)
     })
     const headlineForIndex = (idx: number) =>
         reorderedHeadlines[idx] ?? `Emotional moment ${idx + 1}`
     const currentHeadline = reorderedImages.length
         ? headlineForIndex(Math.min(activeHeadlineIndex, reorderedImages.length - 1))
         : ''
+    const leftHeadline = activeHeadlineIndex === 3 ? '' : currentHeadline
 
     // --- Mobile-Only Layout ---
     if (hasCheckedViewport && isMobile) {
@@ -170,11 +223,8 @@ export default function EmotionalVideosSection() {
                         className="flex flex-col justify-center lg:max-w-none lg:pl-2 lg:pr-0 w-full"
                     >
                         <h2 className={`text-2xl md:text-4xl font-bold tracking-tight text-white mb-4 leading-tight ${isMobile ? 'opacity-20' : ''}`}>
-                            {currentHeadline}
+                            {leftHeadline}
                         </h2>
-                        {!isMobile && reorderedImages.length > 0 && (
-                            <p className="text-lg text-gray-200">Moments you wanted to keep.</p>
-                        )}
                     </motion.div>
 
                     {/* Right Column Text (Visible after swap) */}
@@ -192,9 +242,10 @@ export default function EmotionalVideosSection() {
                 <div className="absolute inset-0 w-full h-full pointer-events-none z-20">
                     <div className="relative w-full h-full px-2 sm:px-4 lg:px-12 max-w-[95vw] xl:max-w-[1400px] mx-auto">
                     {reorderedImages.map((src, i) => {
-                        // On mobile, use wider ranges so animations complete faster
-                        const rangeSize = isMobile ? 0.15 : 0.1
-                        const start = 0.1 + (i * (isMobile ? 0.12 : 0.1))
+                        const rangeSize = revealConfig.rangeSize
+                        const start = revealConfig.starts[i] ?? 0
+                        const endHold = revealConfig.endHolds[i] ?? start + rangeSize
+                        const end = revealConfig.ends[i] ?? endHold + revealConfig.gap
 
                         let maxRadius = '260%'
                         // On Mobile, if we want to fill usage more, maybe larger radius? 
@@ -222,8 +273,16 @@ export default function EmotionalVideosSection() {
 
                         return (
                             <Card
-                                key={i} index={i + 1} src={src} progress={scrollYProgress} range={[start - rangeSize, start]}
-                                maxRadius={maxRadius} x={x} isMobile={isMobile}
+                                key={i}
+                                index={i + 1}
+                                src={src}
+                                progress={scrollYProgress}
+                                range={[start - rangeSize, start]}
+                                maxRadius={maxRadius}
+                                x={x}
+                                isMobile={isMobile}
+                                holdEnd={endHold}
+                                fadeEnd={end}
                             />
                         )
                     })}

@@ -18,7 +18,7 @@ export default function JoinCommunity({ delay = 0.4, className = '', centered = 
   const handleDiscordClick = () => {
     track('discord_link_clicked', {
       location,
-      discord_url: 'https://discord.gg/BPEn6ATT'
+      discord_url: 'https://discord.gg/vV2YgzXArg'
     })
   }
   
@@ -33,7 +33,7 @@ export default function JoinCommunity({ delay = 0.4, className = '', centered = 
         Join our community
       </p>
       <a
-        href="https://discord.gg/BPEn6ATT"
+        href="https://discord.gg/vV2YgzXArg"
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleDiscordClick}

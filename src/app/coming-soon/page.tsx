@@ -53,7 +53,7 @@ export default function ComingSoonPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="pt-4"
             >
-              <JoinCommunity delay={0} centered={true} />
+              <JoinCommunity delay={0} centered={true} location="coming_soon" />
             </motion.div>
 
             {/* Email Signup Form */}

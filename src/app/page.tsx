@@ -70,7 +70,7 @@ export default function Home() {
                 <div className="w-full flex justify-center px-4">
                   <StoreBadges location="app_store_section" />
                 </div>
-                <JoinCommunity className="mt-4" delay={0} centered={true} />
+                <JoinCommunity className="mt-4" delay={0} centered={true} location="homepage_bottom" />
               </div>
             </div>
 

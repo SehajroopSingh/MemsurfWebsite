@@ -62,7 +62,7 @@ export default function Hero() {
                 </div>
 
                 {/* Join Our Community Section - Above App Store Links */}
-                <JoinCommunity className="mt-8" />
+                <JoinCommunity className="mt-8" location="hero" />
 
                 {/* App Store Links - Below community section */}
                 <motion.div

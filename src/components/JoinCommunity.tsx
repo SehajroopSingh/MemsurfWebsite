@@ -2,15 +2,25 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useAmplitude } from '@/hooks/useAmplitude'
 
 interface JoinCommunityProps {
   delay?: number
   className?: string
   centered?: boolean
+  location?: string
 }
 
-export default function JoinCommunity({ delay = 0.4, className = '', centered = false }: JoinCommunityProps) {
+export default function JoinCommunity({ delay = 0.4, className = '', centered = false, location = 'unknown' }: JoinCommunityProps) {
+  const { track } = useAmplitude()
   const justifyClass = centered ? 'justify-center' : 'justify-center lg:justify-start'
+  
+  const handleDiscordClick = () => {
+    track('discord_link_clicked', {
+      location,
+      discord_url: 'https://discord.gg/BPEn6ATT'
+    })
+  }
   
   return (
     <motion.div
@@ -23,9 +33,10 @@ export default function JoinCommunity({ delay = 0.4, className = '', centered = 
         Join our community
       </p>
       <a
-        href="https://discord.gg/memsurf"
+        href="https://discord.gg/BPEn6ATT"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleDiscordClick}
         className="inline-flex items-center gap-2 text-xl sm:text-base text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium whitespace-nowrap border-2 border-black rounded-3xl pl-2 pr-4 py-2 sm:pl-1 sm:pr-3 sm:py-1.5"
         aria-label="Join our Discord community"
       >

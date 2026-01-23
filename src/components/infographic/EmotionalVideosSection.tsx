@@ -235,23 +235,23 @@ export default function EmotionalVideosSection() {
                     <div className="absolute inset-0 pointer-events-none z-30 max-w-[95vw] xl:max-w-[1400px] mx-auto rounded-[32px]">
                         <motion.div
                             className="absolute top-0 left-1/2 h-[12px] bg-[#8c648d]"
-                            style={{ width: topWidth, translateX: '-50%', borderRadius: '9999px' }}
+                            style={{ translateX: '-50%', borderRadius: '9999px' }}
                         />
                         <motion.div
                             className="absolute left-0 top-0 w-[12px] bg-[#8c648d]"
-                            style={{ height: sideHeight, borderRadius: '9999px' }}
+                            style={{ borderRadius: '9999px' }}
                         />
                         <motion.div
                             className="absolute right-0 top-0 w-[12px] bg-[#8c648d]"
-                            style={{ height: sideHeight, borderRadius: '9999px' }}
+                            style={{ borderRadius: '9999px' }}
                         />
                         <motion.div
                             className="absolute bottom-0 left-0 h-[12px] bg-[#8c648d]"
-                            style={{ width: bottomHalfWidth, borderRadius: '9999px' }}
+                            style={{ borderRadius: '9999px' }}
                         />
                         <motion.div
                             className="absolute bottom-0 right-0 h-[12px] bg-[#8c648d]"
-                            style={{ width: bottomHalfWidth, borderRadius: '9999px' }}
+                            style={{ borderRadius: '9999px' }}
                         />
                     </div>
                 )}

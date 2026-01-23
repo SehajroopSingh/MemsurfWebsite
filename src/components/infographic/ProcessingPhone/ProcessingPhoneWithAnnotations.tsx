@@ -30,7 +30,7 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
         <div className="relative flex items-center w-full z-30">
             <div className="flex-shrink-0 relative w-[280px]">
                 <PhoneScreen>
-                    <ProcessingScreen progress={progress} />
+                    <ProcessingScreen progress={progress} loop={true} />
                 </PhoneScreen>
             </div>
 

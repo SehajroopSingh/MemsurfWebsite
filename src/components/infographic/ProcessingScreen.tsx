@@ -1,5 +1,5 @@
-import React from 'react'
-import { motion, useTransform, MotionValue } from 'framer-motion'
+import React, { useEffect } from 'react'
+import { motion, useTransform, MotionValue, useMotionValue, animate, useAnimationFrame } from 'framer-motion'
 import { FileText } from 'lucide-react'
 
 // REMOVED TIME-BASED CONSTANTS - We now use scroll progress thresholds (0.0 to 1.0)
@@ -7,38 +7,98 @@ import { FileText } from 'lucide-react'
 
 type ProcessingScreenProps = {
     progress: MotionValue<number>
+    loop?: boolean
 }
 
-export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
+export default function ProcessingScreen({ progress, loop = false }: ProcessingScreenProps) {
+    // If looping, create an internal progress that loops
+    const loopProgress = useMotionValue(0)
+    const containerOpacity = useMotionValue(1)
+
+    useEffect(() => {
+        if (!loop) return
+
+        let animationId: number | null = null
+        let isRunning = true
+        const FADE_DURATION = 0.4 // seconds for fade in/out
+        const ANIMATION_DURATION = 12 // seconds for full animation (matches phone2Progress duration)
+        const PAUSE_DURATION = 2 // seconds to wait at the end before fading out
+        const LOOP_DURATION = ANIMATION_DURATION + PAUSE_DURATION + (FADE_DURATION * 2) // total loop time
+
+        const startTime = performance.now()
+
+        const animate = (currentTime: number) => {
+            if (!isRunning) return
+
+            const elapsed = (currentTime - startTime) / 1000
+            const cycleTime = elapsed % LOOP_DURATION
+
+            if (cycleTime < FADE_DURATION) {
+                // Fade in at the beginning
+                const fadeProgress = cycleTime / FADE_DURATION
+                containerOpacity.set(fadeProgress)
+                loopProgress.set(0)
+            } else if (cycleTime < FADE_DURATION + ANIMATION_DURATION) {
+                // Main animation
+                containerOpacity.set(1)
+                const animProgress = (cycleTime - FADE_DURATION) / ANIMATION_DURATION
+                loopProgress.set(animProgress)
+            } else if (cycleTime < FADE_DURATION + ANIMATION_DURATION + PAUSE_DURATION) {
+                // Pause at the end - keep animation at completion and opacity at 1
+                containerOpacity.set(1)
+                loopProgress.set(1)
+            } else {
+                // Fade out at the end
+                const fadeOutStart = FADE_DURATION + ANIMATION_DURATION + PAUSE_DURATION
+                const fadeOutProgress = (cycleTime - fadeOutStart) / FADE_DURATION
+                containerOpacity.set(1 - fadeOutProgress)
+                loopProgress.set(1)
+            }
+
+            animationId = requestAnimationFrame(animate)
+        }
+
+        animationId = requestAnimationFrame(animate)
+
+        return () => {
+            isRunning = false
+            if (animationId !== null) {
+                cancelAnimationFrame(animationId)
+            }
+        }
+    }, [loop, loopProgress, containerOpacity])
+
+    // Use loop progress if looping, otherwise use external progress
+    const effectiveProgress = loop ? loopProgress : progress
     // --- HELPER TRANSFORMS ---
     // We map the incoming 0..1 progress to specific animation phases.
 
     // 1. LABELS
     // Extracting: 0.05 -> 0.25
-    const labelDepthOpacity = useTransform(progress, [0.05, 0.1, 0.2, 0.25], [0, 1, 1, 0])
-    const labelDepthY = useTransform(progress, [0.05, 0.1, 0.2, 0.25], [-10, 0, 0, -10])
+    const labelDepthOpacity = useTransform(effectiveProgress, [0.05, 0.1, 0.2, 0.25], [0, 1, 1, 0])
+    const labelDepthY = useTransform(effectiveProgress, [0.05, 0.1, 0.2, 0.25], [-10, 0, 0, -10])
 
     // Lesson Plan: 0.35 -> 0.65
-    const labelLessonOpacity = useTransform(progress, [0.35, 0.4, 0.6, 0.65], [0, 1, 1, 0])
-    const labelLessonY = useTransform(progress, [0.35, 0.4, 0.6, 0.65], [-10, 0, 0, -10])
+    const labelLessonOpacity = useTransform(effectiveProgress, [0.35, 0.4, 0.6, 0.65], [0, 1, 1, 0])
+    const labelLessonY = useTransform(effectiveProgress, [0.35, 0.4, 0.6, 0.65], [-10, 0, 0, -10])
 
     // Generating Quizzes: 0.70 -> 0.95
-    const labelQuizOpacity = useTransform(progress, [0.70, 0.75, 0.95], [0, 1, 1])
-    const labelQuizY = useTransform(progress, [0.70, 0.75, 0.95], [-10, 0, 0])
+    const labelQuizOpacity = useTransform(effectiveProgress, [0.70, 0.75, 0.95], [0, 1, 1])
+    const labelQuizY = useTransform(effectiveProgress, [0.70, 0.75, 0.95], [-10, 0, 0])
 
 
     // 2. PHASE 1: RAW CONTENT (0.0 -> 0.25)
     // Enters, scales up, then morphs/fades out
-    const rawContentOpacity = useTransform(progress, [0.0, 0.2, 0.25], [1, 1, 0])
+    const rawContentOpacity = useTransform(effectiveProgress, [0.0, 0.2, 0.25], [1, 1, 0])
     // Hold static 0.8 until 0.1, then scale up to 1
-    const rawContentScale = useTransform(progress, [0.0, 0.1, 0.2, 0.25], [0.8, 0.8, 1, 0.2])
+    const rawContentScale = useTransform(effectiveProgress, [0.0, 0.1, 0.2, 0.25], [0.8, 0.8, 1, 0.2])
 
 
     // 3. PHASE 2: UNIFIED MORPH (0.20 -> 0.35)
     // The "Blob" that appears before splitting
-    const unifiedOpacity = useTransform(progress, [0.20, 0.25, 0.35, 0.40], [0, 1, 1, 0])
-    const unifiedY = useTransform(progress, [0.20, 0.25, 0.35, 0.40], [12, 0, 0, -8])
-    const unifiedScale = useTransform(progress, [0.20, 0.25, 0.35, 0.40], [0.96, 1, 1, 0.98])
+    const unifiedOpacity = useTransform(effectiveProgress, [0.20, 0.25, 0.35, 0.40], [0, 1, 1, 0])
+    const unifiedY = useTransform(effectiveProgress, [0.20, 0.25, 0.35, 0.40], [12, 0, 0, -8])
+    const unifiedScale = useTransform(effectiveProgress, [0.20, 0.25, 0.35, 0.40], [0.96, 1, 1, 0.98])
 
     // Unified lines growing
     const getUnifiedLineStats = (i: number) => {
@@ -56,36 +116,40 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
     const SPLIT_START_OFFSET = 12
     const SPLIT_GAP = 140
 
-    const splitGroupOpacity = useTransform(progress, [0.35, 0.40], [0, 1])
+    const splitGroupOpacity = useTransform(effectiveProgress, [0.35, 0.40], [0, 1])
 
     // Top Group moves up
-    const topGroupY = useTransform(progress, [0.35, 0.50], [-SPLIT_START_OFFSET, -SPLIT_GAP])
+    const topGroupY = useTransform(effectiveProgress, [0.35, 0.50], [-SPLIT_START_OFFSET, -SPLIT_GAP])
     // Bottom Group moves down
-    const bottomGroupY = useTransform(progress, [0.35, 0.50], [SPLIT_START_OFFSET, SPLIT_GAP])
+    const bottomGroupY = useTransform(effectiveProgress, [0.35, 0.50], [SPLIT_START_OFFSET, SPLIT_GAP])
 
     // Card Appearance (Box Shadow/bg) (0.50 -> 0.60)
-    const cardBgOpacity = useTransform(progress, [0.50, 0.60], [0, 1])
-    const cardBorderColor = useTransform(progress, [0.50, 0.60], ["transparent", "#e5e7eb"])
-    const cardShadow = useTransform(progress, [0.50, 0.60], ["none", "0 4px 6px -1px rgba(0, 0, 0, 0.1)"])
+    const cardBgOpacity = useTransform(effectiveProgress, [0.50, 0.60], [0, 1])
+    const cardBorderColor = useTransform(effectiveProgress, [0.50, 0.60], ["transparent", "#e5e7eb"])
+    const cardShadow = useTransform(effectiveProgress, [0.50, 0.60], ["none", "0 4px 6px -1px rgba(0, 0, 0, 0.1)"])
 
     // Header Expansion (0.55 -> 0.65)
-    const headerHeight = useTransform(progress, [0.55, 0.65], [0, 28]) // approximate pixel height for auto
-    const headerOpacity = useTransform(progress, [0.55, 0.60], [0, 1])
-    const headerMb = useTransform(progress, [0.55, 0.65], [0, 8])
+    const headerHeight = useTransform(effectiveProgress, [0.55, 0.65], [0, 28]) // approximate pixel height for auto
+    const headerOpacity = useTransform(effectiveProgress, [0.55, 0.60], [0, 1])
+    const headerMb = useTransform(effectiveProgress, [0.55, 0.65], [0, 8])
 
     // Content Lines (0.60 -> 0.75)
     // Staggered appearance of the "text" lines inside the cards
 
     // Extra Details at bottom of card (0.75 -> 0.85)
-    const detailsHeight = useTransform(progress, [0.75, 0.85], [0, 20])
-    const detailsOpacity = useTransform(progress, [0.75, 0.80], [0, 1])
+    const detailsHeight = useTransform(effectiveProgress, [0.75, 0.85], [0, 20])
+    const detailsOpacity = useTransform(effectiveProgress, [0.75, 0.80], [0, 1])
 
 
     // 5. PHASE 4: QUIZZES (0.80 -> 1.0)
+    // Extended to 0.98 to ensure all circles complete
     const QUIZ_START_THRESHOLD = 0.80
 
     return (
-        <div className="absolute inset-0 bg-white flex flex-col items-center justify-center overflow-hidden">
+        <motion.div 
+            className="absolute inset-0 bg-white flex flex-col items-center justify-center overflow-hidden"
+            style={{ opacity: loop ? containerOpacity : 1 }}
+        >
             {/* BACKGROUND PATTERN */}
             <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
 
@@ -151,9 +215,9 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                         {Array.from({ length: 7 }).map((_, i) => {
                             const { start, end } = getUnifiedLineStats(i);
                             // eslint-disable-next-line react-hooks/rules-of-hooks
-                            const width = useTransform(progress, [start, end], ["0%", i % 3 === 0 ? "100%" : i % 3 === 1 ? "92%" : "85%"]);
+                            const width = useTransform(effectiveProgress, [start, end], ["0%", i % 3 === 0 ? "100%" : i % 3 === 1 ? "92%" : "85%"]);
                             // eslint-disable-next-line react-hooks/rules-of-hooks
-                            const op = useTransform(progress, [start, end], [0, 1]);
+                            const op = useTransform(effectiveProgress, [start, end], [0, 1]);
 
                             return (
                                 <motion.div
@@ -195,9 +259,9 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                         <div className="flex flex-col gap-1.5 w-full pl-2">
                             {Array.from({ length: 6 }).map((_, i) => {
                                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                                const width = useTransform(progress, [0.60 + (i * 0.02), 0.65 + (i * 0.02)], ["0%", i === 0 || i === 3 ? "100%" : "85%"])
+                                const width = useTransform(effectiveProgress, [0.60 + (i * 0.02), 0.65 + (i * 0.02)], ["0%", i === 0 || i === 3 ? "100%" : "85%"])
                                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                                const op = useTransform(progress, [0.60 + (i * 0.02), 0.65 + (i * 0.02)], [0, 1])
+                                const op = useTransform(effectiveProgress, [0.60 + (i * 0.02), 0.65 + (i * 0.02)], [0, 1])
 
                                 return (
                                     <React.Fragment key={`top-${i}`}>
@@ -209,13 +273,13 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                                             <motion.div
                                                 className="flex gap-2 justify-start pl-1"
                                                 style={{
-                                                    opacity: useTransform(progress, [QUIZ_START_THRESHOLD, QUIZ_START_THRESHOLD + 0.05], [0, 1]),
-                                                    scale: useTransform(progress, [QUIZ_START_THRESHOLD, QUIZ_START_THRESHOLD + 0.05], [0.5, 1])
+                                                    opacity: useTransform(effectiveProgress, [QUIZ_START_THRESHOLD, QUIZ_START_THRESHOLD + 0.05], [0, 1]),
+                                                    scale: useTransform(effectiveProgress, [QUIZ_START_THRESHOLD, QUIZ_START_THRESHOLD + 0.05], [0.5, 1])
                                                 }}
                                             >
                                                 {[1, 2].map((q, qIndex) => {
                                                     // eslint-disable-next-line react-hooks/rules-of-hooks
-                                                    const s = useTransform(progress, [QUIZ_START_THRESHOLD + (qIndex * 0.03), QUIZ_START_THRESHOLD + 0.05 + (qIndex * 0.03)], [0, 1])
+                                                    const s = useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + (qIndex * 0.03), QUIZ_START_THRESHOLD + 0.05 + (qIndex * 0.03)], [0, 1])
                                                     return (
                                                         <motion.div
                                                             key={`top-row1-${q}`}
@@ -232,13 +296,13 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                                             <motion.div
                                                 className="flex gap-2 justify-end pr-1"
                                                 style={{
-                                                    opacity: useTransform(progress, [QUIZ_START_THRESHOLD + 0.05, QUIZ_START_THRESHOLD + 0.1], [0, 1]),
-                                                    scale: useTransform(progress, [QUIZ_START_THRESHOLD + 0.05, QUIZ_START_THRESHOLD + 0.1], [0.5, 1])
+                                                    opacity: useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.05, QUIZ_START_THRESHOLD + 0.1], [0, 1]),
+                                                    scale: useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.05, QUIZ_START_THRESHOLD + 0.1], [0.5, 1])
                                                 }}
                                             >
                                                 {[1, 2, 3].map((q, qIndex) => {
                                                     // eslint-disable-next-line react-hooks/rules-of-hooks
-                                                    const s = useTransform(progress, [QUIZ_START_THRESHOLD + 0.05 + (qIndex * 0.03), QUIZ_START_THRESHOLD + 0.1 + (qIndex * 0.03)], [0, 1])
+                                                    const s = useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.05 + (qIndex * 0.03), QUIZ_START_THRESHOLD + 0.1 + (qIndex * 0.03)], [0, 1])
                                                     return (
                                                         <motion.div
                                                             key={`top-row2-${q}`}
@@ -297,9 +361,9 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                         <div className="flex flex-col gap-1.5 w-full pl-2">
                             {Array.from({ length: 6 }).map((_, i) => {
                                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                                const width = useTransform(progress, [0.60 + (i * 0.02), 0.65 + (i * 0.02)], ["0%", i === 0 || i === 3 ? "100%" : "85%"])
+                                const width = useTransform(effectiveProgress, [0.60 + (i * 0.02), 0.65 + (i * 0.02)], ["0%", i === 0 || i === 3 ? "100%" : "85%"])
                                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                                const op = useTransform(progress, [0.60 + (i * 0.02), 0.65 + (i * 0.02)], [0, 1])
+                                const op = useTransform(effectiveProgress, [0.60 + (i * 0.02), 0.65 + (i * 0.02)], [0, 1])
 
                                 return (
                                     <React.Fragment key={`bottom-${i}`}>
@@ -311,13 +375,13 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                                             <motion.div
                                                 className="flex gap-2 justify-end pr-1"
                                                 style={{
-                                                    opacity: useTransform(progress, [QUIZ_START_THRESHOLD + 0.12, QUIZ_START_THRESHOLD + 0.17], [0, 1]),
-                                                    scale: useTransform(progress, [QUIZ_START_THRESHOLD + 0.12, QUIZ_START_THRESHOLD + 0.17], [0.5, 1])
+                                                    opacity: useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.12, QUIZ_START_THRESHOLD + 0.17], [0, 1]),
+                                                    scale: useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.12, QUIZ_START_THRESHOLD + 0.17], [0.5, 1])
                                                 }}
                                             >
                                                 {[1, 2].map((q, qIndex) => {
                                                     // eslint-disable-next-line react-hooks/rules-of-hooks
-                                                    const s = useTransform(progress, [QUIZ_START_THRESHOLD + 0.12 + (qIndex * 0.03), QUIZ_START_THRESHOLD + 0.17 + (qIndex * 0.03)], [0, 1])
+                                                    const s = useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.12 + (qIndex * 0.03), QUIZ_START_THRESHOLD + 0.17 + (qIndex * 0.03)], [0, 1])
                                                     return (
                                                         <motion.div
                                                             key={`bottom-row1-${q}`}
@@ -334,13 +398,14 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
                                             <motion.div
                                                 className="flex gap-2 justify-start pl-1"
                                                 style={{
-                                                    opacity: useTransform(progress, [QUIZ_START_THRESHOLD + 0.15, QUIZ_START_THRESHOLD + 0.20], [0, 1]),
-                                                    scale: useTransform(progress, [QUIZ_START_THRESHOLD + 0.15, QUIZ_START_THRESHOLD + 0.20], [0.5, 1])
+                                                    opacity: useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.15, QUIZ_START_THRESHOLD + 0.19], [0, 1]),
+                                                    scale: useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.15, QUIZ_START_THRESHOLD + 0.19], [0.5, 1])
                                                 }}
                                             >
                                                 {[1, 2, 3].map((q, qIndex) => {
                                                     // eslint-disable-next-line react-hooks/rules-of-hooks
-                                                    const s = useTransform(progress, [QUIZ_START_THRESHOLD + 0.15 + (qIndex * 0.03), QUIZ_START_THRESHOLD + 0.20 + (qIndex * 0.03)], [0, 1])
+                                                    // Extended to 0.19 to ensure all circles complete, with staggered timing
+                                                    const s = useTransform(effectiveProgress, [QUIZ_START_THRESHOLD + 0.15 + (qIndex * 0.015), QUIZ_START_THRESHOLD + 0.19], [0, 1])
                                                     return (
                                                         <motion.div
                                                             key={`bottom-row2-${q}`}
@@ -370,6 +435,6 @@ export default function ProcessingScreen({ progress }: ProcessingScreenProps) {
 
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

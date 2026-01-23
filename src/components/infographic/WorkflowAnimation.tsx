@@ -138,8 +138,8 @@ export default function WorkflowAnimation() {
         <div className="w-full flex flex-col items-center">
             <InstitutionScroll />
             <EmotionalVideosSection />
-            <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8 mt-8 mb-36">
-                <div className="max-w-5xl text-center space-y-3">
+            <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8 mt-40 mb-72">
+                <div className="max-w-5xl text-center space-y-6">
                     <motion.h3
                         initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -150,31 +150,26 @@ export default function WorkflowAnimation() {
                         That&apos;s where Memsurf fits.
                     </motion.h3>
 
-                    <div className="flex items-center justify-center text-gray-700">
-                        <motion.p
-                            className="text-2xl md:text-3xl leading-relaxed max-w-5xl text-center"
-                            initial={false}
-                        >
+                    <div className="flex flex-col items-center justify-center text-gray-700 space-y-4">
                         {[
                             'Not just between moments.',
                             'But after learning.',
                             'After reading.',
                             'After taking notes you\'ll never revisit.',
                             'If life gives you something worth keeping,',
-                            'Memsurf helps you hold on to it and brings it back when you need it.'
+                            'Memsurf helps you remember it.'
                         ].map((sentence, idx) => (
-                                <motion.span
+                                <motion.p
                                     key={sentence}
                                     initial={{ opacity: 0, y: 12 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, amount: 0.4 }}
                                     transition={{ duration: 1.25, ease: 'easeOut', delay: 1.25 * idx }}
-                                    className="inline-block"
+                                    className="text-2xl md:text-3xl leading-relaxed max-w-5xl text-center"
                                 >
-                                    {sentence}{' '}
-                                </motion.span>
+                                    {sentence}
+                                </motion.p>
                             ))}
-                        </motion.p>
                     </div>
                 </div>
             </div>
@@ -289,7 +284,7 @@ export default function WorkflowAnimation() {
                 <div
                     id="processing-section"
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center -mt-48 md:-mt-0 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
+                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center -mt-48 md:-mt-16 lg:-mt-28 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
                 >
                     {/* Video Loop Snippet */}
                     <motion.div
@@ -297,7 +292,7 @@ export default function WorkflowAnimation() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-20 z-30 flex flex-col items-center min-h-[600px] justify-start pt-4"
+                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-16 z-30 flex flex-col items-center min-h-[600px] justify-start pt-4 lg:pt-4"
                     >
                         {/* ANIMATION LOGIC */}
                         <ChatGptIntegrationSection />

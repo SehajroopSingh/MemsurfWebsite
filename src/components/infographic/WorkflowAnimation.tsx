@@ -15,6 +15,7 @@ import { useTimeProgress } from '../../hooks/useTimeProgress'
 import InstitutionScroll from '../InstitutionScroll'
 import VideoOverlayContainer from './VideoOverlayContainer'
 import ChatGptIntegrationSection from './ChatGptIntegrationSection'
+import EmotionalVideosSection from './EmotionalVideosSection'
 
 export default function WorkflowAnimation() {
     // --- SETTINGS CYCLING LOGIC ---
@@ -136,6 +137,47 @@ export default function WorkflowAnimation() {
     return (
         <div className="w-full flex flex-col items-center">
             <InstitutionScroll />
+            <EmotionalVideosSection />
+            <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8 mt-8 mb-36">
+                <div className="max-w-5xl text-center space-y-3">
+                    <motion.h3
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.4 }}
+                        transition={{ duration: 0.5, ease: 'easeOut' }}
+                        className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight"
+                    >
+                        That&apos;s where Memsurf fits.
+                    </motion.h3>
+
+                    <div className="flex items-center justify-center text-gray-700">
+                        <motion.p
+                            className="text-2xl md:text-3xl leading-relaxed max-w-5xl text-center"
+                            initial={false}
+                        >
+                        {[
+                            'Not just between moments.',
+                            'But after learning.',
+                            'After reading.',
+                            'After taking notes you\'ll never revisit.',
+                            'If life gives you something worth keeping,',
+                            'Memsurf helps you hold on to it and brings it back when you need it.'
+                        ].map((sentence, idx) => (
+                                <motion.span
+                                    key={sentence}
+                                    initial={{ opacity: 0, y: 12 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.4 }}
+                                    transition={{ duration: 1.25, ease: 'easeOut', delay: 1.25 * idx }}
+                                    className="inline-block"
+                                >
+                                    {sentence}{' '}
+                                </motion.span>
+                            ))}
+                        </motion.p>
+                    </div>
+                </div>
+            </div>
             {/* HOW IT WORKS Heading */}
             <div className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-48 md:mt-32 z-40">
                 <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">

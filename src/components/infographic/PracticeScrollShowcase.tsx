@@ -12,7 +12,7 @@ const STAGES: Exclude<QuizStage, null>[] = ['trueFalse', 'multiple', 'shortAnswe
 
 export default function PracticeScrollShowcase() {
     const containerRef = useRef<HTMLDivElement>(null)
-    const inView = useInView(containerRef, { once: true, amount: 0.4 })
+    const inView = useInView(containerRef, { once: true, amount: 0.2 })
 
     // Animate over 20 seconds to allow for lesson reading
     const progress = useTimeProgress({
@@ -107,7 +107,7 @@ export default function PracticeScrollShowcase() {
 
     // Increase height enough to scroll past but not be huge
     return (
-        <section id="practice-section" className="relative w-full z-40 -mt-[8vh] lg:-mt-32 xl:-mt-32">
+        <section id="practice-section" className="relative w-full z-40 -mt-[2vh] lg:-mt-24 xl:-mt-24">
             <div
                 ref={containerRef}
                 className="relative min-h-[65vh] lg:min-h-[100vh] flex items-center"

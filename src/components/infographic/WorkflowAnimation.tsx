@@ -175,14 +175,14 @@ export default function WorkflowAnimation() {
                 </div>
             </div>
             {/* HOW IT WORKS Heading */}
-            <div className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-48 md:mt-32 z-40">
+            <div className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-96 md:mt-80 lg:mt-96 xl:mt-80 z-40">
                 <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
                     <RandomizedTextReveal text="HOW IT WORKS" />
                 </h1>
             </div>
 
             {/* HOW IT WORKS Section */}
-            <div className="w-full">
+            <div className="w-full mt-16 md:mt-24 lg:mt-32">
                 <div
                     id="capture-section"
                     ref={phone1ContainerRef}
@@ -293,7 +293,7 @@ export default function WorkflowAnimation() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-16 z-30 flex flex-col items-center min-h-[600px] justify-start pt-4 lg:pt-4"
+                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-16 z-30 flex flex-col items-center min-h-[600px] justify-start pt-16 md:pt-8 lg:pt-4"
                     >
                         {/* ANIMATION LOGIC */}
                         <ChatGptIntegrationSection />

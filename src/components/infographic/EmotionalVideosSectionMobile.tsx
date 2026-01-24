@@ -62,14 +62,23 @@ export default function EmotionalVideosSectionMobile({
       className="relative bg-white w-full py-14"
       style={{ zIndex: 40 }}
     >
-      <div className="max-w-4xl mx-auto px-4 flex flex-col gap-8">
-        <div className="flex flex-col items-center text-center gap-3">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 leading-tight h-[240px] max-h-[240px] flex items-center justify-center text-center overflow-hidden">
-            {headline}
-          </h2>
-        </div>
+      <div className="max-w-4xl mx-auto px-4 flex flex-col gap-8 relative">
+        <div className="relative">
+          {/* Purple Card Background - Behind text and image */}
+          <div className="absolute -left-4 -right-4 top-0 rounded-[2.5rem] bg-[#8c648d] shadow-[0_20px_60px_rgba(0,0,0,0.12)] border border-white/40 -z-10" 
+               style={{ 
+                 top: '-1rem',
+                 bottom: '-1rem'
+               }}
+          />
 
-        <div className="relative w-full aspect-square rounded-3xl shadow-2xl overflow-hidden bg-gray-900/5">
+          <div className="flex flex-col items-center text-center gap-3 relative z-10">
+            <h2 className="text-3xl font-bold tracking-tight text-white leading-tight h-[240px] max-h-[240px] flex items-center justify-center text-center overflow-hidden">
+              {headline}
+            </h2>
+          </div>
+
+          <div className="relative w-full aspect-square rounded-3xl shadow-2xl overflow-hidden bg-gray-900/5 z-10">
           <AnimatePresence initial={false} mode="wait">
             <motion.div
               key={cappedImages[safeIndex]}
@@ -89,9 +98,9 @@ export default function EmotionalVideosSectionMobile({
               />
             </motion.div>
           </AnimatePresence>
-        </div>
-
-        <div className="flex items-center justify-center gap-3">
+          
+          {/* Circles positioned at bottom of image */}
+          <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-3 z-20">
           {cappedImages.map((_, idx) => {
             const isActive = idx === safeIndex
 
@@ -100,7 +109,7 @@ export default function EmotionalVideosSectionMobile({
                 key={`dot-${idx}`}
                 type="button"
                 onClick={() => handleDotClick(idx)}
-                className="group relative h-4 w-4 rounded-full border border-gray-300 bg-white shadow-[0_1px_4px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                className="group relative h-6 w-6 rounded-full border border-gray-300 bg-white shadow-[0_1px_4px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-indigo-300"
                 aria-label={`Go to image ${idx + 1}`}
               >
                 <div className="absolute inset-0 rounded-full overflow-hidden bg-gray-100">
@@ -115,12 +124,10 @@ export default function EmotionalVideosSectionMobile({
               </button>
             )
           })}
+          </div>
         </div>
-
+        </div>
       </div>
-
-      {/* Soft fade into the next section */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent via-white/70 to-white" />
     </section>
   )
 }

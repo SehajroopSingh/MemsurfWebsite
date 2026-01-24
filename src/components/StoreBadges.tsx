@@ -33,7 +33,7 @@ export default function StoreBadges({
         <img
           src="/Download_on_App_Store/Black_lockup/SVG/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
           alt="Download on the App Store"
-          className="w-full h-[90px] sm:h-[50px] md:h-[60px] sm:w-auto object-contain"
+          className="w-full h-[70px] sm:h-[50px] md:h-[60px] sm:w-auto object-contain"
         />
       </a>
       <a
@@ -45,7 +45,7 @@ export default function StoreBadges({
         <img
           src="/Get_it_on_Google_Play/GetItOnGooglePlay_Badge_Web_color_English.svg"
           alt="Get it on Google Play"
-          className="w-full h-[90px] sm:h-[50px] md:h-[60px] sm:w-auto object-contain"
+          className="w-full h-[70px] sm:h-[50px] md:h-[60px] sm:w-auto object-contain"
         />
       </a>
     </div>

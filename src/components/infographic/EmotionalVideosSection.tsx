@@ -206,7 +206,7 @@ export default function EmotionalVideosSection() {
     }
 
     return (
-        <section ref={containerRef} className={`relative ${isMobile ? 'h-[2000vh]' : 'h-[1000vh]'} bg-white w-full`} style={{ zIndex: 40 }}>
+        <section id="emotion-video-section" ref={containerRef} className={`relative ${isMobile ? 'h-[2000vh]' : 'h-[1000vh]'} bg-white w-full`} style={{ zIndex: 40 }}>
             <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center z-50">
 
                 {/* Soft background card behind text and images (sized to content height) */}

@@ -58,6 +58,7 @@ export default function EmotionalVideosSectionMobile({
 
   return (
     <section
+      id="emotion-video-section"
       ref={containerRef as RefObject<HTMLDivElement>}
       className="relative bg-white w-full py-14"
       style={{ zIndex: 40 }}

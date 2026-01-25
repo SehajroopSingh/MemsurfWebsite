@@ -119,7 +119,7 @@ export default function ChatGptIntegrationSection() {
     const isOverlayTextVisible = stage === 'initial-overlay' || stage === 'overlay-loop'
 
     return (
-        <div ref={containerRef} className="relative w-full flex flex-col items-center">
+        <div id="chatgpt-integration-section" ref={containerRef} className="relative w-full flex flex-col items-center">
 
             {/* Header Layout Reservation */}
             <div className="flex items-center gap-4 mb-0 md:mb-8 h-auto min-h-[5rem] md:h-32 w-full justify-center md:justify-start">

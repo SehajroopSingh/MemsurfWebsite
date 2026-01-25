@@ -4,5 +4,9 @@ export interface BlogArticle {
   image: string
   slug: string
   excerpt?: string
+  metaDescription?: string
+  keywords?: string[]
+  author?: string
+  content?: React.ReactNode
 }
 

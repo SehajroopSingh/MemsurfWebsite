@@ -151,7 +151,7 @@ export default function WorkflowAnimation() {
                         That&apos;s where Memsurf fits.
                     </motion.h3>
 
-                    <div className="flex flex-col items-center justify-center text-gray-700 space-y-4">
+                    <div className="flex flex-col items-center justify-center text-gray-700 space-y-6 md:space-y-8">
                         {[
                             'Not just between moments.',
                             'But after learning.',

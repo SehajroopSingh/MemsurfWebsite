@@ -175,7 +175,7 @@ export default function WorkflowAnimation() {
                 </div>
             </div>
             {/* HOW IT WORKS Heading */}
-            <div className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-96 md:mt-80 lg:mt-96 xl:mt-80 z-40">
+            <div id="how-it-works" className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-96 md:mt-80 lg:mt-96 xl:mt-80 z-40 scroll-mt-24">
                 <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
                     <RandomizedTextReveal text="HOW IT WORKS" />
                 </h1>

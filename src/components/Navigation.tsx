@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, ChevronDown } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useAmplitude } from '@/hooks/useAmplitude'
 
 export default function Navigation() {
@@ -51,18 +52,11 @@ export default function Navigation() {
               <div className="absolute top-full left-0 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden py-1">
                   <Link
-                    href="/method"
+                    href="/#how-it-works"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                    onClick={() => handleNavClick('method', '/method', 'desktop')}
+                    onClick={() => handleNavClick('how it works', '/#how-it-works', 'desktop')}
                   >
                     How it works
-                  </Link>
-                  <Link
-                    href="/use-cases"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                    onClick={() => handleNavClick('use-cases', '/use-cases', 'desktop')}
-                  >
-                    Customer Use cases
                   </Link>
                 </div>
               </div>
@@ -90,43 +84,47 @@ export default function Navigation() {
       </div>
 
       {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-4 pt-2 pb-4 space-y-2 bg-white border-t border-gray-100">
-            <div className="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Product</div>
-            <Link
-              href="/method"
-              className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md pl-6"
-              onClick={() => {
-                handleNavClick('method', '/method', 'mobile')
-                setIsOpen(false)
-              }}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="md:hidden overflow-hidden"
+            initial={{ maxHeight: 0 }}
+            animate={{ maxHeight: 300 }}
+            exit={{ maxHeight: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="px-4 pt-2 pb-4 space-y-2 bg-white border-t border-gray-100"
             >
-              How it works
-            </Link>
-            <Link
-              href="/use-cases"
-              className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md pl-6"
-              onClick={() => {
-                handleNavClick('use-cases', '/use-cases', 'mobile')
-                setIsOpen(false)
-              }}
-            >
-              Customer Use cases
-            </Link>
-            <Link
-              href="/research"
-              className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md"
-              onClick={() => {
-                handleNavClick('research', '/research', 'mobile')
-                setIsOpen(false)
-              }}
-            >
-              Research
-            </Link>
-          </div>
-        </div>
-      )}
+              <div className="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Product</div>
+              <Link
+                href="/#how-it-works"
+                className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md pl-6"
+                onClick={() => {
+                  handleNavClick('how it works', '/#how-it-works', 'mobile')
+                  setIsOpen(false)
+                }}
+              >
+                How it works
+              </Link>
+              <Link
+                href="/research"
+                className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md"
+                onClick={() => {
+                  handleNavClick('research', '/research', 'mobile')
+                  setIsOpen(false)
+                }}
+              >
+                Research
+              </Link>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }

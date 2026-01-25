@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView, AnimatePresence, LayoutGroup } from 'framer-motion'
 import VideoOverlayContainer from './VideoOverlayContainer'
 
 export default function ChatGptIntegrationSection() {
@@ -9,6 +9,15 @@ export default function ChatGptIntegrationSection() {
     const [stage, setStage] = useState<'idle' | 'icon-entry' | 'icon-spinning' | 'icon-moving' | 'header-settled' | 'initial-overlay' | 'text-exiting' | 'video-fading-in' | 'video-playing' | 'showing-bullets' | 'overlay-loop'>('idle')
     const containerRef = useRef(null)
     const inView = useInView(containerRef, { once: true, amount: 0.5 })
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        // Track viewport size so we can keep the icon from overscaling on mobile
+        const updateIsMobile = () => setIsMobile(window.innerWidth < 640)
+        updateIsMobile()
+        window.addEventListener('resize', updateIsMobile)
+        return () => window.removeEventListener('resize', updateIsMobile)
+    }, [])
 
     useEffect(() => {
         if (inView && stage === 'idle') {
@@ -119,135 +128,154 @@ export default function ChatGptIntegrationSection() {
     const isOverlayTextVisible = stage === 'initial-overlay' || stage === 'overlay-loop'
 
     return (
-        <div id="chatgpt-integration-section" ref={containerRef} className="relative w-full flex flex-col items-center">
+        <LayoutGroup id="chatgpt-integration">
+            <div id="chatgpt-integration-section" ref={containerRef} className="relative w-full flex flex-col items-center">
 
-            {/* Header Layout Reservation */}
-            <div className="flex items-center gap-4 mb-0 md:mb-8 h-auto min-h-[5rem] md:h-32 w-full justify-center md:justify-start">
-                {/* Only render Icon here when in header state */}
-                {isHeaderState && (
-                    <div className="flex items-center gap-8 ml-4">
-                        <motion.img
-                            layoutId="openai-icon"
-                            src="/logos/OpenAI-black-monoblossom.svg"
-                            alt="OpenAI Logo"
-                            className="w-20 h-20 md:w-24 md:h-24 origin-center"
-                            animate={{ scale: 1.6 }} // Keep it big
-                            transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                        />
-                        <motion.h2
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate={isTextTyping ? "visible" : "hidden"}
-                            className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight flex flex-wrap"
-                        >
-                            {words.map((word, wordIndex) => (
-                                <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.25em]">
-                                    {word.split("").map((char, charIndex) => (
-                                        <motion.span
-                                            key={charIndex}
-                                            variants={letterVariants}
-                                            className="inline-block"
-                                        >
-                                            {char}
-                                        </motion.span>
-                                    ))}
-                                </span>
-                            ))}
-                        </motion.h2>
-                    </div>
-                )}
-            </div>
-
-            {/* Video Container Area */}
-            <div className="relative w-full flex items-center justify-center min-h-[400px]">
-                {/* The Actual Video Container */}
-                <motion.div
-                    className="w-full"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: isCardVisible ? 1 : 0 }} // Only visible when active
-                    transition={{ duration: 1 }}
-                >
-                    <VideoOverlayContainer
-                        className="w-full"
-                        shouldPlay={stage === 'video-playing'}
-                        isVideoVisible={isVideoVisible}
-                        onEnded={handleVideoEnded}
-                    >
-                        <AnimatePresence mode="wait">
-                            {/* Bullet Points Overlay */}
-                            {stage === 'showing-bullets' && (
-                                <motion.div
-                                    key="bullets"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    className="absolute inset-0 flex items-center justify-center z-40 px-8 py-12 pointer-events-none"
-                                >
-                                    <div className="flex flex-col gap-6 max-w-3xl">
-                                        {bullets.map((bullet, index) => (
-                                            <motion.div
-                                                key={index}
-                                                initial={{ opacity: 0, x: -20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: 0.8 + (index * 2.5), duration: 0.5 }} // Stagger appearance + delay for video fadeout
-                                                className="flex items-start gap-4"
+                {/* Header Layout Reservation */}
+                <div className="flex items-center gap-4 mb-0 md:mb-8 h-auto min-h-[5rem] md:h-32 w-full justify-center md:justify-start">
+                    {/* Only render Icon here when in header state */}
+                    {isHeaderState && (
+                        <div className="flex items-center gap-8 ml-4">
+                            <motion.img
+                                layoutId="openai-icon"
+                                layout
+                                src="/logos/OpenAI-black-monoblossom.svg"
+                                alt="OpenAI Logo"
+                                className="w-20 h-20 md:w-24 md:h-24 origin-center"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1, scale: isMobile ? 1.1 : 1.3 }}
+                                transition={{
+                                    layout: { duration: 0.9, ease: "easeInOut" },
+                                    type: "spring",
+                                    stiffness: 50,
+                                    damping: 20,
+                                    opacity: { duration: 0.4 }
+                                }}
+                            />
+                            <motion.h2
+                                variants={containerVariants}
+                                initial="hidden"
+                                animate={isTextTyping ? "visible" : "hidden"}
+                                className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight flex flex-wrap"
+                            >
+                                {words.map((word, wordIndex) => (
+                                    <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.25em]">
+                                        {word.split("").map((char, charIndex) => (
+                                            <motion.span
+                                                key={charIndex}
+                                                variants={letterVariants}
+                                                className="inline-block"
                                             >
-                                                <div className="w-2 h-2 rounded-full bg-gray-400 mt-2.5 shrink-0" />
-                                                <p className="text-xl md:text-3xl font-medium text-gray-900 leading-relaxed">
-                                                    {bullet}
-                                                </p>
-                                            </motion.div>
+                                                {char}
+                                            </motion.span>
                                         ))}
-                                    </div>
-                                </motion.div>
-                            )}
+                                    </span>
+                                ))}
+                            </motion.h2>
+                        </div>
+                    )}
+                </div>
 
-                            {/* Overlay Text Step (Final/Initial) */}
-                            {isOverlayTextVisible && (
-                                <motion.div
-                                    key="final-text"
-                                    className="absolute inset-0 flex items-center justify-center z-40 pointer-events-none"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                    transition={{ duration: 0.8 }}
-                                >
-                                    <p className="text-3xl md:text-5xl font-medium text-gray-900 text-center px-4">
-                                        From any chat, send to Memsurf.
-                                    </p>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </VideoOverlayContainer>
-                </motion.div>
+                {/* Video Container Area */}
+                <div className="relative w-full flex items-center justify-center min-h-[400px]">
+                    {/* The Actual Video Container */}
+                    <motion.div
+                        className="w-full"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: isCardVisible ? 1 : 0 }} // Only visible when active
+                        transition={{ duration: 1 }}
+                    >
+                        <VideoOverlayContainer
+                            className="w-full"
+                            shouldPlay={stage === 'video-playing'}
+                            isVideoVisible={isVideoVisible}
+                            onEnded={handleVideoEnded}
+                        >
+                            <AnimatePresence mode="wait">
+                                {/* Bullet Points Overlay */}
+                                {stage === 'showing-bullets' && (
+                                    <motion.div
+                                        key="bullets"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        className="absolute inset-0 flex items-center justify-center z-40 px-8 py-12 pointer-events-none"
+                                    >
+                                        <div className="flex flex-col gap-6 max-w-3xl">
+                                            {bullets.map((bullet, index) => (
+                                                <motion.div
+                                                    key={index}
+                                                    initial={{ opacity: 0, x: -20 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: 0.8 + (index * 2.5), duration: 0.5 }} // Stagger appearance + delay for video fadeout
+                                                    className="flex items-start gap-4"
+                                                >
+                                                    <div className="w-2 h-2 rounded-full bg-gray-400 mt-2.5 shrink-0" />
+                                                    <p className="text-xl md:text-3xl font-medium text-gray-900 leading-relaxed">
+                                                        {bullet}
+                                                    </p>
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
 
-                {/* The Centered Icon (For Entry/Spinning) */}
-                {!isHeaderState && stage !== 'idle' && (
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-50">
-                        <motion.img
-                            layoutId="openai-icon"
-                            src="/logos/OpenAI-black-monoblossom.svg"
-                            alt="OpenAI Logo"
-                            className="w-20 h-20 md:w-24 md:h-24"
-                            initial={{ scale: 0, opacity: 0, rotate: -180 }}
-                            animate={{
-                                scale: 1.6, // Bigger scale
-                                opacity: 1,
-                                rotate: stage === 'icon-spinning' ? 360 : 0
-                            }}
-                            transition={{
-                                scale: { duration: 0.8, ease: "easeOut" }, // Faster appear
-                                opacity: { duration: 0.5 },
-                                rotate: {
-                                    duration: stage === 'icon-spinning' ? 1.5 : 1.5,
-                                    repeat: stage === 'icon-spinning' ? Infinity : 0,
-                                    ease: "linear"
-                                }
-                            }}
-                        />
-                    </div>
-                )}
+                                {/* Overlay Text Step (Final/Initial) */}
+                                {isOverlayTextVisible && (
+                                    <motion.div
+                                        key="final-text"
+                                        className="absolute inset-0 flex items-center justify-center z-40 pointer-events-none"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        transition={{ duration: 0.8 }}
+                                    >
+                                        <p className="text-3xl md:text-5xl font-medium text-gray-900 text-center px-4">
+                                            From any chat, send to Memsurf.
+                                        </p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </VideoOverlayContainer>
+                    </motion.div>
+
+                    {/* The Centered Icon (For Entry/Spinning) */}
+                    <AnimatePresence>
+                        {!isHeaderState && stage !== 'idle' && (
+                            <motion.div
+                                key="floating-icon"
+                                className="absolute inset-0 flex items-center justify-center pointer-events-none z-50"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                            >
+                                <motion.img
+                                    layoutId="openai-icon"
+                                    layout
+                                    src="/logos/OpenAI-black-monoblossom.svg"
+                                    alt="OpenAI Logo"
+                                    className="w-20 h-20 md:w-24 md:h-24"
+                                    initial={{ scale: 0, rotate: -180 }}
+                                    animate={{
+                                        scale: isMobile ? 1.1 : 1.3, // Bigger scale, capped on all viewports
+                                        rotate: stage === 'icon-spinning' ? 360 : 0
+                                    }}
+                                    transition={{
+                                        layout: { duration: 0.9, ease: "easeInOut" },
+                                        scale: { duration: 0.8, ease: "easeOut" }, // Faster appear
+                                        opacity: { duration: 0.4 },
+                                        rotate: {
+                                            duration: stage === 'icon-spinning' ? 1.5 : 1.5,
+                                            repeat: stage === 'icon-spinning' ? Infinity : 0,
+                                            ease: "linear"
+                                        }
+                                    }}
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
-        </div>
+        </LayoutGroup>
     )
 }

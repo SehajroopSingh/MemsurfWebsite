@@ -131,6 +131,18 @@ export default function TeamPage() {
                                         Feel free to send me an email, DM me on social, or reach out just to say hi. Tell me what you are trying to learn, build, or get unstuck on--I'm always up for a chat :)
                                     </p>
                                 </div>
+
+                                <div>
+                                    <Link
+                                        href="https://www.linkedin.com/in/alessia-canuto-451a84226"
+                                        target="_blank"
+                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-700 transition-colors"
+                                    >
+                                        <Linkedin className="w-5 h-5" />
+                                        <span>Connect on LinkedIn</span>
+                                        <ArrowRight className="w-4 h-4" />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

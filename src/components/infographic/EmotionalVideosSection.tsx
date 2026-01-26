@@ -18,10 +18,10 @@ const IMAGES = [
 
 const HEADLINES = [
     "You wake up. Shower running. A health thought crosses your mind. You'll remember it later.",
-    'Coffee is hot. You are reading an article. One data surprises you. You take a screenshot.',
+    'Your coffee is hot. You’re reading an article when one statistic surprises you. You take a screenshot.',
     'Driving to work. An insight clicks. Hands on the wheel. You record a quick note.',
     'Lunch break. You decide to learn something new. You read. You focus. You decide to take notes. You never look at them again.',
-    "Afternoon. Meeting starts. You're prepared, you know you are. There was a detail, an example, something you learned recently, that would have made you sound sharp. Like the person who's ready for the promotion. When you need it the most it doesn't come back.",
+    "The meeting starts. You’re prepared and aiming for a promotion. One key comment would’ve made you shine in front of your boss — but when it mattered most, your mind went blank.",
     'Supermarket aisle. Cart half-full. You know there was a nutrition tip you wanted to follow. You forgot where you saved it. Now would be a good time to remember it.',
     "Evening. Podcast on while cooking. A funny joke lands. You tell yourself: this one I'll remember. You smile. Tomorrow's date will laugh at this.",
     'Night. In bed. Your mind reaches for things it knows are there but cannot pull back.'

@@ -157,7 +157,7 @@ export default function TeamPage() {
                     </p>
                     <div className="flex justify-center">
                         <Link
-                            href="mailto:contact@memsurf.app"
+                            href="mailto:contact@memsurf.com"
                             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-700 transition-colors"
                         >
                             <span>Email us</span>

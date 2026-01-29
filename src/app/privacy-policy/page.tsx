@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage() {
                 <li>Deletion of your account</li>
               </ul>
               <p className="text-gray-700">
-                Email us at <a href="mailto:support@memsurf.app" className="text-blue-600 hover:underline">support@memsurf.app</a> to make any request.
+                Email us at <a href="mailto:contact@memsurf.com" className="text-blue-600 hover:underline">contact@memsurf.com</a> to make any request.
               </p>
             </section>
 
@@ -135,7 +135,7 @@ export default function PrivacyPolicyPage() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Contact Us</h2>
               <p className="text-gray-700">
                 If you have questions, contact us at: <br />
-                <a href="mailto:support@memsurf.app" className="font-medium text-blue-600 hover:underline">support@memsurf.app</a>
+                <a href="mailto:contact@memsurf.com" className="font-medium text-blue-600 hover:underline">contact@memsurf.com</a>
               </p>
             </section>
           </div>

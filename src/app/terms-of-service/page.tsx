@@ -120,7 +120,7 @@ export default function TermsOfServicePage() {
             <section className="space-y-3">
               <h2 className="text-xl font-semibold text-gray-900">10. Contact</h2>
               <p className="text-gray-700">
-                <a href="mailto:support@memsurf.app" className="text-blue-600 hover:underline">support@memsurf.app</a>
+                <a href="mailto:contact@memsurf.com" className="text-blue-600 hover:underline">contact@memsurf.com</a>
               </p>
             </section>
           </div>

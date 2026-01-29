@@ -136,7 +136,7 @@ export default function CookiePolicyPage() {
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Opt-Out of Analytics Tracking</h3>
                   <p className="text-gray-700 mb-2">You may request analytics opt-out by emailing:</p>
-                  <a href="mailto:support@memsurf.app" className="text-blue-600 hover:underline">support@memsurf.app</a>
+                  <a href="mailto:contact@memsurf.com" className="text-blue-600 hover:underline">contact@memsurf.com</a>
                 </div>
 
                 <div>
@@ -156,8 +156,8 @@ export default function CookiePolicyPage() {
             <div className="mb-12 p-8 bg-gray-50 rounded-2xl border border-gray-100">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Contact Us</h2>
               <p className="text-gray-700 mb-2">If you have questions about this Cookie Policy, contact:</p>
-              <a href="mailto:support@memsurf.app" className="inline-flex items-center text-blue-600 font-bold hover:underline gap-2 text-lg">
-                support@memsurf.app
+              <a href="mailto:contact@memsurf.com" className="inline-flex items-center text-blue-600 font-bold hover:underline gap-2 text-lg">
+                contact@memsurf.com
               </a>
             </div>
 

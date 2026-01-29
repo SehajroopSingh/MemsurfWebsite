@@ -22,7 +22,7 @@ const socialLinks = [
   { icon: Github, href: '#', label: 'GitHub' },
   { icon: Twitter, href: '#', label: 'Twitter' },
   { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:support@memsurf.app', label: 'Email' },
+  { icon: Mail, href: 'mailto:contact@memsurf.com', label: 'Email' },
 ]
 
 export default function Footer() {

@@ -16,7 +16,7 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     const trimmedEmail = email.trim()
     const isValidEmail = /\S+@\S+\.\S+/.test(trimmedEmail)
 
@@ -56,7 +56,7 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
       // Assume success if no error thrown
       setIsSuccess(true)
       setEmail('')
-      
+
       track('waitlist_submitted', {
         source,
         status: 'success',
@@ -93,7 +93,7 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="w-full h-14 sm:h-14 px-4 sm:pr-36 rounded-full bg-white text-gray-900 text-base sm:text-base outline-none shadow-sm border-0 focus:ring-2 focus:ring-blue-500"
+          className="w-full h-14 sm:h-14 px-4 sm:pr-36 rounded-full bg-white text-gray-900 text-base sm:text-base outline-none shadow-sm border-2 border-gray-300 focus:border-gray-500"
           disabled={isLoading}
           required
         />

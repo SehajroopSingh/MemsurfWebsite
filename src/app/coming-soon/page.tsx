@@ -74,7 +74,7 @@ export default function ComingSoonPage() {
             </motion.div>
 
             {/* Purple Card Wrapper */}
-            <div className="w-fit mx-auto bg-[#8c648d] backdrop-blur-sm border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.12)] rounded-[56px] p-8 my-8">
+            <div className="w-full -mx-4 sm:mx-auto sm:w-fit sm:max-w-none bg-[#8c648d] backdrop-blur-sm border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.12)] rounded-3xl sm:rounded-[56px] p-4 sm:p-8 my-8">
 
               {/* Discord Community */}
               <motion.div

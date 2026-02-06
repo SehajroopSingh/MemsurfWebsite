@@ -31,7 +31,7 @@ export default function JoinCommunity({ delay = 0.4, className = '', centered = 
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay }}
     >
-      <p className={`text-2xl sm:text-base font-medium whitespace-nowrap ${textColor}`}>
+      <p className={`text-base sm:text-base font-medium whitespace-nowrap ${textColor}`}>
         {title}
       </p>
       <a
@@ -39,10 +39,10 @@ export default function JoinCommunity({ delay = 0.4, className = '', centered = 
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleDiscordClick}
-        className={`inline-flex items-center gap-2 text-xl sm:text-base ${textColor} hover:opacity-80 transition-all duration-200 font-medium whitespace-nowrap border-2 border-current rounded-full sm:rounded-3xl pl-2 pr-4 py-2 sm:pl-1 sm:pr-3 sm:py-1.5`}
+        className={`inline-flex items-center gap-2 text-base sm:text-base ${textColor} hover:opacity-80 transition-all duration-200 font-medium whitespace-nowrap border-2 border-current rounded-full sm:rounded-3xl pl-2 pr-4 py-2 sm:pl-1 sm:pr-3 sm:py-1.5`}
         aria-label="Join our Discord community"
       >
-        <div className="overflow-hidden h-10 w-12 sm:h-8 sm:w-10 flex items-center justify-center">
+        <div className="overflow-hidden h-8 w-10 sm:h-8 sm:w-10 flex items-center justify-center">
           <img
             src="/logos/189-1890026_discord-discord-logo-black-png.png.png"
             alt="Discord"

@@ -571,3 +571,5 @@ export function getBlogPostBySlug(slug: string): BlogArticle | undefined {
 export function getAllBlogPosts(): BlogArticle[] {
   return blogPosts
 }
+
+

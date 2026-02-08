@@ -42,3 +42,5 @@ export default function BlogArticleTemplate({ article, content }: BlogArticleTem
   )
 }
 
+
+

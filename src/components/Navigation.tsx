@@ -61,14 +61,6 @@ export default function Navigation() {
                 </div>
               </div>
             </div>
-
-            <Link
-              href="/research"
-              className="text-gray-800 hover:text-gray-900 transition-colors text-sm font-medium"
-              onClick={() => handleNavClick('research', '/research', 'desktop')}
-            >
-              Research
-            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -110,16 +102,6 @@ export default function Navigation() {
                 }}
               >
                 How it works
-              </Link>
-              <Link
-                href="/research"
-                className="block px-3 py-2 text-gray-800 hover:bg-gray-50 rounded-md"
-                onClick={() => {
-                  handleNavClick('research', '/research', 'mobile')
-                  setIsOpen(false)
-                }}
-              >
-                Research
               </Link>
             </motion.div>
           </motion.div>

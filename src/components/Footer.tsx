@@ -7,7 +7,6 @@ import { useAmplitude } from '@/hooks/useAmplitude'
 
 const footerLinks = {
   company: [
-    { name: 'Pricing', href: '/pricing' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
   ],

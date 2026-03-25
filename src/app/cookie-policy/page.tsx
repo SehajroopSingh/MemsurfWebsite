@@ -13,7 +13,7 @@ export default function CookiePolicyPage() {
               Cookie Policy
             </h1>
             <p className="text-lg text-gray-500 mb-12">
-              Last updated: December 7, 2024
+              Last updated: March 25, 2026
             </p>
 
             <p className="lead text-xl text-gray-700">
@@ -56,7 +56,7 @@ export default function CookiePolicyPage() {
 
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">B. Performance & Analytics Cookies</h3>
-                  <p className="text-gray-700 mb-2">We use analytics tools (e.g., Amplitude, Firebase, Google Analytics) to understand:</p>
+                  <p className="text-gray-700 mb-2">We use analytics tools (e.g., Amplitude and similar providers) to understand:</p>
                   <ul className="list-disc pl-6 space-y-1 text-gray-700 mb-2">
                     <li>How users navigate the site</li>
                     <li>Which features are most used</li>
@@ -114,11 +114,9 @@ export default function CookiePolicyPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Third-Party Cookies</h2>
               <p className="text-gray-700 mb-2">We may allow trusted partners to place cookies, including:</p>
               <ul className="list-disc pl-6 space-y-1 text-gray-700 mb-2">
-                <li>Amplitude Analytics</li>
-                <li>Google Analytics / GA4</li>
-                <li>Firebase</li>
-                <li>OpenAI / Anthropic (no cookies; but browser tech may load scripts)</li>
-                <li>Meta (if running ads)</li>
+                <li>Analytics providers (e.g., Amplitude, Google Analytics)</li>
+                <li>Infrastructure and performance providers (e.g., cloud/CDN services)</li>
+                <li>Advertising and attribution providers, if enabled (e.g., Meta, Google Ads)</li>
               </ul>
               <p className="text-gray-700">These third parties may collect data according to their own policies.</p>
             </div>

@@ -9,10 +9,10 @@ export default function TermsOfServicePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="space-y-4">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Terms of Use — MemSurf
+              Terms of Service - MemSurf
             </h1>
             <p className="text-lg text-gray-600">
-              Effective Date: December 7, 2025
+              Effective Date: March 25, 2026
             </p>
             <p className="text-gray-700">
               Welcome to MemSurf (“the Service”). By accessing or using the app or website, you agree to these Terms of Use.

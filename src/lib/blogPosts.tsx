@@ -21,8 +21,6 @@ const rememberMeContent = (
       Because <em>Coco</em> isn’t really about death. It’s about memory. About what happens when stories stop being told, names stop being spoken, songs stop being sung. In the movie, forgetting isn’t just sad, it’s fatal. You disappear when no one remembers you.
     </p>
 
-    <img src="/coco.jpg" alt="Coco Movie Scene" className="w-full rounded-lg my-8 object-cover shadow-lg" />
-
     <p className="mb-4 leading-relaxed">
       That’s why the song &quot;Remember Me&quot; hits so hard. It’s not a request for attention. It’s a plea for continuity. Hold onto this. Let it return to you. Carry it forward.
     </p>
@@ -145,67 +143,243 @@ const rememberMeContent = (
   </>
 )
 
-const activeRecallContent = (
+const aiFearContent = (
   <>
-    <p className="mb-6 text-lg leading-relaxed">
-      If you&apos;ve ever read the same chapter three times and still felt unprepared, the problem isn&apos;t your effort—it&apos;s the technique. <strong>Active recall</strong> turns study time into a fast feedback loop by forcing your brain to retrieve information instead of simply re-reading it.
+    <p className="mb-4 text-lg leading-relaxed">
+      <span className="font-bold text-3xl block text-gray-900 mb-6">The fear nobody wants to say out loud</span>
+    </p>
+    <p className="mb-4 leading-relaxed italic">
+      “I’m scared I won’t be able to compete.”
     </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">Active Recall vs. Passive Review</h2>
-    <ul className="list-disc list-inside mb-6 space-y-3 ml-4 leading-relaxed">
-      <li><strong>Passive review:</strong> Highlighting, re-reading, or watching tutorials without testing yourself. Feels productive, but retention drops quickly.</li>
-      <li><strong>Active recall:</strong> Closing the book and answering questions from memory. It feels harder—but that difficulty is the signal you&apos;re strengthening neural pathways.</li>
-      <li><strong>Result:</strong> Students using active recall routinely outperform peers who rely on notes alone, especially on higher-order questions.</li>
-    </ul>
+    <p className="mb-4 leading-relaxed">
+      Say it plainly and it sounds small.
+    </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">Why Testing Yourself Works</h2>
-    <h3 className="text-2xl font-semibold text-gray-900 mt-6 mb-3">1. Desirable Difficulty</h3>
     <p className="mb-4 leading-relaxed">
-      The slight struggle of recalling information creates &quot;desirable difficulty,&quot; which tells your brain, &quot;this matters—store it longer.&quot; Easy study sessions often create fragile memories.
+      Say it to others and it sounds cruel:
     </p>
-    <h3 className="text-2xl font-semibold text-gray-900 mt-6 mb-3">2. Feedback-Driven Learning</h3>
+
+    <p className="mb-4 leading-relaxed italic">
+      “You should be worried. You’ll be irrelevant.”
+    </p>
+
     <p className="mb-4 leading-relaxed">
-      Immediate feedback closes the loop. When you check your answer right away, you correct errors before they fossilize into bad habits.
+      Say it quietly and it sounds unbearable:
     </p>
-    <h3 className="text-2xl font-semibold text-gray-900 mt-6 mb-3">3. Stronger Retrieval Cues</h3>
+
+    <p className="mb-4 leading-relaxed italic">
+      “My kids might inherit a world that doesn’t need them.”
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      So instead, we reach for comfort.
+    </p>
+
+    <p className="mb-6 leading-relaxed italic">
+      “Surely I’ll always have a unique edge. Surely humans will always matter. Surely progress works itself out.”
+    </p>
+
+    <p className="mb-4 leading-relaxed font-medium">
+      Meanwhile, AI is changing the rules faster than reassurance can keep up.
+    </p>
+
     <p className="mb-6 leading-relaxed">
-      Each successful recall strengthens the cue-answer pathway. Combine it with <Link href="/" className="text-blue-600 hover:text-blue-800 underline">spaced repetition</Link> to keep those pathways alive over weeks and months.
+      And pretending otherwise is the riskiest move of all.
     </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">How to Practice Active Recall Daily</h2>
-    <ol className="list-decimal list-inside mb-6 space-y-3 ml-4 leading-relaxed">
-      <li><strong>Convert notes to questions:</strong> For every heading in your notes, write 2-3 questions that require explanation, not just definitions.</li>
-      <li><strong>Test before review:</strong> Quiz yourself cold, then check your notes. This reveals true weak spots instead of what &quot;feels&quot; weak.</li>
-      <li><strong>Mix question types:</strong> Pair short-answer prompts with scenario-based questions to train application, not just recall.</li>
-      <li><strong>Track difficulty:</strong> Mark questions as &quot;easy,&quot; &quot;medium,&quot; or &quot;hard&quot; so future reviews focus where you struggle most.</li>
-    </ol>
+    <p className="mb-4 leading-relaxed">
+      The truth is simpler and less dramatic than most narratives suggest.
+    </p>
 
-    <div className="bg-blue-50 border-l-4 border-blue-600 p-6 mb-6 rounded-r-lg">
-      <h3 className="text-xl font-semibold text-gray-900 mb-3">A 20-Minute Active Recall Sprint</h3>
-      <ol className="list-decimal list-inside space-y-2 ml-4 leading-relaxed">
-        <li>Write 10 questions from yesterday&apos;s material.</li>
-        <li>Answer them without notes (12 minutes).</li>
-        <li>Check answers and fix gaps (6 minutes).</li>
-        <li>Tag tough questions for <strong>spaced repetition</strong> tonight.</li>
-      </ol>
-    </div>
+    <p className="mb-4 leading-relaxed font-medium">
+      Relevance has always been unstable.
+    </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">Mistakes to Avoid</h2>
-    <ul className="list-disc list-inside mb-6 space-y-3 ml-4 leading-relaxed">
-      <li><strong>Copying solutions:</strong> If you retype an answer with the source visible, you&apos;re practicing typing, not memory.</li>
-      <li><strong>One-and-done quizzes:</strong> Retrieval must be repeated over time. Pair every quiz with a review schedule.</li>
-      <li><strong>Only definition questions:</strong> Include &quot;why&quot; and &quot;how&quot; prompts so you can apply ideas in real situations.</li>
+    <p className="mb-6 leading-relaxed">
+      The people who last aren’t the ones who deny change, or the ones who catastrophise it. They’re the ones who adapt deliberately, often before they feel ready.
+    </p>
+
+    <p className="mb-8 leading-relaxed">
+      So let’s talk about what actually still works.
+    </p>
+
+    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-6">What changes and what doesn’t</h2>
+    <p className="mb-4 leading-relaxed">
+      Yes, AI is improving at reasoning, creativity, emotional fluency, even companionship. Over time, it will replace humans in many roles, not because it’s malicious, but because it’s cheaper, faster, and increasingly competent.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      But relevance has never meant being the best at everything.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      It has always been about being <strong>distinct, trusted, memorable, and visible</strong>.
+    </p>
+
+    <p className="mb-6 leading-relaxed">
+      That hasn’t changed. (And probably won’t.)
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      What <em>has</em> changed is how easy it is to lose those things by drifting into passivity while telling yourself a nice story about inevitability.
+    </p>
+
+    <p className="mb-8 leading-relaxed">
+      Below are five principles that matter more than ever. Read on. Nothing here bites.
+    </p>
+
+    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">1. Stop competing with AI. Start differentiating from it.</h3>
+    <p className="mb-4 leading-relaxed">
+      AI is built to be general, fast, and broadly competent. Trying to outproduce it is like racing a forklift on foot.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      You don’t win on speed or scale. You win by being specific.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Your advantage isn’t raw output. It’s judgment. Context. Taste. Responsibility. The ability to decide <em>why</em> something matters and <em>when</em> it should happen.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Pick a domain, problem, or responsibility where you aim to be reliably solid, not universally impressive. Depth beats breadth. Perspective beats volume.
+    </p>
+
+    <p className="mb-8 leading-relaxed font-medium">
+      What can’t be mass-produced is you noticing what others ignore.
+    </p>
+
+    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">2. Treat fear as a signal</h3>
+    <p className="mb-4 leading-relaxed">
+      Fear is information, just poorly formatted.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      If AI unsettles you, ask:
+    </p>
+    <ul className="list-disc list-inside mb-4 space-y-2 ml-4 leading-relaxed">
+      <li>Which parts of my role feel fragile?</li>
+      <li>Which skills am I hoping won’t be tested?</li>
     </ul>
 
-    <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-6 mt-8">
-      <h3 className="text-xl font-semibold text-gray-900 mb-3">Turn Active Recall into a Habit</h3>
-      <p className="mb-4 leading-relaxed">
-        <Link href="/" className="text-blue-600 hover:text-blue-800 underline font-semibold">Memsurf</Link> lets you turn any note into a recall prompt, schedule it with spaced repetition, and track which questions truly move the needle. You get harder questions more often and effortless review reminders.
-      </p>
-      <p className="leading-relaxed">
-        Build one daily 20-minute sprint, and you&apos;ll learn faster than hours of passive review.
-      </p>
-    </div>
+    <p className="mb-4 leading-relaxed">
+      Those aren’t areas to tiptoe around anymore. They’re the ones worth reinforcing first.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Avoidance makes skills brittle. But practice makes them resilient.
+    </p>
+
+    <p className="mb-8 leading-relaxed font-medium">
+      All to reach one goal: earned trust in your own competence.
+    </p>
+
+    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">3. Use AI to sharpen thinking</h3>
+    <p className="mb-4 leading-relaxed">
+      The fastest way to lose relevance is to let AI think for you. The fastest way to gain it is to use AI to think better.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Explain concepts back to it. Quiz yourself instead of rereading. Test recall. Stress your understanding.
+    </p>
+
+    <p className="mb-8 leading-relaxed">
+      AI can hide gaps or it can expose and close them. The difference is solely in your hands (well, mostly at your fingertips).
+    </p>
+
+    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">4. Optimize for trust</h3>
+    <p className="mb-4 leading-relaxed">
+      AI can generate answers, but <em>you</em> are the one to make judgment calls.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Being prepared, clear, thoughtful, and easy to work with still matters, often more than raw intelligence or flashy output.
+    </p>
+
+    <p className="mb-8 leading-relaxed font-medium">
+      Trust compounds. And inconveniently for machines, it remains human.
+    </p>
+
+    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">5. Measure growth inward, not sideways</h3>
+    <p className="mb-4 leading-relaxed">
+      Stop benchmarking yourself against people you barely understand (or know).
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Instead, track:
+    </p>
+    <ul className="list-disc list-inside mb-6 space-y-2 ml-4 leading-relaxed">
+      <li>What you understand better than last month</li>
+      <li>What you can now explain without notes</li>
+      <li>What feels clearer, faster, more grounded than before</li>
+    </ul>
+
+    <p className="mb-8 leading-relaxed font-medium">
+      Self-assessment and evidence build the type of confidence that survives disruption.
+    </p>
+
+    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-6">The real risk isn’t replacement</h2>
+    <p className="mb-4 leading-relaxed">
+      The most dangerous outcome isn’t that AI replaces us.
+    </p>
+
+    <p className="mb-4 leading-relaxed font-medium">
+      It’s that we quietly internalise irrelevance.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      That we outsource judgment, learning, and thinking so completely that we stop forming our own sense of competence. That we ask “What should I do?” and stop knowing <em>why</em>.
+    </p>
+
+    <p className="mb-8 leading-relaxed">
+      The future doesn’t belong to people who reject AI or surrender to it. It belongs to those who use it to sharpen themselves.
+    </p>
+
+    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-6">Using AI to strengthen humans, not erase them</h2>
+    <p className="mb-4 leading-relaxed">
+      AI doesn’t have to deskill us. Used deliberately, it can reskill us.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      We’ve already embraced hybrid learning for years. Quizlet shifted studying from rereading to recall. Duolingo made language learning accessible through feedback, repetition, and consistency.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Practice tests, flashcards, and spaced repetition helped people remember more, for longer, with less dread.
+    </p>
+
+    <p className="mb-4 leading-relaxed font-medium">
+      AI now extends that trajectory.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Tools like MemSurf, which pair AI-generated quizzes with spaced repetition, push learning further away from passive consumption and toward active competence. At their best, these systems use AI to strengthen memory, judgment, and self-trust, not replace them. They enhance human capability instead of sidelining it, avoiding the trap of making humans idle and mentally atrophied.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      Here, AI isn’t telling you who to be. It’s helping you become who you’re trying to become.
+    </p>
+
+    <p className="mb-6 leading-relaxed font-medium">
+      Better recall. Clearer thinking. Confidence grounded in actual skill.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      That’s what it looks like when AI serves humanity: expanding access to mastery and momentum instead of hollowing us out.
+    </p>
+
+    <p className="mb-4 leading-relaxed">Yes, some roles will disappear.</p>
+    <p className="mb-4 leading-relaxed">Yes, we’ll need to rethink work, value, and governance.</p>
+    <p className="mb-6 leading-relaxed">Yes, the future may feel unfamiliar.</p>
+
+    <p className="mb-4 leading-relaxed font-bold text-xl">
+      But irrelevance is not inevitable.
+    </p>
+
+    <p className="mb-4 leading-relaxed">
+      The people who thrive won’t be the loudest, fastest, or most automated. They’ll be the ones who understand that while technology evolves, human relevance is designed and driven by passion, goals, and desire.
+    </p>
   </>
 )
 
@@ -474,15 +648,15 @@ export const blogPosts: BlogArticle[] = [
     content: rememberMeContent,
   },
   {
-    title: 'Active Recall vs. Passive Review: Train Your Memory Like a Muscle',
-    date: 'Feb 02, 2025',
-    image: '/EmotionImageFolders/2.%20coffee.png',
-    slug: 'active-recall-vs-passive-review',
-    excerpt: 'Stop re-reading notes. Learn how active recall, paired with spaced repetition, builds durable knowledge in minutes a day.',
-    metaDescription: 'Discover why active recall beats passive review, how to write better self-quiz questions, and a 20-minute routine to strengthen memory with Memsurf.',
-    keywords: ['active recall', 'study techniques', 'spaced repetition', 'memory training', 'learning science', 'study routine', 'self testing'],
-    author: 'Memsurf Team',
-    content: activeRecallContent,
+    title: 'Afraid you’ll fall behind in the age of AI? Read this.',
+    date: 'February 5, 2026',
+    image: '/ai-statues.jpg',
+    slug: 'afraid-youll-fall-behind-in-the-age-of-ai',
+    excerpt: 'The fear nobody wants to say out loud: I’m scared I won’t be able to compete. Let’s talk about what actually still works.',
+    metaDescription: 'Are you afraid of falling behind in the age of AI? Learn why relevance is not inevitable and how you can adapt deliberately.',
+    keywords: ['AI', 'future of work', 'artificial intelligence', 'career advice', 'learning', 'adaptation'],
+    author: 'agora',
+    content: aiFearContent,
   },
   {
     title: 'Design Flashcards That Actually Stick: A UX Playbook for Your Brain',

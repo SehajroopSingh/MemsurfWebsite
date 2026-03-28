@@ -97,7 +97,7 @@ export default function TeamPage() {
                                 <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
                                     <Image
                                         src="/Alessia.jpg"
-                                        alt="Alessia"
+                                        alt="Alessia Canuto"
                                         fill
                                         className="object-cover object-center"
                                         sizes="(min-width: 1024px) 480px, (min-width: 768px) 50vw, 100vw"
@@ -107,7 +107,7 @@ export default function TeamPage() {
 
                             <div className="md:col-span-3 space-y-4">
                                 <div>
-                                    <h3 className="text-2xl font-bold">Alessia</h3>
+                                    <h3 className="text-2xl font-bold">Alessia Canuto</h3>
                                     <p className="text-blue-600 font-semibold uppercase tracking-[0.14em] text-xs mt-1">
                                         Co-founder & COO
                                     </p>

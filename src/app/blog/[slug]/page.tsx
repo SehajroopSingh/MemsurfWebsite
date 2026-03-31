@@ -6,6 +6,7 @@ import BlogArticleTemplate from '@/components/BlogArticleTemplate'
 import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/blogPosts'
 
 // Generate static params for all blog posts
+// Rebuild cache
 export async function generateStaticParams() {
   const posts = getAllBlogPosts()
   return posts.map((post) => ({

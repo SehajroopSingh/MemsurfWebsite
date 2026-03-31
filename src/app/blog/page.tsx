@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import BlogCard from '@/components/BlogCard'
+import ResourcesSection from '@/components/ResourcesSection'
 import { getAllBlogPosts } from '@/lib/blogPosts'
 
 export const metadata: Metadata = {
@@ -50,6 +51,9 @@ export default function BlogPage() {
               </p>
             </div>
           )}
+          
+          {/* External Resources Section */}
+          <ResourcesSection />
         </div>
       </section>
       <Footer />

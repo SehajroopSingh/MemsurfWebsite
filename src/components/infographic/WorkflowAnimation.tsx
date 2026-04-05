@@ -146,7 +146,7 @@ export default function WorkflowAnimation() {
                         transition={{ duration: 0.5, ease: 'easeOut' }}
                         className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight"
                     >
-                        That&apos;s where Memsurf fits.
+                        Where Memsurf fits.
                     </motion.h3>
 
                     <div className="flex flex-col items-center justify-center text-gray-700 space-y-6 md:space-y-8">

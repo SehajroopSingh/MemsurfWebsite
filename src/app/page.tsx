@@ -38,7 +38,6 @@ export default function Home() {
         page="homepage"
         sections={[
           { id: 'hero-section', name: 'Hero' },
-          { id: 'emotion-video-section', name: 'Emotion Video' },
           { id: 'capture-section', name: 'Capture' },
           { id: 'processing-section', name: 'Processing' },
           { id: 'chatgpt-integration-section', name: 'ChatGPT Integration' },

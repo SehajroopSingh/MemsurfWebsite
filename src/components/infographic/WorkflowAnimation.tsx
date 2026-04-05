@@ -15,7 +15,6 @@ import { useTimeProgress } from '../../hooks/useTimeProgress'
 import InstitutionScroll from '../InstitutionScroll'
 import VideoOverlayContainer from './VideoOverlayContainer'
 import ChatGptIntegrationSection from './ChatGptIntegrationSection'
-import EmotionalVideosSection from './EmotionalVideosSection'
 import RandomizedTextReveal from '../ui/RandomizedTextReveal'
 
 export default function WorkflowAnimation() {
@@ -138,7 +137,6 @@ export default function WorkflowAnimation() {
     return (
         <div className="w-full flex flex-col items-center">
             <InstitutionScroll />
-            <EmotionalVideosSection />
             <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8 mt-40 mb-72">
                 <div className="max-w-5xl text-center space-y-6">
                     <motion.h3

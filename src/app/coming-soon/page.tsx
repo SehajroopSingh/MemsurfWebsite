@@ -83,7 +83,7 @@ export default function ComingSoonPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="w-full"
               >
-                <JoinCommunity delay={0} centered={true} location="coming_soon" title="Join the community of Memsurfers" textColor="text-white" invertIcon={true} />
+                <JoinCommunity delay={0} centered={true} location="coming_soon" title="Join the community of MemSurfers" textColor="text-white" invertIcon={true} />
               </motion.div>
 
 
@@ -103,7 +103,7 @@ export default function ComingSoonPage() {
 
               <p>We&apos;re always happy to talk.</p>
 
-              <p className="text-gray-500 italic pt-2">Thanks for being here. We&apos;re excited to build this with you, fellow Memsurfer 🤍</p>
+              <p className="text-gray-500 italic pt-2">Thanks for being here. We&apos;re excited to build this with you, fellow MemSurfer 🤍</p>
             </motion.div>
 
 

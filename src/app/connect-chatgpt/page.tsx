@@ -12,10 +12,10 @@ export default function ConnectChatGPTPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Connect Memsurf to ChatGPT
+              Connect MemSurf to ChatGPT
             </h1>
             <p className="text-lg text-gray-700">
-              Authorize ChatGPT to create captures and quizzes in your Memsurf
+              Authorize ChatGPT to create captures and quizzes in your MemSurf
               account. You can disconnect anytime.
             </p>
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 space-y-4">
@@ -24,7 +24,7 @@ export default function ConnectChatGPTPage() {
                   Quick steps
                 </span>
                 <ol className="list-decimal list-inside text-gray-700 space-y-2">
-                  <li>Start the Memsurf connector in ChatGPT.</li>
+                  <li>Start the MemSurf connector in ChatGPT.</li>
                   <li>Click the connect button below to authorize.</li>
                   <li>Return to ChatGPT and try a tool call.</li>
                 </ol>

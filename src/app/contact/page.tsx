@@ -15,7 +15,7 @@ export default function ContactPage() {
           </p>
           <div className="space-y-4 text-gray-700">
             <p>
-              You can reach the Memsurf team at:
+              You can reach the MemSurf team at:
             </p>
             <p className="font-medium">
               contact@memsurf.com

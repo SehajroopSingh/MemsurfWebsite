@@ -38,7 +38,7 @@ export default function Navigation() {
               className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-[#8c648d] bg-clip-text text-transparent"
               onClick={() => handleNavClick('logo', '/', 'logo')}
             >
-              Memsurf
+              MemSurf
             </Link>
           </div>
 

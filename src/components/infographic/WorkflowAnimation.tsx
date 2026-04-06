@@ -146,7 +146,7 @@ export default function WorkflowAnimation() {
                         transition={{ duration: 0.5, ease: 'easeOut' }}
                         className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight"
                     >
-                        Where Memsurf fits.
+                        Where MemSurf fits.
                     </motion.h3>
 
                     <div className="flex flex-col items-center justify-center text-gray-700 space-y-6 md:space-y-8">
@@ -156,7 +156,7 @@ export default function WorkflowAnimation() {
                             'After reading.',
                             'After taking notes you\'ll never revisit.',
                             'If life gives you something worth keeping,',
-                            'Memsurf helps you remember it.'
+                            'MemSurf helps you remember it.'
                         ].map((sentence, idx) => (
                             <motion.p
                                 key={sentence}

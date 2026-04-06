@@ -104,9 +104,9 @@ export default function ChatGptIntegrationSection() {
     }
 
     const bullets = [
-        "After an intense rabbit hole, send key insights into Memsurf.",
-        "Interact with files in ChatGPT, extract what you want into Memsurf to learn it better.",
-        "Use ChatGPT as your interface, use Memsurf as your retention layer."
+        "After an intense rabbit hole, send key insights into MemSurf.",
+        "Interact with files in ChatGPT, extract what you want into MemSurf to learn it better.",
+        "Use ChatGPT as your interface, use MemSurf as your retention layer."
     ]
 
     // Video container visibility: visible during video playing, bullets, loop (but NOT during text-exiting initially? No, we want the container to be there, but maybe the video invisible?)
@@ -231,7 +231,7 @@ export default function ChatGptIntegrationSection() {
                                         transition={{ duration: 0.8 }}
                                     >
                                         <p className="text-3xl md:text-5xl font-medium text-gray-900 text-center px-4">
-                                            From any chat, send to Memsurf.
+                                            From any chat, send to MemSurf.
                                         </p>
                                     </motion.div>
                                 )}

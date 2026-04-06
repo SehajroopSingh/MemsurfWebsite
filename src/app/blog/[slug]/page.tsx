@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const postUrl = `${siteUrl}/blog/${post.slug}`
 
   return {
-    title: `${post.title} | Memsurf Blog`,
+    title: `${post.title} | MemSurf Blog`,
     description: post.metaDescription || post.excerpt || post.title,
     keywords: post.keywords,
     authors: post.author ? [{ name: post.author }] : undefined,
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: post.title,
       description: post.metaDescription || post.excerpt || post.title,
       url: postUrl,
-      siteName: 'Memsurf',
+      siteName: 'MemSurf',
       images: [
         {
           url: imageUrl,
@@ -84,12 +84,12 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     dateModified: post.date,
     author: {
       '@type': 'Organization',
-      name: post.author || 'Memsurf',
+      name: post.author || 'MemSurf',
       url: siteUrl,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Memsurf',
+      name: 'MemSurf',
       url: siteUrl,
       logo: {
         '@type': 'ImageObject',

@@ -64,7 +64,7 @@ export default function Home() {
                 Your Personal Learning Architect
               </h2>
               <p className="text-lg text-gray-600 max-w-lg mx-auto">
-                Offload the planning to an agent that knows how you learn. Download Memsurf to turn your information consumption into lasting mastery.
+                Offload the planning to an agent that knows how you learn. Download MemSurf to turn your information consumption into lasting mastery.
               </p>
 
               <div className="pt-4 flex flex-col items-center gap-3 w-full">

@@ -50,14 +50,14 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-100 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-            {/* Left Side: Memsurf Branding and Meet the Team */}
+            {/* Left Side: MemSurf Branding and Meet the Team */}
             <div className="flex flex-col">
               <Link
                 href="/"
                 className="inline-block text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 tracking-tight"
                 onClick={() => trackFooterNav('logo', '/', 'brand')}
               >
-                Memsurf
+                MemSurf
               </Link>
               <Link
                 href="/team"
@@ -68,7 +68,7 @@ export default function Footer() {
               </Link>
               {/* Copyright */}
               <p className="text-gray-400 text-sm">
-                © 2025 Memsurf. All rights reserved.
+                © 2025 MemSurf. All rights reserved.
               </p>
             </div>
 

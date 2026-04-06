@@ -49,7 +49,7 @@ export default function ResearchPage() {
                         transition={{ delay: 0.2, duration: 0.6 }}
                         className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto"
                     >
-                        The cognitive science behind Memsurf’s “capture → retrieval → mastery” system.
+                        The cognitive science behind MemSurf’s “capture → retrieval → mastery” system.
                         For decades, research has been clear: <strong>If you don't revisit it, you don't remember it.</strong>
                     </motion.p>
                 </div>
@@ -133,9 +133,9 @@ export default function ResearchPage() {
                         <div className="inline-block p-4 bg-blue-50 rounded-full mb-6">
                             <Sparkles className="w-12 h-12 text-blue-600" />
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">How Memsurf Solves This</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">How MemSurf Solves This</h2>
                         <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-                            Memsurf transforms passive notes into active memory by automatically closing the loop that traditional tools never solved.
+                            MemSurf transforms passive notes into active memory by automatically closing the loop that traditional tools never solved.
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">

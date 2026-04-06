@@ -1,6 +1,6 @@
-# Memsurf Marketing Website
+# MemSurf Marketing Website
 
-A modern, responsive marketing landing page for Memsurf (Rememq) - an adaptive learning platform. This website showcases the platform's features including smart quiz generation, quick capture, spaced repetition, and intelligent learning paths.
+A modern, responsive marketing landing page for MemSurf (Rememq) - an adaptive learning platform. This website showcases the platform's features including smart quiz generation, quick capture, spaced repetition, and intelligent learning paths.
 
 ## 🚀 Features
 
@@ -122,7 +122,7 @@ This project is private and proprietary.
 
 ## 👥 Contributing
 
-This is a marketing website for Memsurf. For feature requests or issues, please contact the development team.
+This is a marketing website for MemSurf. For feature requests or issues, please contact the development team.
 
 ---
 

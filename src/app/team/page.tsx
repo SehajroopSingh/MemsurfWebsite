@@ -24,7 +24,7 @@ export default function TeamPage() {
                         for learners.
                     </h1>
                     <p className="text-xl text-gray-600 max-w-2xl">
-                        Memsurf is on a mission to put your memory on autopilot. We are building the tools we wished we had.
+                        MemSurf is on a mission to put your memory on autopilot. We are building the tools we wished we had.
                     </p>
                 </div>
             </section>
@@ -114,7 +114,7 @@ export default function TeamPage() {
                                 </div>
 
                                 <div className="prose prose-lg text-gray-700">
-                                    <p>Hi, I'm Alessia, co-founder and COO of Memsurf.</p>
+                                    <p>Hi, I'm Alessia, co-founder and COO of MemSurf.</p>
                                     <p>
                                         I've spent most of my career in consulting, policy, and strategy roles, trying to understand why so many systems do not work the way they are supposed to, and why the people who need them most usually get the short end of the stick.
                                     </p>
@@ -122,7 +122,7 @@ export default function TeamPage() {
                                         I care deeply about access: to education, opportunity, and the tools that help us actually move forward in our lives. Growth should not be a luxury product.
                                     </p>
                                     <p>
-                                        At some point, it clicked that most people do not lack motivation or ambition, they lack time and structure. Good intentions are everywhere. Follow-through is hard. That realization is what led me to team up with Sehaj to build Memsurf: something that takes some of the mental load off and helps people make progress without having to rearrange their entire lives.
+                                        At some point, it clicked that most people do not lack motivation or ambition, they lack time and structure. Good intentions are everywhere. Follow-through is hard. That realization is what led me to team up with Sehaj to build MemSurf: something that takes some of the mental load off and helps people make progress without having to rearrange their entire lives.
                                     </p>
                                     <p>
                                         My background is in behavioral science, economics, and public policy, and I've written a lot about cognitive biases, education reform, and access to opportunity. But more than anything, I'm focused on building things that are actually useful, not just theoretically elegant.
@@ -153,7 +153,7 @@ export default function TeamPage() {
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl font-semibold tracking-tight">Get in touch</h2>
                     <p className="text-lg text-gray-600 mb-8">
-                        Have questions about Memsurf or want to collaborate? We would love to hear from you.
+                        Have questions about MemSurf or want to collaborate? We would love to hear from you.
                     </p>
                     <div className="flex justify-center">
                         <Link

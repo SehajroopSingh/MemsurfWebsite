@@ -6,11 +6,11 @@ import ResourcesSection from '@/components/ResourcesSection'
 import { getAllBlogPosts } from '@/lib/blogPosts'
 
 export const metadata: Metadata = {
-  title: 'Blog | Memsurf – Learning Tips, Study Techniques, and Memory Science',
-  description: 'Explore articles about spaced repetition, learning techniques, memory science, and effective study methods. Learn how to make knowledge stick with Memsurf.',
+  title: 'Blog | MemSurf – Learning Tips, Study Techniques, and Memory Science',
+  description: 'Explore articles about spaced repetition, learning techniques, memory science, and effective study methods. Learn how to make knowledge stick with MemSurf.',
   keywords: ['learning blog', 'study tips', 'spaced repetition', 'memory techniques', 'education', 'learning strategies'],
   openGraph: {
-    title: 'Blog | Memsurf',
+    title: 'Blog | MemSurf',
     description: 'Explore articles about spaced repetition, learning techniques, and memory science.',
     type: 'website',
   },

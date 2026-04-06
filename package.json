@@ -31,7 +31,7 @@
     "three": "^0.182.0",
     "typescript": "^5.0.0"
   },
-  "description": "A modern, responsive marketing landing page for Memsurf (Rememq) - an AI-powered learning platform. This website showcases the platform's features including AI quiz generation, quick capture, spaced repetition, and intelligent learning paths.",
+  "description": "A modern, responsive marketing landing page for MemSurf (Rememq) - an AI-powered learning platform. This website showcases the platform's features including AI quiz generation, quick capture, spaced repetition, and intelligent learning paths.",
   "main": "next.config.js",
   "keywords": [],
   "author": "",

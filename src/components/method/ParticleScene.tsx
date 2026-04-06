@@ -13,7 +13,7 @@ const ParticleMaterial = {
     uniforms: {
         uTime: { value: 0 },
         uProgress: { value: 0 }, // 0..3 (representing the 4 stages)
-        uColor1: { value: new THREE.Color('#8c648d') }, // Memsurf Purple - visible on white
+        uColor1: { value: new THREE.Color('#8c648d') }, // MemSurf Purple - visible on white
         uColor2: { value: new THREE.Color('#16a34a') }, // Darker Green for visibility
         uColor3: { value: new THREE.Color('#2563eb') }, // Darker Blue
     },

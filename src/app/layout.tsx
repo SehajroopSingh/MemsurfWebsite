@@ -6,10 +6,25 @@ import BlobbyBackground from '@/components/BlobbyBackground'
 
 const inter = Inter({ subsets: ['latin'] })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.com'
+
 export const metadata: Metadata = {
-  title: 'Memsurf – Make Knowledge Stick',
+  metadataBase: new URL(siteUrl),
+  title: 'MemSurf – Make Knowledge Stick',
   description: 'Transform any content into interactive quizzes. Master knowledge with spaced repetition and adaptive learning.',
   keywords: ['learning', 'quizzes', 'spaced repetition', 'education', 'study tools', 'adaptive learning'],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'MemSurf',
+    title: 'MemSurf – Make Knowledge Stick',
+    description: 'Transform any content into interactive quizzes. Master knowledge with spaced repetition and adaptive learning.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'MemSurf – Make Knowledge Stick',
+    description: 'Transform any content into interactive quizzes. Master knowledge with spaced repetition and adaptive learning.',
+  },
 }
 
 export default function RootLayout({

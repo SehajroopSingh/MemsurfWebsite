@@ -8,7 +8,7 @@ const testimonials = [
   {
     name: 'Sarah Chen',
     role: 'Medical Student',
-    content: "Memsurf has completely transformed how I study. The AI-generated quizzes from my lecture notes are incredibly accurate, and the spaced repetition system has helped me retain information so much better.",
+    content: "MemSurf has completely transformed how I study. The AI-generated quizzes from my lecture notes are incredibly accurate, and the spaced repetition system has helped me retain information so much better.",
     rating: 5,
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150',
     tag: 'Student'

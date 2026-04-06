@@ -8,10 +8,10 @@ export default function AboutPage() {
       <section className="flex-1 pt-24 pb-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            About Memsurf
+            About MemSurf
           </h1>
           <p className="text-gray-700 text-lg mb-4">
-            Memsurf is an adaptive learning platform that helps you turn any content
+            MemSurf is an adaptive learning platform that helps you turn any content
             into interactive quizzes, and master knowledge with spaced repetition.
           </p>
           <p className="text-gray-700 text-lg">

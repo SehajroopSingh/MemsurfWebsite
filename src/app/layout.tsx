@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Dancing_Script, Inter } from 'next/font/google'
 import './globals.css'
 import { AmplitudeProvider } from '@/components/AmplitudeProvider'
-import BlobbyBackground from '@/components/BlobbyBackground'
+import BlobbyBackgroundProvider from '@/components/BlobbyBackgroundProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -60,10 +60,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${collageTaglineScript.variable}`}>
-        <BlobbyBackground />
-        <AmplitudeProvider>
-          {children}
-        </AmplitudeProvider>
+        <BlobbyBackgroundProvider>
+          <AmplitudeProvider>
+            {children}
+          </AmplitudeProvider>
+        </BlobbyBackgroundProvider>
       </body>
     </html>
   )

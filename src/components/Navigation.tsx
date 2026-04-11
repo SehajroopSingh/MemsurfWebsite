@@ -7,7 +7,11 @@ import { Menu, X, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAmplitude } from '@/hooks/useAmplitude'
 
-export default function Navigation() {
+type NavigationProps = {
+  isRevealed?: boolean
+}
+
+export default function Navigation({ isRevealed = true }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false)
   const { track } = useAmplitude()
 
@@ -29,7 +33,16 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
+    <motion.nav
+      className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none"
+      initial={{ opacity: 0, y: -16, filter: 'blur(8px)' }}
+      animate={
+        isRevealed
+          ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+          : { opacity: 0, y: -16, filter: 'blur(8px)' }
+      }
+      transition={{ duration: 0.55, ease: 'easeOut', delay: isRevealed ? 0.05 : 0 }}
+    >
       <div className="w-full pointer-events-auto">
         <div className="relative rounded-full border border-white/15 bg-app-surfaceElevated/35 shadow-[0_10px_35px_rgba(2,8,24,0.45)] backdrop-blur-2xl supports-[backdrop-filter]:bg-app-surfaceElevated/25">
           <div className="flex justify-between items-center h-[4.5rem] px-4 sm:px-6">
@@ -118,6 +131,6 @@ export default function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   )
 }

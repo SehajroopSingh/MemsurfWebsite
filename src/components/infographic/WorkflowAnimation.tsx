@@ -17,7 +17,11 @@ import VideoOverlayContainer from './VideoOverlayContainer'
 import ChatGptIntegrationSection from './ChatGptIntegrationSection'
 import RandomizedTextReveal from '../ui/RandomizedTextReveal'
 
-export default function WorkflowAnimation() {
+type WorkflowAnimationProps = {
+    onCollageReady?: () => void
+}
+
+export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationProps) {
     // --- SETTINGS CYCLING LOGIC ---
     const [settingsState, setSettingsState] = useState({
         depthStage: 0,
@@ -136,29 +140,7 @@ export default function WorkflowAnimation() {
 
     return (
         <div className="w-full flex flex-col items-center">
-            <WindowsCollage workflowHeroCopy />
-            <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8 mt-40 mb-72">
-                <div className="max-w-5xl text-center space-y-6">
-                    <div className="flex flex-col items-center justify-center text-gray-300 space-y-6 md:space-y-8">
-                        {[
-                            'After taking notes you\'ll never revisit.',
-                            'If life gives you something worth keeping,',
-                            'MemSurf helps you remember it.'
-                        ].map((sentence, idx) => (
-                            <motion.p
-                                key={sentence}
-                                initial={{ opacity: 0, y: 12 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.4 }}
-                                transition={{ duration: 1.25, ease: 'easeOut', delay: 1.25 * idx }}
-                                className="text-2xl md:text-3xl leading-relaxed max-w-5xl text-center"
-                            >
-                                {sentence}
-                            </motion.p>
-                        ))}
-                    </div>
-                </div>
-            </div>
+            <WindowsCollage workflowHeroCopy onReady={onCollageReady} />
             {/* HOW IT WORKS Heading */}
             <div id="how-it-works" className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-96 md:mt-80 lg:mt-96 xl:mt-80 z-40 scroll-mt-24">
                 <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">

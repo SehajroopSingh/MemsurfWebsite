@@ -12,32 +12,19 @@ import { useReducedMotion } from 'framer-motion'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, ContactShadows, Float, useGLTF, useTexture } from '@react-three/drei'
 import {
-  DataTexture,
+  DoubleSide,
   LinearFilter,
-  RGBAFormat,
+  Mesh,
+  MeshBasicMaterial,
+  PlaneGeometry,
   ShaderMaterial,
   SRGBColorSpace,
-  UnsignedByteType,
-  Vector3,
-  VideoTexture,
+  Vector2,
 } from 'three'
-import { useAmplitude } from '@/hooks/useAmplitude'
-import { HERO_PHONE_SCREEN_BG } from '@/config/video'
 
-/** How much the screen recording covers the static BG (1 = video only; slightly lower keeps BG visible at edges). */
-const SCREEN_VIDEO_OVER_BG = 0.92
-
-/**
- * Aspect of the screen face in UV space (width/height). iPhone GLTF screen meshes usually unwrap to a
- * square 0–1 × 0–1 patch; using the physical device aspect here over-letterboxes and looks “zoomed in”.
- */
-const PHONE_SCREEN_ASPECT = 1.0
-
-/** Mild desaturation for static BG so it matches video and avoids neon oversaturation. */
-const BG_DESATURATION = 0.16
-
-/** >1 zooms the video texture out (shows more frame, less crop) after object-fit contain. */
-const VIDEO_UV_EXPAND = 1.32
+const MEMSURF_LOGO_ASPECT = 850 / 512
+const MEMSURF_LOGO_SCREEN_WIDTH_RATIO = 0.78
+const MEMSURF_LOGO_SURFACE_OFFSET = 0.08
 
 const SCREEN_VERTEX_SHADER = /* glsl */ `
   varying vec2 vUv;
@@ -49,75 +36,42 @@ const SCREEN_VERTEX_SHADER = /* glsl */ `
 
 const SCREEN_FRAGMENT_SHADER = /* glsl */ `
   varying vec2 vUv;
-  uniform sampler2D uBackground;
-  uniform sampler2D uVideo;
-  uniform float uVideoMix;
-  uniform float uBgAspect;
-  uniform float uVideoAspect;
-  uniform float uBoxAspect;
-  uniform vec3 uLetterboxColor;
-  uniform float uBgDesat;
-  uniform float uVideoUvExpand;
+  uniform float uTime;
+  uniform vec2 uScreenUvMin;
+  uniform vec2 uScreenUvRange;
 
-  vec3 desaturate(vec3 c, float amount) {
-    float l = dot(c, vec3(0.299, 0.587, 0.114));
-    return mix(c, vec3(l), amount);
-  }
-
-  vec3 sampleContain(sampler2D tex, vec2 uv, float texAspect, float boxAspect) {
-    vec2 tUv;
-    if (texAspect > boxAspect) {
-      float span = boxAspect / texAspect;
-      float vmin = 0.5 - 0.5 * span;
-      float vmax = 0.5 + 0.5 * span;
-      if (uv.y < vmin || uv.y > vmax) return uLetterboxColor;
-      tUv = vec2(uv.x, (uv.y - vmin) / span);
-    } else {
-      float span = texAspect / boxAspect;
-      float umin = 0.5 - 0.5 * span;
-      float umax = 0.5 + 0.5 * span;
-      if (uv.x < umin || uv.x > umax) return uLetterboxColor;
-      tUv = vec2((uv.x - umin) / span, uv.y);
-    }
-    return texture2D(tex, tUv).rgb;
-  }
-
-  vec3 sampleVideoZoomed(vec2 uv) {
-    vec2 tUv;
-    if (uVideoAspect > uBoxAspect) {
-      float span = uBoxAspect / uVideoAspect;
-      float vmin = 0.5 - 0.5 * span;
-      float vmax = 0.5 + 0.5 * span;
-      if (uv.y < vmin || uv.y > vmax) return uLetterboxColor;
-      tUv = vec2(uv.x, (uv.y - vmin) / span);
-    } else {
-      float span = uVideoAspect / uBoxAspect;
-      float umin = 0.5 - 0.5 * span;
-      float umax = 0.5 + 0.5 * span;
-      if (uv.x < umin || uv.x > umax) return uLetterboxColor;
-      tUv = vec2((uv.x - umin) / span, uv.y);
-    }
-    tUv = clamp(vec2(0.5) + (tUv - vec2(0.5)) * uVideoUvExpand, vec2(0.0), vec2(1.0));
-    return texture2D(uVideo, tUv).rgb;
+  float blob(vec2 uv, vec2 center, vec2 radius) {
+    vec2 delta = (uv - center) / radius;
+    return exp(-dot(delta, delta) * 2.15);
   }
 
   void main() {
-    vec3 bg = sampleContain(uBackground, vUv, uBgAspect, uBoxAspect);
-    bg = desaturate(bg, uBgDesat);
-    vec3 vd = sampleVideoZoomed(vUv);
-    gl_FragColor = vec4(mix(bg, vd, uVideoMix), 1.0);
+    vec2 uv = clamp((vUv - uScreenUvMin) / uScreenUvRange, vec2(0.0), vec2(1.0));
+    float t = uTime;
+    vec3 color = vec3(0.031, 0.075, 0.114);
+
+    color += vec3(0.310, 0.620, 0.584) * blob(uv, vec2(0.24 + sin(t * 0.31) * 0.08, 0.30 + cos(t * 0.24) * 0.06), vec2(0.38, 0.28)) * 0.42;
+    color += vec3(0.325, 0.463, 0.671) * blob(uv, vec2(0.80 + sin(t * 0.23) * 0.06, 0.44 + cos(t * 0.29) * 0.08), vec2(0.34, 0.36)) * 0.38;
+    color += vec3(0.420, 0.341, 0.659) * blob(uv, vec2(0.32 + cos(t * 0.28) * 0.10, 0.78 + sin(t * 0.20) * 0.05), vec2(0.40, 0.30)) * 0.36;
+    color += vec3(0.549, 0.396, 0.776) * blob(uv, vec2(0.66 + cos(t * 0.35) * 0.08, 0.76 + sin(t * 0.22) * 0.07), vec2(0.30, 0.34)) * 0.32;
+    color += vec3(0.467, 0.761, 0.718) * blob(uv, vec2(0.48 + sin(t * 0.38) * 0.10, 0.16 + cos(t * 0.30) * 0.04), vec2(0.32, 0.22)) * 0.30;
+    color += vec3(0.537, 0.690, 0.922) * blob(uv, vec2(0.86 + cos(t * 0.26) * 0.06, 0.18 + sin(t * 0.33) * 0.06), vec2(0.24, 0.24)) * 0.26;
+    color += vec3(0.690, 0.541, 0.894) * blob(uv, vec2(0.16 + sin(t * 0.42) * 0.05, 0.66 + cos(t * 0.27) * 0.08), vec2(0.26, 0.32)) * 0.28;
+
+    float edgeVignette = smoothstep(0.20, 0.78, distance(uv, vec2(0.5)));
+    color = mix(color, vec3(0.012, 0.024, 0.038), edgeVignette * 0.45);
+
+    float logoBackdrop = 1.0 - smoothstep(0.10, 0.46, distance(uv, vec2(0.5)));
+    color = mix(color, vec3(0.008, 0.015, 0.026), logoBackdrop * 0.34);
+
+    gl_FragColor = vec4(color, 1.0);
   }
 `
 
 interface PhoneHeroMockupProps {
-  src: string
-  placeholder?: string
-  /** Static image behind the hero video on the phone mesh (full screen UVs). */
-  screenBackgroundSrc?: string
   className?: string
-  screenClassName?: string
-  trackingLabel?: string
-  trackingLocation?: string
+  screenLogoSrc?: string
+  onReady?: () => void
 }
 
 type PhoneDragRefs = {
@@ -192,176 +146,38 @@ function usePhoneHeroDrag() {
   }
 }
 
-function useHeroPhoneVideoTexture({
-  src,
-  trackingLabel,
-  trackingLocation,
-}: {
-  src: string
-  trackingLabel: string
-  trackingLocation: string
-}) {
-  const { track } = useAmplitude()
-  const [videoTexture, setVideoTexture] = useState<VideoTexture | null>(null)
-  const [videoReady, setVideoReady] = useState(false)
-  const videoAspectRef = useRef(9 / 16)
-
-  useEffect(() => {
-    let isDisposed = false
-    setVideoReady(false)
-
-    const video = document.createElement('video')
-    video.src = src
-    video.muted = true
-    video.loop = true
-    video.autoplay = true
-    video.playsInline = true
-    video.preload = 'auto'
-    video.crossOrigin = 'anonymous'
-
-    const videoTexture = new VideoTexture(video)
-    videoTexture.colorSpace = SRGBColorSpace
-    videoTexture.flipY = false
-    videoTexture.minFilter = LinearFilter
-    videoTexture.magFilter = LinearFilter
-    videoTexture.generateMipmaps = false
-
-    const syncVideoAspect = () => {
-      if (video.videoWidth > 0 && video.videoHeight > 0) {
-        videoAspectRef.current = video.videoWidth / video.videoHeight
-      }
-    }
-    video.addEventListener('loadedmetadata', syncVideoAspect)
-
-    let hasTrackedStart = false
-    let hasTrackedLoop = false
-    let lastTime = 0
-
-    const handleCanPlay = async () => {
-      if (isDisposed) return
-      setVideoReady(true)
-      try {
-        await video.play()
-      } catch (error) {
-        console.warn('Hero phone video autoplay failed:', error)
-      }
-    }
-
-    const handlePlay = () => {
-      if (hasTrackedStart) return
-      track('video_started', {
-        video_name: trackingLabel,
-        location: trackingLocation,
-        autoplay: true,
-      })
-      hasTrackedStart = true
-    }
-
-    const handleTimeUpdate = () => {
-      if (!hasTrackedLoop && lastTime > video.currentTime + 0.2) {
-        track('video_loop_started', {
-          video_name: trackingLabel,
-          location: trackingLocation,
-        })
-        hasTrackedLoop = true
-      }
-      lastTime = video.currentTime
-    }
-
-    const handleError = () => {
-      const mediaError = video.error
-      track('video_error', {
-        video_name: trackingLabel,
-        location: trackingLocation,
-        error_message: mediaError?.message || 'Hero phone video failed to load',
-        error_code: mediaError?.code,
-      })
-    }
-
-    video.addEventListener('canplay', handleCanPlay)
-    video.addEventListener('play', handlePlay)
-    video.addEventListener('timeupdate', handleTimeUpdate)
-    video.addEventListener('error', handleError)
-    video.load()
-
-    setVideoTexture(videoTexture)
-
-    if (video.readyState >= 2) {
-      handleCanPlay()
-    }
-
-    return () => {
-      isDisposed = true
-      video.pause()
-      video.removeEventListener('canplay', handleCanPlay)
-      video.removeEventListener('play', handlePlay)
-      video.removeEventListener('timeupdate', handleTimeUpdate)
-      video.removeEventListener('error', handleError)
-      video.removeEventListener('loadedmetadata', syncVideoAspect)
-      videoTexture.dispose()
-    }
-  }, [src, track, trackingLabel, trackingLocation])
-
-  return { videoTexture, videoReady, videoAspectRef }
-}
-
 function PhoneModel({
-  src,
-  screenBackgroundSrc,
-  trackingLabel,
-  trackingLocation,
+  screenLogoSrc,
+  reduceMotion,
   isSmallViewport,
+  onReady,
 }: {
-  src: string
-  screenBackgroundSrc: string
-  trackingLabel: string
-  trackingLocation: string
+  screenLogoSrc: string
+  reduceMotion: boolean | null
   isSmallViewport: boolean
+  onReady?: () => void
 }) {
   const gltf = useGLTF('/models/iphone17pro.glb') as any
-  const { videoTexture, videoReady, videoAspectRef } = useHeroPhoneVideoTexture({
-    src,
-    trackingLabel,
-    trackingLocation,
-  })
-
   const { gl } = useThree()
-  const bgTexture = useTexture(screenBackgroundSrc)
+  const logoTexture = useTexture(screenLogoSrc)
   const screenMaterialRef = useRef<ShaderMaterial | null>(null)
-  const whiteDummy = useMemo(() => {
-    const t = new DataTexture(new Uint8Array([255, 255, 255, 255]), 1, 1, RGBAFormat, UnsignedByteType)
-    t.colorSpace = SRGBColorSpace
-    t.needsUpdate = true
-    return t
-  }, [])
+  const logoOverlayRefs = useRef<Mesh[]>([])
 
   useEffect(() => {
-    bgTexture.colorSpace = SRGBColorSpace
-    bgTexture.flipY = false
-    bgTexture.minFilter = LinearFilter
-    bgTexture.magFilter = LinearFilter
+    logoTexture.colorSpace = SRGBColorSpace
+    logoTexture.flipY = true
+    logoTexture.minFilter = LinearFilter
+    logoTexture.magFilter = LinearFilter
     const maxAniso = gl.capabilities.getMaxAnisotropy?.() ?? 1
-    bgTexture.anisotropy = maxAniso
-  }, [bgTexture, gl])
-
-  useEffect(() => {
-    const img = bgTexture.image as HTMLImageElement | undefined
-    const applyBgAspect = () => {
-      const m = screenMaterialRef.current
-      if (!m || !img?.naturalWidth || !img?.naturalHeight) return
-      m.uniforms.uBgAspect.value = img.naturalWidth / img.naturalHeight
-    }
-    applyBgAspect()
-    img?.addEventListener?.('load', applyBgAspect)
-    return () => img?.removeEventListener?.('load', applyBgAspect)
-  }, [bgTexture])
+    logoTexture.anisotropy = maxAniso
+    logoTexture.needsUpdate = true
+  }, [logoTexture, gl])
 
   const scene = useMemo(() => gltf.scene.clone(true), [gltf.scene])
 
   useEffect(() => {
     if (!scene) return
-
-    const vt = videoTexture ?? whiteDummy
+    let readyFrame: number | null = null
 
     scene.traverse((child: any) => {
       if (!child.isMesh || !child.material) return
@@ -370,23 +186,85 @@ function PhoneModel({
       const nextMaterials = materials.map((material: any) => {
         const nextMaterial = material.clone()
 
-        if (nextMaterial.name === 'Screen_BG') {
-          const img = bgTexture.image as HTMLImageElement | undefined
-          const bgAspect =
-            img?.naturalWidth && img?.naturalHeight
-              ? img.naturalWidth / img.naturalHeight
-              : 16 / 9
+        if (nextMaterial.name === 'Screen_BG' || nextMaterial.name === 'HeroPhoneScreen') {
+          const position = child.geometry?.attributes?.position
+          const uv = child.geometry?.attributes?.uv
+          const uvMin = new Vector2(0, 0)
+          const uvRange = new Vector2(1, 1)
+          let minX = Infinity
+          let minY = Infinity
+          let minZ = Infinity
+          let maxX = -Infinity
+          let maxY = -Infinity
+          let maxZ = -Infinity
+
+          if (position) {
+            for (let i = 0; i < position.count; i += 1) {
+              const x = position.getX(i)
+              const y = position.getY(i)
+              const z = position.getZ(i)
+              minX = Math.min(minX, x)
+              minY = Math.min(minY, y)
+              minZ = Math.min(minZ, z)
+              maxX = Math.max(maxX, x)
+              maxY = Math.max(maxY, y)
+              maxZ = Math.max(maxZ, z)
+            }
+
+            const screenWidth = maxX - minX
+            const centerX = (minX + maxX) / 2
+            const centerY = (minY + maxY) / 2
+            const centerZ = (minZ + maxZ) / 2
+
+            if (screenWidth > 0.001 && Number.isFinite(centerX) && Number.isFinite(centerY) && Number.isFinite(centerZ)) {
+              const logoWidth = screenWidth * MEMSURF_LOGO_SCREEN_WIDTH_RATIO
+              const logoHeight = logoWidth / MEMSURF_LOGO_ASPECT
+              const logoGeometry = new PlaneGeometry(logoWidth, logoHeight)
+              const logoMaterial = new MeshBasicMaterial({
+                map: logoTexture,
+                transparent: true,
+                toneMapped: false,
+                depthWrite: false,
+                side: DoubleSide,
+              })
+              const logoMesh = new Mesh(logoGeometry, logoMaterial)
+
+              logoMesh.name = 'HeroPhoneLogoOverlay'
+              logoMesh.position.set(centerX, centerY - MEMSURF_LOGO_SURFACE_OFFSET, centerZ)
+              logoMesh.rotation.x = Math.PI / 2
+              logoMesh.renderOrder = 8
+
+              child.add(logoMesh)
+              logoOverlayRefs.current.push(logoMesh)
+            }
+          }
+
+          if (uv) {
+            let minU = Infinity
+            let minV = Infinity
+            let maxU = -Infinity
+            let maxV = -Infinity
+
+            for (let i = 0; i < uv.count; i += 1) {
+              const u = uv.getX(i)
+              const v = uv.getY(i)
+              minU = Math.min(minU, u)
+              minV = Math.min(minV, v)
+              maxU = Math.max(maxU, u)
+              maxV = Math.max(maxV, v)
+            }
+
+            if (Number.isFinite(minU) && Number.isFinite(minV) && Number.isFinite(maxU) && Number.isFinite(maxV)) {
+              uvMin.set(minU, minV)
+              uvRange.set(Math.max(maxU - minU, 0.0001), Math.max(maxV - minV, 0.0001))
+            }
+          }
+
           const screenMaterial = new ShaderMaterial({
             uniforms: {
-              uBackground: { value: bgTexture },
-              uVideo: { value: vt },
-              uVideoMix: { value: 0 },
-              uBgAspect: { value: bgAspect },
-              uVideoAspect: { value: videoAspectRef.current },
-              uBoxAspect: { value: PHONE_SCREEN_ASPECT },
-              uLetterboxColor: { value: new Vector3(0.02, 0.02, 0.028) },
-              uBgDesat: { value: BG_DESATURATION },
-              uVideoUvExpand: { value: VIDEO_UV_EXPAND },
+              uTime: { value: 0 },
+              uScreenUvMin: { value: uvMin },
+              uScreenUvRange: { value: uvRange },
             },
             vertexShader: SCREEN_VERTEX_SHADER,
             fragmentShader: SCREEN_FRAGMENT_SHADER,
@@ -409,25 +287,35 @@ function PhoneModel({
       child.material = Array.isArray(child.material) ? nextMaterials : nextMaterials[0]
     })
 
+    readyFrame = window.requestAnimationFrame(() => {
+      onReady?.()
+    })
+
     return () => {
+      if (readyFrame != null) {
+        window.cancelAnimationFrame(readyFrame)
+      }
+      logoOverlayRefs.current.forEach((overlay) => {
+        overlay.parent?.remove(overlay)
+        overlay.geometry.dispose()
+        const materials = Array.isArray(overlay.material) ? overlay.material : [overlay.material]
+        materials.forEach((material) => material.dispose())
+      })
+      logoOverlayRefs.current = []
       scene.traverse((child: any) => {
         const mats = Array.isArray(child.material) ? child.material : [child.material]
         mats.forEach((m: any) => {
           if (m?.name === 'HeroPhoneScreen') m.dispose()
         })
       })
+      screenMaterialRef.current = null
     }
-  }, [bgTexture, scene, videoTexture, whiteDummy])
+  }, [logoTexture, onReady, scene])
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     const m = screenMaterialRef.current
     if (!m) return
-    const vid = m.uniforms.uVideo.value
-    if (vid instanceof VideoTexture) {
-      vid.needsUpdate = true
-    }
-    m.uniforms.uVideoMix.value = videoReady ? SCREEN_VIDEO_OVER_BG : 0
-    m.uniforms.uVideoAspect.value = videoAspectRef.current
+    m.uniforms.uTime.value = reduceMotion ? 0 : clock.getElapsedTime()
   })
 
   const modelScale = isSmallViewport ? 1.02 : 1.08
@@ -444,21 +332,17 @@ useGLTF.preload('/models/iphone17pro.glb')
 
 // Internal component to handle scroll-linked rotation/translation via useFrame
 function ScrollAnimatedPhone({
-  src,
-  screenBackgroundSrc,
-  trackingLabel,
-  trackingLocation,
+  screenLogoSrc,
   reduceMotion,
   isSmallViewport,
   dragRefs,
+  onReady,
 }: {
-  src: string
-  screenBackgroundSrc: string
-  trackingLabel: string
-  trackingLocation: string
+  screenLogoSrc: string
   reduceMotion: boolean | null
   isSmallViewport: boolean
   dragRefs: PhoneDragRefs
+  onReady?: () => void
 }) {
   const groupRef = React.useRef<any>(null)
   const { isDraggingRef, dragTargetRef, dragCurrentRef, dragVelocityRef } = dragRefs
@@ -526,12 +410,11 @@ function ScrollAnimatedPhone({
         }
       >
         <PhoneModel
-          key={`${screenBackgroundSrc}-${src}`}
-          src={src}
-          screenBackgroundSrc={screenBackgroundSrc}
-          trackingLabel={trackingLabel}
-          trackingLocation={trackingLocation}
+          key={screenLogoSrc}
+          screenLogoSrc={screenLogoSrc}
+          reduceMotion={reduceMotion}
           isSmallViewport={isSmallViewport}
+          onReady={onReady}
         />
       </Suspense>
     </group>
@@ -572,13 +455,9 @@ function ScrollAnimatedShadow({ isSmallViewport, reduceMotion }: any) {
 }
 
 export default function PhoneHeroMockup({
-  src,
-  placeholder: _placeholder,
-  screenBackgroundSrc = HERO_PHONE_SCREEN_BG,
+  screenLogoSrc = '/logos/memsurf-logo.svg',
   className = '',
-  screenClassName: _screenClassName = '',
-  trackingLabel = 'hero_demo_video',
-  trackingLocation = 'hero',
+  onReady,
 }: PhoneHeroMockupProps) {
   const reduceMotion = useReducedMotion()
   const [mounted, setMounted] = useState(false)
@@ -632,13 +511,11 @@ export default function PhoneHeroMockup({
             floatingRange={[-0.12, 0.12]}
           >
             <ScrollAnimatedPhone
-              src={src}
-              screenBackgroundSrc={screenBackgroundSrc}
-              trackingLabel={trackingLabel}
-              trackingLocation={trackingLocation}
+              screenLogoSrc={screenLogoSrc}
               reduceMotion={reduceMotion}
               isSmallViewport={isSmallViewport}
               dragRefs={dragRefs}
+              onReady={onReady}
             />
           </Float>
           {/* Shadow tracks horizontal scroll but remains flat on the floor */}

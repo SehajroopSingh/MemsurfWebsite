@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect, useId } from 'react'
+import React, { useCallback, useState, useRef, useEffect, useId } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
@@ -65,10 +65,10 @@ const sharedSceneGroups: Record<string, SharedSceneGroup> = {
   bedRoom: {
     imageUrl: '/videos/veo3.1-with-reference-images-bed-poster.jpg',
     videoSrc: '/videos/veo3.1-with-reference-images-bed.mp4',
-    top: 72,
-    left: 67,
-    width: 31,
-    height: 28,
+    top: 66,
+    left: 71,
+    width: 29,
+    height: 20,
     horizontalGapExtra: 3,
   },
 }
@@ -217,6 +217,9 @@ function videoCoverObjectPositionParts(
   }
 }
 
+/** Pane ids skipped when rendering (still in `windowData` for layout math / restore later). */
+const WINDOW_IDS_HIDDEN: ReadonlySet<string> = new Set([])
+
 const windowData: WindowData[] = [
   {
     id: 'w1',
@@ -235,10 +238,12 @@ const windowData: WindowData[] = [
     imageUrl: '/videos/veo3.1-with-reference-images-office-poster.jpg',
     videoSrc: '/videos/veo3.1-with-reference-images-office.mp4',
     /** Left column; same row as w1 under bed. */
-    top: '78%',
-    left: '15%',
+    /** Bottom was 108% (clipped); same height, shifted up so bottom = 100%. */
+    top: '70%',
+    left: '19%',
     width: '50%',
-    height: '30%',
+    /** Leaves notes band + `w6` strip (see workflow constants). */
+    height: '12%',
     zIndex: 11,
     paneType: 'split-v'
   },
@@ -262,10 +267,10 @@ const windowData: WindowData[] = [
   {
     id: 'w4',
     imageUrl: sharedSceneGroups.bedRoom.imageUrl,
-    top: '72%',
-    left: '67%',
-    width: '15%',
-    height: '28%',
+    top: '66%',
+    left: '71%',
+    width: '14%',
+    height: '20%',
     videoCropZoom: 1.12,
     videoObjectPosition: '32% 28%',
     zIndex: 13,
@@ -275,10 +280,10 @@ const windowData: WindowData[] = [
   {
     id: 'w5',
     imageUrl: sharedSceneGroups.bedRoom.imageUrl,
-    top: '72%',
-    left: '83%',
-    width: '15%',
-    height: '28%',
+    top: '66%',
+    left: '86%',
+    width: '14%',
+    height: '20%',
     videoCropZoom: 1.12,
     videoObjectPosition: '32% 28%',
     zIndex: 14,
@@ -287,12 +292,13 @@ const windowData: WindowData[] = [
   },
   {
     id: 'w6',
-    imageUrl: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=800&q=80',
-    top: '92%',
-    left: '60%',
+    imageUrl: '/collage/w6-under-w2-desk.png',
+    /** Under `w2` column, nudged right (see `WORKFLOW_W6_SHIFT_RIGHT_PCT`). */
+    top: '85%',
+    left: '31%',
     width: '38%',
-    height: '7%',
-    zIndex: 19,
+    height: '15%',
+    zIndex: 12,
     paneType: 'grid-4'
   },
   {
@@ -315,8 +321,8 @@ const windowData: WindowData[] = [
     videoSrc: '/videos/veo3.1-with-reference-images-studying.mp4',
     wide169: true,
     top: '45%',
-    left: '40%',
-    width: '40%',
+    left: '48%',
+    width: '47%',
     height: '20%',
     zIndex: 18,
     paneType: 'grid-4'
@@ -333,6 +339,15 @@ const windowData: WindowData[] = [
     paneType: 'split-h'
   }
 ]
+
+const visibleWindowData = windowData.filter((item) => !WINDOW_IDS_HIDDEN.has(item.id))
+const COLLAGE_READY_ASSET_KEYS = visibleWindowData.flatMap((item) => {
+  const keys = [`image:${item.id}`]
+  if (getWindowVideoSrc(item)) {
+    keys.push(`video:${item.id}`)
+  }
+  return keys
+})
 
 const renderWindowPanes = (type: PaneType) => {
   const lineClass = "absolute bg-[#1a1a1a] pointer-events-none z-10 opacity-80"
@@ -375,25 +390,58 @@ const renderWindowPanes = (type: PaneType) => {
   }
 }
 
+const ARCH_SPRING_LINE_PCT = 30
+const ARCH_SPRING_LINE_RATIO = ARCH_SPRING_LINE_PCT / 100
+const ARCH_CLIP_PATH_D = `M 0,1 L 0,${ARCH_SPRING_LINE_RATIO} A 0.5 ${ARCH_SPRING_LINE_RATIO} 0 0 1 1,${ARCH_SPRING_LINE_RATIO} L 1,1 Z`
+const ARCH_FRAME_PATH_D = `M 0,100 L 0,${ARCH_SPRING_LINE_PCT} A 50 ${ARCH_SPRING_LINE_PCT} 0 0 1 100,${ARCH_SPRING_LINE_PCT} L 100,100 Z`
+const ARCH_RADIAL_DEGREES = [45, 90, 135]
+
 function ArchedTopWindowMullions() {
   const lineClass =
     'absolute bg-[#1a1a1a] pointer-events-none z-[11] opacity-80'
+  const lowerHeight = `${100 - ARCH_SPRING_LINE_PCT}%`
+
+  const renderRadials = (strokeWidth: number) =>
+    ARCH_RADIAL_DEGREES.map((deg) => {
+      const rad = (deg * Math.PI) / 180
+      const x2 = 50 + 50 * Math.cos(rad)
+      const y2 = ARCH_SPRING_LINE_PCT - ARCH_SPRING_LINE_PCT * Math.sin(rad)
+
+      return (
+        <line
+          key={deg}
+          x1={50}
+          y1={ARCH_SPRING_LINE_PCT}
+          x2={x2}
+          y2={y2}
+          stroke="#1a1a1a"
+          strokeWidth={strokeWidth}
+          vectorEffect="non-scaling-stroke"
+        />
+      )
+    })
+
   return (
     <>
       {/* Flat bar on the springing line (arch meets lower lights) */}
       <div
-        className={`top-1/2 left-0 w-full h-[4px] md:h-[6px] -mt-[2px] md:-mt-[3px] ${lineClass}`}
+        className={`left-0 w-full h-[4px] md:h-[6px] -mt-[2px] md:-mt-[3px] ${lineClass}`}
+        style={{ top: `${ARCH_SPRING_LINE_PCT}%` }}
       />
       {/* Lower half: vertical mullion from springing line to sill. */}
       <div
-        className={`top-1/2 left-1/2 h-1/2 w-[4px] md:w-[6px] -ml-[2px] md:-ml-[3px] ${lineClass}`}
+        className={`left-1/2 w-[4px] md:w-[6px] -ml-[2px] md:-ml-[3px] ${lineClass}`}
+        style={{ top: `${ARCH_SPRING_LINE_PCT}%`, height: lowerHeight }}
       />
-      {/* Upper semicircle: three radials with fixed mullion width (matches the rest of the grid). */}
-      <div className="pointer-events-none absolute left-0 top-0 z-[11] h-1/2 w-full opacity-80" aria-hidden>
-        <div className="absolute bottom-0 left-1/2 h-full w-[4px] md:w-[6px] -translate-x-1/2 bg-[#1a1a1a]" />
-        <div className="absolute bottom-0 left-1/2 h-full w-[4px] md:w-[6px] -translate-x-1/2 origin-bottom rotate-45 bg-[#1a1a1a]" />
-        <div className="absolute bottom-0 left-1/2 h-full w-[4px] md:w-[6px] -translate-x-1/2 origin-bottom -rotate-45 bg-[#1a1a1a]" />
-      </div>
+      <svg
+        className="pointer-events-none absolute inset-0 z-[11] h-full w-full opacity-80"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden
+      >
+        <g className="md:hidden">{renderRadials(4)}</g>
+        <g className="hidden md:block">{renderRadials(6)}</g>
+      </svg>
     </>
   )
 }
@@ -407,7 +455,7 @@ function ArchedTopWindowFrame() {
       aria-hidden
     >
       <path
-        d="M 0,100 L 0,50 A 50 50 0 0 1 100,50 L 100,100 Z"
+        d={ARCH_FRAME_PATH_D}
         fill="none"
         stroke="#1a1a1a"
         strokeWidth={12}
@@ -419,10 +467,10 @@ function ArchedTopWindowFrame() {
 
 type WindowsCollageProps = {
   /**
-   * Split hero: “this is where” above `w10`; “Not just between moments.” under `w10`; `w1` under that line
-   * (aligned with `w10`); “But after learning.” to the right of `w9`; “MEMSURF” / “FITS” under `w3` / `w8`.
+   * Split hero: “this is where” above `w10`; “Not just between moments.” between `w1`/`w4` and `w9`/`w2`; “But” / “after” / “learning.” left of `w2`; “After taking notes…” in the gutter above `w6`; “After reading.” under `w4`/`w5`; footer: “If life…”, “MemSurf helps you remember it.”; “MEMSURF” / “FITS” under `w3` / `w8`.
    */
   workflowHeroCopy?: boolean
+  onReady?: () => void
 }
 
 function paneBottomPct(pane: WindowData): number {
@@ -430,6 +478,13 @@ function paneBottomPct(pane: WindowData): number {
     Number.parseFloat(pane.top.replace('%', '')) +
     Number.parseFloat(pane.height.replace('%', ''))
   )
+}
+
+/** Horizontal gap between two panes as % of collage width (left edge of `b` minus right edge of `a`). */
+function horizontalGapPercent(a: WindowData, b: WindowData): number {
+  const aRight = percentValue(a.left) + percentValue(a.width)
+  const bLeft = percentValue(b.left)
+  return Math.max(0, bLeft - aRight)
 }
 
 /** Left edge and width spanning both panes (e.g. w4 + w5 bed row). */
@@ -446,27 +501,72 @@ function combinedHorizontalSpan(a: WindowData, b: WindowData): {
   return { leftPct: left, widthPct: Math.max(0, right - left) }
 }
 
-/** Horizontal gap between two panes as % of collage width (left edge of `b` minus right edge of `a`). */
-function horizontalGapPercent(a: WindowData, b: WindowData): number {
-  const aRight = percentValue(a.left) + percentValue(a.width)
-  const bLeft = percentValue(b.left)
-  return Math.max(0, bLeft - aRight)
-}
-
-/** Workflow hero: approx. height of “Not just between moments.” as % of collage below the w10 tagline block top. */
-const WORKFLOW_FIRST_TAGLINE_HEIGHT_PCT = 4
+/** Gap below w10 bottom edge (virtual anchor for `w1` placement; tagline copy lives between `w1`/`w4` and `w9`/`w2`). */
+const WORKFLOW_W10_FIRST_TAGLINE_TOP_OFFSET_PCT = 1.2
+/** Workflow hero: approx. height of that line as % of collage below the tagline block top (for `w1` placement). */
+const WORKFLOW_FIRST_TAGLINE_HEIGHT_PCT = 5.5
 const WORKFLOW_W1_GAP_BELOW_TAGLINE_PCT = 0.5
+/** Extra move up for `w1` only (subtract from computed top; does not affect tagline). */
+const WORKFLOW_W1_EXTRA_LIFT_PCT = 2
 /** Shift `w1` right from the w10 column anchor (workflow hero). */
 const WORKFLOW_W1_SHIFT_RIGHT_PCT = 5
-/** Space between w9 right edge and “But after learning.” */
-const WORKFLOW_AFTER_LEARNING_GAP_PCT = 1.25
-/** Band above w4+w5 for “After reading.” */
-const WORKFLOW_AFTER_READING_BLOCK_PCT = 5
+/** `w2` starts this far below the bottom of workflow `w1`. */
+const WORKFLOW_W2_BELOW_W1_GAP_PCT = 1.25
+/** Nudge `w2` down with workflow layout. */
+const WORKFLOW_W2_SHIFT_DOWN_PCT = 1.5
+/** Keep `w2` bottom near 100% of collage when height is computed. */
+const WORKFLOW_W2_BOTTOM_PAD_PCT = 0.5
+/** Strip below workflow `w2` for static image pane `w6` (taller = less squished). */
+const WORKFLOW_W6_STRIP_PCT = 15
+/** Horizontal gap column between `w2` left edge and `w6` for “After taking notes…” (above `w6`). */
+const WORKFLOW_W6_SHIFT_RIGHT_PCT = 12
+/** Vertical band between bottom of `w2` and top of `w6` for that line. */
+const WORKFLOW_W6_NOTES_BAND_PCT = 3
+/** Gap between “But after learning…” column and the left edge of `w2`. */
+const WORKFLOW_W2_LEFT_COPY_GAP_PCT = 1.25
+/** Horizontal inset from `w1` right and `w4` left for “Not just between moments.” */
+const WORKFLOW_BETWEEN_MOMENTS_H_GAP_PCT = 0.75
+/** Extra shift right for that band (width shrinks toward `w4`). */
+const WORKFLOW_BETWEEN_MOMENTS_SHIFT_RIGHT_PCT = 3.5
+/** Additional nudge right (~1–2%) so copy sits slightly right of the w1–w4 gutter. */
+const WORKFLOW_BETWEEN_MOMENTS_NUDGE_RIGHT_PCT = 1.5
+/** Vertical gap below `w9` and above `w2` for that line. */
+const WORKFLOW_BETWEEN_MOMENTS_V_GAP_PCT = 1
+/** Band directly under w4+w5 for “After reading.” (use remaining collage height below bed row). */
+const WORKFLOW_AFTER_READING_UNDER_BLOCK_PCT = 6
 
-export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps = {}) {
+export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCollageProps = {}) {
   const archClipId = useId().replace(/:/g, '')
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const videoRefs = useRef<Partial<Record<string, HTMLVideoElement | null>>>({})
+  const readyAssetKeysRef = useRef<Set<string>>(new Set())
+  const hasReportedReadyRef = useRef(false)
+
+  const markAssetReady = useCallback(
+    (key: string) => {
+      if (!onReady || hasReportedReadyRef.current) return
+
+      readyAssetKeysRef.current.add(key)
+
+      if (readyAssetKeysRef.current.size >= COLLAGE_READY_ASSET_KEYS.length) {
+        hasReportedReadyRef.current = true
+        onReady()
+      }
+    },
+    [onReady],
+  )
+
+  useEffect(() => {
+    readyAssetKeysRef.current.clear()
+    hasReportedReadyRef.current = false
+
+    if (!onReady) return
+
+    if (COLLAGE_READY_ASSET_KEYS.length === 0) {
+      hasReportedReadyRef.current = true
+      onReady()
+    }
+  }, [onReady])
 
   const getHoverId = (item: WindowData) => item.sharedSceneGroupId ?? item.id
 
@@ -476,19 +576,14 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
   const w9Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w9') : undefined
   const w4Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w4') : undefined
   const w5Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w5') : undefined
+  const w2Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w2') : undefined
 
   const afterReadingBedSpan =
     w4Pane != null && w5Pane != null
       ? combinedHorizontalSpan(w4Pane, w5Pane)
       : null
-  const bedPanesTopPct =
-    w4Pane != null && w5Pane != null
-      ? Math.min(percentValue(w4Pane.top), percentValue(w5Pane.top))
-      : 0
-  const afterReadingTopPct =
-    afterReadingBedSpan != null
-      ? Math.max(0.5, bedPanesTopPct - WORKFLOW_AFTER_READING_BLOCK_PCT)
-      : 0
+  const afterReadingUnderTopPct =
+    w4Pane != null ? paneBottomPct(w4Pane) : 0
 
   const w10TopPct = w10Pane ? Number.parseFloat(w10Pane.top.replace('%', '')) : 0
   const whereLineBlockPct = 7
@@ -496,16 +591,107 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
     w10Pane != null ? Math.max(0.5, w10TopPct - whereLineBlockPct) : 0
 
   const w10TaglineBlockTopPct =
-    w10Pane != null ? paneBottomPct(w10Pane) + 2.85 : 0
+    w10Pane != null
+      ? paneBottomPct(w10Pane) + WORKFLOW_W10_FIRST_TAGLINE_TOP_OFFSET_PCT
+      : 0
   const w1WorkflowTopPct =
     workflowHeroCopy && w10Pane != null
       ? w10TaglineBlockTopPct +
         WORKFLOW_FIRST_TAGLINE_HEIGHT_PCT +
-        WORKFLOW_W1_GAP_BELOW_TAGLINE_PCT
+        WORKFLOW_W1_GAP_BELOW_TAGLINE_PCT -
+        WORKFLOW_W1_EXTRA_LIFT_PCT
       : null
   const w1WorkflowLeftPct =
     workflowHeroCopy && w10Pane != null
       ? percentValue(w10Pane.left) + WORKFLOW_W1_SHIFT_RIGHT_PCT
+      : null
+
+  const w1DataPane = windowData.find((w) => w.id === 'w1')
+  const w1WorkflowBottomPct =
+    workflowHeroCopy &&
+    w1WorkflowTopPct != null &&
+    w1DataPane != null
+      ? w1WorkflowTopPct + percentValue(w1DataPane.height)
+      : null
+  const w2WorkflowTopBasePct =
+    workflowHeroCopy && w1WorkflowBottomPct != null
+      ? w1WorkflowBottomPct + WORKFLOW_W2_BELOW_W1_GAP_PCT
+      : null
+  const w2WorkflowTopPct =
+    w2WorkflowTopBasePct != null
+      ? w2WorkflowTopBasePct + WORKFLOW_W2_SHIFT_DOWN_PCT
+      : null
+  /** Height from unshifted top so moving down does not shrink the pane. */
+  const w2WorkflowHeightPct =
+    workflowHeroCopy && w2WorkflowTopBasePct != null
+      ? Math.max(
+          12,
+          100 -
+            w2WorkflowTopBasePct -
+            WORKFLOW_W2_BOTTOM_PAD_PCT -
+            WORKFLOW_W6_NOTES_BAND_PCT -
+            WORKFLOW_W6_STRIP_PCT,
+        )
+      : null
+  /** Bottom of `w2` → top of notes band → top of `w6` image. */
+  const w6NotesCopyTopPct =
+    workflowHeroCopy &&
+    w2WorkflowTopPct != null &&
+    w2WorkflowHeightPct != null
+      ? w2WorkflowTopPct + w2WorkflowHeightPct
+      : null
+  const w6ImageTopPct =
+    w6NotesCopyTopPct != null
+      ? w6NotesCopyTopPct + WORKFLOW_W6_NOTES_BAND_PCT
+      : null
+  const w2LeftButAfterColumnWidthPct =
+    workflowHeroCopy && w2Pane != null
+      ? Math.max(
+          0,
+          percentValue(w2Pane.left) - WORKFLOW_W2_LEFT_COPY_GAP_PCT,
+        )
+      : null
+
+  const w1WorkflowRightPct =
+    workflowHeroCopy &&
+    w1WorkflowLeftPct != null &&
+    w1DataPane != null
+      ? w1WorkflowLeftPct + percentValue(w1DataPane.width)
+      : null
+  const betweenMomentsLeftPct =
+    workflowHeroCopy &&
+    w1WorkflowRightPct != null &&
+    w4Pane != null
+      ? w1WorkflowRightPct +
+        WORKFLOW_BETWEEN_MOMENTS_H_GAP_PCT +
+        WORKFLOW_BETWEEN_MOMENTS_SHIFT_RIGHT_PCT +
+        WORKFLOW_BETWEEN_MOMENTS_NUDGE_RIGHT_PCT
+      : null
+  const betweenMomentsWidthPct =
+    workflowHeroCopy &&
+    betweenMomentsLeftPct != null &&
+    w4Pane != null
+      ? Math.max(
+          0,
+          percentValue(w4Pane.left) -
+            WORKFLOW_BETWEEN_MOMENTS_H_GAP_PCT -
+            betweenMomentsLeftPct,
+        )
+      : null
+  const betweenMomentsTopPct =
+    workflowHeroCopy && w9Pane != null && w2WorkflowTopPct != null
+      ? paneBottomPct(w9Pane) + WORKFLOW_BETWEEN_MOMENTS_V_GAP_PCT
+      : null
+  const betweenMomentsHeightPct =
+    workflowHeroCopy &&
+    betweenMomentsTopPct != null &&
+    w2WorkflowTopPct != null
+      ? Math.max(
+          3,
+          w2WorkflowTopPct -
+            WORKFLOW_BETWEEN_MOMENTS_V_GAP_PCT -
+            betweenMomentsTopPct,
+        )
       : null
 
   useEffect(() => {
@@ -524,15 +710,15 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
 
   return (
     <div className="w-full bg-transparent py-20 relative overflow-hidden flex justify-center items-center">
-      <div className="relative mx-auto h-[1150px] w-full max-w-7xl px-4 [container-type:inline-size] md:h-[1550px]">
+      <div className="mx-auto w-full max-w-7xl px-4 [container-type:inline-size]">
+        <div className="relative h-[1420px] w-full md:h-[1920px]">
         <svg
           className="pointer-events-none absolute h-0 w-0 overflow-hidden"
           aria-hidden
         >
           <defs>
             <clipPath id={archClipId} clipPathUnits="objectBoundingBox">
-              {/* Rectangle + semicircle cap (diameter = width). sweep=1 picks upper arc in y-down coords. */}
-              <path d="M 0,1 L 0,0.5 A 0.5 0.5 0 0 1 1,0.5 L 1,1 Z" />
+              <path d={ARCH_CLIP_PATH_D} />
             </clipPath>
           </defs>
         </svg>
@@ -557,76 +743,118 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
             </motion.p>
           </div>
         )}
-        {workflowHeroCopy && w10Pane != null && (
-          <div
-            className="pointer-events-none absolute z-[25] flex min-w-0 flex-col justify-start pt-2 pl-5 pr-2 sm:pl-6 sm:pr-3 md:pl-7 md:pr-3 [container-type:inline-size]"
-            style={{
-              top: `${w10TaglineBlockTopPct}%`,
-              left: w10Pane.left,
-              width: w10Pane.width,
-            }}
-          >
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.55, ease: 'easeOut', delay: 0.06 }}
-              className="w-full min-w-0 max-w-full text-left font-normal leading-snug text-gray-100 [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(0.95rem,6.85cqi,2.15rem)] [text-wrap:balance]"
+        {workflowHeroCopy &&
+          betweenMomentsLeftPct != null &&
+          betweenMomentsWidthPct != null &&
+          betweenMomentsWidthPct > 0 &&
+          betweenMomentsTopPct != null &&
+          betweenMomentsHeightPct != null &&
+          betweenMomentsHeightPct > 0 && (
+            <div
+              className="pointer-events-none absolute z-[26] flex min-w-0 flex-col items-center justify-center px-1 sm:px-2 [container-type:inline-size]"
+              style={{
+                left: `${betweenMomentsLeftPct}%`,
+                width: `${betweenMomentsWidthPct}%`,
+                top: `${betweenMomentsTopPct}%`,
+                height: `${betweenMomentsHeightPct}%`,
+              }}
             >
-              Not just between moments.
-            </motion.p>
-          </div>
-        )}
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{ duration: 0.55, ease: 'easeOut', delay: 0.06 }}
+                className="flex w-full min-w-0 max-w-full flex-col items-center gap-1.5 text-center text-white sm:gap-2 [container-type:inline-size]"
+                aria-label="Not just between moments."
+              >
+                <span className="block min-w-0 max-w-full font-bold leading-[0.98] [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(2.65rem,21cqi,7.5rem)] [text-wrap:balance]">
+                  Not just
+                </span>
+                <span className="block min-w-0 max-w-full font-bold leading-[0.98] [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(2.65rem,21cqi,7.5rem)] [text-wrap:balance]">
+                  between
+                </span>
+                <span className="block min-w-0 max-w-full font-bold leading-[0.98] [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(2.65rem,21cqi,7.5rem)] [text-wrap:balance]">
+                  moments.
+                </span>
+              </motion.div>
+            </div>
+          )}
+        {workflowHeroCopy &&
+          w2Pane != null &&
+          w2WorkflowTopPct != null &&
+          w2WorkflowHeightPct != null &&
+          w2LeftButAfterColumnWidthPct != null &&
+          w2LeftButAfterColumnWidthPct > 0 && (
+            <div
+              className="pointer-events-none absolute z-[25] flex min-w-0 flex-col items-center justify-start overflow-visible px-2 pt-1 sm:px-3 sm:pt-2 [container-type:inline-size]"
+              style={{
+                left: '0%',
+                width: `${w2LeftButAfterColumnWidthPct}%`,
+                top: `${w2WorkflowTopPct}%`,
+                height: `${w2WorkflowHeightPct}%`,
+              }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{ duration: 0.55, ease: 'easeOut', delay: 0.05 }}
+                className="-translate-y-6 flex w-full min-w-0 max-w-full flex-col items-center gap-1.5 text-center text-white sm:-translate-y-10 sm:gap-2 md:-translate-y-14 [container-type:inline-size]"
+                aria-label="But after learning."
+              >
+                <span className="block w-full min-w-0 max-w-full text-center font-bold leading-[1.02] [font-size:clamp(1.55rem,14cqi,5.75rem)] [text-wrap:balance]">
+                  But
+                </span>
+                <span className="block w-full min-w-0 max-w-full text-center font-bold leading-[1.02] [font-size:clamp(1.55rem,14cqi,5.75rem)] [text-wrap:balance]">
+                  after
+                </span>
+                <span className="block w-full min-w-0 max-w-full text-center font-bold leading-[0.98] [font-size:clamp(1.85rem,17cqi,6.75rem)] [text-wrap:balance]">
+                  learning.
+                </span>
+              </motion.div>
+            </div>
+          )}
+        {workflowHeroCopy &&
+          w2Pane != null &&
+          w6NotesCopyTopPct != null && (
+            <div
+              className="pointer-events-none absolute z-[25] flex min-w-0 flex-col items-center justify-center overflow-visible px-1 sm:px-2 [container-type:inline-size]"
+              style={{
+                top: `${w6NotesCopyTopPct}%`,
+                left: `${percentValue(w2Pane.left) + WORKFLOW_W6_SHIFT_RIGHT_PCT}%`,
+                width: `${percentValue(w2Pane.width) - WORKFLOW_W6_SHIFT_RIGHT_PCT}%`,
+                height: `${WORKFLOW_W6_NOTES_BAND_PCT}%`,
+              }}
+            >
+              <motion.p
+                initial={{ opacity: 0, y: 5 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
+                className="flex w-full items-center justify-center font-bold leading-none tracking-tight text-white whitespace-nowrap [font-size:clamp(1rem,min(6.5cqi,4.5vw),2.75rem)]"
+              >
+                After taking notes you&apos;ll never revisit.
+              </motion.p>
+            </div>
+          )}
         {workflowHeroCopy && afterReadingBedSpan != null && (
           <div
-            className="pointer-events-none absolute z-[25] flex min-w-0 flex-col justify-end p-1 sm:p-2 md:p-3 [container-type:inline-size]"
+            className="pointer-events-none absolute z-[25] flex min-w-0 flex-col items-center justify-center overflow-visible [container-type:inline-size]"
             style={{
-              top: `${afterReadingTopPct}%`,
+              top: `${afterReadingUnderTopPct}%`,
               left: `${afterReadingBedSpan.leftPct}%`,
               width: `${afterReadingBedSpan.widthPct}%`,
-              height: `${WORKFLOW_AFTER_READING_BLOCK_PCT}%`,
+              height: `${WORKFLOW_AFTER_READING_UNDER_BLOCK_PCT}%`,
             }}
           >
             <motion.p
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 6 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.55, ease: 'easeOut', delay: 0.1 }}
-              className="w-full min-w-0 max-w-full text-center font-bold leading-tight text-white [font-size:clamp(0.85rem,6.5cqi,2rem)] [text-wrap:balance]"
+              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
+              className="w-full min-w-0 max-w-full text-center font-bold leading-[0.95] tracking-tight text-white [font-size:clamp(1.5rem,min(14cqi,11vw),5.75rem)] [text-wrap:balance]"
             >
               After reading.
-            </motion.p>
-          </div>
-        )}
-        {workflowHeroCopy && w9Pane != null && (
-          <div
-            className="pointer-events-none absolute z-[25] flex min-w-0 flex-col items-start justify-center [container-type:inline-size]"
-            style={{
-              left: `${
-                percentValue(w9Pane.left) +
-                percentValue(w9Pane.width) +
-                WORKFLOW_AFTER_LEARNING_GAP_PCT
-              }%`,
-              top: w9Pane.top,
-              width: `${Math.max(
-                0,
-                100 -
-                  percentValue(w9Pane.left) -
-                  percentValue(w9Pane.width) -
-                  WORKFLOW_AFTER_LEARNING_GAP_PCT -
-                  1.5,
-              )}%`,
-              height: w9Pane.height,
-            }}
-          >
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.55, ease: 'easeOut', delay: 0.14 }}
-              className="w-full min-w-0 max-w-full text-left font-bold leading-[1.08] text-white [font-size:clamp(1rem,7.5cqi,2.4rem)] [text-wrap:balance]"
-            >
-              But after learning.
             </motion.p>
           </div>
         )}
@@ -678,7 +906,7 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
             </motion.p>
           </div>
         )}
-        {windowData.map((item, index) => {
+        {visibleWindowData.map((item, index) => {
           const sharedSceneGroup = item.sharedSceneGroupId
             ? sharedSceneGroups[item.sharedSceneGroupId]
             : undefined
@@ -723,13 +951,38 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
             w1WorkflowTopPct != null &&
             w1WorkflowLeftPct != null
 
+          const w2WorkflowLayout =
+            item.id === 'w2' &&
+            workflowHeroCopy &&
+            w2WorkflowTopPct != null &&
+            w2WorkflowHeightPct != null
+
+          const w6UnderW2Layout =
+            item.id === 'w6' &&
+            workflowHeroCopy &&
+            w2Pane != null &&
+            w2WorkflowTopPct != null &&
+            w2WorkflowHeightPct != null
+
           return (
             <div
               key={item.id}
               className="absolute p-1 sm:p-2 md:p-3"
               style={{
-                top: w1WorkflowLayout ? `${w1WorkflowTopPct}%` : item.top,
-                left: w1WorkflowLayout ? `${w1WorkflowLeftPct}%` : item.left,
+                top: w1WorkflowLayout
+                  ? `${w1WorkflowTopPct}%`
+                  : w2WorkflowLayout
+                    ? `${w2WorkflowTopPct}%`
+                    : w6UnderW2Layout && w6ImageTopPct != null
+                      ? `${w6ImageTopPct}%`
+                      : item.top,
+                left: w1WorkflowLayout
+                  ? `${w1WorkflowLeftPct}%`
+                  : w6UnderW2Layout
+                    ? `${
+                        percentValue(w2Pane.left) + WORKFLOW_W6_SHIFT_RIGHT_PCT
+                      }%`
+                    : item.left,
                 ...(item.wide169
                   ? {
                       height: item.height,
@@ -745,8 +998,19 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                         maxWidth: item.width,
                       }
                     : {
-                        width: w1WorkflowLayout ? w10Pane.width : item.width,
-                        height: item.height,
+                        width: w1WorkflowLayout
+                          ? w10Pane.width
+                          : w6UnderW2Layout
+                            ? `${
+                                percentValue(w2Pane.width) -
+                                WORKFLOW_W6_SHIFT_RIGHT_PCT
+                              }%`
+                            : item.width,
+                        height: w2WorkflowLayout
+                          ? `${w2WorkflowHeightPct}%`
+                          : w6UnderW2Layout
+                            ? `${WORKFLOW_W6_STRIP_PCT}%`
+                            : item.height,
                       }),
                 zIndex: isHovered ? 999 : item.zIndex,
               }}
@@ -768,8 +1032,12 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                       <div className="relative h-full w-full overflow-hidden">
                         <video
                           ref={(el) => {
-                            if (el) videoRefs.current[item.id] = el
-                            else delete videoRefs.current[item.id]
+                            if (el) {
+                              videoRefs.current[item.id] = el
+                              if (el.readyState >= 1) markAssetReady(`video:${item.id}`)
+                            } else {
+                              delete videoRefs.current[item.id]
+                            }
                           }}
                           src={item.videoSrc}
                           className={`${
@@ -786,6 +1054,8 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                           loop
                           playsInline
                           preload="metadata"
+                          onLoadedMetadata={() => markAssetReady(`video:${item.id}`)}
+                          onError={() => markAssetReady(`video:${item.id}`)}
                           aria-hidden
                         />
                         {!isHovered && (
@@ -808,6 +1078,8 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                                   className={`object-cover opacity-95 ${videoOp.extraClass}`.trim()}
                                   style={videoOp.positionStyle}
                                   sizes="(max-width: 768px) 60vw, 35vw"
+                                  onLoad={() => markAssetReady(`image:${item.id}`)}
+                                  onError={() => markAssetReady(`image:${item.id}`)}
                                 />
                               </div>
                             </div>
@@ -825,8 +1097,12 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                           <>
                             <video
                               ref={(el) => {
-                                if (el) videoRefs.current[item.id] = el
-                                else delete videoRefs.current[item.id]
+                                if (el) {
+                                  videoRefs.current[item.id] = el
+                                  if (el.readyState >= 1) markAssetReady(`video:${item.id}`)
+                                } else {
+                                  delete videoRefs.current[item.id]
+                                }
                               }}
                               src={sharedSceneGroup.videoSrc}
                               className={`absolute inset-0 h-full w-full object-cover ${videoOp.extraClass}`.trim()}
@@ -839,6 +1115,8 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                               loop
                               playsInline
                               preload="metadata"
+                              onLoadedMetadata={() => markAssetReady(`video:${item.id}`)}
+                              onError={() => markAssetReady(`video:${item.id}`)}
                               aria-hidden
                             />
                             {!isHovered && (
@@ -853,6 +1131,8 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                                   className={`object-cover opacity-95 ${videoOp.extraClass}`.trim()}
                                   style={videoOp.positionStyle}
                                   sizes="(max-width: 768px) 50vw, 40vw"
+                                  onLoad={() => markAssetReady(`image:${item.id}`)}
+                                  onError={() => markAssetReady(`image:${item.id}`)}
                                 />
                               </div>
                             )}
@@ -864,6 +1144,8 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                             fill
                             className="object-cover opacity-80"
                             sizes="(max-width: 768px) 50vw, 40vw"
+                            onLoad={() => markAssetReady(`image:${item.id}`)}
+                            onError={() => markAssetReady(`image:${item.id}`)}
                           />
                         )}
                       </div>
@@ -903,6 +1185,8 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
                               : undefined
                           }
                           sizes="(max-width: 768px) 50vw, 33vw"
+                          onLoad={() => markAssetReady(`image:${item.id}`)}
+                          onError={() => markAssetReady(`image:${item.id}`)}
                         />
                       </div>
                     </motion.div>
@@ -934,6 +1218,73 @@ export default function WindowsCollage({ workflowHeroCopy }: WindowsCollageProps
             </div>
           )
         })}
+        </div>
+        {workflowHeroCopy && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+            className="flex w-full flex-col items-center gap-6 px-3 pt-48 text-center text-white sm:gap-7 sm:pt-64 md:gap-8 md:pt-80 [container-type:inline-size]"
+            aria-label="If life gives you something worth keeping. MemSurf helps you remember it."
+          >
+            <motion.p
+              initial={{
+                opacity: 0,
+                clipPath: 'inset(0 100% 0 0)',
+                filter: 'blur(1.5px)',
+              }}
+              whileInView={{
+                opacity: 1,
+                clipPath: 'inset(0 0% 0 0)',
+                filter: 'blur(0px)',
+              }}
+              viewport={{ once: true, amount: 0.75 }}
+              transition={{
+                duration: 2.35,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.22,
+              }}
+              className="w-full max-w-6xl overflow-hidden font-normal leading-snug text-gray-100 [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(1.35rem,min(8cqi,5.5vw),4.5rem)] [text-wrap:balance]"
+            >
+              If life gives you something worth keeping.
+            </motion.p>
+            <motion.p
+              initial={{
+                opacity: 0,
+                y: 10,
+                clipPath: 'inset(0 100% 0 0)',
+                filter: 'blur(1px)',
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                clipPath: 'inset(0 0% 0 0)',
+                filter: 'blur(0px)',
+              }}
+              viewport={{ once: true, amount: 0.75 }}
+              transition={{
+                duration: 1.65,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 1.55,
+              }}
+              className="w-full max-w-5xl overflow-hidden pb-1 font-bold leading-[1.05] tracking-tight [font-size:clamp(1.75rem,min(9cqi,10vw),5.75rem)] md:pb-2"
+            >
+              MemSurf helps you remember it.
+            </motion.p>
+          </motion.div>
+        )}
+        {!workflowHeroCopy && (
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: 'easeOut', delay: 0.08 }}
+            className="w-full px-1 pt-8 pb-1 text-center font-bold leading-[1.05] tracking-tight text-white [text-wrap:balance] [font-size:clamp(1.75rem,min(9cqi,10vw),5.75rem)] md:pt-10 md:pb-2"
+          >
+            MemSurf helps you remember it.
+          </motion.p>
+        )}
       </div>
     </div>
   )

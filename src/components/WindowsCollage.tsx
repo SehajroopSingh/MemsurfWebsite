@@ -3,6 +3,7 @@
 import React, { useCallback, useState, useRef, useEffect, useId } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useAmplitude } from '@/hooks/useAmplitude'
 
 type PaneType = 'single' | 'split-v' | 'split-h' | 'grid-4' | 'grid-6' | 'grid-9';
 
@@ -534,11 +535,21 @@ const WORKFLOW_BETWEEN_MOMENTS_NUDGE_RIGHT_PCT = 1.5
 const WORKFLOW_BETWEEN_MOMENTS_V_GAP_PCT = 1
 /** Band directly under w4+w5 for “After reading.” (use remaining collage height below bed row). */
 const WORKFLOW_AFTER_READING_UNDER_BLOCK_PCT = 6
+const COLLAGE_THIRD_MARKERS = [
+  { key: 'first_third', thirdIndex: 1, thirdName: 'first_third', topPct: 0 },
+  { key: 'second_third', thirdIndex: 2, thirdName: 'second_third', topPct: 33 },
+  { key: 'final_third', thirdIndex: 3, thirdName: 'final_third', topPct: 66 },
+] as const
+
+type CollageThirdMarkerKey = (typeof COLLAGE_THIRD_MARKERS)[number]['key']
 
 export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCollageProps = {}) {
   const archClipId = useId().replace(/:/g, '')
+  const { track } = useAmplitude()
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const videoRefs = useRef<Partial<Record<string, HTMLVideoElement | null>>>({})
+  const collageThirdMarkerRefs = useRef<Partial<Record<CollageThirdMarkerKey, HTMLDivElement | null>>>({})
+  const trackedCollageThirdsRef = useRef<Set<CollageThirdMarkerKey>>(new Set())
   const readyAssetKeysRef = useRef<Set<string>>(new Set())
   const hasReportedReadyRef = useRef(false)
 
@@ -567,6 +578,50 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
       onReady()
     }
   }, [onReady])
+
+  useEffect(() => {
+    if (!workflowHeroCopy || typeof IntersectionObserver === 'undefined') return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+
+          const markerKey = entry.target.getAttribute('data-collage-third') as
+            | CollageThirdMarkerKey
+            | null
+          const marker = COLLAGE_THIRD_MARKERS.find(
+            (item) => item.key === markerKey,
+          )
+
+          if (!marker || trackedCollageThirdsRef.current.has(marker.key)) continue
+
+          trackedCollageThirdsRef.current.add(marker.key)
+          observer.unobserve(entry.target)
+          track('window_collage_third_reached', {
+            collage_variant: 'workflow_hero',
+            third_index: marker.thirdIndex,
+            third_count: COLLAGE_THIRD_MARKERS.length,
+            third_name: marker.thirdName,
+            marker_top_percent: marker.topPct,
+          })
+        }
+      },
+      {
+        rootMargin: '0px 0px -45% 0px',
+        threshold: 0,
+      },
+    )
+
+    for (const marker of COLLAGE_THIRD_MARKERS) {
+      const el = collageThirdMarkerRefs.current[marker.key]
+      if (el && !trackedCollageThirdsRef.current.has(marker.key)) {
+        observer.observe(el)
+      }
+    }
+
+    return () => observer.disconnect()
+  }, [track, workflowHeroCopy])
 
   const getHoverId = (item: WindowData) => item.sharedSceneGroupId ?? item.id
 
@@ -722,6 +777,19 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
             </clipPath>
           </defs>
         </svg>
+        {workflowHeroCopy &&
+          COLLAGE_THIRD_MARKERS.map((marker) => (
+            <div
+              key={marker.key}
+              ref={(el) => {
+                collageThirdMarkerRefs.current[marker.key] = el
+              }}
+              className="pointer-events-none absolute left-0 h-px w-px opacity-0"
+              style={{ top: `${marker.topPct}%` }}
+              data-collage-third={marker.key}
+              aria-hidden
+            />
+          ))}
         {workflowHeroCopy && w10Pane != null && (
           <div
             className="pointer-events-none absolute z-[25] flex min-w-0 flex-col items-end justify-end p-1 sm:p-2 md:p-3 [container-type:inline-size]"

@@ -20,8 +20,10 @@ type BlobSpec = {
 
 const LOADING_BLOB_SIZE = 200
 const LOADING_ORBIT_RADIUS = 118
-const LOADING_ORBIT_DURATION = 3
-const SETTLE_DURATION = 1.1
+const LOADING_ORBIT_DURATION = 8
+const SETTLE_DURATION = 1.6
+const SETTLE_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
+const PULSE_EASE: [number, number, number, number] = [0.4, 0, 0.2, 1]
 
 const blobs: BlobSpec[] = [
   {
@@ -184,7 +186,7 @@ const blobs: BlobSpec[] = [
 
 function loadingOrbitKeyframes(index: number, total: number) {
   const baseAngle = (index / total) * Math.PI * 2
-  const steps = [0, 0.5, 1, 1.5, 2]
+  const steps = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25, 1.375, 1.5, 1.625, 1.75, 1.875, 2]
 
   return steps.reduce(
     (acc, step) => {
@@ -211,6 +213,32 @@ function loadingRestPosition(index: number, total: number) {
   }
 }
 
+function loadingPulseScale(index: number) {
+  const dip = 0.015 + (index % 4) * 0.002
+  const lift = 0.02 + ((index * 5) % 6) * 0.003
+  const secondaryLift = 0.008 + (index % 3) * 0.002
+
+  return [
+    1 - dip * 0.45,
+    1 + secondaryLift,
+    1 - dip,
+    1 + lift,
+    1 - dip * 0.2,
+    1 + lift * 0.52,
+    1 - dip * 0.45,
+  ].map((value) => Number(value.toFixed(3)))
+}
+
+function loadingPulseTimes(index: number) {
+  const offset = (index % 3) * 0.025
+
+  return [0, 0.16 + offset, 0.34, 0.57 - offset, 0.72, 0.86 + offset / 2, 1]
+}
+
+function loadingPulseDuration(index: number) {
+  return 2.9 + (index % 5) * 0.22 + (index % 2) * 0.16
+}
+
 function buildBlobAnimation(
   blob: BlobSpec,
   index: number,
@@ -227,16 +255,21 @@ function buildBlobAnimation(
         y: reduceMotion ? restPosition.y : orbit.y,
         width: LOADING_BLOB_SIZE,
         height: LOADING_BLOB_SIZE,
-        scale: reduceMotion ? 1 : [0.94, 1.06, 0.94],
+        scale: reduceMotion ? 1 : loadingPulseScale(index),
       },
       transition: reduceMotion
         ? { duration: 0.35, ease: 'easeOut' }
         : {
             x: { duration: LOADING_ORBIT_DURATION, repeat: Infinity, ease: 'linear' },
             y: { duration: LOADING_ORBIT_DURATION, repeat: Infinity, ease: 'linear' },
-            scale: { duration: 1.35, repeat: Infinity, ease: 'easeInOut' },
-            width: { duration: 0.45, ease: 'easeOut' },
-            height: { duration: 0.45, ease: 'easeOut' },
+            scale: {
+              duration: loadingPulseDuration(index),
+              repeat: Infinity,
+              ease: PULSE_EASE,
+              times: loadingPulseTimes(index),
+            },
+            width: { duration: 0.65, ease: 'easeOut' },
+            height: { duration: 0.65, ease: 'easeOut' },
           },
     }
   }
@@ -251,11 +284,11 @@ function buildBlobAnimation(
         scale: 1,
       },
       transition: {
-        x: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: 'easeInOut' },
-        y: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: 'easeInOut' },
-        width: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: 'easeInOut' },
-        height: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: 'easeInOut' },
-        scale: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: 'easeInOut' },
+        x: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: SETTLE_EASE },
+        y: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: SETTLE_EASE },
+        width: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: SETTLE_EASE },
+        height: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: SETTLE_EASE },
+        scale: { duration: reduceMotion ? 0.35 : SETTLE_DURATION, ease: SETTLE_EASE },
       },
     }
   }

@@ -15,7 +15,7 @@ import { useBlobbyBackground } from '@/components/BlobbyBackgroundProvider'
 
 const MIN_SPLASH_DURATION_MS = 1400
 const MAX_SPLASH_DURATION_MS = 5000
-const BLOB_SETTLE_DURATION_MS = 1100
+const BLOB_SETTLE_DURATION_MS = 1600
 
 export default function Home() {
   const shouldReduceMotion = useReducedMotion()

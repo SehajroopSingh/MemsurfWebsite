@@ -13,7 +13,7 @@ interface JoinCommunityProps {
   invertIcon?: boolean
 }
 
-export default function JoinCommunity({ delay = 0.4, className = '', centered = false, location = 'unknown', title = 'Join our community', textColor = 'text-gray-700', invertIcon = false }: JoinCommunityProps & { title?: string, textColor?: string, invertIcon?: boolean }) {
+export default function JoinCommunity({ delay = 0.4, className = '', centered = false, location = 'unknown', title = 'Join our community', textColor = 'text-gray-300', invertIcon = true }: JoinCommunityProps & { title?: string, textColor?: string, invertIcon?: boolean }) {
   const { track } = useAmplitude()
   const justifyClass = centered ? 'justify-center' : 'justify-center lg:justify-start'
 

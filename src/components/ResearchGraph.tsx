@@ -37,11 +37,11 @@ export default function ResearchGraph() {
     // This is a simple static graph for now, but built to be extensible
 
     return (
-        <div className="relative w-full h-[600px] bg-gray-50 rounded-xl overflow-hidden shadow-inner border border-gray-200 my-8">
+        <div className="relative w-full h-[600px] bg-app-surface rounded-xl overflow-hidden shadow-inner border border-app-border my-8">
             {/* Grid Background */}
             <div className="absolute inset-0"
                 style={{
-                    backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)',
+                    backgroundImage: 'radial-gradient(rgba(203, 213, 225, 0.2) 1px, transparent 1px)',
                     backgroundSize: '20px 20px'
                 }}
             />
@@ -60,7 +60,7 @@ export default function ResearchGraph() {
                             y1={fromNode.y}
                             x2={toNode.x}
                             y2={toNode.y}
-                            stroke="#94a3b8"
+                            stroke="rgba(148, 163, 184, 0.5)"
                             strokeWidth="2"
                         />
                     )
@@ -82,16 +82,16 @@ export default function ResearchGraph() {
                 >
                     <div className={`
             flex items-center gap-2 px-4 py-2 rounded-full 
-            bg-white border-2 transition-colors duration-300
-            ${hoveredNode === node.id ? 'border-blue-500 shadow-lg' : 'border-blue-200 shadow-md'}
+            bg-app-surfaceElevated border-2 transition-colors duration-300
+            ${hoveredNode === node.id ? 'border-app-softBlue shadow-lg' : 'border-app-border shadow-md'}
           `}>
-                        <span className="font-medium text-gray-700">{node.label}</span>
-                        <ExternalLink size={14} className="text-gray-400" />
+                        <span className="font-medium text-app-textMuted">{node.label}</span>
+                        <ExternalLink size={14} className="text-app-textMuted/70" />
                     </div>
                 </motion.div>
             ))}
 
-            <div className="absolute bottom-4 right-4 text-xs text-gray-400">
+            <div className="absolute bottom-4 right-4 text-xs text-app-textMuted/70">
                 Interactive Research Map
             </div>
         </div>

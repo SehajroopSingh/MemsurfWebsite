@@ -30,21 +30,21 @@ export default function RawContentTransition() {
         <div ref={containerRef} className="absolute inset-0 pointer-events-none z-[60] overflow-visible">
             <motion.div
                 style={{ y, scale, opacity, rotate, x: '-50%' }}
-                className="absolute left-1/2 top-0 w-64 p-4 bg-white rounded-xl shadow-2xl border border-gray-200"
+                className="absolute left-1/2 top-0 w-64 p-4 bg-[#152a40] rounded-xl shadow-2xl border border-[#1f3d5c]"
             >
                 <div className="flex items-center gap-3 mb-3">
-                    <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
+                    <div className="p-2 bg-[#0f2133] rounded-lg text-blue-400">
                         <FileText size={20} />
                     </div>
                     <div>
-                        <div className="h-2 w-24 bg-gray-200 rounded-full mb-1" />
-                        <div className="h-2 w-16 bg-gray-100 rounded-full" />
+                        <div className="h-2 w-24 bg-[#1f3d5c] rounded-full mb-1" />
+                        <div className="h-2 w-16 bg-[#1f3d5c] rounded-full" />
                     </div>
                 </div>
                 <div className="space-y-2">
-                    <div className="h-2 w-full bg-gray-100 rounded-full" />
-                    <div className="h-2 w-full bg-gray-100 rounded-full" />
-                    <div className="h-2 w-3/4 bg-gray-100 rounded-full" />
+                    <div className="h-2 w-full bg-[#1f3d5c] rounded-full" />
+                    <div className="h-2 w-full bg-[#1f3d5c] rounded-full" />
+                    <div className="h-2 w-3/4 bg-[#1f3d5c] rounded-full" />
                 </div>
             </motion.div>
         </div>

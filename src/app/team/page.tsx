@@ -9,33 +9,33 @@ import { Linkedin, ArrowRight } from 'lucide-react'
 
 export default function TeamPage() {
     return (
-        <main className="min-h-screen bg-white text-gray-900 selection:bg-blue-100">
+        <main className="min-h-screen bg-transparent text-app-text selection:bg-app-softBlue/30">
             <Navigation />
 
-            <section className="relative pt-28 pb-16 bg-gradient-to-b from-blue-50/60 via-white to-white">
-                <div className="absolute inset-x-0 -top-32 h-64 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.16),_transparent_55%)] pointer-events-none" />
+            <section className="relative pt-28 pb-16 bg-gradient-to-b from-app-surface/80 via-transparent to-transparent">
+                <div className="absolute inset-x-0 -top-32 h-64 bg-[radial-gradient(circle_at_top,_rgba(83,118,171,0.22),_transparent_55%)] pointer-events-none" />
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <p className="text-sm font-semibold text-blue-600 uppercase tracking-[0.2em] mb-4">
+                    <p className="text-sm font-semibold text-app-softBlue uppercase tracking-[0.2em] mb-4">
                         Meet the founders
                     </p>
-                    <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
+                    <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-app-text">
                         Built by learners,
                         <br />
                         for learners.
                     </h1>
-                    <p className="text-xl text-gray-600 max-w-2xl">
+                    <p className="text-xl text-app-textMuted max-w-2xl">
                         MemSurf is on a mission to put your memory on autopilot. We are building the tools we wished we had.
                     </p>
                 </div>
             </section>
 
-            <section className="py-16 border-t border-gray-100">
+            <section className="py-16 border-t border-app-border">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
                     <div className="space-y-4 max-w-3xl">
-                        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
+                        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-app-text">
                             The people behind the product
                         </h2>
-                        <p className="text-lg text-gray-600">
+                        <p className="text-lg text-app-textMuted">
                             Two founders obsessed with making follow-through easier for every learner.
                         </p>
                     </div>
@@ -43,7 +43,7 @@ export default function TeamPage() {
                     <div className="grid gap-12">
                         <div className="grid md:grid-cols-5 gap-10 items-start">
                             <div className="md:col-span-2">
-                                <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
+                                <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-app-border shadow-md bg-app-surface">
                                     <Image
                                         src="/sehajroop.png"
                                         alt="Sehajroop Singh"
@@ -57,13 +57,13 @@ export default function TeamPage() {
 
                             <div className="md:col-span-3 space-y-4">
                                 <div>
-                                    <h3 className="text-2xl font-bold">Sehajroop Singh</h3>
-                                    <p className="text-blue-600 font-semibold uppercase tracking-[0.14em] text-xs mt-1">
+                                    <h3 className="text-2xl font-bold text-app-text">Sehajroop Singh</h3>
+                                    <p className="text-app-softBlue font-semibold uppercase tracking-[0.14em] text-xs mt-1">
                                         Founder & CEO
                                     </p>
                                 </div>
 
-                                <div className="prose prose-lg text-gray-700">
+                                <div className="prose prose-lg prose-invert max-w-none text-app-textMuted">
                                     <p>
                                         Hi, I’m Sehajroop, founder and CEO of MemSurf, and a lifelong learner with a mild intolerance for forgetting things I know I’ve already learned.
                                     </p>
@@ -82,7 +82,7 @@ export default function TeamPage() {
                                     <Link
                                         href="https://www.linkedin.com/in/sehajroop-singh/"
                                         target="_blank"
-                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-700 transition-colors"
+                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-app-softBlue text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
                                     >
                                         <Linkedin className="w-5 h-5" />
                                         <span>Connect on LinkedIn</span>
@@ -94,7 +94,7 @@ export default function TeamPage() {
 
                         <div className="grid md:grid-cols-5 gap-10 items-start">
                             <div className="md:col-span-2">
-                                <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-white">
+                                <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-app-border shadow-md bg-app-surface">
                                     <Image
                                         src="/Alessia.jpg"
                                         alt="Alessia Canuto"
@@ -107,13 +107,13 @@ export default function TeamPage() {
 
                             <div className="md:col-span-3 space-y-4">
                                 <div>
-                                    <h3 className="text-2xl font-bold">Alessia Canuto</h3>
-                                    <p className="text-blue-600 font-semibold uppercase tracking-[0.14em] text-xs mt-1">
+                                    <h3 className="text-2xl font-bold text-app-text">Alessia Canuto</h3>
+                                    <p className="text-app-softBlue font-semibold uppercase tracking-[0.14em] text-xs mt-1">
                                         Co-founder & COO
                                     </p>
                                 </div>
 
-                                <div className="prose prose-lg text-gray-700">
+                                <div className="prose prose-lg prose-invert max-w-none text-app-textMuted">
                                     <p>Hi, I'm Alessia, co-founder and COO of MemSurf.</p>
                                     <p>
                                         I've spent most of my career in consulting, policy, and strategy roles, trying to understand why so many systems do not work the way they are supposed to, and why the people who need them most usually get the short end of the stick.
@@ -136,7 +136,7 @@ export default function TeamPage() {
                                     <Link
                                         href="https://www.linkedin.com/in/alessia-canuto-451a84226"
                                         target="_blank"
-                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-700 transition-colors"
+                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-app-softBlue text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
                                     >
                                         <Linkedin className="w-5 h-5" />
                                         <span>Connect on LinkedIn</span>
@@ -149,16 +149,16 @@ export default function TeamPage() {
                 </div>
             </section>
 
-            <section className="py-16 bg-gray-50 border-t border-gray-100">
+            <section className="py-16 bg-app-surfaceElevated border-t border-app-border">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl font-semibold tracking-tight">Get in touch</h2>
-                    <p className="text-lg text-gray-600 mb-8">
+                    <h2 className="text-3xl font-semibold tracking-tight text-app-text">Get in touch</h2>
+                    <p className="text-lg text-app-textMuted mb-8">
                         Have questions about MemSurf or want to collaborate? We would love to hear from you.
                     </p>
                     <div className="flex justify-center">
                         <Link
                             href="mailto:contact@memsurf.com"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-700 transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-app-softBlue text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
                         >
                             <span>Email us</span>
                             <ArrowRight className="w-4 h-4" />

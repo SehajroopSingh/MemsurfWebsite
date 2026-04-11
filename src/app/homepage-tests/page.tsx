@@ -49,17 +49,17 @@ export default function HomepageTests() {
     ]
 
     return (
-        <main className="min-h-screen bg-gray-50">
+        <main className="min-h-screen bg-transparent">
             <Navigation />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                 <div className="mb-12">
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="p-3 bg-blue-100 rounded-lg">
-                            <FlaskConical className="w-6 h-6 text-blue-600" />
+                        <div className="p-3 bg-app-surface rounded-lg border border-app-border">
+                            <FlaskConical className="w-6 h-6 text-app-softBlue" />
                         </div>
-                        <h1 className="text-3xl font-bold text-gray-900">Homepage Experiments</h1>
+                        <h1 className="text-3xl font-bold text-app-text">Homepage Experiments</h1>
                     </div>
-                    <p className="text-xl text-gray-600 max-w-2xl">
+                    <p className="text-xl text-app-textMuted max-w-2xl">
                         A collection of different homepage iterations and design tests.
                     </p>
                 </div>
@@ -69,18 +69,18 @@ export default function HomepageTests() {
                         <Link
                             key={test.id}
                             href={test.path}
-                            className="block group bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all duration-200"
+                            className="block group bg-app-surfaceElevated p-6 rounded-xl border border-app-border hover:border-app-softBlue hover:shadow-lg transition-all duration-200"
                         >
                             <div className="flex justify-between items-start mb-4">
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-app-surface text-app-blueBright border border-app-border">
                                     {test.date}
                                 </span>
-                                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
+                                <ArrowRight className="w-5 h-5 text-app-textMuted group-hover:text-app-mint group-hover:translate-x-1 transition-all" />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                            <h3 className="text-xl font-bold text-app-text mb-2 group-hover:text-app-softBlue transition-colors">
                                 {test.title}
                             </h3>
-                            <p className="text-gray-600">
+                            <p className="text-app-textMuted">
                                 {test.description}
                             </p>
                         </Link>

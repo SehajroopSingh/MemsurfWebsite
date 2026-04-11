@@ -305,7 +305,7 @@ const SECTIONS: SectionData[] = [
                         <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
                         Core Engine
                     </div>
-                    <h3 className="text-5xl md:text-7xl font-black text-gray-900 leading-[0.95] tracking-tighter">
+                    <h3 className="text-5xl md:text-7xl font-black text-app-text leading-[0.95] tracking-tighter">
                         Your Memory, <br />
                         <span className="relative inline-block">
                             <span className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-indigo-500 to-blue-500 blur-2xl opacity-20"></span>
@@ -314,14 +314,14 @@ const SECTIONS: SectionData[] = [
                             </span>
                         </span>
                     </h3>
-                    <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-light max-w-lg mx-auto md:mx-0">
-                        Most tools turn remembering into a task. <span className="font-semibold text-gray-900 border-b-2 border-purple-200">MemSurf turns it into a system.</span>
+                    <p className="text-xl md:text-2xl text-app-textMuted leading-relaxed font-light max-w-lg mx-auto md:mx-0">
+                        Most tools turn remembering into a task. <span className="font-semibold text-app-text border-b-2 border-purple-200">MemSurf turns it into a system.</span>
                     </p>
 
                     {/* Core Thesis Line */}
-                    <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 rounded-xl border border-purple-100 shadow-sm relative overflow-hidden group">
+                    <div className="bg-gradient-to-r from-app-violet/15 to-app-softBlue/15 p-6 rounded-xl border border-app-border shadow-sm relative overflow-hidden group">
                         <div className="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
-                        <p className="text-lg text-gray-800 font-medium italic relative z-10">
+                        <p className="text-lg text-app-textMuted font-medium italic relative z-10">
                             "You decide what’s worth remembering. <br />
                             The <span className="text-purple-600 font-bold not-italic">agent</span> optimizes how it sticks."
                         </p>
@@ -331,24 +331,24 @@ const SECTIONS: SectionData[] = [
                 {/* Right: The Process Pipeline */}
                 <div className="md:w-1/2 flex flex-col gap-6 relative z-0 perspective-[1000px]">
                     {/* Connecting Line (The Pipeline) */}
-                    <div className="absolute left-8 top-10 bottom-10 w-0.5 bg-gradient-to-b from-transparent via-gray-300 to-transparent hidden md:block opacity-50 border-l border-dashed border-gray-300"></div>
+                    <div className="absolute left-8 top-10 bottom-10 w-0.5 bg-gradient-to-b from-transparent via-app-border to-transparent hidden md:block opacity-50 border-l border-dashed border-app-border"></div>
 
                     {/* 1. Any Input - Floating Glass */}
                     <div className="relative group md:pl-16 transition-all duration-500 hover:-translate-y-1">
                         {/* Connector Dot */}
-                        <div className="absolute left-8 top-1/2 w-3 h-3 bg-gray-400 rounded-full border-2 border-white shadow-sm transform -translate-x-1.5 -translate-y-1/2 hidden md:block z-10 group-hover:bg-purple-500 transition-colors"></div>
+                        <div className="absolute left-8 top-1/2 w-3 h-3 bg-app-border rounded-full border-2 border-app-canvas shadow-sm transform -translate-x-1.5 -translate-y-1/2 hidden md:block z-10 group-hover:bg-app-violet transition-colors"></div>
 
-                        <div className="bg-white/60 backdrop-blur-xl p-6 rounded-2xl border border-white/80 shadow-lg hover:shadow-purple-500/10 transition-all duration-300 relative overflow-hidden">
+                        <div className="bg-app-surfaceElevated/75 backdrop-blur-xl p-6 rounded-2xl border border-app-border/60 shadow-lg hover:shadow-purple-500/10 transition-all duration-300 relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                                 <svg className="w-16 h-16 text-purple-600 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
                             </div>
-                            <h4 className="flex items-center gap-3 font-bold text-gray-900 mb-2">
-                                <span className="p-2 bg-gradient-to-br from-gray-100 to-white rounded-lg text-gray-700 shadow-sm border border-gray-100">
+                            <h4 className="flex items-center gap-3 font-bold text-app-text mb-2">
+                                <span className="p-2 bg-gradient-to-br from-app-surface to-app-surfaceElevated rounded-lg text-app-textMuted shadow-sm border border-app-border">
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                                 </span>
                                 Any Input
                             </h4>
-                            <p className="text-gray-600 text-sm leading-relaxed relative z-10">
+                            <p className="text-app-textMuted text-sm leading-relaxed relative z-10">
                                 Notes, articles, lectures, voice memos—MemSurf treats them all as inputs to your memory, not assignments to manage.
                             </p>
                         </div>
@@ -357,20 +357,20 @@ const SECTIONS: SectionData[] = [
                     {/* 2. Smart Analysis - Processing Unit */}
                     <div className="relative group md:pl-16 transition-all duration-500 hover:-translate-y-1 delay-75">
                         {/* Connector Dot */}
-                        <div className="absolute left-8 top-1/2 w-3 h-3 bg-gray-400 rounded-full border-2 border-white shadow-sm transform -translate-x-1.5 -translate-y-1/2 hidden md:block z-10 group-hover:bg-indigo-500 transition-colors"></div>
+                        <div className="absolute left-8 top-1/2 w-3 h-3 bg-app-border rounded-full border-2 border-app-canvas shadow-sm transform -translate-x-1.5 -translate-y-1/2 hidden md:block z-10 group-hover:bg-app-softBlue transition-colors"></div>
 
-                        <div className="bg-white/80 backdrop-blur-xl p-6 rounded-2xl border border-indigo-100/50 shadow-lg hover:shadow-indigo-500/20 transition-all duration-300 relative overflow-hidden">
+                        <div className="bg-app-surfaceElevated/85 backdrop-blur-xl p-6 rounded-2xl border border-indigo-100/50 shadow-lg hover:shadow-indigo-500/20 transition-all duration-300 relative overflow-hidden">
                             {/* Scanning line effect */}
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-400 to-transparent opacity-0 group-hover:opacity-100 animate-scan"></div>
 
-                            <h4 className="flex items-center gap-3 font-bold text-gray-900 mb-2">
+                            <h4 className="flex items-center gap-3 font-bold text-app-text mb-2">
                                 <span className="p-2 bg-indigo-50 rounded-lg text-indigo-600 relative overflow-hidden">
                                     <div className="absolute inset-0 bg-indigo-200/30 animate-pulse"></div>
                                     <svg className="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
                                 </span>
                                 An Agent That Handles It
                             </h4>
-                            <p className="text-gray-600 text-sm leading-relaxed">
+                            <p className="text-app-textMuted text-sm leading-relaxed">
                                 It interprets your input in context, determines how it should be reinforced, and adapts continuously. <strong className="text-indigo-600">No flashcards. No scheduling.</strong>
                             </p>
                         </div>
@@ -379,7 +379,7 @@ const SECTIONS: SectionData[] = [
                     {/* 3. The Result - The Gem */}
                     <div className="relative group md:pl-16 transition-all duration-500 hover:scale-105 delay-150">
                         {/* Connector Dot */}
-                        <div className="absolute left-8 top-1/2 w-4 h-4 bg-purple-500 rounded-full border-2 border-white shadow-md transform -translate-x-2 -translate-y-1/2 hidden md:block z-10 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></div>
+                        <div className="absolute left-8 top-1/2 w-4 h-4 bg-purple-500 rounded-full border-2 border-app-border shadow-md transform -translate-x-2 -translate-y-1/2 hidden md:block z-10 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></div>
 
                         <div className="bg-gray-900 p-8 rounded-2xl shadow-2xl text-white relative overflow-hidden border border-gray-700 group-hover:border-purple-500/50 transition-colors">
                             {/* Background Effects */}
@@ -391,7 +391,7 @@ const SECTIONS: SectionData[] = [
                                     <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
                                     The Result?
                                 </h4>
-                                <p className="text-2xl font-bold leading-snug text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gray-300">
+                                <p className="text-2xl font-bold leading-snug text-transparent bg-clip-text bg-gradient-to-r from-white via-app-textMuted to-white/70">
                                     Remembering stops feeling like work. Send it in. Show up. The agent does the rest.
                                 </p>
                             </div>
@@ -412,46 +412,46 @@ const SECTIONS: SectionData[] = [
             <div className="h-full flex flex-col items-center justify-center p-4 md:p-12 max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div className="text-center max-w-4xl mb-12">
-                    <div className="inline-block px-4 py-1.5 rounded-full border border-purple-200 bg-purple-50 text-purple-700 font-bold text-xs tracking-wider uppercase mb-4">
+                    <div className="inline-block px-4 py-1.5 rounded-full border border-app-border bg-app-surface text-app-lavender font-bold text-xs tracking-wider uppercase mb-4">
                         Contextual Intelligence
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-extrabold mb-6 text-gray-900 leading-tight">
+                    <h3 className="text-3xl md:text-5xl font-extrabold mb-6 text-app-text leading-tight">
                         Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Deep Understanding.</span>
                     </h3>
-                    <p className="text-xl text-gray-700 leading-relaxed">
-                        When you add content, MemSurf’s AI learning agent interprets it in context. It looks at the material through the lens of <span className="italic font-medium text-gray-900">how understanding should form</span>, then designs a guided learning flow tailored to you—your goals, your pace, and how this information fits into what you already know.
+                    <p className="text-xl text-app-textMuted leading-relaxed">
+                        When you add content, MemSurf’s AI learning agent interprets it in context. It looks at the material through the lens of <span className="italic font-medium text-app-text">how understanding should form</span>, then designs a guided learning flow tailored to you—your goals, your pace, and how this information fits into what you already know.
                     </p>
                 </div>
 
                 {/* The 3 Decisions Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-12">
                     {/* Card 1 */}
-                    <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl border border-purple-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                    <div className="bg-app-surfaceElevated/80 backdrop-blur-md p-8 rounded-2xl border border-purple-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-purple-100/50 rounded-full blur-2xl -mr-8 -mt-8 transition-all group-hover:bg-purple-200/50"></div>
                         <div className="relative z-10">
                             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4 font-bold text-lg">1</div>
-                            <h4 className="font-bold text-gray-900 text-lg mb-2">Priority</h4>
-                            <p className="text-gray-600">The agent determines <strong>what to introduce first</strong>, laying the groundwork before complexity increases.</p>
+                            <h4 className="font-bold text-app-text text-lg mb-2">Priority</h4>
+                            <p className="text-app-textMuted">The agent determines <strong>what to introduce first</strong>, laying the groundwork before complexity increases.</p>
                         </div>
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl border border-indigo-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                    <div className="bg-app-surfaceElevated/80 backdrop-blur-md p-8 rounded-2xl border border-indigo-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-100/50 rounded-full blur-2xl -mr-8 -mt-8 transition-all group-hover:bg-indigo-200/50"></div>
                         <div className="relative z-10">
                             <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 mb-4 font-bold text-lg">2</div>
-                            <h4 className="font-bold text-gray-900 text-lg mb-2">Connection</h4>
-                            <p className="text-gray-600">It decides <strong>what to connect and reinforce</strong>, linking new ideas to concepts you've already mastered.</p>
+                            <h4 className="font-bold text-app-text text-lg mb-2">Connection</h4>
+                            <p className="text-app-textMuted">It decides <strong>what to connect and reinforce</strong>, linking new ideas to concepts you've already mastered.</p>
                         </div>
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl border border-pink-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                    <div className="bg-app-surfaceElevated/80 backdrop-blur-md p-8 rounded-2xl border border-pink-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-pink-100/50 rounded-full blur-2xl -mr-8 -mt-8 transition-all group-hover:bg-pink-200/50"></div>
                         <div className="relative z-10">
                             <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center text-pink-600 mb-4 font-bold text-lg">3</div>
-                            <h4 className="font-bold text-gray-900 text-lg mb-2">Pacing</h4>
-                            <p className="text-gray-600">It knows <strong>what to hold back</strong> until your foundation is ready, preventing cognitive overload.</p>
+                            <h4 className="font-bold text-app-text text-lg mb-2">Pacing</h4>
+                            <p className="text-app-textMuted">It knows <strong>what to hold back</strong> until your foundation is ready, preventing cognitive overload.</p>
                         </div>
                     </div>
                 </div>
@@ -460,12 +460,12 @@ const SECTIONS: SectionData[] = [
                 <div className="w-full max-w-4xl bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-8 md:p-10 shadow-2xl relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center gap-8">
                     <div className="md:w-3/4 relative z-10">
                         <h4 className="text-2xl font-bold text-white mb-2">A Coherent Mental Structure.</h4>
-                        <p className="text-gray-300 text-lg leading-relaxed">
+                        <p className="text-app-textMuted text-lg leading-relaxed">
                             Not a pile of notes. You’re not following a generic lesson. You’re moving through a purpose-built learning path, shaped specifically to help understanding emerge naturally—and stay.
                         </p>
                     </div>
                     <div className="md:w-1/4 flex justify-center relative z-10">
-                        <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center animate-pulse">
+                        <div className="w-16 h-16 rounded-full bg-app-text/10 backdrop-blur-md border border-app-text/20 flex items-center justify-center animate-pulse">
                             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         </div>
                     </div>
@@ -489,38 +489,38 @@ const SECTIONS: SectionData[] = [
                 {/* Left: Logic Core (Sticky) */}
                 <div className="lg:w-1/3 flex flex-col justify-center space-y-8 lg:sticky lg:top-20">
                     <div>
-                        <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 font-bold text-xs tracking-wider uppercase mb-3 border border-blue-100">
+                        <div className="inline-block px-4 py-1.5 rounded-full bg-app-surface text-app-blueBright font-bold text-xs tracking-wider uppercase mb-3 border border-app-border">
                             Adaptive Difficulty
                         </div>
-                        <h3 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+                        <h3 className="text-4xl md:text-5xl font-extrabold text-app-text leading-tight mb-4">
                             Building Your <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Knowledge Stack.</span>
                         </h3>
-                        <p className="text-lg text-gray-600 leading-relaxed">
+                        <p className="text-lg text-app-textMuted leading-relaxed">
                             We don't just test you. We construct a robust mental model, layer by layer, starting from the foundation.
                         </p>
                     </div>
 
                     {/* Glass HUD */}
-                    <div className="bg-white/40 backdrop-blur-md border border-white/50 p-6 rounded-2xl shadow-lg relative overflow-hidden">
+                    <div className="bg-app-surfaceElevated/55 backdrop-blur-md border border-app-border/50 p-6 rounded-2xl shadow-lg relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-blue-400/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                        <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                            <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                        <h4 className="font-bold text-app-text mb-4 flex items-center gap-2">
+                            <svg className="w-5 h-5 text-app-softBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
                             The Progression
                         </h4>
                         <ul className="space-y-3">
-                            <li className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                            <li className="flex items-center gap-3 text-sm font-medium text-app-textMuted">
                                 <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">1</span>
                                 Establish Base
                             </li>
-                            <li className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                            <li className="flex items-center gap-3 text-sm font-medium text-app-textMuted">
                                 <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">2</span>
                                 deepening Logic
                             </li>
-                            <li className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                            <li className="flex items-center gap-3 text-sm font-medium text-app-textMuted">
                                 <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">3</span>
                                 Active Retrieval
                             </li>
-                            <li className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                            <li className="flex items-center gap-3 text-sm font-medium text-app-textMuted">
                                 <span className="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xs font-bold">4</span>
                                 Real-World Mastery
                             </li>
@@ -537,14 +537,14 @@ const SECTIONS: SectionData[] = [
                         {/* Level 01: Left Side */}
                         <div className="relative flex flex-col md:flex-row items-center md:justify-end md:pr-12 group">
                             {/* Connector Dot */}
-                            <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-emerald-400 rounded-full border-4 border-white shadow-md transform -translate-x-1/2 z-10"></div>
+                            <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-emerald-400 rounded-full border-4 border-app-canvas shadow-md transform -translate-x-1/2 z-10"></div>
                             {/* Card */}
-                            <div className="w-full md:w-[45%] bg-white/60 backdrop-blur-xl p-6 rounded-2xl border-l-4 border-l-emerald-400 shadow-sm hover:shadow-xl transition-all ml-16 md:ml-0 md:text-right group-hover:-translate-x-2">
+                            <div className="w-full md:w-[45%] bg-app-surfaceElevated/75 backdrop-blur-xl p-6 rounded-2xl border-l-4 border-l-emerald-400 shadow-sm hover:shadow-xl transition-all ml-16 md:ml-0 md:text-right group-hover:-translate-x-2">
                                 <div className="text-emerald-800 font-extrabold text-4xl mb-2 opacity-20 absolute top-2 right-4 md:left-4 md:right-auto">01</div>
                                 <div className="flex flex-col md:items-end">
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 mb-1">Introduction</span>
-                                    <h4 className="text-xl font-bold text-gray-900 mb-2">Foundational</h4>
-                                    <p className="text-sm text-gray-600 mb-3">Establishes the vocabulary and core concepts needed for higher-level thinking.</p>
+                                    <h4 className="text-xl font-bold text-app-text mb-2">Foundational</h4>
+                                    <p className="text-sm text-app-textMuted mb-3">Establishes the vocabulary and core concepts needed for higher-level thinking.</p>
                                     <div className="inline-flex items-center px-3 py-1 bg-emerald-100/50 text-emerald-700 text-xs font-bold rounded-full">True/False • MCQs</div>
                                 </div>
                             </div>
@@ -553,14 +553,14 @@ const SECTIONS: SectionData[] = [
                         {/* Level 02: Right Side */}
                         <div className="relative flex flex-col md:flex-row items-center md:justify-start md:pl-12 group">
                             {/* Connector Dot */}
-                            <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-white shadow-md transform -translate-x-1/2 z-10"></div>
+                            <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-app-canvas shadow-md transform -translate-x-1/2 z-10"></div>
                             {/* Card */}
-                            <div className="w-full md:w-[45%] bg-white/60 backdrop-blur-xl p-6 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-blue-400 shadow-sm hover:shadow-xl transition-all ml-16 md:ml-0 group-hover:translate-x-2">
+                            <div className="w-full md:w-[45%] bg-app-surfaceElevated/75 backdrop-blur-xl p-6 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-blue-400 shadow-sm hover:shadow-xl transition-all ml-16 md:ml-0 group-hover:translate-x-2">
                                 <div className="text-blue-800 font-extrabold text-4xl mb-2 opacity-20 absolute top-2 right-4">02</div>
                                 <div className="flex flex-col items-start">
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-1">Comprehension</span>
-                                    <h4 className="text-xl font-bold text-gray-900 mb-2">Analytical</h4>
-                                    <p className="text-sm text-gray-600 mb-3">Challenges you to differentiate similar concepts and spot logical errors.</p>
+                                    <h4 className="text-xl font-bold text-app-text mb-2">Analytical</h4>
+                                    <p className="text-sm text-app-textMuted mb-3">Challenges you to differentiate similar concepts and spot logical errors.</p>
                                     <div className="inline-flex items-center px-3 py-1 bg-blue-100/50 text-blue-700 text-xs font-bold rounded-full">Find Error • Logic</div>
                                 </div>
                             </div>
@@ -569,14 +569,14 @@ const SECTIONS: SectionData[] = [
                         {/* Level 03: Left Side */}
                         <div className="relative flex flex-col md:flex-row items-center md:justify-end md:pr-12 group">
                             {/* Connector Dot */}
-                            <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-white shadow-md transform -translate-x-1/2 z-10"></div>
+                            <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-purple-500 rounded-full border-4 border-app-canvas shadow-md transform -translate-x-1/2 z-10"></div>
                             {/* Card */}
-                            <div className="w-full md:w-[45%] bg-white/60 backdrop-blur-xl p-6 rounded-2xl border-l-4 border-purple-500 shadow-sm hover:shadow-xl transition-all ml-16 md:ml-0 md:text-right group-hover:-translate-x-2">
+                            <div className="w-full md:w-[45%] bg-app-surfaceElevated/75 backdrop-blur-xl p-6 rounded-2xl border-l-4 border-purple-500 shadow-sm hover:shadow-xl transition-all ml-16 md:ml-0 md:text-right group-hover:-translate-x-2">
                                 <div className="text-purple-800 font-extrabold text-4xl mb-2 opacity-20 absolute top-2 right-4 md:left-4 md:right-auto">03</div>
                                 <div className="flex flex-col md:items-end">
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-purple-600 mb-1">Synthesizing</span>
-                                    <h4 className="text-xl font-bold text-gray-900 mb-2">Retrieval</h4>
-                                    <p className="text-sm text-gray-600 mb-3">Removes the training wheels. You must generate the answer from scratch.</p>
+                                    <h4 className="text-xl font-bold text-app-text mb-2">Retrieval</h4>
+                                    <p className="text-sm text-app-textMuted mb-3">Removes the training wheels. You must generate the answer from scratch.</p>
                                     <div className="inline-flex items-center px-3 py-1 bg-purple-100/50 text-purple-700 text-xs font-bold rounded-full">Short Answer • Explain</div>
                                 </div>
                             </div>
@@ -585,16 +585,16 @@ const SECTIONS: SectionData[] = [
                         {/* Level 04: Right Side */}
                         <div className="relative flex flex-col md:flex-row items-center md:justify-start md:pl-12 group">
                             {/* Connector Dot */}
-                            <div className="absolute left-8 md:left-1/2 w-6 h-6 bg-rose-500 rounded-full border-4 border-white shadow-lg transform -translate-x-1/2 z-10 shadow-rose-200">
+                            <div className="absolute left-8 md:left-1/2 w-6 h-6 bg-rose-500 rounded-full border-4 border-app-canvas shadow-lg transform -translate-x-1/2 z-10 shadow-rose-200">
                                 <div className="absolute inset-0 bg-rose-400 animate-ping rounded-full opacity-75"></div>
                             </div>
                             {/* Card */}
-                            <div className="w-full md:w-[45%] bg-gradient-to-br from-rose-50 to-white/80 backdrop-blur-xl p-6 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-rose-500 shadow-md hover:shadow-2xl transition-all ml-16 md:ml-0 group-hover:translate-x-2">
+                            <div className="w-full md:w-[45%] bg-gradient-to-br from-app-lavender/15 to-app-surfaceElevated/90 backdrop-blur-xl p-6 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-rose-500 shadow-md hover:shadow-2xl transition-all ml-16 md:ml-0 group-hover:translate-x-2">
                                 <div className="text-rose-800 font-extrabold text-4xl mb-2 opacity-20 absolute top-2 right-4">04</div>
                                 <div className="flex flex-col items-start">
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-rose-600 mb-1">Application</span>
-                                    <h4 className="text-xl font-bold text-gray-900 mb-2">Mastery</h4>
-                                    <p className="text-sm text-gray-600 mb-3">The ultimate test. Applying knowledge to diagnose new, unseen scenarios.</p>
+                                    <h4 className="text-xl font-bold text-app-text mb-2">Mastery</h4>
+                                    <p className="text-sm text-app-textMuted mb-3">The ultimate test. Applying knowledge to diagnose new, unseen scenarios.</p>
                                     <div className="inline-flex items-center px-3 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-full">Diagnosis • Scenarios</div>
                                 </div>
                             </div>
@@ -616,53 +616,53 @@ const SECTIONS: SectionData[] = [
             <div className="h-full flex flex-col items-center justify-center p-4 md:p-12 max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div className="text-center max-w-4xl mb-12">
-                    <div className="inline-block px-4 py-1.5 rounded-full border border-green-200 bg-green-50 text-green-700 font-bold text-xs tracking-wider uppercase mb-4">
+                    <div className="inline-block px-4 py-1.5 rounded-full border border-app-border bg-app-surface text-app-mint font-bold text-xs tracking-wider uppercase mb-4">
                         Adaptive Recall
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-extrabold mb-6 text-gray-900 leading-tight">
+                    <h3 className="text-3xl md:text-5xl font-extrabold mb-6 text-app-text leading-tight">
                         Memory Fades on a Curve. <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-600">MemSurf Works Against It.</span>
                     </h3>
-                    <p className="text-xl text-gray-700 leading-relaxed">
-                        Every interaction feeds into a living memory model that adapts to you over time. Instead of fixed schedules or generic reminders, MemSurf continuously adjusts when each idea should resurface—so review happens <span className="italic font-medium text-gray-900">right before</span> forgetting sets in.
+                    <p className="text-xl text-app-textMuted leading-relaxed">
+                        Every interaction feeds into a living memory model that adapts to you over time. Instead of fixed schedules or generic reminders, MemSurf continuously adjusts when each idea should resurface—so review happens <span className="italic font-medium text-app-text">right before</span> forgetting sets in.
                     </p>
                 </div>
 
                 {/* The rhythm grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-12">
                     {/* Card 1 */}
-                    <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl border border-green-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                    <div className="bg-app-surfaceElevated/80 backdrop-blur-md p-8 rounded-2xl border border-green-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-green-100/50 rounded-full blur-2xl -mr-8 -mt-8 transition-all group-hover:bg-green-200/50"></div>
                         <div className="relative z-10">
                             <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4 font-bold text-lg">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <h4 className="font-bold text-gray-900 text-lg mb-2">Reinforce</h4>
-                            <p className="text-gray-600">Reinforces understanding through <strong>well-timed recall</strong>, ensuring concepts stay fresh.</p>
+                            <h4 className="font-bold text-app-text text-lg mb-2">Reinforce</h4>
+                            <p className="text-app-textMuted">Reinforces understanding through <strong>well-timed recall</strong>, ensuring concepts stay fresh.</p>
                         </div>
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl border border-teal-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                    <div className="bg-app-surfaceElevated/80 backdrop-blur-md p-8 rounded-2xl border border-teal-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-teal-100/50 rounded-full blur-2xl -mr-8 -mt-8 transition-all group-hover:bg-teal-200/50"></div>
                         <div className="relative z-10">
                             <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center text-teal-600 mb-4 font-bold text-lg">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                             </div>
-                            <h4 className="font-bold text-gray-900 text-lg mb-2">Strength</h4>
-                            <p className="text-gray-600">Strengthens memory by making retrieval <strong>slightly effortful</strong> (desirable difficulty).</p>
+                            <h4 className="font-bold text-app-text text-lg mb-2">Strength</h4>
+                            <p className="text-app-textMuted">Strengthens memory by making retrieval <strong>slightly effortful</strong> (desirable difficulty).</p>
                         </div>
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl border border-emerald-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                    <div className="bg-app-surfaceElevated/80 backdrop-blur-md p-8 rounded-2xl border border-emerald-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-100/50 rounded-full blur-2xl -mr-8 -mt-8 transition-all group-hover:bg-emerald-200/50"></div>
                         <div className="relative z-10">
                             <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-600 mb-4 font-bold text-lg">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
-                            <h4 className="font-bold text-gray-900 text-lg mb-2">Efficiency</h4>
-                            <p className="text-gray-600">Replaces cramming with <strong>short, high-impact reviews</strong> that respect your time.</p>
+                            <h4 className="font-bold text-app-text text-lg mb-2">Efficiency</h4>
+                            <p className="text-app-textMuted">Replaces cramming with <strong>short, high-impact reviews</strong> that respect your time.</p>
                         </div>
                     </div>
                 </div>
@@ -671,7 +671,7 @@ const SECTIONS: SectionData[] = [
                 <div className="w-full max-w-4xl bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-8 md:p-10 shadow-2xl relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center gap-8">
                     <div className="md:w-3/4 relative z-10">
                         <h4 className="text-2xl font-bold text-white mb-2">You Don’t Review Everything.</h4>
-                        <p className="text-gray-300 text-lg leading-relaxed mb-4">
+                        <p className="text-app-textMuted text-lg leading-relaxed mb-4">
                             You review what matters, when it matters. Progress feels light, consistent, and surprisingly durable.
                         </p>
                         <p className="text-green-300 font-medium text-lg">
@@ -679,7 +679,7 @@ const SECTIONS: SectionData[] = [
                         </p>
                     </div>
                     <div className="md:w-1/4 flex justify-center relative z-10">
-                        <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center animate-pulse">
+                        <div className="w-16 h-16 rounded-full bg-app-text/10 backdrop-blur-md border border-app-text/20 flex items-center justify-center animate-pulse">
                             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
                     </div>
@@ -757,10 +757,10 @@ function HTMLOverlay() {
                                             {section.stepLabel}
                                         </span>
                                     )}
-                                    <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                                    <h2 className="text-4xl md:text-6xl font-bold text-app-text mb-6 leading-tight">
                                         {section.title}
                                     </h2>
-                                    <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                                    <p className="text-xl text-app-textMuted mb-8 leading-relaxed">
                                         {section.shortDesc}
                                     </p>
 
@@ -785,7 +785,7 @@ function HTMLOverlay() {
                                     <div className="absolute top-4 right-0 z-50">
                                         <button
                                             onClick={() => setExpandedId(null)}
-                                            className="p-3 rounded-full bg-white/10 backdrop-blur-md shadow-sm hover:bg-white/20 transition-all text-gray-500 hover:text-gray-900"
+                                            className="p-3 rounded-full bg-app-text/10 backdrop-blur-md shadow-sm hover:bg-app-text/20 transition-all text-app-textMuted hover:text-app-text border border-app-text/15"
                                             title="Close"
                                         >
                                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -820,9 +820,9 @@ function HTMLOverlay() {
 
 export default function ParticleScene() {
     return (
-        <div className="w-full h-screen relative bg-white overflow-hidden">
+        <div className="w-full h-screen relative bg-app-canvas overflow-hidden">
             <Canvas camera={{ position: [0, 0, 20], fov: 35 }}>
-                <color attach="background" args={['#ffffff']} />
+                <color attach="background" args={['#08131d']} />
                 {/* Note: Background color will be handled by CSS, but good to have fallback */}
 
                 <ScrollControls pages={4} damping={0.2}>

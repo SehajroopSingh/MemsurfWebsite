@@ -16,6 +16,8 @@ interface GreenScreenVideoProps {
   edgeSoftness?: number // 0-1, softness of the edge (default: 0.1)
   trackingLabel?: string
   trackingLocation?: string
+  /** Tailwind classes for the loading overlay (default light gray card). */
+  placeholderWrapperClassName?: string
 }
 
 export default function GreenScreenVideo({
@@ -31,6 +33,7 @@ export default function GreenScreenVideo({
   edgeSoftness = 0.1,
   trackingLabel = 'greenscreen_video',
   trackingLocation = 'hero',
+  placeholderWrapperClassName = 'bg-app-surface rounded-lg overflow-hidden border border-app-border',
 }: GreenScreenVideoProps) {
   const { track } = useAmplitude()
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -526,7 +529,7 @@ export default function GreenScreenVideo({
   }
 
   return (
-    <div className={`relative inline-block ${className}`}>
+    <div className={`relative flex items-center justify-center ${className.includes('block') ? '' : 'inline-block'} ${className}`}>
       {/* Hidden video element */}
       <video
         ref={videoRef}
@@ -563,12 +566,11 @@ export default function GreenScreenVideo({
       {/* Canvas displaying video - rendered on top of placeholder */}
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-contain"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{ 
           display: 'block', 
           opacity: canvasVisible ? 1 : 0, // Fade in when video starts rendering
           transition: 'opacity 0.3s ease-in-out',
-          position: 'relative',
           zIndex: 2 // Always on top of placeholder
         }}
       />
@@ -576,7 +578,7 @@ export default function GreenScreenVideo({
       {/* Loading state - show placeholder image if available, otherwise show spinner */}
       {showPlaceholder && !videoError && (
         <div 
-          className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden"
+          className={`absolute inset-0 flex items-center justify-center ${placeholderWrapperClassName}`}
           style={{ 
             opacity: showPlaceholder ? 1 : 0, 
             transition: 'opacity 0.6s ease-in-out', 
@@ -588,7 +590,7 @@ export default function GreenScreenVideo({
             <img
               src={placeholder}
               alt="Loading video"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
               onLoad={() => setPlaceholderLoaded(true)}
               onError={() => {
                 console.warn('Placeholder image failed to load')
@@ -597,7 +599,7 @@ export default function GreenScreenVideo({
             />
           ) : (
             <div className="text-center">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-app-softBlue mb-2"></div>
               <p className="text-gray-500 text-sm">Loading video...</p>
             </div>
           )}
@@ -606,7 +608,7 @@ export default function GreenScreenVideo({
 
       {/* Error message if video fails to load */}
       {videoError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg">
+        <div className="absolute inset-0 flex items-center justify-center bg-app-surface rounded-lg">
           <div className="text-center p-4">
             <p className="text-red-600 text-sm mb-2">Video Error: {videoError}</p>
             <p className="text-gray-500 text-xs">Source: {src}</p>

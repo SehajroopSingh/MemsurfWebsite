@@ -1,190 +1,186 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 
 export default function BlobbyBackground() {
-    const [isDark, setIsDark] = useState(true)
-
-    useEffect(() => {
-        // Check system preference on mount
-        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-        setIsDark(darkModeMediaQuery.matches)
-
-        const handler = (e: MediaQueryListEvent) => setIsDark(e.matches)
-        darkModeMediaQuery.addEventListener('change', handler)
-        return () => darkModeMediaQuery.removeEventListener('change', handler)
-    }, [])
-
-    // Helper to get color based on mode
-    const c = (darkHex: string, lightHex: string) => isDark ? darkHex : lightHex
-    const o = (darkOp: number, lightOp: number) => isDark ? darkOp : lightOp
-    const b = (darkBlur: number, lightBlur: number) => `blur(${isDark ? darkBlur : lightBlur}px)`
-
-    // Blobs definition based on SwiftUI code
+    // 13 Blobs mapped directly to AppPalette.swift dark mode hexes and opacities
     const blobs = [
-        // 🟠 Blob 1 - Top left
+        // 🟢 Blob 1 - Top left
         {
             id: 1,
-            color: c("#8b4a3a", "#df896b"),
-            opacity: o(0.3, 0.6),
-            size: [350, 250], // [expanded, contracted]
-            initial: { left: '20%', top: '20%' },
-            animate: { left: ['20%', '40%'], top: ['20%', '20%'] }, // move
+            color: "#4f9e95",
+            opacity: 0.40,
+            size: 250, // compact size
+            scale: [1, 350 / 250, 1], // [compact, expanded, compact]
+            initial: { x: '20vw', y: '20vh' },
+            animate: { x: ['20vw', '40vw'], y: ['20vh', '20vh'] },
             durationMove: 8,
             durationSize: 6,
-            blur: b(30, 60)
+            blur: "blur(30px)"
         },
         // 🔵 Blob 2 - Middle right
         {
             id: 2,
-            color: c("#4a5a7a", "#84aae1"),
-            opacity: o(0.3, 0.6),
-            size: [250, 150],
-            initial: { left: '75%', top: '50%' },
-            animate: { left: ['75%', '90%'], top: ['50%', '50%'] },
+            color: "#5376ab",
+            opacity: 0.40,
+            size: 150,
+            scale: [1, 250 / 150, 1],
+            initial: { x: '75vw', y: '50vh' },
+            animate: { x: ['75vw', '90vw'], y: ['50vh', '50vh'] },
             durationMove: 10,
             durationSize: 7,
-            blur: b(30, 60)
+            blur: "blur(30px)"
         },
         // 🟣 Blob 3 - Bottom left
         {
             id: 3,
-            color: c("#2a2b4a", "#4c4d8a"),
-            opacity: o(0.3, 0.6),
-            size: [300, 200],
-            initial: { left: '10%', top: '80%' },
-            animate: { left: ['10%', '30%'], top: ['80%', '80%'] },
+            color: "#6b57a8",
+            opacity: 0.36,
+            size: 200,
+            scale: [1, 300 / 200, 1],
+            initial: { x: '10vw', y: '80vh' },
+            animate: { x: ['10vw', '30vw'], y: ['80vh', '80vh'] },
             durationMove: 12,
             durationSize: 9,
-            blur: b(30, 60)
+            blur: "blur(30px)"
         },
-        // 💜 Blob 4 - Bottom left (soft purple)
+        // 💜 Blob 4 - Bottom left
         {
             id: 4,
-            color: c("#5a3a6a", "#d4a5ff"),
-            opacity: o(0.25, 0.5),
-            size: [270, 170],
-            initial: { left: '15%', top: '85%' },
-            animate: { left: ['15%', '35%'], top: ['85%', '85%'] },
+            color: "#8c65c6",
+            opacity: 0.34,
+            size: 170,
+            scale: [1, 270 / 170, 1],
+            initial: { x: '15vw', y: '85vh' },
+            animate: { x: ['15vw', '35vw'], y: ['85vh', '85vh'] },
             durationMove: 11,
             durationSize: 8,
-            blur: b(35, 70)
+            blur: "blur(35px)"
         },
         // Small Blobs
         // 🌸 Small 1 - Top center
         {
             id: 5,
-            color: c("#6a3a4a", "#ffb3c1"),
-            opacity: o(0.25, 0.45),
-            size: [180, 120],
-            initial: { left: '35%', top: '8%' },
-            animate: { left: ['35%', '65%'], top: ['8%', '18%'] },
+            color: "#77c2b7",
+            opacity: 0.30,
+            size: 120,
+            scale: [1, 180 / 120, 1],
+            initial: { x: '35vw', y: '8vh' },
+            animate: { x: ['35vw', '65vw'], y: ['8vh', '18vh'] },
             durationMove: 9,
             durationSize: 5,
-            blur: b(25, 50)
+            blur: "blur(25px)"
         },
         // 🌿 Small 2 - Upper right
         {
             id: 6,
-            color: c("#3a5a6a", "#7bdff2"),
-            opacity: o(0.25, 0.45),
-            size: [160, 100],
-            initial: { left: '75%', top: '15%' },
-            animate: { left: ['75%', '90%'], top: ['15%', '30%'] },
+            color: "#7196cf",
+            opacity: 0.30,
+            size: 100,
+            scale: [1, 160 / 100, 1],
+            initial: { x: '75vw', y: '15vh' },
+            animate: { x: ['75vw', '90vw'], y: ['15vh', '30vh'] },
             durationMove: 11,
             durationSize: 6,
-            blur: b(22, 45)
+            blur: "blur(22px)"
         },
         // 🌼 Small 3 - Bottom center
         {
             id: 7,
-            color: c("#6a5a3a", "#fff3b0"),
-            opacity: o(0.25, 0.45),
-            size: [190, 130],
-            initial: { left: '45%', top: '82%' },
-            animate: { left: ['45%', '75%'], top: ['82%', '92%'] },
+            color: "#a580da",
+            opacity: 0.28,
+            size: 130,
+            scale: [1, 190 / 130, 1],
+            initial: { x: '45vw', y: '82vh' },
+            animate: { x: ['45vw', '75vw'], y: ['82vh', '92vh'] },
             durationMove: 10,
             durationSize: 7,
-            blur: b(27, 55)
+            blur: "blur(27px)"
         },
         // 🍃 Small 4 - Middle left
         {
             id: 8,
-            color: c("#3a5a4a", "#b8f2e6"),
-            opacity: o(0.25, 0.45),
-            size: [170, 110],
-            initial: { left: '15%', top: '45%' },
-            animate: { left: ['15%', '25%'], top: ['45%', '60%'] },
+            color: "#438a81",
+            opacity: 0.28,
+            size: 110,
+            scale: [1, 170 / 110, 1],
+            initial: { x: '15vw', y: '45vh' },
+            animate: { x: ['15vw', '25vw'], y: ['45vh', '60vh'] },
             durationMove: 12,
             durationSize: 8,
-            blur: b(20, 40)
+            blur: "blur(20px)"
         },
         // 💠 Small 5 - Bottom right
         {
             id: 9,
-            color: c("#6a4a3a", "#ffd6a5"),
-            opacity: o(0.25, 0.45),
-            size: [150, 90],
-            initial: { left: '85%', top: '70%' },
-            animate: { left: ['85%', '95%'], top: ['70%', '80%'] },
+            color: "#3f6196",
+            opacity: 0.28,
+            size: 90,
+            scale: [1, 150 / 90, 1],
+            initial: { x: '85vw', y: '70vh' },
+            animate: { x: ['85vw', '95vw'], y: ['70vh', '80vh'] },
             durationMove: 13,
             durationSize: 6,
-            blur: b(17, 35)
+            blur: "blur(17px)"
         },
         // 🔹 Small 6 - Lower left mid
         {
             id: 10,
-            color: c("#4a4a6a", "#c9c5ff"),
-            opacity: o(0.25, 0.45),
-            size: [180, 120],
-            initial: { left: '20%', top: '55%' },
-            animate: { left: ['20%', '35%'], top: ['55%', '70%'] },
+            color: "#7a73b2",
+            opacity: 0.28,
+            size: 120,
+            scale: [1, 180 / 120, 1],
+            initial: { x: '20vw', y: '55vh' },
+            animate: { x: ['20vw', '35vw'], y: ['55vh', '70vh'] },
             durationMove: 9.5,
             durationSize: 5.5,
-            blur: b(25, 50)
+            blur: "blur(25px)"
         },
         // Tiny Blobs (Fast)
         // ✨ Tiny 1
         {
             id: 11,
-            color: c("#6a3a5a", "#ffb3e6"),
-            opacity: o(0.2, 0.4),
-            size: [240, 160],
-            initial: { left: '15%', top: '10%' },
-            animate: { left: ['15%', '85%'], top: ['10%', '25%'] },
+            color: "#8fe1d4",
+            opacity: 0.24,
+            size: 160,
+            scale: [1, 240 / 160, 1],
+            initial: { x: '15vw', y: '10vh' },
+            animate: { x: ['15vw', '85vw'], y: ['10vh', '25vh'] },
             durationMove: 6,
             durationSize: 4,
-            blur: b(40, 80)
+            blur: "blur(40px)"
         },
         // ✨ Tiny 2
         {
             id: 12,
-            color: c("#3a6a4a", "#b3ffcc"),
-            opacity: o(0.2, 0.4),
-            size: [220, 140],
-            initial: { left: '10%', top: '40%' },
-            animate: { left: ['10%', '90%'], top: ['40%', '55%'] },
+            color: "#89b0eb",
+            opacity: 0.24,
+            size: 140,
+            scale: [1, 220 / 140, 1],
+            initial: { x: '10vw', y: '40vh' },
+            animate: { x: ['10vw', '90vw'], y: ['40vh', '55vh'] },
             durationMove: 7,
             durationSize: 4.5,
-            blur: b(37, 75)
+            blur: "blur(37px)"
         },
         // ✨ Tiny 3
         {
             id: 13,
-            color: c("#5a3a6a", "#e6b3ff"),
-            opacity: o(0.2, 0.4),
-            size: [230, 150],
-            initial: { left: '25%', top: '70%' },
-            animate: { left: ['25%', '75%'], top: ['70%', '85%'] },
+            color: "#b08ae4",
+            opacity: 0.24,
+            size: 150,
+            scale: [1, 230 / 150, 1],
+            initial: { x: '25vw', y: '70vh' },
+            animate: { x: ['25vw', '75vw'], y: ['70vh', '85vh'] },
             durationMove: 5.5,
             durationSize: 3.5,
-            blur: b(42, 85)
+            blur: "blur(42px)"
         },
     ]
 
     return (
-        <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none" style={{ backgroundColor: isDark ? '#000000' : '#e1e6f5' }}>
+        <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none" style={{ backgroundColor: '#08131d' }}>
             {blobs.map((blob) => (
                 <motion.div
                     key={blob.id}
@@ -194,23 +190,26 @@ export default function BlobbyBackground() {
                         backgroundColor: blob.color,
                         filter: blob.blur,
                         opacity: blob.opacity,
+                        width: blob.size,
+                        height: blob.size,
+                        // Center the transform origin so scaling works outward evenly
+                        transformOrigin: 'center center',
+                        willChange: 'transform'
                     }}
                     initial={{
-                        width: blob.size[1],
-                        height: blob.size[1],
-                        left: blob.initial.left,
-                        top: blob.initial.top,
+                        x: blob.initial.x,
+                        y: blob.initial.y,
+                        scale: blob.scale[0]
                     }}
                     animate={{
-                        width: [blob.size[1], blob.size[0], blob.size[1]], // Pulse size
-                        height: [blob.size[1], blob.size[0], blob.size[1]],
-                        ...blob.animate
+                        x: blob.animate.x,
+                        y: blob.animate.y,
+                        scale: blob.scale
                     }}
                     transition={{
-                        width: { duration: blob.durationSize, repeat: Infinity, ease: 'easeInOut' },
-                        height: { duration: blob.durationSize, repeat: Infinity, ease: 'easeInOut' },
-                        left: { duration: blob.durationMove, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
-                        top: { duration: blob.durationMove, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }
+                        scale: { duration: blob.durationSize, repeat: Infinity, ease: 'easeInOut' },
+                        x: { duration: blob.durationMove, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' },
+                        y: { duration: blob.durationMove, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }
                     }}
                 />
             ))}

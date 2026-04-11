@@ -125,8 +125,8 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
 
     // Card Appearance (Box Shadow/bg) (0.50 -> 0.60)
     const cardBgOpacity = useTransform(effectiveProgress, [0.50, 0.60], [0, 1])
-    const cardBorderColor = useTransform(effectiveProgress, [0.50, 0.60], ["transparent", "#e5e7eb"])
-    const cardShadow = useTransform(effectiveProgress, [0.50, 0.60], ["none", "0 4px 6px -1px rgba(0, 0, 0, 0.1)"])
+    const cardBorderColor = useTransform(effectiveProgress, [0.50, 0.60], ["transparent", "rgba(113, 150, 207, 0.45)"])
+    const cardShadow = useTransform(effectiveProgress, [0.50, 0.60], ["none", "0 8px 24px -4px rgba(15, 33, 51, 0.55), 0 0 0 1px rgba(79, 158, 149, 0.12)"])
 
     // Header Expansion (0.55 -> 0.65)
     const headerHeight = useTransform(effectiveProgress, [0.55, 0.65], [0, 28]) // approximate pixel height for auto
@@ -147,18 +147,18 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
 
     return (
         <motion.div 
-            className="absolute inset-0 bg-white flex flex-col items-center justify-center overflow-hidden"
+            className="absolute inset-0 bg-[#08131d] flex flex-col items-center justify-center overflow-hidden"
             style={{ opacity: loop ? containerOpacity : 1 }}
         >
             {/* BACKGROUND PATTERN */}
-            <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
+            <div className="absolute inset-0 bg-[radial-gradient(rgba(31,61,92,0.85)_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.35]" />
 
             {/* DYNAMIC LABELS */}
             <div className="absolute top-12 w-full flex justify-center z-50 px-4">
                 {/* Label 1: Extraction */}
                 <motion.p
                     style={{ opacity: labelDepthOpacity, y: labelDepthY }}
-                    className="absolute text-xs font-bold text-blue-600 bg-blue-50/90 backdrop-blur px-4 py-2 rounded-full border border-blue-100 shadow-sm text-center"
+                    className="absolute text-xs font-bold text-app-softBlue bg-app-surface/90 backdrop-blur px-4 py-2 rounded-full border border-app-border shadow-sm text-center"
                 >
                     Extracting content...
                 </motion.p>
@@ -166,7 +166,7 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                 {/* Label 2: Lessons */}
                 <motion.p
                     style={{ opacity: labelLessonOpacity, y: labelLessonY }}
-                    className="text-xs font-bold text-indigo-600 bg-indigo-50/90 backdrop-blur px-4 py-2 rounded-full border border-indigo-100 shadow-sm absolute"
+                    className="text-xs font-bold text-app-mintBright bg-app-mint/18 backdrop-blur px-4 py-2 rounded-full border border-app-mint/35 shadow-sm absolute"
                 >
                     Creating Lesson Plan
                 </motion.p>
@@ -174,7 +174,7 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                 {/* Label 3: Quizzes */}
                 <motion.p
                     style={{ opacity: labelQuizOpacity, y: labelQuizY }}
-                    className="text-xs font-bold text-[#8c648d] bg-[#8c648d]/10 backdrop-blur px-4 py-2 rounded-full border border-[#8c648d]/30 shadow-sm absolute"
+                    className="text-xs font-bold text-app-lilac bg-app-lavender/15 backdrop-blur px-4 py-2 rounded-full border border-app-lavender/40 shadow-sm absolute"
                 >
                     Generating quizzes
                 </motion.p>
@@ -185,21 +185,21 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                 {/* PHASE 1: RAW CONTENT (Enters -> Morphs to Strip) */}
                 <motion.div
                     style={{ opacity: rawContentOpacity, scale: rawContentScale }}
-                    className="absolute flex flex-col items-start justify-start p-4 bg-white rounded-xl shadow-lg border border-gray-200 z-30 w-[205px]"
+                    className="absolute flex flex-col items-start justify-start p-4 bg-[#152a40] rounded-xl shadow-lg border border-[#1f3d5c] z-30 w-[205px]"
                 >
                     <div className="flex items-center gap-3 mb-3 w-full">
-                        <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
+                        <div className="p-2 bg-app-surface rounded-lg text-app-blueBright">
                             <FileText size={20} />
                         </div>
                         <div>
-                            <div className="h-2 w-24 bg-gray-200 rounded-full mb-1" />
-                            <div className="h-2 w-16 bg-gray-100 rounded-full" />
+                            <div className="h-2 w-24 bg-[#1f3d5c] rounded-full mb-1" />
+                            <div className="h-2 w-16 bg-[#1f3d5c] rounded-full" />
                         </div>
                     </div>
                     <div className="space-y-2 w-full">
-                        <div className="h-2 w-full bg-gray-100 rounded-full" />
-                        <div className="h-2 w-full bg-gray-100 rounded-full" />
-                        <div className="h-2 w-3/4 bg-gray-100 rounded-full" />
+                        <div className="h-2 w-full bg-[#1f3d5c] rounded-full" />
+                        <div className="h-2 w-full bg-[#1f3d5c] rounded-full" />
+                        <div className="h-2 w-3/4 bg-[#1f3d5c] rounded-full" />
                     </div>
                 </motion.div>
 
@@ -223,7 +223,11 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                                 <motion.div
                                     key={`combined-${i}`}
                                     style={{ opacity: op, width }}
-                                    className={`h-1.5 rounded-full ${i % 3 === 0 ? "bg-blue-300 h-2" : "bg-blue-200"}`}
+                                    className={`rounded-full ${
+                                        i % 3 === 0
+                                            ? 'h-2 bg-[var(--app-blue-highlight)]'
+                                            : 'h-1.5 bg-[var(--app-soft-blue)]'
+                                    }`}
                                 />
                             )
                         })}
@@ -238,7 +242,7 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                         <motion.div
                             className="absolute -inset-4 rounded-2xl z-[-1]"
                             style={{
-                                backgroundColor: useTransform(cardBgOpacity, o => `rgba(255,255,255,${o})`),
+                                backgroundColor: useTransform(cardBgOpacity, o => `rgba(21, 42, 64, ${o})`),
                                 boxShadow: cardShadow,
                                 borderColor: cardBorderColor,
                                 borderWidth: 1,
@@ -251,8 +255,8 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                             style={{ opacity: headerOpacity, height: headerHeight, marginBottom: headerMb }}
                             className="flex items-center gap-2 overflow-hidden w-full"
                         >
-                            <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-[10px] shrink-0">1</div>
-                            <div className="h-1.5 w-16 bg-blue-50 rounded-full" />
+                            <div className="w-5 h-5 rounded-full bg-app-softBlue/20 flex items-center justify-center text-app-softBlue font-bold text-[10px] shrink-0">1</div>
+                            <div className="h-1.5 w-16 rounded-full bg-[var(--app-blue-highlight)] opacity-90" />
                         </motion.div>
 
                         {/* ORIGINAL LINES (The "Content") */}
@@ -267,7 +271,11 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                                     <React.Fragment key={`top-${i}`}>
                                         <motion.div
                                             style={{ opacity: op, width }}
-                                            className={`h-1.5 rounded-full ${i === 0 || i === 3 ? "bg-blue-300 h-2" : "bg-blue-200"}`}
+                                            className={`rounded-full ${
+                                                i === 0 || i === 3
+                                                    ? 'h-2 bg-[var(--app-blue-bright)]'
+                                                    : 'h-1.5 bg-[var(--app-soft-blue)] opacity-95'
+                                            }`}
                                         />
                                         {i === 2 && (
                                             <motion.div
@@ -284,7 +292,7 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                                                         <motion.div
                                                             key={`top-row1-${q}`}
                                                             style={{ scale: s }}
-                                                            className="w-5 h-5 bg-[#8c648d]/20 text-[#8c648d] rounded-full flex items-center justify-center text-[9px] font-bold border border-[#8c648d]/30"
+                                                            className="w-5 h-5 rounded-full border-2 border-[var(--app-lilac)] bg-[var(--app-lavender)] text-white flex items-center justify-center text-[9px] font-bold shadow-[0_0_10px_rgba(140,101,198,0.55)]"
                                                         >
                                                             ?
                                                         </motion.div>
@@ -307,7 +315,7 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                                                         <motion.div
                                                             key={`top-row2-${q}`}
                                                             style={{ scale: s }}
-                                                            className="w-5 h-5 bg-[#8c648d]/20 text-[#8c648d] rounded-full flex items-center justify-center text-[9px] font-bold border border-[#8c648d]/30"
+                                                            className="w-5 h-5 rounded-full border-2 border-[var(--app-lilac)] bg-[var(--app-lavender)] text-white flex items-center justify-center text-[9px] font-bold shadow-[0_0_10px_rgba(140,101,198,0.55)]"
                                                         >
                                                             ?
                                                         </motion.div>
@@ -325,8 +333,8 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                             style={{ opacity: detailsOpacity, height: detailsHeight }}
                             className="w-full flex flex-col gap-1.5 pl-2 overflow-hidden"
                         >
-                            <div className="h-1.5 w-[90%] bg-blue-100/80 rounded-full" />
-                            <div className="h-1.5 w-[75%] bg-blue-100/80 rounded-full" />
+                            <div className="h-1.5 w-[90%] rounded-full bg-[var(--app-blue-highlight)] opacity-85" />
+                            <div className="h-1.5 w-[75%] rounded-full bg-[var(--app-blue-bright)] opacity-80" />
                         </motion.div>
                     </motion.div>
 
@@ -340,7 +348,7 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                         <motion.div
                             className="absolute -inset-4 rounded-2xl z-[-1]"
                             style={{
-                                backgroundColor: useTransform(cardBgOpacity, o => `rgba(255,255,255,${o})`),
+                                backgroundColor: useTransform(cardBgOpacity, o => `rgba(21, 42, 64, ${o})`),
                                 boxShadow: cardShadow,
                                 borderColor: cardBorderColor,
                                 borderWidth: 1,
@@ -353,8 +361,8 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                             style={{ opacity: headerOpacity, height: headerHeight, marginBottom: headerMb }}
                             className="flex items-center gap-2 overflow-hidden w-full"
                         >
-                            <div className="w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-[10px] shrink-0">2</div>
-                            <div className="h-1.5 w-16 bg-indigo-50 rounded-full" />
+                            <div className="w-5 h-5 rounded-full bg-app-mint/22 flex items-center justify-center text-app-mintBright font-bold text-[10px] shrink-0">2</div>
+                            <div className="h-1.5 w-16 rounded-full bg-[var(--app-mint-highlight)] opacity-90" />
                         </motion.div>
 
                         {/* ORIGINAL LINES */}
@@ -369,7 +377,11 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                                     <React.Fragment key={`bottom-${i}`}>
                                         <motion.div
                                             style={{ opacity: op, width }}
-                                            className={`h-1.5 rounded-full ${i === 0 || i === 3 ? "bg-indigo-300 h-2" : "bg-indigo-200"}`}
+                                            className={`rounded-full ${
+                                                i === 0 || i === 3
+                                                    ? 'h-2 bg-[var(--app-mint-highlight)]'
+                                                    : 'h-1.5 bg-[var(--app-mint)] opacity-95'
+                                            }`}
                                         />
                                         {i === 2 && (
                                             <motion.div
@@ -386,7 +398,7 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                                                         <motion.div
                                                             key={`bottom-row1-${q}`}
                                                             style={{ scale: s }}
-                                                            className="w-5 h-5 bg-[#8c648d]/20 text-[#8c648d] rounded-full flex items-center justify-center text-[9px] font-bold border border-[#8c648d]/30"
+                                                            className="w-5 h-5 rounded-full border-2 border-[var(--app-lilac)] bg-[var(--app-lavender)] text-white flex items-center justify-center text-[9px] font-bold shadow-[0_0_10px_rgba(140,101,198,0.55)]"
                                                         >
                                                             ?
                                                         </motion.div>
@@ -410,7 +422,7 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                                                         <motion.div
                                                             key={`bottom-row2-${q}`}
                                                             style={{ scale: s }}
-                                                            className="w-5 h-5 bg-[#8c648d]/20 text-[#8c648d] rounded-full flex items-center justify-center text-[9px] font-bold border border-[#8c648d]/30"
+                                                            className="w-5 h-5 rounded-full border-2 border-[var(--app-lilac)] bg-[var(--app-lavender)] text-white flex items-center justify-center text-[9px] font-bold shadow-[0_0_10px_rgba(140,101,198,0.55)]"
                                                         >
                                                             ?
                                                         </motion.div>
@@ -428,8 +440,8 @@ export default function ProcessingScreen({ progress, loop = false }: ProcessingS
                             style={{ opacity: detailsOpacity, height: detailsHeight }}
                             className="w-full flex flex-col gap-1.5 pl-2 overflow-hidden"
                         >
-                            <div className="h-1.5 w-[90%] bg-indigo-100/80 rounded-full" />
-                            <div className="h-1.5 w-[75%] bg-indigo-100/80 rounded-full" />
+                            <div className="h-1.5 w-[90%] rounded-full bg-[var(--app-mint-highlight)] opacity-85" />
+                            <div className="h-1.5 w-[75%] rounded-full bg-[var(--app-mint-bright)] opacity-80" />
                         </motion.div>
                     </motion.div>
 

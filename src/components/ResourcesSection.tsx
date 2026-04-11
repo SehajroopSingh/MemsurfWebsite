@@ -66,14 +66,14 @@ const resources: ResourceItem[] = [
 
 export default function ResourcesSection() {
   return (
-    <div className="mt-24 pt-16 border-t border-gray-100">
+    <div className="mt-24 pt-16 border-t border-[#1f3d5c]">
       
       {/* Header formatted exactly like the Blog Header above it */}
       <div className="mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+        <h2 className="text-4xl md:text-5xl font-bold text-white">
           Resources
         </h2>
-        <p className="text-lg text-gray-600 mt-4">
+        <p className="text-lg text-gray-300 mt-4">
           Smart people, good papers, fewer rabbit holes.
         </p>
       </div>
@@ -88,33 +88,33 @@ export default function ResourcesSection() {
             rel="noopener noreferrer"
             className="group block"
           >
-            <div className="bg-white overflow-hidden">
+            <div className="bg-transparent overflow-hidden">
               {/* Image proxy box matching BlogCard aspect-[16/10] */}
-              <div className="relative w-full aspect-[16/10] overflow-hidden rounded-lg mb-4 bg-gray-50 flex items-center justify-center border border-gray-100">
+              <div className="relative w-full aspect-[16/10] overflow-hidden rounded-lg mb-4 bg-[#152a40] flex items-center justify-center border border-[#1f3d5c]">
                 <div className="transform transition-transform duration-500 group-hover:scale-110">
                   {/* Subtle themed background with icons to look "rich" without needing JPG files */}
                   {item.type === 'Article' && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-50"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-indigo-900/20 opacity-50"></div>
                   )}
                   {item.type === 'Book' && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-purple-50 opacity-50"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-purple-900/20 opacity-50"></div>
                   )}
                   {item.type === 'Podcast' && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 opacity-50"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-teal-900/20 opacity-50"></div>
                   )}
 
-                  {item.type === 'Article' && <ArticleIcon className="w-16 h-16 text-blue-300 relative z-10" />}
-                  {item.type === 'Book' && <BookIcon className="w-16 h-16 text-indigo-300 relative z-10" />}
-                  {item.type === 'Podcast' && <PodcastIcon className="w-16 h-16 text-emerald-300 relative z-10" />}
+                  {item.type === 'Article' && <ArticleIcon className="w-16 h-16 text-blue-400 relative z-10" />}
+                  {item.type === 'Book' && <BookIcon className="w-16 h-16 text-indigo-400 relative z-10" />}
+                  {item.type === 'Podcast' && <PodcastIcon className="w-16 h-16 text-emerald-400 relative z-10" />}
                 </div>
               </div>
               
               {/* Content matching BlogCard text layout */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-3">
+                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-app-mint transition-colors line-clamp-3">
                   {item.title} <ExternalLinkIcon />
                 </h3>
-                <p className="text-sm text-gray-500 font-medium">
+                <p className="text-sm text-gray-400 font-medium">
                   Resource &bull; {item.type}
                 </p>
               </div>
@@ -124,18 +124,18 @@ export default function ResourcesSection() {
       </div>
 
       {/* Modern, clean CTA matching the site aesthetic rather than overpowering the blog UI */}
-      <div className="mt-16 bg-gray-50 rounded-2xl p-8 border border-gray-200">
+      <div className="mt-16 bg-app-surfaceElevated rounded-2xl p-8 border border-app-border">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-left flex-1 border-l-4 border-blue-600 pl-4">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
+          <div className="text-left flex-1 border-l-4 border-app-softBlue pl-4">
+            <h3 className="text-xl font-bold text-white mb-2">
               Have a paper, article, podcast or author you think we should add here?
             </h3>
-            <p className="text-gray-600">
+            <p className="text-app-textMuted">
               We are always on the lookout for great resources on learning, memory, and cognitive science.
             </p>
           </div>
           <div className="flex-shrink-0 w-full md:w-auto mt-4 md:mt-0">
-            <a href="mailto:contact@memsurf.com" className="block text-center bg-gray-900 text-white font-medium px-8 py-3 rounded-full hover:bg-black transition-colors">
+            <a href="mailto:contact@memsurf.com" className="block text-center bg-app-mint text-app-canvas font-medium px-8 py-3 rounded-full hover:opacity-90 transition-opacity">
               Send it our way
             </a>
           </div>

@@ -60,7 +60,7 @@ export default function EmotionalVideosSectionMobile({
     <section
       id="emotion-video-section"
       ref={containerRef as RefObject<HTMLDivElement>}
-      className="relative bg-white w-full py-14"
+      className="relative bg-transparent w-full py-14"
       style={{ zIndex: 40 }}
     >
       <div className="max-w-4xl mx-auto px-4 flex flex-col gap-8 relative">
@@ -110,16 +110,16 @@ export default function EmotionalVideosSectionMobile({
                     key={`dot-${idx}`}
                     type="button"
                     onClick={() => handleDotClick(idx)}
-                    className="group relative h-6 w-6 rounded-full border border-gray-300 bg-white shadow-[0_1px_4px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    className="group relative h-6 w-6 rounded-full border border-[#1f3d5c] bg-[#152a40] shadow-[0_1px_4px_rgba(0,0,0,0.5)] focus:outline-none focus:ring-2 focus:ring-indigo-300"
                     aria-label={`Go to image ${idx + 1}`}
                   >
-                    <div className="absolute inset-0 rounded-full overflow-hidden bg-gray-100">
+                    <div className="absolute inset-0 rounded-full overflow-hidden bg-[#0f2133]">
                       <motion.div
                         key={`${activeIndex}-${idx}`}
                         initial={{ width: isActive ? '0%' : '0%' }}
                         animate={{ width: isActive ? '100%' : '0%' }}
                         transition={{ duration: 4, ease: 'linear' }}
-                        className="h-full bg-gray-900/80"
+                        className="h-full bg-app-surfaceElevated/85"
                       />
                     </div>
                   </button>

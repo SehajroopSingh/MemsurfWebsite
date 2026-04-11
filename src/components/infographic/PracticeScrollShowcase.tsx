@@ -120,7 +120,7 @@ export default function PracticeScrollShowcase() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap text-center mb-4">
+                        <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide whitespace-nowrap text-center mb-4 drop-shadow-sm">
                             Daily Reinforcement
                         </h2>
 

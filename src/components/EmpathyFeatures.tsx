@@ -8,37 +8,37 @@ const features = [
         icon: Brain,
         title: 'Cognitive Offloading',
         description: 'We hold the information so you don\'t have to carry the mental load.',
-        color: 'bg-blue-100 text-blue-600',
+        color: 'bg-app-softBlue/20 text-app-softBlue',
     },
     {
         icon: Zap,
         title: 'Gentle Pacing',
         description: 'Learn at your own rhythm. No streaks to lose, no shame to feel.',
-        color: 'bg-purple-100 text-purple-600',
+        color: 'bg-app-violet/20 text-app-lavender',
     },
     {
         icon: Calendar,
         title: 'Science-Backed Review',
         description: 'We schedule reviews when they are most effective, not when they are most stressful.',
-        color: 'bg-green-100 text-green-600',
+        color: 'bg-app-mint/20 text-app-mint',
     },
     {
         icon: TrendingUp,
         title: 'Growth, Not Grades',
         description: 'Focus on your personal progress. You are not a number.',
-        color: 'bg-orange-100 text-orange-600',
+        color: 'bg-app-lilac/20 text-app-lilac',
     },
 ]
 
 export default function EmpathyFeatures() {
     return (
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-transparent">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold text-app-text mb-4">
                         Designed for Human Beings
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-xl text-app-textMuted max-w-2xl mx-auto">
                         Technology should adapt to you, not the other way around.
                     </p>
                 </div>
@@ -53,13 +53,13 @@ export default function EmpathyFeatures() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                                className="p-8 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-gray-100"
+                                className="p-8 bg-app-surfaceElevated rounded-2xl hover:bg-app-surface hover:shadow-xl transition-all duration-300 border border-app-border hover:border-app-softBlue/40"
                             >
                                 <div className={`inline-flex p-4 rounded-xl ${feature.color} mb-6`}>
                                     <Icon className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                                <h3 className="text-xl font-bold text-app-text mb-3">{feature.title}</h3>
+                                <p className="text-app-textMuted leading-relaxed">{feature.description}</p>
                             </motion.div>
                         )
                     })}

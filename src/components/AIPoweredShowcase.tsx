@@ -39,14 +39,14 @@ const processFlow = [
 
 export default function AIPoweredShowcase() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-app-text mb-4">
             Powered by
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Advanced AI</span>
+            <span className="bg-gradient-to-r from-app-softBlue to-app-violet bg-clip-text text-transparent"> Advanced AI</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-app-textMuted max-w-2xl mx-auto">
             Intelligent algorithms that understand, organize, and transform your content into effective learning materials
           </p>
         </div>
@@ -56,10 +56,10 @@ export default function AIPoweredShowcase() {
           {aiFeatures.map((feature, index) => {
             const Icon = feature.icon
             const colorClasses = {
-              blue: 'bg-blue-50 border-blue-200 text-blue-600',
-              purple: 'bg-purple-50 border-purple-200 text-purple-600',
-              green: 'bg-green-50 border-green-200 text-green-600',
-              orange: 'bg-orange-50 border-orange-200 text-orange-600',
+              blue: 'bg-app-softBlue/15 border-app-border text-app-softBlue',
+              purple: 'bg-app-violet/15 border-app-border text-app-lavender',
+              green: 'bg-app-mint/15 border-app-border text-app-mint',
+              orange: 'bg-app-lilac/15 border-app-border text-app-lilac',
             }
             return (
               <motion.div
@@ -68,53 +68,53 @@ export default function AIPoweredShowcase() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300"
+                className="bg-app-surfaceElevated rounded-xl p-6 border-2 border-app-border hover:border-app-softBlue hover:shadow-lg transition-all duration-300"
               >
                 <div className={`inline-flex p-3 rounded-lg ${colorClasses[feature.color as keyof typeof colorClasses]} mb-4`}>
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-app-text mb-2">{feature.title}</h3>
+                <p className="text-app-textMuted text-sm leading-relaxed">{feature.description}</p>
               </motion.div>
             )
           })}
         </div>
 
         {/* Process Flow */}
-        <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 rounded-2xl p-8 md:p-12 border border-blue-200">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+        <div className="bg-gradient-to-br from-app-softBlue/15 via-app-violet/15 to-app-mint/10 rounded-2xl p-8 md:p-12 border border-app-border">
+          <h3 className="text-2xl font-bold text-app-text mb-8 text-center">
             AI Processing Flow
           </h3>
           <div className="relative">
             {/* Flow Line */}
-            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 transform -translate-y-1/2"></div>
+            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-app-softBlue/40 via-app-violet/40 to-app-mint/40 transform -translate-y-1/2"></div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative">
               {processFlow.map((item, index) => (
                 <div key={index} className="text-center">
                   <div className="relative mb-4">
-                    <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-500 border-4 border-white shadow-lg flex items-center justify-center">
+                    <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-app-softBlue to-app-violet border-4 border-app-canvas shadow-lg flex items-center justify-center">
                       <span className="text-white font-bold text-lg">{index + 1}</span>
                     </div>
                     {index < processFlow.length - 1 && (
                       <div className="hidden md:flex absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
-                        <ArrowRight className="w-6 h-6 text-purple-400" />
+                        <ArrowRight className="w-6 h-6 text-app-lavender" />
                       </div>
                     )}
                   </div>
-                  <div className="text-lg font-bold text-gray-900 mb-1">{item.step}</div>
-                  <div className="text-sm text-gray-600">{item.description}</div>
+                  <div className="text-lg font-bold text-app-text mb-1">{item.step}</div>
+                  <div className="text-sm text-app-textMuted">{item.description}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-12 p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200">
+          <div className="mt-12 p-6 bg-app-surfaceElevated/90 backdrop-blur-sm rounded-xl border border-app-border">
             <div className="flex items-start gap-4">
-              <Brain className="w-8 h-8 text-purple-600 flex-shrink-0 mt-1" />
+              <Brain className="w-8 h-8 text-app-lavender flex-shrink-0 mt-1" />
               <div>
-                <h4 className="text-lg font-bold text-gray-900 mb-2">Intelligent Learning System</h4>
-                <p className="text-gray-700 leading-relaxed">
+                <h4 className="text-lg font-bold text-app-text mb-2">Intelligent Learning System</h4>
+                <p className="text-app-textMuted leading-relaxed">
                   Our AI doesn't just generate questions—it understands context, identifies relationships between concepts,
                   and creates a comprehensive learning hierarchy. From raw text to structured knowledge, every step is
                   optimized for maximum retention and understanding.

@@ -32,18 +32,18 @@ export default function ResearchSection() {
     const [openId, setOpenId] = useState<string | null>(null)
 
     return (
-        <section className="py-24 bg-white text-black">
+        <section className="py-24 bg-transparent text-app-text">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-app-surface text-app-blueBright rounded-full mb-6 border border-app-border">
                         <BookOpen className="w-4 h-4" />
                         <span className="text-sm font-bold uppercase tracking-wide">The Science</span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 text-app-text">
                         We don't think you're stupid.<br />
-                        <span className="text-gray-500">We know your hardware is outdated.</span>
+                        <span className="text-app-textMuted">We know your hardware is outdated.</span>
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-xl text-app-textMuted max-w-2xl mx-auto">
                         Your brain hasn't had a firmware update in 50,000 years. It wasn't built for the Information Age. Here's how we patch it.
                     </p>
                 </div>
@@ -57,26 +57,26 @@ export default function ResearchSection() {
                             <motion.div
                                 key={topic.id}
                                 initial={false}
-                                className={`border rounded-xl overflow-hidden transition-colors duration-300 ${isOpen ? 'border-blue-500 bg-blue-50/50' : 'border-gray-200 bg-white hover:border-gray-300'}`}
+                                className={`border rounded-xl overflow-hidden transition-colors duration-300 ${isOpen ? 'border-app-softBlue bg-app-softBlue/10' : 'border-app-border bg-app-surfaceElevated hover:border-app-border/80'}`}
                             >
                                 <button
                                     onClick={() => setOpenId(isOpen ? null : topic.id)}
                                     className="w-full flex items-center justify-between p-6 text-left"
                                 >
                                     <div className="flex items-center gap-4">
-                                        <div className={`p-3 rounded-lg ${isOpen ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-500'}`}>
+                                        <div className={`p-3 rounded-lg ${isOpen ? 'bg-app-softBlue/20 text-app-softBlue' : 'bg-app-surface text-app-textMuted'}`}>
                                             <Icon className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <h3 className={`text-lg font-bold ${isOpen ? 'text-blue-900' : 'text-gray-900'}`}>
+                                            <h3 className={`text-lg font-bold ${isOpen ? 'text-app-text' : 'text-app-text'}`}>
                                                 {topic.title}
                                             </h3>
-                                            <p className="text-sm text-gray-500 mt-1">
+                                            <p className="text-sm text-app-textMuted mt-1">
                                                 {topic.summary}
                                             </p>
                                         </div>
                                     </div>
-                                    <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-blue-500' : ''}`} />
+                                    <ChevronDown className={`w-5 h-5 text-app-textMuted transition-transform duration-300 ${isOpen ? 'rotate-180 text-app-softBlue' : ''}`} />
                                 </button>
 
                                 <AnimatePresence>
@@ -88,7 +88,7 @@ export default function ResearchSection() {
                                             transition={{ duration: 0.3 }}
                                         >
                                             <div className="px-6 pb-6 pt-0 pl-[5.5rem]">
-                                                <p className="text-gray-700 leading-relaxed">
+                                                <p className="text-app-textMuted leading-relaxed">
                                                     {topic.content}
                                                 </p>
                                             </div>

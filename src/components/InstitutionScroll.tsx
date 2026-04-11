@@ -134,18 +134,18 @@ export default function InstitutionScroll() {
   const duplicatedInstitutions = [...availableInstitutions, ...availableInstitutions, ...availableInstitutions]
 
   return (
-    <section className="py-10 md:py-6 bg-white">
+    <section className="py-10 md:py-6 bg-transparent">
       <div className="max-w-xl md:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <p className="text-3xl md:text-4xl font-semibold tracking-wider text-gray-600 uppercase">
+          <p className="text-3xl md:text-4xl font-semibold tracking-wider text-app-textMuted uppercase">
             Trusted by learners from
           </p>
         </div>
 
         <div className="relative overflow-hidden">
-          {/* Gradient overlays for fade effect */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
+          {/* Edge fades: feather to canvas so center stays open for BlobbyBackground */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-app-canvas via-app-canvas/40 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-app-canvas via-app-canvas/40 to-transparent z-10 pointer-events-none" />
 
           <div className="flex overflow-hidden">
             <motion.div
@@ -178,7 +178,7 @@ export default function InstitutionScroll() {
                     )
                   })
               ) : (
-                <div className="flex-shrink-0 px-4 text-center text-gray-500">
+                <div className="flex-shrink-0 px-4 text-center text-app-textMuted">
                   <p className="text-sm">Loading institutions...</p>
                 </div>
               )}

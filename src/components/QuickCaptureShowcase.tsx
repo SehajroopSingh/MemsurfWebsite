@@ -32,29 +32,29 @@ const steps = [
 
 export default function QuickCaptureShowcase() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-app-text mb-4">
             From Text to
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Structured Learning</span>
+            <span className="bg-gradient-to-r from-app-softBlue to-app-violet bg-clip-text text-transparent"> Structured Learning</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-app-textMuted max-w-2xl mx-auto">
             Transform any content into interactive learning materials in seconds
           </p>
         </div>
 
         <div className="relative">
           {/* Connection Lines */}
-          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-200 via-purple-200 to-green-200 transform -translate-y-1/2"></div>
+          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-app-softBlue/40 via-app-violet/40 to-app-mint/40 transform -translate-y-1/2"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {steps.map((step, index) => {
               const Icon = step.icon
               const colorClasses = {
-                blue: 'bg-blue-50 border-blue-200 text-blue-600',
-                purple: 'bg-purple-50 border-purple-200 text-purple-600',
-                green: 'bg-green-50 border-green-200 text-green-600',
+                blue: 'bg-app-softBlue/15 border-app-border text-app-softBlue',
+                purple: 'bg-app-violet/15 border-app-border text-app-lavender',
+                green: 'bg-app-mint/15 border-app-border text-app-mint',
               }
               return (
                 <motion.div
@@ -65,21 +65,21 @@ export default function QuickCaptureShowcase() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="relative"
                 >
-                  <div className="bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300">
+                  <div className="bg-app-surfaceElevated rounded-2xl p-8 border-2 border-app-border hover:border-app-softBlue hover:shadow-xl transition-all duration-300">
                     {/* Step Number */}
                     <div className="flex items-center justify-between mb-6">
                       <div className={`flex items-center justify-center w-12 h-12 rounded-full ${colorClasses[step.color as keyof typeof colorClasses]} border-2`}>
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className="text-2xl font-bold text-gray-300">0{step.step}</span>
+                      <span className="text-2xl font-bold text-app-border">0{step.step}</span>
                     </div>
 
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{step.title}</h3>
-                    <p className="text-gray-600 mb-6">{step.description}</p>
+                    <h3 className="text-2xl font-bold text-app-text mb-2">{step.title}</h3>
+                    <p className="text-app-textMuted mb-6">{step.description}</p>
 
                     {/* Content Preview */}
-                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                      <pre className="text-sm text-gray-700 whitespace-pre-wrap font-sans">
+                    <div className="bg-app-surface rounded-lg p-4 border border-app-border">
+                      <pre className="text-sm text-app-textMuted whitespace-pre-wrap font-sans">
                         {step.content}
                       </pre>
                     </div>
@@ -88,8 +88,8 @@ export default function QuickCaptureShowcase() {
                   {/* Arrow (hidden on last item) */}
                   {index < steps.length - 1 && (
                     <div className="hidden md:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                      <div className="bg-white p-2 rounded-full border-2 border-gray-200">
-                        <ArrowRight className="w-5 h-5 text-gray-400" />
+                      <div className="bg-app-surfaceElevated p-2 rounded-full border-2 border-app-border">
+                        <ArrowRight className="w-5 h-5 text-app-textMuted" />
                       </div>
                     </div>
                   )}
@@ -100,9 +100,9 @@ export default function QuickCaptureShowcase() {
         </div>
 
         <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-blue-200">
-            <Sparkles className="w-5 h-5 text-purple-600" />
-            <span className="text-gray-700 font-semibold">
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-app-softBlue/15 to-app-violet/15 rounded-full border border-app-border">
+            <Sparkles className="w-5 h-5 text-app-lavender" />
+            <span className="text-app-textMuted font-semibold">
               From text to structured learning in seconds
             </span>
           </div>

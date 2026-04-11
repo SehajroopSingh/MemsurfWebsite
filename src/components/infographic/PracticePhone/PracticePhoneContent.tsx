@@ -57,30 +57,30 @@ export default function PracticePhoneContent({
 
     return (
         <PhoneScreen>
-            <div className="absolute inset-0 bg-white">
+            <div className="absolute inset-0 bg-app-canvas">
                 {/* Stage 1: daily practice entry is just the button */}
                 <motion.div
                     style={{ opacity: baseScreenOpacity }}
-                    className="absolute inset-0 flex items-center justify-center px-6 pt-16 pb-12 bg-gradient-to-b from-white via-gray-50 to-gray-100"
+                    className="absolute inset-0 flex items-center justify-center px-6 pt-16 pb-12 bg-app-canvas"
                 >
                     <motion.div
                         style={{ scale: buttonScale, opacity: buttonOpacity }}
-                        className="w-full max-w-[260px] rounded-[28px] border border-gray-100 bg-gray-50 p-5 flex flex-col gap-3 shadow-sm"
+                        className="w-full max-w-[260px] rounded-[28px] border border-app-border bg-app-surface p-5 flex flex-col gap-3 shadow-sm"
                     >
-                        <div className="h-2 w-16 bg-gray-200 rounded-full" />
+                        <div className="h-2 w-16 bg-app-surfaceElevated rounded-full" />
                         <motion.div
                             style={{
                                 scale: practiceButtonScale,
                                 y: practiceButtonY,
                                 boxShadow: practiceButtonBoxShadow
                             }}
-                            className="h-10 rounded-2xl bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-500 flex items-center justify-center cursor-pointer"
+                            className="h-10 rounded-2xl bg-gradient-to-r from-app-mint via-app-softBlue to-app-violet flex items-center justify-center cursor-pointer"
                         >
                             <span className="text-white text-sm font-semibold tracking-wide">Practice Now</span>
                         </motion.div>
                         <div className="flex gap-2">
-                            <div className="h-2 w-1/2 bg-gray-200 rounded-full" />
-                            <div className="h-2 w-1/3 bg-gray-100 rounded-full" />
+                            <div className="h-2 w-1/2 bg-app-border rounded-full" />
+                            <div className="h-2 w-1/3 bg-app-surfaceElevated rounded-full" />
                         </div>
                     </motion.div>
                 </motion.div>
@@ -88,20 +88,20 @@ export default function PracticePhoneContent({
                 {/* Stage 2: full-screen lesson view */}
                 <motion.div
                     style={{ opacity: lessonOpacity, scale: lessonScale, x: lessonX }}
-                    className="absolute inset-0 px-6 py-10 bg-gradient-to-br from-white via-blue-50 to-blue-100 flex flex-col gap-8"
+                    className="absolute inset-0 px-6 py-10 bg-app-canvas flex flex-col gap-8"
                 >
                     <div className="flex items-center justify-between">
-                        <div className="h-2 w-16 bg-blue-200 rounded-full" />
+                        <div className="h-2 w-16 bg-app-blueDark rounded-full" />
                         <div className="flex gap-2">
-                            <div className="h-2 w-10 bg-blue-100 rounded-full" />
-                            <div className="h-2 w-8 bg-blue-100 rounded-full" />
+                            <div className="h-2 w-10 bg-app-surfaceElevated rounded-full" />
+                            <div className="h-2 w-8 bg-app-surfaceElevated rounded-full" />
                         </div>
                     </div>
-                    <div className="flex-1 flex flex-col items-center gap-8 text-blue-800">
+                    <div className="flex-1 flex flex-col items-center gap-8 text-app-textMuted">
                         {/* Static Header */}
                         <div className="text-center space-y-2 mt-4">
-                            <p className="text-sm font-semibold tracking-[0.4em] text-blue-400 uppercase">Lesson</p>
-                            <p className="text-4xl font-bold text-blue-700">Lesson 1</p>
+                            <p className="text-sm font-semibold tracking-[0.4em] text-app-softBlue uppercase">Lesson</p>
+                            <p className="text-4xl font-bold text-white">Lesson 1</p>
                         </div>
 
                         {/* Dynamic Content */}
@@ -118,13 +118,22 @@ export default function PracticePhoneContent({
                                     >
                                         <div className="w-full max-w-[260px] space-y-3">
                                             {[0, 1, 2, 3].map((_, idx) => (
-                                                <div key={`l1-${idx}`} className="h-4 rounded-full bg-blue-100/80" style={{ width: `${100 - idx * 10}%` }} />
+                                                <div
+                                                    key={`l1-${idx}`}
+                                                    className="h-4 rounded-full bg-[var(--app-blue-bright)] opacity-90"
+                                                    style={{ width: `${100 - idx * 10}%` }}
+                                                />
                                             ))}
                                         </div>
                                         <div className="grid grid-cols-2 gap-3 w-full max-w-[280px]">
                                             {[0, 1].map((_, idx) => (
-                                                <div key={`c1-${idx}`} className="h-24 rounded-3xl bg-white/80 border border-blue-100 flex items-center justify-center shadow-sm">
-                                                    <div className="h-2 w-1/2 bg-blue-100 rounded-full" />
+                                                <div
+                                                    key={`c1-${idx}`}
+                                                    className={`h-24 rounded-3xl bg-app-surfaceElevated/90 border shadow-sm flex items-center justify-center ${
+                                                        idx === 0 ? 'border-app-softBlue/30 ring-1 ring-app-softBlue/15' : 'border-app-mint/25 ring-1 ring-app-mint/10'
+                                                    }`}
+                                                >
+                                                    <div className="h-2 w-1/2 rounded-full bg-[var(--app-text-muted)] opacity-85" />
                                                 </div>
                                             ))}
                                         </div>
@@ -139,15 +148,15 @@ export default function PracticePhoneContent({
                                         transition={{ duration: 0.5 }}
                                         className="absolute inset-0 flex flex-col items-center gap-6"
                                     >
-                                        <div className="w-full max-w-[280px] h-32 rounded-3xl bg-blue-50 border border-blue-100 p-4 space-y-3">
-                                            <div className="h-2 w-1/3 bg-blue-200 rounded-full" />
-                                            <div className="h-2 w-full bg-blue-100 rounded-full" />
-                                            <div className="h-2 w-5/6 bg-blue-100 rounded-full" />
-                                            <div className="h-2 w-4/6 bg-blue-100 rounded-full" />
+                                        <div className="w-full max-w-[280px] h-32 rounded-3xl bg-app-surfaceElevated/90 border border-app-lavender/25 ring-1 ring-app-blueHi/20 p-4 space-y-3">
+                                            <div className="h-2 w-1/3 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
+                                            <div className="h-2 w-full rounded-full bg-[var(--app-text-muted)] opacity-85" />
+                                            <div className="h-2 w-5/6 rounded-full bg-[var(--app-text-muted)] opacity-75" />
+                                            <div className="h-2 w-4/6 rounded-full bg-[var(--app-text-muted)] opacity-65" />
                                         </div>
                                         <div className="w-full max-w-[260px] space-y-3">
-                                            <div className="h-4 rounded-full bg-blue-100/80 w-full" />
-                                            <div className="h-4 rounded-full bg-blue-100/80 w-3/4" />
+                                            <div className="h-4 w-full rounded-full bg-[var(--app-blue-highlight)] opacity-95" />
+                                            <div className="h-4 w-3/4 rounded-full bg-[var(--app-blue-bright)] opacity-90" />
                                         </div>
                                     </motion.div>
                                 )}
@@ -161,19 +170,19 @@ export default function PracticePhoneContent({
                                         className="absolute inset-0 flex flex-col items-center gap-6"
                                     >
                                         <div className="w-full max-w-[260px] space-y-3 text-center flex flex-col items-center">
-                                            <div className="h-4 rounded-full bg-blue-200 w-1/2 mb-2" />
+                                            <div className="mb-2 h-4 w-1/2 rounded-full bg-[var(--app-mint-bright)] opacity-95" />
                                             {[0, 1, 2].map((_, idx) => (
-                                                <div key={`l3-${idx}`} className="h-3 rounded-full bg-blue-100/80 w-full" />
+                                                <div key={`l3-${idx}`} className="h-3 w-full rounded-full bg-[var(--app-blue-bright)] opacity-88" />
                                             ))}
                                         </div>
                                         <div className="flex gap-3 w-full max-w-[280px]">
-                                            <div className="flex-1 h-32 rounded-3xl bg-white/80 border border-blue-100 p-3 flex flex-col justify-end">
-                                                <div className="h-8 w-8 rounded-full bg-blue-50 mb-auto" />
-                                                <div className="h-2 w-2/3 bg-blue-100 rounded-full" />
+                                            <div className="flex-1 h-32 rounded-3xl bg-app-surfaceElevated/90 border border-app-softBlue/28 p-3 flex flex-col justify-end ring-1 ring-app-mint/12">
+                                                <div className="mb-auto h-8 w-8 rounded-full border border-[var(--app-soft-blue)] bg-[var(--app-soft-blue)] opacity-30" />
+                                                <div className="h-2 w-2/3 rounded-full bg-[var(--app-text-muted)] opacity-85" />
                                             </div>
-                                            <div className="flex-1 h-32 rounded-3xl bg-white/80 border border-blue-100 p-3 flex flex-col justify-end">
-                                                <div className="h-8 w-8 rounded-full bg-blue-50 mb-auto" />
-                                                <div className="h-2 w-2/3 bg-blue-100 rounded-full" />
+                                            <div className="flex-1 h-32 rounded-3xl bg-app-surfaceElevated/90 border border-app-mint/28 p-3 flex flex-col justify-end ring-1 ring-app-lavender/12">
+                                                <div className="mb-auto h-8 w-8 rounded-full border border-[var(--app-mint)] bg-[var(--app-mint)] opacity-25" />
+                                                <div className="h-2 w-2/3 rounded-full bg-[var(--app-text-muted)] opacity-85" />
                                             </div>
                                         </div>
                                     </motion.div>
@@ -186,8 +195,8 @@ export default function PracticePhoneContent({
                             <motion.div
                                 key={`lesson-pill-${pill}`}
                                 animate={{
-                                    backgroundColor: step === pill ? '#60a5fa' : '#ffffffb3',
-                                    borderColor: step === pill ? '#3b82f6' : '#dbeafe'
+                                    backgroundColor: step === pill ? '#7196cf' : 'rgba(21, 42, 64, 0.85)',
+                                    borderColor: step === pill ? '#5376ab' : 'rgba(31, 61, 92, 0.9)'
                                 }}
                                 className="h-2 rounded-full border"
                             />
@@ -198,11 +207,11 @@ export default function PracticePhoneContent({
                 {/* Stage 3: quiz follow-up */}
                 <motion.div
                     style={{ opacity: quizOpacity, x: quizX }}
-                    className="absolute inset-0 px-6 py-10 bg-gradient-to-br from-white via-[#8c648d]/10 to-indigo-50 flex flex-col gap-6"
+                    className="absolute inset-0 px-6 py-10 bg-app-canvas flex flex-col gap-6"
                 >
                     <div className="flex items-center justify-between">
-                        <div className="h-2 w-24 bg-[#8c648d]/30 rounded-full" />
-                        <div className="h-8 w-8 rounded-full bg-white/70 border border-[#8c648d]/20" />
+                        <div className="h-2 w-24 bg-app-border rounded-full" />
+                        <div className="h-8 w-8 rounded-full bg-app-surface border border-app-border" />
                     </div>
                     <div className="relative flex-1 mt-2 overflow-hidden">
                         <AnimatePresence mode="wait">
@@ -213,36 +222,41 @@ export default function PracticePhoneContent({
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: -100 }}
                                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                                    className="absolute inset-0 p-5 rounded-3xl bg-white shadow-sm border border-[#8c648d]/20 flex flex-col gap-4"
+                                    className="absolute inset-0 p-5 rounded-3xl bg-app-surface shadow-sm border border-app-border flex flex-col gap-4"
                                 >
                                     <div className="flex items-center justify-between mb-2">
-                                        <span className="text-xs font-bold tracking-wider text-[#8c648d] uppercase">
+                                        <span className="text-xs font-bold tracking-wider text-app-lavender uppercase">
                                             {QUIZ_LABELS[lockedQuiz] || 'Quiz'}
                                         </span>
-                                        <div className="h-1.5 w-12 bg-[#8c648d]/20 rounded-full" />
+                                        <div className="h-1.5 w-12 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
                                     </div>
 
                                     {lockedQuiz === 'trueFalse' && (
                                         <>
-                                            <div className="h-2 w-1/3 bg-[#8c648d]/30 rounded-full" />
+                                            <div className="h-2 w-1/3 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
                                             <div className="space-y-2">
-                                                <div className="h-2 rounded-full bg-[#8c648d]/20 w-full" />
-                                                <div className="h-2 rounded-full bg-[#8c648d]/20 w-2/3" />
+                                                <div className="h-2 w-full rounded-full bg-[var(--app-text-muted)] opacity-90" />
+                                                <div className="h-2 w-2/3 rounded-full bg-[var(--app-text-muted)] opacity-80" />
                                             </div>
                                             <div className="grid grid-cols-2 gap-3 mt-auto">
                                                 {[0, 1].map((opt) => (
-                                                    <div key={opt} className="p-3 rounded-2xl bg-[#8c648d]/10 border border-[#8c648d]/20 flex items-center justify-between">
-                                                        <div className="h-2 w-2/3 bg-[#8c648d]/30 rounded-full" />
+                                                    <div key={opt} className="p-3 rounded-2xl bg-app-lavender/10 border border-app-lavender/25 flex items-center justify-between">
+                                                        <div className="h-2 w-2/3 rounded-full bg-[var(--app-blue-bright)] opacity-95" />
                                                         <motion.div
                                                             key={`tf-blob-${opt}`}
-                                                            initial={{ scale: 1, backgroundColor: 'rgba(140, 100, 141, 0.4)' }}
+                                                            initial={{ scale: 1, backgroundColor: 'rgba(140, 101, 198, 0.42)' }}
                                                             animate={
                                                                 opt === 0
                                                                     ? {
                                                                         scale: [1, 0.92, 1.08, 1],
-                                                                        backgroundColor: ['rgba(140, 100, 141, 0.4)', 'rgba(140, 100, 141, 0.4)', '#34d399', '#34d399']
+                                                                        backgroundColor: [
+                                                                            'rgba(140, 101, 198, 0.42)',
+                                                                            'rgba(140, 101, 198, 0.42)',
+                                                                            'var(--app-mint)',
+                                                                            'var(--app-mint)'
+                                                                        ]
                                                                     }
-                                                                    : { scale: 1, backgroundColor: '#fecdd3' }
+                                                                    : { scale: 1, backgroundColor: 'rgba(31, 61, 92, 0.55)' }
                                                             }
                                                             transition={{ duration: 0.4, times: [0, 0.25, 0.55, 1], ease: 'easeOut' }}
                                                             className="w-4 h-4 rounded-full"
@@ -254,24 +268,29 @@ export default function PracticePhoneContent({
                                     )}
                                     {lockedQuiz === 'multiple' && (
                                         <>
-                                            <div className="h-2 w-1/2 bg-[#8c648d]/30 rounded-full" />
+                                            <div className="h-2 w-1/2 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
                                             <div className="space-y-2 flex-1">
                                                 {Array.from({ length: 3 }).map((_, idx) => (
-                                                    <div key={`mc-${idx}`} className="p-3 rounded-2xl bg-[#8c648d]/10 border border-[#8c648d]/20 flex items-center gap-3">
+                                                    <div key={`mc-${idx}`} className="p-3 rounded-2xl bg-app-lavender/10 border border-app-lavender/25 flex items-center gap-3">
                                                         <motion.div
-                                                            initial={{ scale: 1, backgroundColor: 'rgba(140, 100, 141, 0.4)' }}
+                                                            initial={{ scale: 1, backgroundColor: 'rgba(140, 101, 198, 0.42)' }}
                                                             animate={
                                                                 idx === 1
                                                                     ? {
                                                                         scale: [1, 0.9, 1.12, 1],
-                                                                        backgroundColor: ['rgba(140, 100, 141, 0.4)', 'rgba(140, 100, 141, 0.4)', '#fb7185', '#fb7185']
+                                                                        backgroundColor: [
+                                                                            'rgba(140, 101, 198, 0.42)',
+                                                                            'rgba(140, 101, 198, 0.42)',
+                                                                            'var(--app-lilac)',
+                                                                            'var(--app-lilac)'
+                                                                        ]
                                                                     }
-                                                                    : { scale: 1, backgroundColor: 'rgba(140, 100, 141, 0.4)' }
+                                                                    : { scale: 1, backgroundColor: 'rgba(140, 101, 198, 0.38)' }
                                                             }
                                                             transition={{ duration: 0.4, times: [0, 0.25, 0.55, 1], ease: 'easeOut' }}
                                                             className="w-6 h-6 rounded-full"
                                                         />
-                                                        <div className="flex-1 h-2 bg-[#8c648d]/30 rounded-full" />
+                                                        <div className="h-2 flex-1 rounded-full bg-[var(--app-text-muted)] opacity-88" />
                                                     </div>
                                                 ))}
                                             </div>
@@ -279,18 +298,19 @@ export default function PracticePhoneContent({
                                     )}
                                     {lockedQuiz === 'matching' && (
                                         <>
-                                            <div className="h-2 w-1/3 bg-[#8c648d]/30 rounded-full" />
+                                            <div className="h-2 w-1/3 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
                                             <div className="grid grid-cols-2 gap-3 mt-2">
                                                 {/* LEFT SIDE */}
                                                 {[0, 1, 2].map((item) => (
                                                     <div
                                                         key={`match-l-${item}`}
-                                                        className={`relative p-3 rounded-2xl h-12 flex items-center transition-colors duration-300 ${item === 1 ? 'bg-[#8c648d]/20 border-[#8c648d]/30' : 'bg-[#8c648d]/10 border-[#8c648d]/20'}`}
+                                                        className={`relative p-3 rounded-2xl h-12 flex items-center border transition-colors duration-300 ${item === 1 ? 'bg-app-lavender/20 border-app-lavender/35' : 'bg-app-lavender/10 border-app-lavender/25'}`}
                                                     >
+                                                        <div className="relative z-[1] h-2 w-[72%] rounded-full bg-[var(--app-text-muted)] opacity-88" />
                                                         {item === 1 && (
                                                             <motion.div
                                                                 layoutId="match-left-selection"
-                                                                className="absolute inset-0 rounded-2xl border-2 border-emerald-400"
+                                                                className="pointer-events-none absolute inset-0 rounded-2xl border-2 border-app-mint"
                                                                 initial={{ opacity: 0 }}
                                                                 animate={{ opacity: [0, 1, 1, 0] }}
                                                                 transition={{ duration: 1.5, times: [0, 0.2, 0.8, 1], repeat: Infinity, repeatDelay: 1 }}
@@ -302,23 +322,29 @@ export default function PracticePhoneContent({
                                                 {[0, 1, 2].map((item) => (
                                                     <div
                                                         key={`match-r-${item}`}
-                                                        className={`relative p-3 rounded-2xl h-12 flex items-center justify-end transition-colors duration-300 ${item === 1 ? 'bg-[#8c648d]/20 border-[#8c648d]/30' : 'bg-[#8c648d]/10 border-[#8c648d]/20'}`}
+                                                        className={`relative p-3 rounded-2xl h-12 flex items-center justify-end border transition-colors duration-300 ${item === 1 ? 'bg-app-lavender/20 border-app-lavender/35' : 'bg-app-lavender/10 border-app-lavender/25'}`}
                                                     >
+                                                        <div className="relative z-[1] h-2 w-[65%] rounded-full bg-[var(--app-text-muted)] opacity-88" />
                                                         {item === 1 && (
                                                             <>
                                                                 <motion.div
-                                                                    initial={{ scale: 0.9, backgroundColor: 'rgba(140, 100, 141, 0.5)', opacity: 0 }}
+                                                                    initial={{ scale: 0.9, backgroundColor: 'rgba(140, 101, 198, 0.48)', opacity: 0 }}
                                                                     animate={{
                                                                         scale: [0.9, 0.98, 1.12, 1],
                                                                         opacity: [0, 0.6, 1, 1],
-                                                                        backgroundColor: ['rgba(140, 100, 141, 0.5)', 'rgba(140, 100, 141, 0.5)', '#34d399', '#34d399']
+                                                                        backgroundColor: [
+                                                                            'rgba(140, 101, 198, 0.48)',
+                                                                            'rgba(140, 101, 198, 0.48)',
+                                                                            'var(--app-mint)',
+                                                                            'var(--app-mint)'
+                                                                        ]
                                                                     }}
                                                                     transition={{ duration: 0.4, times: [0, 0.2, 0.55, 1], ease: 'easeOut' }}
                                                                     className="absolute inset-y-2 right-3 w-4 h-4 rounded-full z-10"
                                                                 />
                                                                 <motion.div
                                                                     layoutId="match-right-selection"
-                                                                    className="absolute inset-0 rounded-2xl border-2 border-emerald-400"
+                                                                    className="pointer-events-none absolute inset-0 rounded-2xl border-2 border-app-mint"
                                                                     initial={{ opacity: 0 }}
                                                                     animate={{ opacity: [0, 1, 1, 0] }}
                                                                     transition={{ duration: 1.5, times: [0, 0.2, 0.8, 1], repeat: Infinity, repeatDelay: 1 }}
@@ -332,31 +358,31 @@ export default function PracticePhoneContent({
                                     )}
                                     {lockedQuiz === 'fill' && (
                                         <>
-                                            <div className="h-2 w-1/4 bg-[#8c648d]/30 rounded-full" />
+                                            <div className="h-2 w-1/4 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
                                             {/* Text block with blank */}
-                                            <div className="mt-4 p-4 rounded-2xl bg-[#8c648d]/10 border border-[#8c648d]/20 leading-relaxed relative">
+                                            <div className="mt-4 p-4 rounded-2xl bg-app-lavender/10 border border-app-lavender/25 leading-relaxed relative">
                                                 <div className="flex flex-wrap gap-2 items-center">
-                                                    <div className="h-2 w-12 bg-[#8c648d]/30 rounded-full" />
-                                                    <div className="h-2 w-16 bg-[#8c648d]/30 rounded-full" />
-                                                    <div className="h-2 w-8 bg-[#8c648d]/30 rounded-full" />
+                                                    <div className="h-2 w-12 rounded-full bg-[var(--app-text-muted)] opacity-88" />
+                                                    <div className="h-2 w-16 rounded-full bg-[var(--app-text-muted)] opacity-85" />
+                                                    <div className="h-2 w-8 rounded-full bg-[var(--app-text-muted)] opacity-82" />
                                                     {/* The Blank */}
-                                                    <div className="relative h-8 w-24 border-b-2 border-[#8c648d]/40 bg-white/50 rounded-md mx-1 overflow-hidden flex items-center justify-center">
+                                                    <div className="relative h-8 w-24 border-b-2 border-app-border bg-app-surfaceElevated rounded-md mx-1 overflow-hidden flex items-center justify-center">
                                                         <motion.div
                                                             initial={{ y: 20, opacity: 0 }}
                                                             animate={{ y: 0, opacity: 1 }}
                                                             transition={{ delay: 0.5, duration: 0.4, type: "spring" }}
-                                                            className="h-2 w-16 bg-emerald-400 rounded-full"
+                                                            className="h-2 w-16 rounded-full bg-[var(--app-mint)]"
                                                         />
                                                     </div>
-                                                    <div className="h-2 w-10 bg-[#8c648d]/30 rounded-full" />
-                                                    <div className="h-2 w-14 bg-[#8c648d]/30 rounded-full" />
+                                                    <div className="h-2 w-10 rounded-full bg-[var(--app-text-muted)] opacity-85" />
+                                                    <div className="h-2 w-14 rounded-full bg-[var(--app-text-muted)] opacity-82" />
                                                 </div>
                                             </div>
 
                                             <div className="flex gap-2 mt-auto">
                                                 {[0, 1, 2].map((pill) => (
-                                                    <div key={`fb-pill-${pill}`} className="flex-1 h-8 rounded-xl bg-[#8c648d]/20 border border-[#8c648d]/30 flex items-center justify-center">
-                                                        <div className="h-1.5 w-8 bg-[#8c648d]/40/50 rounded-full" />
+                                                    <div key={`fb-pill-${pill}`} className="flex-1 h-8 rounded-xl bg-app-lavender/20 border border-app-lavender/35 flex items-center justify-center">
+                                                        <div className="h-1.5 w-8 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
                                                     </div>
                                                 ))}
                                             </div>
@@ -364,22 +390,22 @@ export default function PracticePhoneContent({
                                     )}
                                     {lockedQuiz === 'ordering' && (
                                         <>
-                                            <div className="h-2 w-1/3 bg-[#8c648d]/30 rounded-full" />
-                                            <div className="flex flex-col gap-2 mt-2">
+                                            <div className="h-2 w-1/3 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
+                                            <div className="mt-2 flex flex-col gap-2">
                                                 {[0, 1, 2, 3].map((item, i) => (
                                                     <motion.div
                                                         key={`order-${item}`}
-                                                        className="p-3 rounded-2xl bg-[#8c648d]/10 border border-[#8c648d]/20 flex items-center gap-3"
+                                                        className="p-3 rounded-2xl bg-app-lavender/10 border border-app-lavender/25 flex items-center gap-3"
                                                         initial={i === 1 ? { y: 45 } : i === 2 ? { y: -45 } : {}}
                                                         animate={i === 1 ? { y: 0 } : i === 2 ? { y: 0 } : {}}
                                                         transition={{ duration: 0.6, delay: 0.2, type: 'spring', bounce: 0.2 }}
                                                     >
                                                         <div className="flex flex-col gap-1">
-                                                            <div className="w-1 h-1 bg-[#8c648d]/30 rounded-full" />
-                                                            <div className="w-1 h-1 bg-[#8c648d]/30 rounded-full" />
-                                                            <div className="w-1 h-1 bg-[#8c648d]/30 rounded-full" />
+                                                            <div className="h-1 w-1 rounded-full bg-[var(--app-mint)]" />
+                                                            <div className="h-1 w-1 rounded-full bg-[var(--app-mint)]" />
+                                                            <div className="h-1 w-1 rounded-full bg-[var(--app-mint)]" />
                                                         </div>
-                                                        <div className="h-2 w-2/3 bg-[#8c648d]/30 rounded-full" />
+                                                        <div className="h-2 w-2/3 rounded-full bg-[var(--app-text-muted)] opacity-88" />
                                                     </motion.div>
                                                 ))}
                                             </div>
@@ -387,79 +413,79 @@ export default function PracticePhoneContent({
                                     )}
                                     {lockedQuiz === 'errorSpotting' && (
                                         <>
-                                            <div className="h-2 w-1/2 bg-[#8c648d]/30 rounded-full" />
-                                            <div className="flex-1 p-3 rounded-2xl bg-[#8c648d]/10/50 border border-[#8c648d]/20 space-y-3 mt-2">
-                                                <div className="h-2 w-full bg-[#8c648d]/20 rounded-full" />
+                                            <div className="h-2 w-1/2 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
+                                            <div className="mt-2 flex-1 space-y-3 rounded-2xl border border-app-lavender/25 bg-app-lavender/10 p-3">
+                                                <div className="h-2 w-full rounded-full bg-[var(--app-text-muted)] opacity-88" />
                                                 <div className="flex gap-2">
-                                                    <div className="h-2 w-1/3 bg-[#8c648d]/20 rounded-full" />
+                                                    <div className="h-2 w-1/3 rounded-full bg-[var(--app-text-muted)] opacity-82" />
                                                     <motion.div
-                                                        className="h-2 w-1/4 bg-red-200 rounded-full"
-                                                        initial={{ backgroundColor: 'rgba(140, 100, 141, 0.2)' }}
-                                                        animate={{ backgroundColor: '#fecaca', scale: [1, 1.1, 1] }}
+                                                        className="h-2 w-1/4 bg-rose-500/40 rounded-full"
+                                                        initial={{ backgroundColor: 'rgba(140, 101, 198, 0.2)' }}
+                                                        animate={{ backgroundColor: 'rgba(244, 63, 94, 0.55)', scale: [1, 1.1, 1] }}
                                                         transition={{ delay: 0.5, duration: 0.4 }}
                                                     />
-                                                    <div className="h-2 w-1/4 bg-[#8c648d]/20 rounded-full" />
+                                                    <div className="h-2 w-1/4 rounded-full bg-[var(--app-text-muted)] opacity-78" />
                                                 </div>
-                                                <div className="h-2 w-3/4 bg-[#8c648d]/20 rounded-full" />
-                                                <div className="h-2 w-5/6 bg-[#8c648d]/20 rounded-full" />
+                                                <div className="h-2 w-3/4 rounded-full bg-[var(--app-text-muted)] opacity-82" />
+                                                <div className="h-2 w-5/6 rounded-full bg-[var(--app-text-muted)] opacity-78" />
                                             </div>
                                             <div className="flex gap-2 justify-center mt-2">
-                                                <div className="h-8 w-24 rounded-full bg-red-50 border border-red-100 flex items-center justify-center">
-                                                    <div className="h-1.5 w-12 bg-red-200 rounded-full" />
+                                                <div className="h-8 w-24 rounded-full bg-app-surface border border-rose-500/35 flex items-center justify-center">
+                                                    <div className="h-1.5 w-12 bg-rose-400/50 rounded-full" />
                                                 </div>
-                                                <div className="h-8 w-24 rounded-full bg-green-50 border border-green-100 flex items-center justify-center">
-                                                    <div className="h-1.5 w-12 bg-green-200 rounded-full" />
+                                                <div className="h-8 w-24 rounded-full bg-app-surface border border-app-mint/40 flex items-center justify-center">
+                                                    <div className="h-1.5 w-12 rounded-full bg-[var(--app-mint)] opacity-90" />
                                                 </div>
                                             </div>
                                         </>
                                     )}
                                     {lockedQuiz === 'shortAnswer' && (
                                         <>
-                                            <div className="h-2 w-1/3 bg-[#8c648d]/30 rounded-full" />
-                                            <div className="space-y-2 mt-1">
-                                                <div className="h-2 w-full bg-[#8c648d]/20 rounded-full" />
-                                                <div className="h-2 w-3/4 bg-[#8c648d]/20 rounded-full" />
+                                            <div className="h-2 w-1/3 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
+                                            <div className="mt-1 space-y-2">
+                                                <div className="h-2 w-full rounded-full bg-[var(--app-text-muted)] opacity-90" />
+                                                <div className="h-2 w-3/4 rounded-full bg-[var(--app-text-muted)] opacity-85" />
                                             </div>
-                                            <div className="flex-1 rounded-2xl bg-[#8c648d]/10 border border-[#8c648d]/20 p-4 mt-2 relative overflow-hidden">
-                                                <div className="absolute top-4 left-4 h-4 w-[2px] bg-[#8c648d]/40 animate-pulse" />
+                                            <div className="flex-1 rounded-2xl bg-app-lavender/10 border border-app-lavender/25 p-4 mt-2 relative overflow-hidden">
+                                                <div className="absolute left-4 top-4 h-4 w-[2px] animate-pulse bg-[var(--app-lavender)] opacity-80" />
                                                 <motion.div
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
                                                     transition={{ delay: 0.8, duration: 0.5 }}
                                                     className="space-y-2"
                                                 >
-                                                    <div className="h-2 w-11/12 bg-gray-400 rounded-full" />
-                                                    <div className="h-2 w-10/12 bg-gray-400 rounded-full" />
-                                                    <div className="h-2 w-4/12 bg-gray-400 rounded-full" />
+                                                    <div className="h-2 w-[92%] rounded-full bg-[var(--app-text-muted)] opacity-90" />
+                                                    <div className="h-2 w-[83%] rounded-full bg-[var(--app-text-muted)] opacity-85" />
+                                                    <div className="h-2 w-[36%] rounded-full bg-[var(--app-text-muted)] opacity-80" />
                                                 </motion.div>
                                             </div>
-                                            <div className="h-10 w-full rounded-2xl bg-[#8c648d] flex items-center justify-center mt-auto shadow-sm shadow-[#8c648d]/30">
-                                                <div className="h-2 w-16 bg-white/40 rounded-full" />
+                                            <div className="h-10 w-full rounded-2xl bg-app-lavender flex items-center justify-center mt-auto shadow-sm shadow-app-lavender/30">
+                                                <div className="h-2 w-16 rounded-full bg-[var(--app-text)] opacity-25" />
                                             </div>
                                         </>
                                     )}
                                     {lockedQuiz === 'caseStudy' && (
                                         <>
-                                            <div className="h-2 w-1/3 bg-[#8c648d]/30 rounded-full" />
+                                            <div className="h-2 w-1/3 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
 
                                             {/* Case Context Block */}
-                                            <div className="p-3 rounded-2xl bg-blue-50 border border-blue-100 space-y-2 mt-1 relative overflow-hidden">
-                                                <div className="absolute top-0 left-0 w-1 h-full bg-blue-300" />
-                                                <div className="h-1.5 w-11/12 bg-blue-200 rounded-full" />
-                                                <div className="h-1.5 w-10/12 bg-blue-200 rounded-full" />
-                                                <div className="h-1.5 w-full bg-blue-200 rounded-full" />
+                                            <div className="relative mt-1 space-y-2 overflow-hidden rounded-2xl border border-app-border bg-app-softBlue/12 p-3">
+                                                <div className="absolute left-0 top-0 h-full w-1 bg-[var(--app-soft-blue)] opacity-80" />
+                                                <div className="h-1.5 w-[92%] rounded-full bg-[var(--app-blue-highlight)] opacity-95" />
+                                                <div className="h-1.5 w-[83%] rounded-full bg-[var(--app-blue-bright)] opacity-90" />
+                                                <div className="h-1.5 w-full rounded-full bg-[var(--app-blue-bright)] opacity-88" />
                                             </div>
 
-                                            <div className="space-y-2 mt-2">
-                                                <div className="h-2 w-full bg-[#8c648d]/20 rounded-full" />
-                                                <div className="h-2 w-3/4 bg-[#8c648d]/20 rounded-full" />
+                                            <div className="mt-2 space-y-2">
+                                                <div className="h-2 w-full rounded-full bg-[var(--app-text-muted)] opacity-88" />
+                                                <div className="h-2 w-3/4 rounded-full bg-[var(--app-text-muted)] opacity-82" />
                                             </div>
 
                                             <div className="grid grid-cols-1 gap-2 mt-auto">
                                                 {[0, 1].map((opt) => (
-                                                    <div key={`case-opt-${opt}`} className="p-3 rounded-2xl bg-[#8c648d]/10 border border-[#8c648d]/20 flex items-center gap-3">
-                                                        <div className={`w-4 h-4 rounded-full border-2 ${opt === 0 ? 'border-[#8c648d] bg-[#8c648d]' : 'border-[#8c648d]/30'}`} />
-                                                        <div className="h-2 w-2/3 bg-[#8c648d]/30 rounded-full" />
+                                                    <div key={`case-opt-${opt}`} className="p-3 rounded-2xl bg-app-lavender/10 border border-app-lavender/25 flex items-center gap-3">
+                                                        <div className={`w-4 h-4 rounded-full border-2 ${opt === 0 ? 'border-app-lavender bg-app-lavender' : 'border-app-lavender/40'}`} />
+                                                        <div className="h-2 w-2/3 rounded-full bg-[var(--app-text-muted)] opacity-88" />
                                                     </div>
                                                 ))}
                                             </div>
@@ -467,8 +493,8 @@ export default function PracticePhoneContent({
                                     )}
                                     {lockedQuiz === 'sorting' && (
                                         <>
-                                            <div className="h-2 w-1/3 bg-[#8c648d]/30 rounded-full" />
-                                            <div className="flex-1 flex flex-col justify-between mt-2">
+                                            <div className="h-2 w-1/3 rounded-full bg-[var(--app-soft-blue)] opacity-95" />
+                                            <div className="mt-2 flex flex-1 flex-col justify-between">
                                                 {/* The Item being sorted */}
                                                 <div className="flex-1 flex items-center justify-center relative">
                                                     <motion.div
@@ -486,10 +512,10 @@ export default function PracticePhoneContent({
                                                             repeat: Infinity,
                                                             ease: "easeInOut"
                                                         }}
-                                                        className="w-24 h-12 rounded-xl bg-white border border-blue-200 shadow-[0_4px_12px_rgba(59,130,246,0.1)] flex flex-col gap-1.5 p-2.5 z-10"
+                                                        className="w-24 h-12 rounded-xl bg-app-surface border border-app-border shadow-[0_4px_12px_rgba(0,0,0,0.5)] flex flex-col gap-1.5 p-2.5 z-10"
                                                     >
-                                                        <div className="h-1.5 w-full bg-blue-100 rounded-full" />
-                                                        <div className="h-1.5 w-2/3 bg-blue-50 rounded-full" />
+                                                        <div className="h-1.5 w-full rounded-full bg-[var(--app-blue-bright)] opacity-95" />
+                                                        <div className="h-1.5 w-2/3 rounded-full bg-[var(--app-soft-blue)] opacity-92" />
                                                     </motion.div>
 
                                                     <motion.div
@@ -508,34 +534,34 @@ export default function PracticePhoneContent({
                                                             repeat: Infinity,
                                                             ease: "easeInOut"
                                                         }}
-                                                        className="absolute w-24 h-12 rounded-xl bg-white border border-indigo-200 shadow-[0_4px_12px_rgba(99,102,241,0.1)] flex flex-col gap-1.5 p-2.5 z-10"
+                                                        className="absolute w-24 h-12 rounded-xl bg-app-surface border border-app-border shadow-[0_4px_12px_rgba(0,0,0,0.5)] flex flex-col gap-1.5 p-2.5 z-10"
                                                     >
-                                                        <div className="h-1.5 w-full bg-indigo-100 rounded-full" />
-                                                        <div className="h-1.5 w-1/2 bg-indigo-50 rounded-full" />
-                                                        <div className="h-1.5 w-3/4 bg-indigo-50 rounded-full" />
+                                                        <div className="h-1.5 w-full rounded-full bg-[var(--app-lilac)] opacity-92" />
+                                                        <div className="h-1.5 w-1/2 rounded-full bg-[var(--app-lavender)] opacity-88" />
+                                                        <div className="h-1.5 w-3/4 rounded-full bg-[var(--app-lavender)] opacity-85" />
                                                     </motion.div>
                                                 </div>
 
                                                 {/* Differentiated Buckets */}
                                                 <div className="flex gap-4 mb-2">
                                                     {/* Bucket A: Causes */}
-                                                    <div className="flex-1 h-24 rounded-t-[2rem] border-t-2 border-x-2 border-dashed border-blue-200 bg-blue-50/30 flex flex-col items-center justify-end pb-4 gap-2 relative overflow-hidden">
+                                                    <div className="flex-1 h-24 rounded-t-[2rem] border-t-2 border-x-2 border-dashed border-app-softBlue/35 bg-app-softBlue/10 flex flex-col items-center justify-end pb-4 gap-2 relative overflow-hidden">
                                                         <div className="absolute top-2 flex gap-1">
-                                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-300/40" />
-                                                            <div className="w-4 h-1.5 rounded-full bg-blue-300/40" />
+                                                            <div className="h-1.5 w-1.5 rounded-full bg-[var(--app-soft-blue)] opacity-85" />
+                                                            <div className="h-1.5 w-4 rounded-full bg-[var(--app-soft-blue)] opacity-85" />
                                                         </div>
-                                                        <div className="h-2 w-12 bg-blue-400/20 rounded-full" />
-                                                        <span className="text-[9px] font-black text-blue-500/50 uppercase tracking-widest">Causes</span>
+                                                        <div className="h-2 w-12 rounded-full bg-[var(--app-soft-blue)] opacity-80" />
+                                                        <span className="text-[9px] font-black text-app-softBlue/50 uppercase tracking-widest">Causes</span>
                                                     </div>
 
                                                     {/* Bucket B: Effects */}
-                                                    <div className="flex-1 h-24 rounded-t-[2rem] border-t-2 border-x-2 border-dashed border-indigo-200 bg-indigo-50/30 flex flex-col items-center justify-end pb-4 gap-2 relative overflow-hidden">
+                                                    <div className="flex-1 h-24 rounded-t-[2rem] border-t-2 border-x-2 border-dashed border-app-violet/35 bg-app-violet/10 flex flex-col items-center justify-end pb-4 gap-2 relative overflow-hidden">
                                                         <div className="absolute top-2 flex flex-col gap-1">
-                                                            <div className="w-6 h-1 rounded-full bg-indigo-300/40" />
-                                                            <div className="w-4 h-1 rounded-full bg-indigo-300/40" />
+                                                            <div className="h-1 w-6 rounded-full bg-[var(--app-violet)] opacity-85" />
+                                                            <div className="h-1 w-4 rounded-full bg-[var(--app-violet)] opacity-85" />
                                                         </div>
-                                                        <div className="h-2 w-12 bg-indigo-400/20 rounded-full" />
-                                                        <span className="text-[9px] font-black text-indigo-500/50 uppercase tracking-widest">Effects</span>
+                                                        <div className="h-2 w-12 rounded-full bg-[var(--app-lilac)] opacity-75" />
+                                                        <span className="text-[9px] font-black text-app-lavender/60 uppercase tracking-widest">Effects</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -547,7 +573,7 @@ export default function PracticePhoneContent({
                     </div>
                     <div className="w-full grid grid-cols-3 gap-2">
                         {[0, 1, 2].map((pill) => (
-                            <div key={`quiz-pill-${pill}`} className="h-3 rounded-full bg-[#8c648d]/20" />
+                            <div key={`quiz-pill-${pill}`} className="h-3 rounded-full bg-[var(--app-lavender)] opacity-40" />
                         ))}
                     </div>
                 </motion.div>

@@ -69,7 +69,7 @@ const rememberMeContent = (
       Memory strengthens when the brain has to retrieve an idea, not just recognize it. Struggle, it turns out, is not the enemy of learning. It’s the engine.
     </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mb-6">What actually helps you remember what you read</h2>
+    <h2 className="text-3xl font-bold text-app-text mb-6">What actually helps you remember what you read</h2>
     <p className="mb-4 leading-relaxed">
       The science of memory is surprisingly humane. Remembering doesn’t demand monk-like discipline, perfect focus, or color-coded notebooks. It asks for something far simpler: timing, meaning, and return.
     </p>
@@ -78,17 +78,17 @@ const rememberMeContent = (
       Three things work, consistently:
     </p>
 
-    <h3 className="text-2xl font-semibold text-gray-900 mt-6 mb-3">Questions beat statements.</h3>
+    <h3 className="text-2xl font-semibold text-app-text mt-6 mb-3">Questions beat statements.</h3>
     <p className="mb-6 leading-relaxed">
       Asking &quot;What was this really arguing?&quot; or &quot;Why did this matter?&quot; makes ideas easier to retrieve later.
     </p>
 
-    <h3 className="text-2xl font-semibold text-gray-900 mt-6 mb-3">Spacing beats cramming.</h3>
+    <h3 className="text-2xl font-semibold text-app-text mt-6 mb-3">Spacing beats cramming.</h3>
     <p className="mb-6 leading-relaxed">
       Revisiting an idea days, hours or weeks later, right when you’re starting to forget, is far more effective than rereading immediately (or never resurfacing it again).
     </p>
 
-    <h3 className="text-2xl font-semibold text-gray-900 mt-6 mb-3">Meaning beats memorization.</h3>
+    <h3 className="text-2xl font-semibold text-app-text mt-6 mb-3">Meaning beats memorization.</h3>
     <p className="mb-8 leading-relaxed">
       Ideas tied to your work, experiences, or curiosity stick. Abstract facts evaporate. Meaning is the strongest memory’s anchor.
     </p>
@@ -113,8 +113,8 @@ const rememberMeContent = (
       These approaches can work, but they often rely on discipline and follow-through, two things busy adults are already short on.
     </p>
 
-    <div className="my-8 py-4 border-t border-b border-gray-200">
-      <p className="text-lg font-bold text-gray-800 text-center">36 Memory Memes For People With Goldfish Brains</p>
+    <div className="my-8 py-4 border-t border-b border-app-border">
+      <p className="text-lg font-bold text-app-textMuted text-center">36 Memory Memes For People With Goldfish Brains</p>
     </div>
 
     <p className="mb-4 leading-relaxed">
@@ -122,7 +122,7 @@ const rememberMeContent = (
     </p>
 
     <p className="mb-4 leading-relaxed">
-      Apps like <Link href="/" className="text-blue-600 hover:text-blue-800 underline font-semibold">MemSurf</Link>, for example, focus on turning what you read into quizzes and lessons that resurface over time using spaced repetition. You don’t &quot;study&quot; them. They just show up, briefly, and ask your brain to remember. The learning happens in minutes, not hours.
+      Apps like <Link href="/" className="text-app-mintHi hover:text-app-mintBright underline font-semibold">MemSurf</Link>, for example, focus on turning what you read into quizzes and lessons that resurface over time using spaced repetition. You don’t &quot;study&quot; them. They just show up, briefly, and ask your brain to remember. The learning happens in minutes, not hours.
     </p>
 
     <p className="mb-6 leading-relaxed">
@@ -137,7 +137,7 @@ const rememberMeContent = (
       Just ask whether it was given a chance to return. Because memory doesn’t respond to force. It responds to one simple request:
     </p>
 
-    <p className="text-2xl font-bold text-gray-900 mt-8 mb-4 italic">
+    <p className="text-2xl font-bold text-app-text mt-8 mb-4 italic">
       Remember me.
     </p>
   </>
@@ -146,7 +146,7 @@ const rememberMeContent = (
 const aiFearContent = (
   <>
     <p className="mb-4 text-lg leading-relaxed">
-      <span className="font-bold text-3xl block text-gray-900 mb-6">The fear nobody wants to say out loud</span>
+      <span className="font-bold text-3xl block text-app-text mb-6">The fear nobody wants to say out loud</span>
     </p>
     <p className="mb-4 leading-relaxed italic">
       “I’m scared I won’t be able to compete.”
@@ -204,7 +204,7 @@ const aiFearContent = (
       So let’s talk about what actually still works.
     </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-6">What changes and what doesn’t</h2>
+    <h2 className="text-3xl font-bold text-app-text mt-8 mb-6">What changes and what doesn’t</h2>
     <p className="mb-4 leading-relaxed">
       Yes, AI is improving at reasoning, creativity, emotional fluency, even companionship. Over time, it will replace humans in many roles, not because it’s malicious, but because it’s cheaper, faster, and increasingly competent.
     </p>
@@ -229,7 +229,7 @@ const aiFearContent = (
       Below are five principles that matter more than ever. Read on. Nothing here bites.
     </p>
 
-    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">1. Stop competing with AI. Start differentiating from it.</h3>
+    <h3 className="text-2xl font-semibold text-app-text mt-8 mb-4">1. Stop competing with AI. Start differentiating from it.</h3>
     <p className="mb-4 leading-relaxed">
       AI is built to be general, fast, and broadly competent. Trying to outproduce it is like racing a forklift on foot.
     </p>
@@ -250,7 +250,7 @@ const aiFearContent = (
       What can’t be mass-produced is you noticing what others ignore.
     </p>
 
-    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">2. Treat fear as a signal</h3>
+    <h3 className="text-2xl font-semibold text-app-text mt-8 mb-4">2. Treat fear as a signal</h3>
     <p className="mb-4 leading-relaxed">
       Fear is information, just poorly formatted.
     </p>
@@ -275,7 +275,7 @@ const aiFearContent = (
       All to reach one goal: earned trust in your own competence.
     </p>
 
-    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">3. Use AI to sharpen thinking</h3>
+    <h3 className="text-2xl font-semibold text-app-text mt-8 mb-4">3. Use AI to sharpen thinking</h3>
     <p className="mb-4 leading-relaxed">
       The fastest way to lose relevance is to let AI think for you. The fastest way to gain it is to use AI to think better.
     </p>
@@ -288,7 +288,7 @@ const aiFearContent = (
       AI can hide gaps or it can expose and close them. The difference is solely in your hands (well, mostly at your fingertips).
     </p>
 
-    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">4. Optimize for trust</h3>
+    <h3 className="text-2xl font-semibold text-app-text mt-8 mb-4">4. Optimize for trust</h3>
     <p className="mb-4 leading-relaxed">
       AI can generate answers, but <em>you</em> are the one to make judgment calls.
     </p>
@@ -301,7 +301,7 @@ const aiFearContent = (
       Trust compounds. And inconveniently for machines, it remains human.
     </p>
 
-    <h3 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">5. Measure growth inward, not sideways</h3>
+    <h3 className="text-2xl font-semibold text-app-text mt-8 mb-4">5. Measure growth inward, not sideways</h3>
     <p className="mb-4 leading-relaxed">
       Stop benchmarking yourself against people you barely understand (or know).
     </p>
@@ -319,7 +319,7 @@ const aiFearContent = (
       Self-assessment and evidence build the type of confidence that survives disruption.
     </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-6">The real risk isn’t replacement</h2>
+    <h2 className="text-3xl font-bold text-app-text mt-8 mb-6">The real risk isn’t replacement</h2>
     <p className="mb-4 leading-relaxed">
       The most dangerous outcome isn’t that AI replaces us.
     </p>
@@ -336,7 +336,7 @@ const aiFearContent = (
       The future doesn’t belong to people who reject AI or surrender to it. It belongs to those who use it to sharpen themselves.
     </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-6">Using AI to strengthen humans, not erase them</h2>
+    <h2 className="text-3xl font-bold text-app-text mt-8 mb-6">Using AI to strengthen humans, not erase them</h2>
     <p className="mb-4 leading-relaxed">
       AI doesn’t have to deskill us. Used deliberately, it can reskill us.
     </p>
@@ -389,7 +389,7 @@ const smartScrollingContent = (
       We&apos;ve all been there: you pick up your phone to check one message, and suddenly it&apos;s 2 AM. You&apos;ve spent hours sliding your thumb up the screen, consuming infinite content but retaining... nothing. This is <strong>doomscrolling</strong>, and it&apos;s the default state of the modern web. But what if that same addictive mechanism could be hacked for learning?
     </p>
 
-    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">Why do we scroll?</h2>
+    <h2 className="text-3xl font-bold text-app-text mt-8 mb-4">Why do we scroll?</h2>
     <p className="mb-4 leading-relaxed">
       Social media apps are engineered to exploit your brain&apos;s reward system. Variable rewards. the uncertainty of what comes next, trigger dopamine hits that keep you hooked. It&apos;s a slot machine in your pocket.
     </p>
@@ -397,40 +397,40 @@ const smartScrollingContent = (
       The problem isn&apos;t the scroll itself; it&apos;s the <strong>passivity</strong>. When you passively consume, your brain is in &quot;reception mode,&quot; not &quot;retention mode.&quot; Information slides past your eyes without sticking.
     </p>
 
-    <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mt-10 mb-6">Okay... but are there other options?</h2>
+    <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-app-softBlue to-app-violet mt-10 mb-6">Okay... but are there other options?</h2>
     
     <div className="space-y-6 mb-10">
-      <div className="flex items-start bg-blue-50/80 hover:bg-blue-100/80 transition-colors p-6 rounded-2xl border border-blue-200/60 shadow-sm">
-        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">1</div>
-        <p className="ml-12 text-gray-800 leading-relaxed text-[1.1rem]">
+      <div className="flex items-start bg-app-surfaceElevated/90 hover:bg-app-border/30 transition-colors p-6 rounded-2xl border border-app-border/80 shadow-sm">
+        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-app-softBlue to-app-violet text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">1</div>
+        <p className="ml-12 text-app-textMuted leading-relaxed text-[1.1rem]">
           Next time you doomscroll, challenge yourself: for every 5 posts, stop and ask, &quot;What was the most interesting thing I just saw?&quot; If you can&apos;t recall it, you were zoning out.
         </p>
       </div>
 
-      <div className="flex items-start bg-blue-50/80 hover:bg-blue-100/80 transition-colors p-6 rounded-2xl border border-blue-200/60 shadow-sm">
-        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">2</div>
-        <p className="ml-12 text-gray-800 leading-relaxed text-[1.1rem]">
+      <div className="flex items-start bg-app-surfaceElevated/90 hover:bg-app-border/30 transition-colors p-6 rounded-2xl border border-app-border/80 shadow-sm">
+        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-app-softBlue to-app-violet text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">2</div>
+        <p className="ml-12 text-app-textMuted leading-relaxed text-[1.1rem]">
           When you find a nugget of wisdom, be it a quote, a fact, a diagram, capture it immediately. MemSurf is built for this exact moment. Take a screenshot or share the text, and let AI convert that fleeting moment into a permanent study card.
         </p>
       </div>
 
-      <div className="flex items-start bg-blue-50/80 hover:bg-blue-100/80 transition-colors p-6 rounded-2xl border border-blue-200/60 shadow-sm">
-        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">3</div>
-        <p className="ml-12 text-gray-800 leading-relaxed text-[1.1rem]">
+      <div className="flex items-start bg-app-surfaceElevated/90 hover:bg-app-border/30 transition-colors p-6 rounded-2xl border border-app-border/80 shadow-sm">
+        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-app-softBlue to-app-violet text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">3</div>
+        <p className="ml-12 text-app-textMuted leading-relaxed text-[1.1rem]">
           Unfollow accounts that trigger anxiety or mindless envy. Follow educators, scientists, and creators who share density-rich content.
         </p>
       </div>
 
-      <div className="flex items-start bg-blue-50/80 hover:bg-blue-100/80 transition-colors p-6 rounded-2xl border border-blue-200/60 shadow-sm">
-        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">4</div>
-        <p className="ml-12 text-gray-800 leading-relaxed text-[1.1rem]">
+      <div className="flex items-start bg-app-surfaceElevated/90 hover:bg-app-border/30 transition-colors p-6 rounded-2xl border border-app-border/80 shadow-sm">
+        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-app-softBlue to-app-violet text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">4</div>
+        <p className="ml-12 text-app-textMuted leading-relaxed text-[1.1rem]">
           Like and save educational posts. Tell the algorithm you crave knowledge, not drama.
         </p>
       </div>
 
-      <div className="flex items-start bg-blue-50/80 hover:bg-blue-100/80 transition-colors p-6 rounded-2xl border border-blue-200/60 shadow-sm">
-        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">5</div>
-        <p className="ml-12 text-gray-800 leading-relaxed text-[1.1rem]">
+      <div className="flex items-start bg-app-surfaceElevated/90 hover:bg-app-border/30 transition-colors p-6 rounded-2xl border border-app-border/80 shadow-sm">
+        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-app-softBlue to-app-violet text-white flex items-center justify-center font-bold text-xl mt-1 shadow-sm">5</div>
+        <p className="ml-12 text-app-textMuted leading-relaxed text-[1.1rem]">
           Replace 15 minutes of random scrolling before bed with 15 minutes of review scrolling. Open MemSurf instead of Instagram and experience the satisfaction of retaining instead of just viewing.
         </p>
       </div>

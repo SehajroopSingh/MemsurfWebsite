@@ -68,9 +68,9 @@ const personaConfig = {
         cta: 'Absorb The Vibe'
     },
     skeptic: {
-        theme: 'bg-gray-100 text-gray-900 font-mono',
-        accent: 'text-gray-600',
-        button: 'bg-black hover:bg-gray-800 text-white border border-gray-300',
+        theme: 'bg-app-canvas text-app-text font-mono',
+        accent: 'text-app-textMuted',
+        button: 'bg-app-surface hover:bg-app-surfaceElevated text-app-text border border-app-border',
         icon: Microscope,
         headline: 'Your brain has a write error.',
         subhead: 'You are reading data but failing to save it to the hard drive. Fix your retention algorithm.',
@@ -108,7 +108,7 @@ export default function DynamicHome({ persona, onReset }: DynamicHomeProps) {
             <div className="fixed top-24 right-4 z-50">
                 <button
                     onClick={onReset}
-                    className="flex items-center gap-2 px-4 py-2 bg-white/50 backdrop-blur-sm border border-current rounded-full text-xs font-bold hover:bg-white transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-black/15 backdrop-blur-sm border border-current rounded-full text-xs font-bold hover:bg-black/25 transition-all"
                 >
                     <RefreshCw className="w-3 h-3" />
                     Retake Quiz
@@ -162,7 +162,7 @@ export default function DynamicHome({ persona, onReset }: DynamicHomeProps) {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1 }}
-                                className="p-8 bg-white/50 backdrop-blur-sm rounded-2xl border border-current/10"
+                                className="p-8 bg-app-surfaceElevated/60 backdrop-blur-sm rounded-2xl border border-current/10"
                             >
                                 <h3 className={`text-xl font-bold mb-3 ${config.accent}`}>{feature.title}</h3>
                                 <p className="opacity-80">{feature.desc}</p>

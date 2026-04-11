@@ -69,19 +69,19 @@ export default function PersonaQuiz({ onComplete }: PersonaQuizProps) {
     const currentQuestion = questions[step]
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+        <div className="min-h-screen flex items-center justify-center bg-app-canvas p-4">
             <motion.div
                 key={step}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="max-w-2xl w-full bg-white rounded-3xl shadow-xl p-8 md:p-12"
+                className="max-w-2xl w-full bg-app-surfaceElevated rounded-3xl shadow-xl p-8 md:p-12 border border-app-border"
             >
                 <div className="mb-8">
-                    <span className="text-sm font-bold text-blue-600 tracking-wider uppercase">
+                    <span className="text-sm font-bold text-app-softBlue tracking-wider uppercase">
                         Vibe Check {step + 1}/{questions.length}
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
+                    <h2 className="text-3xl md:text-4xl font-bold text-app-text mt-2">
                         {currentQuestion.text}
                     </h2>
                 </div>
@@ -91,12 +91,12 @@ export default function PersonaQuiz({ onComplete }: PersonaQuizProps) {
                         <button
                             key={i}
                             onClick={() => handleAnswer(option.type)}
-                            className="text-left p-6 rounded-xl border-2 border-gray-100 hover:border-blue-500 hover:bg-blue-50 transition-all group flex items-center justify-between"
+                            className="text-left p-6 rounded-xl border-2 border-app-border hover:border-app-softBlue hover:bg-app-surface transition-all group flex items-center justify-between"
                         >
-                            <span className="text-lg font-medium text-gray-700 group-hover:text-blue-700">
+                            <span className="text-lg font-medium text-app-textMuted group-hover:text-app-text">
                                 {option.text}
                             </span>
-                            <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-all" />
+                            <ArrowRight className="w-5 h-5 text-app-border group-hover:text-app-softBlue opacity-0 group-hover:opacity-100 transition-all" />
                         </button>
                     ))}
                 </div>

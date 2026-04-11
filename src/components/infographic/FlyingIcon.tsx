@@ -33,7 +33,7 @@ export default function FlyingIcon({ data }: { data: any }) {
                 ease: "circOut", // Default for x/left
                 top: { duration: 0.6, ease: "circIn" }, // Gravity effect for drop
             }}
-            className="absolute z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-sm border border-white/60 shadow-sm text-sm font-medium text-gray-500"
+            className="absolute z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-[#152a40]/50 backdrop-blur-sm border border-[#1f3d5c]/60 shadow-sm text-sm font-medium text-gray-400"
         >
             <div className="grayscale opacity-50 scale-75">{data.icon}</div>
             {data.source}

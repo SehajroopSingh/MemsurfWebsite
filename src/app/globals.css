@@ -5,13 +5,33 @@
 /* Force rebuild */
 
 :root {
-  --background: #000000;
+  --background: #08131d;
   --foreground: #ffffff;
+  /* App dark palette (aligned with iOS AppPalette.Blobby + web surfaces) */
+  --app-canvas: #08131d;
+  --app-surface: #0f2133;
+  --app-surface-elevated: #152a40;
+  --app-border: #1f3d5c;
+  --app-text: #ffffff;
+  --app-text-muted: #cbd5e1;
+  --app-mint: #4f9e95;
+  --app-soft-blue: #5376ab;
+  --app-violet: #6b57a8;
+  --app-lavender: #8c65c6;
+  --app-mint-highlight: #77c2b7;
+  --app-blue-highlight: #7196cf;
+  --app-lavender-highlight: #a580da;
+  --app-mint-dark: #438a81;
+  --app-blue-shadow: #3f6196;
+  --app-periwinkle: #7a73b2;
+  --app-mint-bright: #8fe1d4;
+  --app-blue-bright: #89b0eb;
+  --app-lilac: #b08ae4;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #000000;
+    --background: #08131d;
     --foreground: #ffffff;
   }
 }

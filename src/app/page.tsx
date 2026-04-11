@@ -9,6 +9,7 @@ import WaitlistForm from '@/components/WaitlistForm'
 import ScrollTracker from '@/components/ScrollTracker'
 import JoinCommunity from '@/components/JoinCommunity'
 import { Linkedin, Mail } from 'lucide-react'
+import { motion, useReducedMotion } from 'framer-motion'
 
 // Custom TikTok Icon
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -31,7 +32,79 @@ const InstagramIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
+const socialIconClassName = 'relative z-10 w-8 h-8 sm:w-12 sm:h-12 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110'
+
+const socialLinks = [
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/memsurf/',
+    external: true,
+    icon: <Linkedin className={socialIconClassName} />,
+  },
+  {
+    label: 'TikTok',
+    href: 'https://www.tiktok.com/@memsurf',
+    external: true,
+    icon: <TikTokIcon className={socialIconClassName} />,
+  },
+  {
+    label: 'X',
+    href: 'https://x.com/memsurf',
+    external: true,
+    icon: <XIcon className={socialIconClassName} />,
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/memsurfai/',
+    external: true,
+    icon: <InstagramIcon className={socialIconClassName} />,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:contact@memsurf.com',
+    external: false,
+    icon: <Mail className={socialIconClassName} />,
+  },
+]
+
 export default function Home() {
+  const shouldReduceMotion = useReducedMotion()
+
+  const socialContainerVariants = shouldReduceMotion
+    ? undefined
+    : {
+        hidden: {},
+        visible: {
+          transition: {
+            delayChildren: 0.05,
+            staggerChildren: 0.08,
+          },
+        },
+      }
+
+  const socialButtonVariants = shouldReduceMotion
+    ? undefined
+    : {
+        hidden: (index: number) => ({
+          opacity: 0,
+          x: index === 0 ? -14 : -42,
+          scale: 0.72,
+          filter: 'blur(8px)',
+        }),
+        visible: {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          filter: 'blur(0px)',
+          transition: {
+            type: 'spring',
+            stiffness: 480,
+            damping: 25,
+            mass: 0.75,
+          },
+        },
+      }
+
   return (
     <main className="min-h-screen">
       <ScrollTracker 
@@ -60,10 +133,10 @@ export default function Home() {
 
             {/* App Store Section */}
             <div id="app-store-section" className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700 drop-shadow-lg">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
                 Your Personal Learning Architect
               </h2>
-              <p className="text-lg text-gray-600 max-w-lg mx-auto">
+              <p className="text-lg text-gray-300 max-w-lg mx-auto">
                 Offload the planning to an agent that knows how you learn. Download MemSurf to turn your information consumption into lasting mastery.
               </p>
 
@@ -77,7 +150,7 @@ export default function Home() {
 
             {/* Email Subscription Section */}
             <div id="waitlist-section" className="w-full max-w-xl space-y-4 -mt-4">
-              <p className="text-center text-lg text-gray-600 mb-4">
+              <p className="text-center text-lg text-gray-300 mb-4">
                 and/or sign up for our email list for updates
               </p>
               <WaitlistForm source="homepage_waitlist" />
@@ -85,51 +158,34 @@ export default function Home() {
 
             {/* Social Icons - Full width on mobile */}
             <div id="social-section" className="w-full pt-6 -mx-4 sm:mx-0">
-              <div className="flex flex-row gap-2 sm:gap-6 md:gap-8 justify-center items-center w-full px-4 sm:px-0 sm:max-w-xl sm:mx-auto flex-wrap">
-                <a
-                  href="https://www.linkedin.com/company/memsurf/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="flex-1 sm:flex-none w-auto h-16 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
-                >
-                  <Linkedin className="w-8 h-8 sm:w-12 sm:h-12 md:w-8 md:h-8" />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@memsurf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="TikTok"
-                  className="flex-1 sm:flex-none w-auto h-16 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
-                >
-                  <TikTokIcon className="w-8 h-8 sm:w-12 sm:h-12 md:w-8 md:h-8" />
-                </a>
-                <a
-                  href="https://x.com/memsurf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="X"
-                  className="flex-1 sm:flex-none w-auto h-16 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
-                >
-                  <XIcon className="w-8 h-8 sm:w-12 sm:h-12 md:w-8 md:h-8" />
-                </a>
-                <a
-                  href="https://www.instagram.com/memsurfai/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className="flex-1 sm:flex-none w-auto h-16 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
-                >
-                  <InstagramIcon className="w-8 h-8 sm:w-12 sm:h-12 md:w-8 md:h-8" />
-                </a>
-                <a
-                  href="mailto:contact@memsurf.com"
-                  aria-label="Email"
-                  className="flex-1 sm:flex-none w-auto h-16 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all duration-200 border-2 border-gray-200 shadow-md"
-                >
-                  <Mail className="w-8 h-8 sm:w-12 sm:h-12 md:w-8 md:h-8" />
-                </a>
-              </div>
+              <motion.div
+                className="flex flex-row gap-2 sm:gap-6 md:gap-8 justify-center items-center w-full px-4 sm:px-0 sm:max-w-xl sm:mx-auto flex-wrap"
+                initial={shouldReduceMotion ? false : 'hidden'}
+                whileInView={shouldReduceMotion ? undefined : 'visible'}
+                viewport={{ once: true, amount: 0.45 }}
+                variants={socialContainerVariants}
+              >
+                {socialLinks.map((link, index) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    target={link.external ? '_blank' : undefined}
+                    rel={link.external ? 'noopener noreferrer' : undefined}
+                    aria-label={link.label}
+                    custom={index}
+                    variants={socialButtonVariants}
+                    whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.06 }}
+                    whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
+                    transition={{ type: 'spring', stiffness: 520, damping: 20 }}
+                    className="group relative flex-1 sm:flex-none w-auto h-16 sm:w-24 sm:h-24 md:w-20 md:h-20 overflow-hidden rounded-full border border-white/25 bg-white/[0.10] text-white/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_18px_42px_rgba(2,8,24,0.34)] backdrop-blur-2xl flex items-center justify-center transition-colors duration-300 hover:border-app-mint/70 hover:bg-white/[0.16] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-mint/75 focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas"
+                  >
+                    <span className="pointer-events-none absolute inset-px rounded-full bg-[radial-gradient(circle_at_30%_18%,rgba(255,255,255,0.42),transparent_35%),linear-gradient(135deg,rgba(255,255,255,0.16),transparent_62%)] opacity-75 transition-opacity duration-300 group-hover:opacity-100" />
+                    <span className="pointer-events-none absolute -left-12 top-0 h-full w-10 rotate-12 bg-white/25 blur-sm transition-transform duration-700 group-hover:translate-x-40" />
+                    <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-inset ring-white/15" />
+                    {link.icon}
+                  </motion.a>
+                ))}
+              </motion.div>
             </div>
 
           </div>

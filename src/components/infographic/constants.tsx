@@ -23,7 +23,7 @@ export const steps = [
     {
         id: 1,
         icon: <NotionIcon />,
-        color: "text-gray-900 border-gray-200 bg-white",
+        color: "text-app-textMuted border-app-border bg-app-surfaceElevated",
         label: "Research Notes",
         source: "Notion",
         position: { top: "-100px", left: "45%", x: "-50px" }
@@ -31,7 +31,7 @@ export const steps = [
     {
         id: 2,
         icon: <Mic className="w-6 h-6" />,
-        color: "text-red-500 border-red-100 bg-red-50",
+        color: "text-rose-400 border-rose-500/35 bg-app-surface",
         label: "Lecture Audio",
         source: "Voice Note",
         position: { top: "-100px", left: "45%", x: "90px" }
@@ -39,7 +39,7 @@ export const steps = [
     {
         id: 3,
         icon: <GDriveIcon />,
-        color: "text-blue-500 border-blue-100 bg-blue-50",
+        color: "text-app-blueBright border-app-softBlue/35 bg-app-surface",
         label: "Project Specs",
         source: "Google Drive",
         position: { top: "-100px", left: "45%", x: "230px" }
@@ -47,7 +47,7 @@ export const steps = [
     {
         id: 4,
         icon: <Copy className="w-6 h-6" />,
-        color: "text-[#8c648d] border-[#8c648d]/20 bg-[#8c648d]/10",
+        color: "text-app-lavender border-app-lavender/30 bg-app-lavender/10",
         label: "Interesting Article",
         source: "Clipboard",
         position: { top: "-100px", left: "45%", x: "370px" }

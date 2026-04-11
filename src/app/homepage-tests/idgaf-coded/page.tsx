@@ -9,7 +9,7 @@ export default function IdgafCodedHome() {
     const [chaos, setChaos] = useState(false)
 
     return (
-        <main className={`min-h-screen font-sans ${chaos ? 'invert bg-white' : 'bg-[#1a1a1a] text-[#a0a0a0]'}`}>
+        <main className={`min-h-screen font-sans ${chaos ? 'invert bg-app-text' : 'bg-app-canvas text-app-textMuted'}`}>
             <Navigation />
 
             {/* Chaos Toggle */}
@@ -33,7 +33,7 @@ export default function IdgafCodedHome() {
                 </p>
 
                 <div className="flex flex-col gap-4 w-full max-w-xs">
-                    <button className="w-full py-4 bg-white text-black font-bold hover:bg-gray-200 transition-colors lowercase">
+                    <button className="w-full py-4 bg-app-surfaceElevated text-app-text font-bold hover:bg-app-border transition-colors lowercase border border-app-border">
                         Start i guess
                     </button>
                     <button className="w-full py-4 border border-[#333] text-[#666] hover:text-white hover:border-white transition-colors lowercase">

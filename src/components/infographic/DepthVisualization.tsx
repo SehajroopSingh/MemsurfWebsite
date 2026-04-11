@@ -48,11 +48,11 @@ export default function DepthVisualization({ stage }: { stage: number }) {
                                                 >
                                                     <div className="flex items-center gap-1.5">
                                                         <div className="w-0.5 h-0.5 rounded-full bg-gray-300 shrink-0" />
-                                                        <div className="h-3 w-full rounded-sm backdrop-blur-md bg-gray-50/60 border border-gray-200/40 shadow-sm" />
+                                                        <div className="h-3 w-full rounded-sm backdrop-blur-md bg-app-surfaceElevated/70 border border-app-border/50 shadow-sm" />
                                                     </div>
                                                     <div className="flex items-center gap-1.5">
                                                         <div className="w-0.5 h-0.5 rounded-full bg-gray-300 shrink-0" />
-                                                        <div className="h-3 w-5/6 rounded-sm backdrop-blur-md bg-gray-50/60 border border-gray-200/40 shadow-sm" />
+                                                        <div className="h-3 w-5/6 rounded-sm backdrop-blur-md bg-app-surfaceElevated/70 border border-app-border/50 shadow-sm" />
                                                     </div>
                                                 </motion.div>
                                             )}

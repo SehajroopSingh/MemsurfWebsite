@@ -12,7 +12,7 @@ import RawContentTransition from './RawContentTransition'
 import ProcessingPhoneWithAnnotations from './ProcessingPhone/ProcessingPhoneWithAnnotations'
 import PracticeScrollShowcase from './PracticeScrollShowcase'
 import { useTimeProgress } from '../../hooks/useTimeProgress'
-import InstitutionScroll from '../InstitutionScroll'
+import WindowsCollage from '../WindowsCollage'
 import VideoOverlayContainer from './VideoOverlayContainer'
 import ChatGptIntegrationSection from './ChatGptIntegrationSection'
 import RandomizedTextReveal from '../ui/RandomizedTextReveal'
@@ -136,24 +136,11 @@ export default function WorkflowAnimation() {
 
     return (
         <div className="w-full flex flex-col items-center">
-            <InstitutionScroll />
+            <WindowsCollage workflowHeroCopy />
             <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8 mt-40 mb-72">
                 <div className="max-w-5xl text-center space-y-6">
-                    <motion.h3
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.4 }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
-                        className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight"
-                    >
-                        Where MemSurf fits.
-                    </motion.h3>
-
-                    <div className="flex flex-col items-center justify-center text-gray-700 space-y-6 md:space-y-8">
+                    <div className="flex flex-col items-center justify-center text-gray-300 space-y-6 md:space-y-8">
                         {[
-                            'Not just between moments.',
-                            'But after learning.',
-                            'After reading.',
                             'After taking notes you\'ll never revisit.',
                             'If life gives you something worth keeping,',
                             'MemSurf helps you remember it.'
@@ -205,11 +192,11 @@ export default function WorkflowAnimation() {
                                 {/* Desktop Text Area (Hidden on mobile) */}
                                 <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
                                     <div className="space-y-4 text-left drop-shadow-lg">
-                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-purple-600">Universal Input</p>
-                                        <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-app-softBlue">Universal Input</p>
+                                        <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
                                             The agent meets you where your information lives.
                                         </h2>
-                                        <p className="text-xl md:text-lg text-gray-600 max-w-xl">
+                                        <p className="text-xl md:text-lg text-gray-300 max-w-xl">
                                             Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
                                         </p>
                                     </div>
@@ -219,14 +206,14 @@ export default function WorkflowAnimation() {
                                 {/* This wrapper ensures the background sizes to the phone content, not the grid row */}
                                 <div className="relative col-start-2 col-end-3 row-start-1 w-full min-w-[620px] max-w-[620px] flex justify-start z-20 lg:pt-0">
 
-                                    {/* Purple Card Background */}
-                                    <div className="relative w-full min-w-[620px] max-w-[620px] bg-[#8c648d] rounded-[2.5rem] shadow-sm border border-white/50 flex flex-col">
+                                    {/* Capture stage — lavender + blue wash (app palette) */}
+                                    <div className="relative w-full min-w-[620px] max-w-[620px] rounded-[2.5rem] shadow-lg border border-app-lavender/35 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 flex flex-col ring-1 ring-app-mint/10">
                                         {/* "INPUT FROM ANY SOURCE" Text - Centered in Card */}
                                         <div className="absolute top-[-12rem] sm:top-[-14rem] lg:top-[-4rem] xl:top-[-3rem] w-full flex flex-col items-center z-30 pointer-events-none">
-                                            <p className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap">INPUT FROM ANY SOURCE</p>
+                                            <p className="text-3xl font-semibold text-app-lilac tracking-wide whitespace-nowrap drop-shadow-sm">INPUT FROM ANY SOURCE</p>
                                             {/* Mobile-only text below */}
                                             <div className="lg:hidden flex flex-col items-center mt-4 px-4">
-                                                <p className="text-xl text-gray-600 text-center max-w-xl">
+                                                <p className="text-xl text-app-textMuted text-center max-w-xl">
                                                     Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
                                                 </p>
                                             </div>
@@ -306,7 +293,7 @@ export default function WorkflowAnimation() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-3xl font-semibold text-[#8c648d] tracking-wide whitespace-nowrap text-center mb-6 lg:mb-8">
+                            <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide whitespace-nowrap text-center mb-6 lg:mb-8 drop-shadow-sm">
                                 Your Agent Designs The Learning
                             </h2>
 
@@ -317,7 +304,7 @@ export default function WorkflowAnimation() {
                                 <div className="relative col-start-1 col-end-2 row-start-1 w-full min-w-[620px] max-w-[620px] flex justify-center z-20">
 
                                     {/* Phone Content with Purple Card Wrapper */}
-                                    <div className="relative w-full min-w-[620px] max-w-[620px] bg-transparent border-[6px] border-[#8c648d] rounded-[2.5rem] shadow-lg flex justify-center items-center py-10 px-4 z-20" style={{ backgroundColor: 'transparent' }}>
+                                    <div className="relative w-full min-w-[620px] max-w-[620px] rounded-[2.5rem] shadow-lg flex justify-center items-center py-10 px-4 z-20 border-[6px] border-app-lavender/45 bg-app-canvas/40 ring-2 ring-app-softBlue/25 ring-offset-0">
                                         <ProcessingPhoneWithAnnotations progress={phone2Progress} />
                                     </div>
                                 </div>
@@ -325,11 +312,11 @@ export default function WorkflowAnimation() {
                                 {/* Text Area (Right Side) */}
                                 <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pr-0 lg:pr-4 z-10 pl-0 lg:pl-6 min-w-0 overflow-hidden mb-8 lg:mb-0">
                                     <div className="space-y-4 text-center lg:text-left px-4 lg:px-0 drop-shadow-lg">
-                                        <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-[#8c648d]">Intelligent Curriculum</p>
-                                        <h2 className="hidden md:block text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                                        <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-app-mint">Intelligent Curriculum</p>
+                                        <h2 className="hidden md:block text-4xl md:text-6xl font-bold text-white leading-tight">
                                             We Do The Thinking For You.
                                         </h2>
-                                        <p className="text-xl md:text-lg text-gray-600 max-w-xl mx-auto lg:mx-0">
+                                        <p className="text-xl md:text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">
                                             Our agent ruthlessly optimizes your learning path. It cuts the fluff and feeds you the good stuff. It&apos;s like having a strict tutor, but one you can mute.
                                         </p>
                                     </div>

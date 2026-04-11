@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 
 export default function UseCasesPage() {
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-transparent">
             <Navigation />
             <div className="pt-20">
                 <Testimonials />

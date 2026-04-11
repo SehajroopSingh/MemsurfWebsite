@@ -21,7 +21,7 @@ export default function PhoneScreen({ children, allowOverflow = false }: PhoneSc
                 </div>
             </div>
             {/* Screen Content */}
-            <div className={`absolute inset-[6px] rounded-[44px] bg-white ${allowOverflow ? 'overflow-visible' : 'overflow-hidden mask-image-rounded'}`}>
+            <div className={`absolute inset-[6px] rounded-[44px] bg-[#08131d] ${allowOverflow ? 'overflow-visible' : 'overflow-hidden mask-image-rounded'}`}>
                 {children}
             </div>
             {/* Buttons */}

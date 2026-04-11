@@ -115,7 +115,7 @@ export default function MemoryGame() {
                         >
                             <button
                                 onClick={startGame}
-                                className="px-6 py-3 bg-white text-black font-bold uppercase tracking-widest hover:scale-105 transition-transform"
+                                className="px-6 py-3 bg-app-surfaceElevated text-app-text font-bold uppercase tracking-widest hover:scale-105 transition-transform border border-app-border"
                             >
                                 Test Your Brain
                             </button>
@@ -134,7 +134,7 @@ export default function MemoryGame() {
                             <p className="text-white/80 mb-4 text-sm">See? You need us. Your memory is trash.</p>
                             <button
                                 onClick={startGame}
-                                className="px-4 py-2 bg-white text-red-900 font-bold uppercase text-sm hover:scale-105 transition-transform"
+                                className="px-4 py-2 bg-app-surfaceElevated text-red-300 font-bold uppercase text-sm hover:scale-105 transition-transform border border-app-border"
                             >
                                 Try Again (If You Dare)
                             </button>
@@ -153,7 +153,7 @@ export default function MemoryGame() {
                             <p className="text-white/80 mb-4 text-sm">Okay, you have a brain. Now fill it with something useful.</p>
                             <button
                                 onClick={startGame}
-                                className="px-4 py-2 bg-white text-green-900 font-bold uppercase text-sm hover:scale-105 transition-transform"
+                                className="px-4 py-2 bg-app-surfaceElevated text-app-mint font-bold uppercase text-sm hover:scale-105 transition-transform border border-app-border"
                             >
                                 Play Again
                             </button>

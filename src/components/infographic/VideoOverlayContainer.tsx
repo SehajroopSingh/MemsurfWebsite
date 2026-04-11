@@ -43,7 +43,7 @@ export default function VideoOverlayContainer({ className = '', shouldPlay = fal
     }, [activeIsVideoVisible])
 
     return (
-        <div className={`relative overflow-hidden rounded-[2.5rem] border-[6px] border-[#8c648d] shadow-lg bg-gray-50 ${className}`}>
+        <div className={`relative overflow-hidden rounded-[2.5rem] border-[6px] border-app-lavender/45 shadow-lg bg-app-surface ring-2 ring-app-softBlue/20 ${className}`}>
             {/* Video Layer */}
             <video
                 ref={videoRef}

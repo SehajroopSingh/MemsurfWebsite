@@ -20,16 +20,16 @@ export default function BlogPage() {
   const posts = getAllBlogPosts()
 
   return (
-    <main className="min-h-screen flex flex-col bg-white">
+    <main className="min-h-screen flex flex-col bg-transparent">
       <Navigation />
       <section className="flex-1 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Page Header */}
           <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+            <h1 className="text-4xl md:text-5xl font-bold text-app-text">
               Blogs
             </h1>
-            <p className="text-lg text-gray-600 mt-4">
+            <p className="text-lg text-app-textMuted mt-4">
               Discover insights on learning, memory, and effective study techniques.
             </p>
           </div>
@@ -43,10 +43,10 @@ export default function BlogPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <p className="text-gray-500 text-lg mb-2">
+              <p className="text-app-textMuted text-lg mb-2">
                 No articles yet.
               </p>
-              <p className="text-gray-400 text-sm">
+              <p className="text-app-textMuted/70 text-sm">
                 Check back soon for new content.
               </p>
             </div>

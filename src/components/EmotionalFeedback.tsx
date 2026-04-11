@@ -20,14 +20,14 @@ export default function EmotionalFeedback() {
     }
 
     return (
-        <section className="py-12 bg-gray-50 border-t border-gray-200">
+        <section className="py-12 bg-app-surface/50 border-t border-app-border">
             <div className="max-w-3xl mx-auto px-4 text-center">
                 <div className="mb-8">
                     <Heart className="w-8 h-8 text-red-500 mx-auto mb-4 animate-pulse" />
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-2xl font-bold text-app-text mb-2">
                         We're listening. (Actually.)
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-app-textMuted">
                         Think this is trash? Feel stupid? Feel like a genius? Tell us. We cry easily but we fix things fast.
                         We built this because we were struggling too.
                     </p>
@@ -36,7 +36,7 @@ export default function EmotionalFeedback() {
                 {!isOpen ? (
                     <button
                         onClick={() => setIsOpen(true)}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-300 rounded-lg text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-all shadow-sm hover:shadow-md"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-app-surfaceElevated border border-app-border rounded-lg text-app-textMuted hover:border-app-softBlue hover:text-app-mint transition-all shadow-sm hover:shadow-md"
                     >
                         <MessageCircle className="w-5 h-5" />
                         Talk to the Humans Behind the AI
@@ -45,17 +45,17 @@ export default function EmotionalFeedback() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-left"
+                        className="bg-app-surfaceElevated p-6 rounded-xl shadow-lg border border-app-border text-left"
                     >
                         {!sent ? (
                             <form onSubmit={handleSubmit}>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                <label className="block text-sm font-medium text-app-textMuted mb-2">
                                     What's on your mind?
                                 </label>
                                 <textarea
                                     value={feedback}
                                     onChange={(e) => setFeedback(e.target.value)}
-                                    className="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none mb-4 text-gray-900"
+                                    className="w-full h-32 p-3 border border-app-border rounded-lg focus:ring-2 focus:ring-app-softBlue focus:border-transparent resize-none mb-4 text-app-text bg-app-surface"
                                     placeholder="Be honest. We can take it."
                                     required
                                 />
@@ -63,13 +63,13 @@ export default function EmotionalFeedback() {
                                     <button
                                         type="button"
                                         onClick={() => setIsOpen(false)}
-                                        className="px-4 py-2 text-gray-500 hover:text-gray-700"
+                                        className="px-4 py-2 text-app-textMuted hover:text-app-text"
                                     >
                                         Nevermind
                                     </button>
                                     <button
                                         type="submit"
-                                        className="inline-flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                        className="inline-flex items-center gap-2 px-6 py-2 bg-app-softBlue text-white rounded-lg hover:opacity-90 transition-opacity"
                                     >
                                         <Send className="w-4 h-4" />
                                         Send It
@@ -78,11 +78,11 @@ export default function EmotionalFeedback() {
                             </form>
                         ) : (
                             <div className="text-center py-8">
-                                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div className="w-12 h-12 bg-app-mint/20 text-app-mint rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Heart className="w-6 h-6 fill-current" />
                                 </div>
-                                <h4 className="text-xl font-bold text-gray-900 mb-2">Message Received.</h4>
-                                <p className="text-gray-600">
+                                <h4 className="text-xl font-bold text-app-text mb-2">Message Received.</h4>
+                                <p className="text-app-textMuted">
                                     Thanks for being real with us. We're reading it right now.
                                 </p>
                             </div>

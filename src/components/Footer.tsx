@@ -45,29 +45,29 @@ export default function Footer() {
   }
 
   return (
-    <footer className="border-t border-gray-100/20 backdrop-blur-sm">
+    <footer className="border-t border-app-border/50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
         {/* Bottom Bar */}
-        <div className="border-t border-gray-100 pt-8">
+        <div className="border-t border-app-border pt-8">
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
             {/* Left Side: MemSurf Branding and Meet the Team */}
             <div className="flex flex-col">
               <Link
                 href="/"
-                className="inline-block text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 tracking-tight"
+                className="inline-block text-2xl font-bold bg-gradient-to-r from-app-softBlue via-app-lavender to-app-lilac bg-clip-text text-transparent mb-4 tracking-tight"
                 onClick={() => trackFooterNav('logo', '/', 'brand')}
               >
                 MemSurf
               </Link>
               <Link
                 href="/team"
-                className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium mb-6"
+                className="text-app-textMuted hover:text-app-blueBright transition-colors text-sm font-medium mb-6"
                 onClick={() => trackFooterNav('meet the team', '/team', 'brand')}
               >
                 Meet the Team
               </Link>
               {/* Copyright */}
-              <p className="text-gray-400 text-sm">
+              <p className="text-app-textMuted/80 text-sm">
                 © 2025 MemSurf. All rights reserved.
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function Footer() {
                     <li key={index}>
                       <Link
                         href={link.href}
-                        className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium"
+                        className="text-app-textMuted/80 hover:text-app-lavenderHi transition-colors text-sm font-medium"
                         onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'company')}
                       >
                         {link.name}
@@ -98,7 +98,7 @@ export default function Footer() {
                     <li key={index}>
                       <Link
                         href={link.href}
-                        className="text-gray-500 hover:text-purple-600 transition-colors text-sm font-medium"
+                        className="text-app-textMuted/80 hover:text-app-lavenderHi transition-colors text-sm font-medium"
                         onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'legal')}
                       >
                         {link.name}

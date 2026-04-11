@@ -17,8 +17,8 @@ export default function ContextAnnotation({ show }: ContextAnnotationProps) {
                     className="absolute right-[-220px] top-[45%] w-[220px] z-50 pointer-events-none hidden md:block"
                 >
                     <div className="flex items-center gap-2">
-                        <div className="h-[1px] w-8 bg-blue-300"></div>
-                        <p className="text-sm font-medium text-blue-600 bg-blue-50/80 backdrop-blur px-3 py-2 rounded-lg border border-blue-100 shadow-sm">
+                        <div className="h-[1px] w-8 bg-app-softBlue/60"></div>
+                        <p className="text-sm font-medium text-app-text bg-app-surfaceElevated/95 backdrop-blur px-3 py-2 rounded-lg border border-app-border shadow-sm">
                             Guide the AI: Set goals, focus areas, and formatting preferences for your summary.
                         </p>
                     </div>

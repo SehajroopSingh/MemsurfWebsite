@@ -78,6 +78,9 @@ body {
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  background: var(--background);
+  min-height: 100%;
+  color-scheme: dark;
 }
 
 /* Custom gradient backgrounds */

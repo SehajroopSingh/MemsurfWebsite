@@ -45,7 +45,7 @@ export default function TeamPage() {
                             <div className="md:col-span-2">
                                 <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-app-border shadow-md bg-app-surface">
                                     <Image
-                                        src="/sehajroop.png"
+                                        src="/team-sehaj.jpg"
                                         alt="Sehajroop Singh"
                                         fill
                                         className="object-cover object-top"

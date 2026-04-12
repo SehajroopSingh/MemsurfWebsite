@@ -1275,12 +1275,6 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                     renderWindowPanes(item.paneType)
                   )}
                   
-                  {/* Pane id for layout / discussion (e.g. move w4 vs w5) */}
-                  <div className="pointer-events-none absolute bottom-0 left-0 z-20 w-full bg-gradient-to-t from-black/85 via-black/40 to-transparent p-2 md:p-3">
-                    <p className="font-mono text-[10px] font-semibold uppercase tracking-widest text-white/95 drop-shadow-md md:text-xs">
-                      {item.id}
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -1313,7 +1307,7 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                 ease: [0.16, 1, 0.3, 1],
                 delay: 0.22,
               }}
-              className="w-full max-w-6xl overflow-hidden font-normal leading-snug text-gray-100 [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(1.35rem,min(8cqi,5.5vw),4.5rem)] [text-wrap:balance]"
+              className="w-full max-w-6xl overflow-hidden font-normal leading-snug text-gray-100 [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(1.55rem,min(9cqi,6.25vw),4.5rem)] [text-wrap:balance] md:[font-size:clamp(1.35rem,min(8cqi,5.5vw),4.5rem)]"
             >
               If life gives you something worth keeping.
             </motion.p>
@@ -1336,7 +1330,7 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                 ease: [0.16, 1, 0.3, 1],
                 delay: 1.55,
               }}
-              className="w-full max-w-5xl overflow-hidden pb-1 font-bold leading-[1.05] tracking-tight [font-size:clamp(1.75rem,min(9cqi,10vw),5.75rem)] md:pb-2"
+              className="w-full max-w-5xl overflow-hidden pb-1 font-bold leading-[1.1] tracking-tight [font-size:clamp(1.95rem,min(10cqi,11vw),5.75rem)] md:pb-2 md:leading-[1.05] md:[font-size:clamp(1.75rem,min(9cqi,10vw),5.75rem)]"
             >
               MemSurf helps you remember it.
             </motion.p>

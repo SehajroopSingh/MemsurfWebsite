@@ -44,7 +44,7 @@ export default function Navigation({ isRevealed = true }: NavigationProps) {
       transition={{ duration: 0.55, ease: 'easeOut', delay: isRevealed ? 0.05 : 0 }}
     >
       <div className="w-full pointer-events-auto">
-        <div className="relative rounded-full border border-white/15 bg-app-surfaceElevated/35 shadow-[0_10px_35px_rgba(2,8,24,0.45)] backdrop-blur-2xl supports-[backdrop-filter]:bg-app-surfaceElevated/25">
+        <div className="relative rounded-full border border-white/25 bg-app-surfaceElevated/70 shadow-[0_14px_44px_rgba(2,8,24,0.55),inset_0_1px_0_rgba(255,255,255,0.22)] backdrop-blur-3xl supports-[backdrop-filter]:bg-app-surfaceElevated/55">
           <div className="flex justify-between items-center h-[4.5rem] px-4 sm:px-6">
           {/* Logo */}
           <div className="flex-shrink-0">

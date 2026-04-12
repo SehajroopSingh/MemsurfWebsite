@@ -84,6 +84,20 @@ export default function Navigation({ isRevealed = true }: NavigationProps) {
                 </div>
               </div>
             </div>
+            <Link
+              href="/team"
+              className="text-app-textMuted hover:text-app-text transition-colors py-2 text-sm font-medium"
+              onClick={() => handleNavClick('meet the team', '/team', 'desktop')}
+            >
+              Meet the Team
+            </Link>
+            <Link
+              href="/blog"
+              className="text-app-textMuted hover:text-app-text transition-colors py-2 text-sm font-medium"
+              onClick={() => handleNavClick('blog', '/blog', 'desktop')}
+            >
+              Blog
+            </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -126,6 +140,26 @@ export default function Navigation({ isRevealed = true }: NavigationProps) {
                 }}
               >
                 How it works
+              </Link>
+              <Link
+                href="/team"
+                className="block px-3 py-2 text-app-textMuted hover:bg-app-border rounded-md"
+                onClick={() => {
+                  handleNavClick('meet the team', '/team', 'mobile')
+                  setIsOpen(false)
+                }}
+              >
+                Meet the Team
+              </Link>
+              <Link
+                href="/blog"
+                className="block px-3 py-2 text-app-textMuted hover:bg-app-border rounded-md"
+                onClick={() => {
+                  handleNavClick('blog', '/blog', 'mobile')
+                  setIsOpen(false)
+                }}
+              >
+                Blog
               </Link>
             </motion.div>
           </motion.div>

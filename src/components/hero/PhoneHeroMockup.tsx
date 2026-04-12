@@ -463,6 +463,7 @@ export default function PhoneHeroMockup({
   const [mounted, setMounted] = useState(false)
   const [isSmallViewport, setIsSmallViewport] = useState(false)
   const { overlayRef, dragRefs, overlayProps } = usePhoneHeroDrag()
+  const allowDragRotation = !isSmallViewport
 
   // Avoid SSR issues with R3F
   useEffect(() => {
@@ -522,14 +523,16 @@ export default function PhoneHeroMockup({
           <ScrollAnimatedShadow isSmallViewport={isSmallViewport} reduceMotion={reduceMotion} />
         </group>
       </Canvas>
-      {/* Full-area hit target: drag anywhere in this block to rotate the phone (canvas stays non-interactive for WebGL). */}
-      <div
-        ref={overlayRef}
-        className="absolute inset-0 z-10 cursor-grab touch-none select-none active:cursor-grabbing"
-        style={{ touchAction: 'none' }}
-        aria-label="Drag to rotate the phone preview"
-        {...overlayProps}
-      />
+      {allowDragRotation && (
+        /* Full-area hit target: drag anywhere in this block to rotate the phone (canvas stays non-interactive for WebGL). */
+        <div
+          ref={overlayRef}
+          className="absolute inset-0 z-10 cursor-grab touch-none select-none active:cursor-grabbing"
+          style={{ touchAction: 'none' }}
+          aria-label="Drag to rotate the phone preview"
+          {...overlayProps}
+        />
+      )}
     </div>
   )
 }

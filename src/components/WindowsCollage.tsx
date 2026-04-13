@@ -1282,59 +1282,17 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
         })}
         </div>
         {workflowHeroCopy && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
-            className="flex w-full flex-col items-center gap-6 px-3 pt-48 text-center text-white sm:gap-7 sm:pt-64 md:gap-8 md:pt-80 [container-type:inline-size]"
+          <div
+            className="flex w-full flex-col items-center gap-6 px-3 pt-48 text-center text-white sm:gap-7 sm:pt-64 md:gap-8 md:pt-80"
             aria-label="If life gives you something worth keeping. MemSurf helps you remember it."
           >
-            <motion.p
-              initial={{
-                opacity: 0,
-                clipPath: 'inset(0 100% 0 0)',
-                filter: 'blur(1.5px)',
-              }}
-              whileInView={{
-                opacity: 1,
-                clipPath: 'inset(0 0% 0 0)',
-                filter: 'blur(0px)',
-              }}
-              viewport={{ once: true, amount: 0.75 }}
-              transition={{
-                duration: 2.35,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.22,
-              }}
-              className="w-full max-w-6xl overflow-hidden font-normal leading-snug text-gray-100 [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(1.55rem,min(9cqi,6.25vw),4.5rem)] [text-wrap:balance] md:[font-size:clamp(1.35rem,min(8cqi,5.5vw),4.5rem)]"
-            >
+            <p className="w-full max-w-6xl font-normal leading-snug text-gray-100 [font-family:var(--font-collage-tagline),cursive] [font-size:clamp(1.55rem,6.25vw,4.5rem)] [text-wrap:balance] md:[font-size:clamp(1.35rem,5.5vw,4.5rem)]">
               If life gives you something worth keeping.
-            </motion.p>
-            <motion.p
-              initial={{
-                opacity: 0,
-                y: 10,
-                clipPath: 'inset(0 100% 0 0)',
-                filter: 'blur(1px)',
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-                clipPath: 'inset(0 0% 0 0)',
-                filter: 'blur(0px)',
-              }}
-              viewport={{ once: true, amount: 0.75 }}
-              transition={{
-                duration: 1.65,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 1.55,
-              }}
-              className="w-full max-w-5xl overflow-hidden pb-1 font-bold leading-[1.1] tracking-tight [font-size:clamp(1.95rem,min(10cqi,11vw),5.75rem)] md:pb-2 md:leading-[1.05] md:[font-size:clamp(1.75rem,min(9cqi,10vw),5.75rem)]"
-            >
+            </p>
+            <p className="w-full max-w-5xl pb-1 font-bold leading-[1.1] tracking-tight [font-size:clamp(1.95rem,10vw,5.75rem)] md:pb-2 md:leading-[1.05] md:[font-size:clamp(1.75rem,9vw,5.75rem)]">
               MemSurf helps you remember it.
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
         )}
         {!workflowHeroCopy && (
           <motion.p

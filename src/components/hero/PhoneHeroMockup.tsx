@@ -74,6 +74,74 @@ interface PhoneHeroMockupProps {
   onReady?: () => void
 }
 
+function canCreateWebGLContext() {
+  if (typeof window === 'undefined') return false
+
+  try {
+    const canvas = document.createElement('canvas')
+    const gl = window.WebGLRenderingContext
+      ? canvas.getContext('webgl2') || canvas.getContext('webgl')
+      : null
+
+    gl?.getExtension('WEBGL_lose_context')?.loseContext()
+    return Boolean(gl)
+  } catch {
+    return false
+  }
+}
+
+function PhoneHeroFallback({
+  className = '',
+  screenLogoSrc,
+  onReady,
+}: PhoneHeroMockupProps) {
+  useEffect(() => {
+    onReady?.()
+  }, [onReady])
+
+  return (
+    <div className={`relative w-full h-[470px] md:h-[700px] overflow-visible ${className}`}>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative h-[390px] w-[195px] -rotate-[7deg] rounded-[2.4rem] border border-white/25 bg-[#111318] shadow-[0_34px_90px_rgba(0,0,0,0.55)] md:h-[560px] md:w-[280px] md:rounded-[3.3rem]">
+          <div className="absolute inset-[0.55rem] overflow-hidden rounded-[1.95rem] bg-[#08131d] md:inset-[0.75rem] md:rounded-[2.55rem]">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(79,158,149,0.55),transparent_36%),radial-gradient(circle_at_78%_45%,rgba(83,118,171,0.5),transparent_42%),radial-gradient(circle_at_48%_78%,rgba(140,101,198,0.45),transparent_44%)]" />
+            <div className="absolute inset-0 flex items-center justify-center px-8">
+              <img
+                src={screenLogoSrc}
+                alt="MemSurf"
+                className="relative z-10 w-full max-w-[9rem] drop-shadow-[0_12px_28px_rgba(0,0,0,0.42)] md:max-w-[12rem]"
+              />
+            </div>
+          </div>
+          <div className="absolute left-1/2 top-3 h-5 w-20 -translate-x-1/2 rounded-full bg-black/65 md:top-5 md:h-7 md:w-28" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+class PhoneHeroCanvasBoundary extends React.Component<
+  {
+    children: React.ReactNode
+    fallback: React.ReactNode
+  },
+  { hasError: boolean }
+> {
+  state = { hasError: false }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  componentDidCatch(error: unknown) {
+    console.error('PhoneHeroMockup WebGL failed', error)
+  }
+
+  render() {
+    return this.state.hasError ? this.props.fallback : this.props.children
+  }
+}
+
 type PhoneDragRefs = {
   isDraggingRef: React.MutableRefObject<boolean>
   dragTargetRef: React.MutableRefObject<{ x: number; y: number }>
@@ -462,12 +530,14 @@ export default function PhoneHeroMockup({
   const reduceMotion = useReducedMotion()
   const [mounted, setMounted] = useState(false)
   const [isSmallViewport, setIsSmallViewport] = useState(false)
+  const [webglAvailable, setWebglAvailable] = useState<boolean | null>(null)
   const { overlayRef, dragRefs, overlayProps } = usePhoneHeroDrag()
   const allowDragRotation = !isSmallViewport
 
   // Avoid SSR issues with R3F
   useEffect(() => {
     setMounted(true)
+    setWebglAvailable(canCreateWebGLContext())
     const checkViewport = () => {
       setIsSmallViewport(window.innerWidth < 1024)
     }
@@ -476,63 +546,77 @@ export default function PhoneHeroMockup({
     return () => window.removeEventListener('resize', checkViewport)
   }, [])
 
-  if (!mounted) return <div className={`relative w-full min-h-[470px] md:min-h-[700px] ${className}`} />
+  if (!mounted || webglAvailable === null) {
+    return <div className={`relative w-full min-h-[470px] md:min-h-[700px] ${className}`} />
+  }
+
+  const fallback = (
+    <PhoneHeroFallback
+      className={className}
+      screenLogoSrc={screenLogoSrc}
+      onReady={onReady}
+    />
+  )
+
+  if (!webglAvailable) return fallback
 
   return (
-    <div className={`relative w-full h-[470px] md:h-[700px] overflow-visible ${className}`}>
-      <Canvas
-        camera={{ position: [0, 1.55, 7.15], fov: 43 }}
-        dpr={[1, 2]}
-        className="w-full h-full"
-        style={{ pointerEvents: 'none' }}
-        onCreated={({ camera }) => {
-          const desktop = typeof window !== 'undefined' && window.innerWidth >= 1024
-          if (desktop) {
-            camera.position.set(0, 1.45, 6.85)
-            camera.lookAt(0, -1.22, 0)
-          } else {
-            camera.position.set(0, 1.65, 7.6)
-            camera.lookAt(0, -1.65, 0)
-          }
-        }}
-      >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <directionalLight position={[-10, -10, -5]} intensity={0.2} />
-        
-        <Environment preset="city" />
+    <PhoneHeroCanvasBoundary fallback={fallback}>
+      <div className={`relative w-full h-[470px] md:h-[700px] overflow-visible ${className}`}>
+        <Canvas
+          camera={{ position: [0, 1.55, 7.15], fov: 43 }}
+          dpr={[1, 2]}
+          className="w-full h-full"
+          style={{ pointerEvents: 'none' }}
+          onCreated={({ camera }) => {
+            const desktop = typeof window !== 'undefined' && window.innerWidth >= 1024
+            if (desktop) {
+              camera.position.set(0, 1.45, 6.85)
+              camera.lookAt(0, -1.22, 0)
+            } else {
+              camera.position.set(0, 1.65, 7.6)
+              camera.lookAt(0, -1.65, 0)
+            }
+          }}
+        >
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} />
+          <directionalLight position={[-10, -10, -5]} intensity={0.2} />
 
-        {/* Group containing both phone and shadow so they move together if needed,
-            but here we just position the shadow relative to the base */}
-        <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? 0.2 : 0.45, 0]}>
-          <Float
-            speed={reduceMotion ? 0 : 2.85}
-            rotationIntensity={reduceMotion ? 0 : 0.55}
-            floatIntensity={reduceMotion ? 0 : 0.5}
-            floatingRange={[-0.12, 0.12]}
-          >
-            <ScrollAnimatedPhone
-              screenLogoSrc={screenLogoSrc}
-              reduceMotion={reduceMotion}
-              isSmallViewport={isSmallViewport}
-              dragRefs={dragRefs}
-              onReady={onReady}
-            />
-          </Float>
-          {/* Shadow tracks horizontal scroll but remains flat on the floor */}
-          <ScrollAnimatedShadow isSmallViewport={isSmallViewport} reduceMotion={reduceMotion} />
-        </group>
-      </Canvas>
-      {allowDragRotation && (
-        /* Full-area hit target: drag anywhere in this block to rotate the phone (canvas stays non-interactive for WebGL). */
-        <div
-          ref={overlayRef}
-          className="absolute inset-0 z-10 cursor-grab touch-none select-none active:cursor-grabbing"
-          style={{ touchAction: 'none' }}
-          aria-label="Drag to rotate the phone preview"
-          {...overlayProps}
-        />
-      )}
-    </div>
+          <Environment preset="city" />
+
+          {/* Group containing both phone and shadow so they move together if needed,
+              but here we just position the shadow relative to the base */}
+          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? 0.2 : 0.45, 0]}>
+            <Float
+              speed={reduceMotion ? 0 : 2.85}
+              rotationIntensity={reduceMotion ? 0 : 0.55}
+              floatIntensity={reduceMotion ? 0 : 0.5}
+              floatingRange={[-0.12, 0.12]}
+            >
+              <ScrollAnimatedPhone
+                screenLogoSrc={screenLogoSrc}
+                reduceMotion={reduceMotion}
+                isSmallViewport={isSmallViewport}
+                dragRefs={dragRefs}
+                onReady={onReady}
+              />
+            </Float>
+            {/* Shadow tracks horizontal scroll but remains flat on the floor */}
+            <ScrollAnimatedShadow isSmallViewport={isSmallViewport} reduceMotion={reduceMotion} />
+          </group>
+        </Canvas>
+        {allowDragRotation && (
+          /* Full-area hit target: drag anywhere in this block to rotate the phone (canvas stays non-interactive for WebGL). */
+          <div
+            ref={overlayRef}
+            className="absolute inset-0 z-10 cursor-grab touch-none select-none active:cursor-grabbing"
+            style={{ touchAction: 'none' }}
+            aria-label="Drag to rotate the phone preview"
+            {...overlayProps}
+          />
+        )}
+      </div>
+    </PhoneHeroCanvasBoundary>
   )
 }

@@ -43,7 +43,6 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     style={{ opacity: bullet1Opacity, y: bullet1Y }}
                 >
                     <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-app-softBlue/55" />
-                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-app-blueBright shadow-[0_0_8px_rgba(137,176,235,0.45)]" />
                     <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-blueBright">We Do the Heavy Lifting</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         Just send in the material. Our agent reads, listens, and analyzes the content for you, extracting the exact concepts you need to understand.
@@ -64,8 +63,7 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     style={{ opacity: bullet2Opacity, y: bullet2Y }}
                 >
                     <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-app-mint/50" />
-                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-app-mint shadow-[0_0_8px_rgba(79,158,149,0.45)]" />
-                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-mintBright">Your Custom Learning Plan</p>
+                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-mintBright">Custom Lesson Plan</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         We take those insights and organize them for you. Instead of a messy wall of text, you get a clean, step-by-step lesson plan that&apos;s easy to digest in minutes.
                     </p>
@@ -85,8 +83,7 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     style={{ opacity: bullet3Opacity, y: bullet3Y }}
                 >
                     <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-app-lavender/50" />
-                    <span className="absolute right-full top-[16px] mr-[4.75rem] w-2 h-2 rounded-full bg-app-lilac shadow-[0_0_8px_rgba(176,138,228,0.4)]" />
-                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-lilac">Quizzes That Grow With You</p>
+                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-lilac">Quizzes That Adapt</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         Start easy, finish strong. Our quizzes adapt to your progress-beginning with simple questions to build momentum, and slowly getting more challenging as you master the material.
                     </p>
@@ -95,7 +92,6 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
         </div>
     )
 }
-
 
 
 

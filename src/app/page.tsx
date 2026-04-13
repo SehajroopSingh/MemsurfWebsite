@@ -119,7 +119,7 @@ export default function Home() {
           />
         </div>
 
-        <section className="pb-24 pt-12">
+        <section className="pb-24 pt-12 md:pt-40 lg:pt-12">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center text-center space-y-10">
 

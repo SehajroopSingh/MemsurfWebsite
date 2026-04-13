@@ -7,6 +7,20 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { Linkedin, ArrowRight } from 'lucide-react'
 
+const founderPanelClass = [
+    'flex flex-col items-center gap-6',
+    'rounded-[2.5rem] border border-app-lavender/35',
+    'bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18',
+    'p-5 sm:p-6 md:p-8 shadow-lg ring-1 ring-app-mint/10',
+].join(' ')
+
+const founderImageClass = [
+    'relative aspect-square w-56 sm:w-64 overflow-hidden rounded-full',
+    'border-[6px] border-white bg-white shadow-md',
+].join(' ')
+
+const founderNameClass = 'text-2xl font-bold text-app-text'
+
 export default function TeamPage() {
     return (
         <main className="min-h-screen bg-transparent text-app-text selection:bg-app-softBlue/30">
@@ -14,7 +28,7 @@ export default function TeamPage() {
 
             <section className="relative pt-28 pb-16 bg-gradient-to-b from-app-surface/80 via-transparent to-transparent">
                 <div className="absolute inset-x-0 -top-32 h-64 bg-[radial-gradient(circle_at_top,_rgba(83,118,171,0.22),_transparent_55%)] pointer-events-none" />
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                     <p className="text-sm font-semibold text-app-softBlue uppercase tracking-[0.2em] mb-4">
                         Meet the founders
                     </p>
@@ -23,47 +37,36 @@ export default function TeamPage() {
                         <br />
                         for learners.
                     </h1>
-                    <p className="text-xl text-app-textMuted max-w-2xl">
+                    <p className="text-xl text-app-textMuted max-w-2xl mx-auto">
                         MemSurf is on a mission to put your memory on autopilot. We are building the tools we wished we had.
                     </p>
                 </div>
             </section>
 
-            <section className="py-16 border-t border-app-border">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
-                    <div className="space-y-4 max-w-3xl">
-                        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-app-text">
-                            The people behind the product
-                        </h2>
-                        <p className="text-lg text-app-textMuted">
-                            Two founders obsessed with making follow-through easier for every learner.
-                        </p>
-                    </div>
-
-                    <div className="grid gap-12">
-                        <div className="grid md:grid-cols-5 gap-10 items-start">
-                            <div className="md:col-span-2">
-                                <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-app-border shadow-md bg-app-surface">
-                                    <Image
-                                        src="/team-sehaj.jpg"
-                                        alt="Sehajroop Singh"
-                                        fill
-                                        className="object-cover object-top"
-                                        sizes="(min-width: 1024px) 480px, (min-width: 768px) 50vw, 100vw"
-                                        priority
-                                    />
-                                </div>
+            <section className="py-16">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+                        <div className={founderPanelClass}>
+                            <div className={founderImageClass}>
+                                <Image
+                                    src="/team-sehaj.jpg"
+                                    alt="Sehajroop Singh"
+                                    fill
+                                    className="object-cover object-top scale-105"
+                                    sizes="(min-width: 1024px) 256px, 224px"
+                                    priority
+                                />
                             </div>
 
-                            <div className="md:col-span-3 space-y-4">
-                                <div>
-                                    <h3 className="text-2xl font-bold text-app-text">Sehajroop Singh</h3>
+                            <div className="space-y-4">
+                                <div className="text-center">
+                                    <h3 className={founderNameClass}>Sehaj Singh</h3>
                                     <p className="text-app-softBlue font-semibold uppercase tracking-[0.14em] text-xs mt-1">
                                         Founder & CEO
                                     </p>
                                 </div>
 
-                                <div className="prose prose-lg prose-invert max-w-none text-app-textMuted">
+                                <div className="prose prose-lg prose-invert max-w-none space-y-4 text-app-textMuted">
                                     <p>
                                         Hi, I’m Sehajroop, founder and CEO of MemSurf, and a lifelong learner with a mild intolerance for forgetting things I know I’ve already learned.
                                     </p>
@@ -78,7 +81,7 @@ export default function TeamPage() {
                                     </p>
                                 </div>
 
-                                <div>
+                                <div className="flex justify-center">
                                     <Link
                                         href="https://www.linkedin.com/in/sehajroop-singh/"
                                         target="_blank"
@@ -92,28 +95,26 @@ export default function TeamPage() {
                             </div>
                         </div>
 
-                        <div className="grid md:grid-cols-5 gap-10 items-start">
-                            <div className="md:col-span-2">
-                                <div className="relative aspect-[10/9] w-full rounded-2xl overflow-hidden border border-app-border shadow-md bg-app-surface">
-                                    <Image
-                                        src="/Alessia.jpg"
-                                        alt="Alessia Canuto"
-                                        fill
-                                        className="object-cover object-center"
-                                        sizes="(min-width: 1024px) 480px, (min-width: 768px) 50vw, 100vw"
-                                    />
-                                </div>
+                        <div className={founderPanelClass}>
+                            <div className={founderImageClass}>
+                                <Image
+                                    src="/Alessia.jpg"
+                                    alt="Alessia Canuto"
+                                    fill
+                                    className="object-cover object-center scale-105"
+                                    sizes="(min-width: 1024px) 256px, 224px"
+                                />
                             </div>
 
-                            <div className="md:col-span-3 space-y-4">
-                                <div>
-                                    <h3 className="text-2xl font-bold text-app-text">Alessia Canuto</h3>
+                            <div className="space-y-4">
+                                <div className="text-center">
+                                    <h3 className={founderNameClass}>Alessia Canuto</h3>
                                     <p className="text-app-softBlue font-semibold uppercase tracking-[0.14em] text-xs mt-1">
                                         Co-founder & COO
                                     </p>
                                 </div>
 
-                                <div className="prose prose-lg prose-invert max-w-none text-app-textMuted">
+                                <div className="prose prose-lg prose-invert max-w-none space-y-4 text-app-textMuted">
                                     <p>Hi, I'm Alessia, co-founder and COO of MemSurf.</p>
                                     <p>
                                         I've spent most of my career in consulting, policy, and strategy roles, trying to understand why so many systems do not work the way they are supposed to, and why the people who need them most usually get the short end of the stick.
@@ -132,7 +133,7 @@ export default function TeamPage() {
                                     </p>
                                 </div>
 
-                                <div>
+                                <div className="flex justify-center">
                                     <Link
                                         href="https://www.linkedin.com/in/alessia-canuto-451a84226"
                                         target="_blank"
@@ -149,7 +150,7 @@ export default function TeamPage() {
                 </div>
             </section>
 
-            <section className="py-16 bg-app-surfaceElevated border-t border-app-border">
+            <section className="py-16 border-t border-app-border">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl font-semibold tracking-tight text-app-text">Get in touch</h2>
                     <p className="text-lg text-app-textMuted mb-8">

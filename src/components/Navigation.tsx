@@ -61,7 +61,6 @@ export default function Navigation({ isRevealed = true }: NavigationProps) {
                 className="h-[72px] w-[72px] translate-y-1"
                 priority
               />
-              MemSurf
             </Link>
           </div>
 

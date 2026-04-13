@@ -114,7 +114,7 @@ export default function PracticeScrollShowcase() {
             >
                 <div className="sticky top-0 h-[80vh] lg:h-screen w-full flex items-center justify-center">
                     <motion.div
-                        className="relative flex flex-col items-center justify-center z-30 overflow-visible w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px]"
+                        className="relative flex flex-col items-center justify-center z-30 overflow-visible w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px] mt-4 md:mt-24 lg:mt-0"
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}

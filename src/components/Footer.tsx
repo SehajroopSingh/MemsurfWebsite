@@ -45,26 +45,26 @@ export default function Footer() {
   }
 
   return (
-    <footer className="border-t border-app-border/50 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+    <footer className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 backdrop-blur-sm">
+      <div className="py-16 lg:py-20">
         {/* Bottom Bar */}
         <div className="border-t border-app-border pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-            {/* Left Side: MemSurf Branding and Meet the Team */}
-            <div className="flex flex-col">
+          <div className="flex flex-col items-stretch gap-10 text-left lg:flex-row lg:items-start lg:justify-between">
+            {/* Left Side: MemSurf Branding */}
+            <div className="flex flex-col items-start">
               <Link
                 href="/"
-                className="inline-block text-2xl font-bold bg-gradient-to-r from-app-softBlue via-app-lavender to-app-lilac bg-clip-text text-transparent mb-4 tracking-tight"
+                className="mb-6 inline-flex items-center gap-3"
                 onClick={() => trackFooterNav('logo', '/', 'brand')}
               >
-                MemSurf
-              </Link>
-              <Link
-                href="/team"
-                className="text-app-textMuted hover:text-app-blueBright transition-colors text-sm font-medium mb-6"
-                onClick={() => trackFooterNav('meet the team', '/team', 'brand')}
-              >
-                Meet the Team
+                <img
+                  src="/memsurf-logo.svg"
+                  alt=""
+                  className="h-9 w-9"
+                />
+                <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-app-softBlue via-app-lavender to-app-lilac bg-clip-text text-transparent">
+                  MemSurf
+                </span>
               </Link>
               {/* Copyright */}
               <p className="text-app-textMuted/80 text-sm">
@@ -73,15 +73,15 @@ export default function Footer() {
             </div>
 
             {/* Right Side: Two Columns */}
-            <div className="grid grid-cols-2 gap-8 md:gap-12 lg:gap-24">
+            <div className="grid w-full max-w-md grid-cols-2 justify-items-center self-center gap-10 sm:gap-16 lg:w-auto lg:max-w-none lg:justify-items-start lg:self-auto lg:gap-24">
               {/* Company */}
-              <div className="text-left">
+              <div className="text-center lg:text-left">
                 <ul className="space-y-3">
                   {footerLinks.company.map((link, index) => (
                     <li key={index}>
                       <Link
                         href={link.href}
-                        className="text-app-textMuted/80 hover:text-app-lavenderHi transition-colors text-sm font-medium"
+                        className="text-base font-semibold text-app-textMuted/90 hover:text-app-lavenderHi transition-colors lg:text-sm lg:font-medium"
                         onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'company')}
                       >
                         {link.name}
@@ -92,13 +92,13 @@ export default function Footer() {
               </div>
 
               {/* Legal */}
-              <div className="text-left">
+              <div className="text-center lg:text-left">
                 <ul className="space-y-3">
                   {footerLinks.legal.map((link, index) => (
                     <li key={index}>
                       <Link
                         href={link.href}
-                        className="text-app-textMuted/80 hover:text-app-lavenderHi transition-colors text-sm font-medium"
+                        className="text-base font-semibold text-app-textMuted/90 hover:text-app-lavenderHi transition-colors lg:text-sm lg:font-medium"
                         onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'legal')}
                       >
                         {link.name}

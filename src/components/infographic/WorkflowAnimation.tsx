@@ -142,7 +142,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
         <div className="w-full flex flex-col items-center">
             <WindowsCollage workflowHeroCopy onReady={onCollageReady} />
             {/* HOW IT WORKS Heading */}
-            <div id="how-it-works" className="w-full flex justify-center mb-10 md:mb-6 lg:mb-12 xl:mb-14 mt-44 md:mt-80 lg:mt-96 xl:mt-80 z-40 scroll-mt-24">
+            <div id="how-it-works" className="w-full flex justify-center mb-10 md:mb-16 lg:mb-12 xl:mb-14 mt-44 md:mt-80 lg:mt-96 xl:mt-80 z-40 scroll-mt-24">
                 <h1 className="text-5xl sm:text-7xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
                     <RandomizedTextReveal text="HOW IT WORKS" />
                 </h1>
@@ -296,10 +296,10 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                     <div className="space-y-4 text-center lg:text-left px-4 lg:px-0 drop-shadow-lg">
                                         <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-app-mint">YOUR LEARNING ARCHITECT</p>
                                         <h2 className="hidden md:block text-4xl md:text-6xl font-bold text-white leading-tight">
-                                            Show Up. Tap. Learn.
+                                            Your Material, Made Learnable.
                                         </h2>
                                         <p className="text-xl md:text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">
-                                            We prepped the lesson. We built the quiz. We set the schedule. Our agent adapts to your priorities so you can spend your 5 minutes of downtime actually learning, instead of planning what to learn next.
+                                            Send in the content and your agent gets to work. It pulls out what matters, builds the lessons and quizzes, then fits them into your schedule based on your pace, priorities, and progress.
                                         </p>
                                     </div>
                                 </div>

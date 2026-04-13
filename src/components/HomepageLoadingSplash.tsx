@@ -32,10 +32,10 @@ export default function HomepageLoadingSplash({ onLogoReady }: HomepageLoadingSp
         <Image
           src="/memsurf-logo.svg"
           alt="MemSurf"
-          width={220}
-          height={220}
+          width={330}
+          height={330}
           priority
-          className="h-[220px] w-[220px] drop-shadow-[0_22px_60px_rgba(0,0,0,0.42)]"
+          className="h-[330px] w-[330px] drop-shadow-[0_22px_60px_rgba(0,0,0,0.42)]"
           onLoad={onLogoReady}
           onError={onLogoReady}
         />

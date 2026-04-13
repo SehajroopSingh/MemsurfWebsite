@@ -136,7 +136,7 @@ export default function SocialGlassButtons({ className = '' }: SocialGlassButton
           whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.06 }}
           whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
           transition={{ type: 'spring', stiffness: 520, damping: 20 }}
-          className={`group relative flex h-16 overflow-hidden rounded-full border border-white/25 bg-white/[0.10] text-white/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_18px_42px_rgba(2,8,24,0.34)] backdrop-blur-2xl items-center justify-center transition-colors duration-300 hover:border-app-mint/70 hover:bg-white/[0.16] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-mint/75 focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas ${
+          className={`group relative flex h-16 overflow-hidden rounded-full border border-transparent bg-white/[0.10] text-white/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.34),0_18px_42px_rgba(2,8,24,0.34)] backdrop-blur-2xl items-center justify-center transition-colors duration-300 hover:border-app-mint/70 hover:bg-white/[0.16] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-mint/75 focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas ${
             link.isPill
               ? 'flex-[1.45] gap-2 px-4 sm:flex-none sm:h-20 sm:min-w-[10.5rem] sm:px-6 md:h-20'
               : 'flex-1 w-auto sm:flex-none sm:w-20 sm:h-20 md:w-20 md:h-20'
@@ -144,7 +144,6 @@ export default function SocialGlassButtons({ className = '' }: SocialGlassButton
         >
           <span className="pointer-events-none absolute inset-px rounded-full bg-[radial-gradient(circle_at_30%_18%,rgba(255,255,255,0.42),transparent_35%),linear-gradient(135deg,rgba(255,255,255,0.16),transparent_62%)] opacity-75 transition-opacity duration-300 group-hover:opacity-100" />
           <span className="pointer-events-none absolute -left-12 top-0 h-full w-10 rotate-12 bg-white/25 blur-sm transition-transform duration-700 group-hover:translate-x-40" />
-          <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-inset ring-white/15" />
           {link.icon}
           {link.isPill && (
             <span className="relative z-10 hidden text-sm font-semibold tracking-normal text-white sm:inline">

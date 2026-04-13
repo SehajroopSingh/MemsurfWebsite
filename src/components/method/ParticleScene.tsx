@@ -480,7 +480,7 @@ const SECTIONS: SectionData[] = [
     {
         id: 2,
         stepLabel: "Step 02",
-        title: "Quizzes That Grow With You",
+        title: "Quizzes That Adapt",
         shortDesc: "Questions aren't random. They build step-by-step, like a staircase, taking you from basic recognition to complex application.",
         color: "#2563eb",
         align: 'left',

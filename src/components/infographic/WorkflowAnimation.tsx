@@ -252,7 +252,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                 <div
                     id="processing-section"
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center -mt-48 md:-mt-16 lg:-mt-28 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
+                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center mt-24 md:mt-20 lg:mt-24 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
                 >
                     {/* Video Loop Snippet */}
                     <motion.div
@@ -260,7 +260,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-16 z-30 flex flex-col items-center min-h-[600px] justify-start pt-16 md:pt-8 lg:pt-4"
+                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-16 z-30 flex flex-col items-center min-h-[600px] justify-start pt-20 md:pt-12 lg:pt-10"
                     >
                         {/* ANIMATION LOGIC */}
                         <ChatGptIntegrationSection />

@@ -142,14 +142,14 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
         <div className="w-full flex flex-col items-center">
             <WindowsCollage workflowHeroCopy onReady={onCollageReady} />
             {/* HOW IT WORKS Heading */}
-            <div id="how-it-works" className="w-full flex justify-center mb-16 md:mb-8 lg:mb-20 xl:mb-24 mt-96 md:mt-80 lg:mt-96 xl:mt-80 z-40 scroll-mt-24">
-                <h1 className="text-7xl sm:text-8xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
+            <div id="how-it-works" className="w-full flex justify-center mb-10 md:mb-6 lg:mb-12 xl:mb-14 mt-44 md:mt-80 lg:mt-96 xl:mt-80 z-40 scroll-mt-24">
+                <h1 className="text-5xl sm:text-7xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
                     <RandomizedTextReveal text="HOW IT WORKS" />
                 </h1>
             </div>
 
             {/* HOW IT WORKS Section */}
-            <div className="w-full mt-16 md:mt-24 lg:mt-32">
+            <div className="w-full mt-10 md:mt-10 lg:mt-14">
                 <div
                     id="capture-section"
                     ref={phone1ContainerRef}
@@ -191,8 +191,8 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                     {/* Capture stage — lavender + blue wash (app palette) */}
                                     <div className="relative w-full min-w-[620px] max-w-[620px] rounded-[2.5rem] shadow-lg border border-app-lavender/35 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 flex flex-col ring-1 ring-app-mint/10">
                                         {/* "INPUT FROM ANY SOURCE" Text - Centered in Card */}
-                                        <div className="absolute top-[-12rem] sm:top-[-14rem] lg:top-[-4rem] xl:top-[-3rem] w-full flex flex-col items-center z-30 pointer-events-none">
-                                            <p className="text-3xl font-semibold text-app-lilac tracking-wide whitespace-nowrap drop-shadow-sm">INPUT FROM ANY SOURCE</p>
+                                        <div className="absolute top-[-7rem] sm:top-[-9rem] lg:top-[-4rem] xl:top-[-3rem] w-full flex flex-col items-center z-30 pointer-events-none">
+                                            <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide whitespace-nowrap drop-shadow-sm">Input from any source</p>
                                             {/* Mobile-only text below */}
                                             <div className="lg:hidden flex flex-col items-center mt-4 px-4">
                                                 <p className="text-xl text-app-textMuted text-center max-w-xl">
@@ -252,7 +252,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                 <div
                     id="processing-section"
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center mt-24 md:mt-20 lg:mt-24 pb-0 mb-64 md:mb-80 lg:mb-8 xl:mb-8"
+                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center mt-14 md:mt-20 lg:mt-24 pb-0 mb-36 md:mb-80 lg:mb-8 xl:mb-8"
                 >
                     {/* Video Loop Snippet */}
                     <motion.div
@@ -260,7 +260,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-72 lg:mb-16 z-30 flex flex-col items-center min-h-[600px] justify-start pt-20 md:pt-12 lg:pt-10"
+                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-40 lg:mb-16 z-30 flex flex-col items-center min-h-[600px] justify-start pt-12 md:pt-12 lg:pt-10"
                     >
                         {/* ANIMATION LOGIC */}
                         <ChatGptIntegrationSection />
@@ -294,12 +294,12 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                 {/* Text Area (Right Side) */}
                                 <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pr-0 lg:pr-4 z-10 pl-0 lg:pl-6 min-w-0 overflow-hidden mb-8 lg:mb-0">
                                     <div className="space-y-4 text-center lg:text-left px-4 lg:px-0 drop-shadow-lg">
-                                        <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-app-mint">Intelligent Curriculum</p>
+                                        <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-app-mint">YOUR LEARNING ARCHITECT</p>
                                         <h2 className="hidden md:block text-4xl md:text-6xl font-bold text-white leading-tight">
-                                            We Do The Thinking For You.
+                                            Show Up. Tap. Learn.
                                         </h2>
                                         <p className="text-xl md:text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">
-                                            Our agent ruthlessly optimizes your learning path. It cuts the fluff and feeds you the good stuff. It&apos;s like having a strict tutor, but one you can mute.
+                                            We prepped the lesson. We built the quiz. We set the schedule. Our agent adapts to your priorities so you can spend your 5 minutes of downtime actually learning, instead of planning what to learn next.
                                         </p>
                                     </div>
                                 </div>
@@ -309,7 +309,9 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                 </div>
 
                 {/* Practice Phone Section */}
-                <PracticeScrollShowcase />
+                <div className="w-full mt-20 md:mt-0">
+                    <PracticeScrollShowcase />
+                </div>
             </div>
         </div>
     )

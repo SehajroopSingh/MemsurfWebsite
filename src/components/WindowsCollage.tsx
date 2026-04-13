@@ -765,7 +765,7 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
 
   return (
     <div className="w-full bg-transparent py-20 relative overflow-hidden flex justify-center items-center">
-      <div className="mx-auto w-full max-w-7xl px-4 [container-type:inline-size]">
+      <div className="mx-auto w-[92%] max-w-7xl px-0 sm:w-full sm:px-4 [container-type:inline-size]">
         <div className="relative h-[1420px] w-full md:h-[1920px]">
         <svg
           className="pointer-events-none absolute h-0 w-0 overflow-hidden"

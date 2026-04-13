@@ -18,6 +18,13 @@ type BlobSpec = {
   blur: string
 }
 
+type BackgroundBounds = {
+  width: number
+  height: number
+  isMobileLayout: boolean
+}
+
+const MOBILE_LAYOUT_WIDTH = 620
 const LOADING_BLOB_SIZE = 200
 const LOADING_ORBIT_RADIUS = 118
 const LOADING_ORBIT_DURATION = 8
@@ -184,7 +191,97 @@ const blobs: BlobSpec[] = [
   },
 ]
 
-function loadingOrbitKeyframes(index: number, total: number) {
+function useBackgroundBounds() {
+  const ref = React.useRef<HTMLDivElement>(null)
+  const [bounds, setBounds] = React.useState<BackgroundBounds | null>(() => {
+    if (typeof window === 'undefined') return null
+
+    const isMobileLayout = window.matchMedia('(max-width: 640px)').matches
+
+    return {
+      width: isMobileLayout ? getMobileLayoutWidth() : window.innerWidth,
+      height: window.innerHeight,
+      isMobileLayout,
+    }
+  })
+
+  React.useEffect(() => {
+    const updateBounds = () => {
+      const rect = ref.current?.getBoundingClientRect()
+      const isMobileLayout = window.matchMedia('(max-width: 640px)').matches
+
+      setBounds({
+        width: isMobileLayout ? getMobileLayoutWidth() : rect?.width || window.innerWidth,
+        height: rect?.height || window.innerHeight,
+        isMobileLayout,
+      })
+    }
+
+    updateBounds()
+    window.addEventListener('resize', updateBounds)
+    window.visualViewport?.addEventListener('resize', updateBounds)
+    return () => {
+      window.removeEventListener('resize', updateBounds)
+      window.visualViewport?.removeEventListener('resize', updateBounds)
+    }
+  }, [])
+
+  return { ref, bounds }
+}
+
+function getMobileLayoutWidth() {
+  const mainWidth = document.querySelector('main')?.getBoundingClientRect().width
+  const bodyWidth = document.body?.getBoundingClientRect().width
+  const computedBodyWidth = document.body
+    ? Number.parseFloat(window.getComputedStyle(document.body).width)
+    : Number.NaN
+
+  return Math.max(
+    mainWidth || 0,
+    bodyWidth || 0,
+    computedBodyWidth || 0,
+    MOBILE_LAYOUT_WIDTH,
+  )
+}
+
+function axisPositionToPx(value: string, axis: 'x' | 'y', bounds: BackgroundBounds | null) {
+  if (!bounds) return value
+
+  const parsed = Number.parseFloat(value)
+  if (!Number.isFinite(parsed)) return value
+
+  if (value.endsWith('vw') || value.endsWith('vh')) {
+    const size = axis === 'x' ? bounds.width : bounds.height
+    return `${(size * parsed) / 100}px`
+  }
+
+  return value
+}
+
+function pointToPx(point: { x: string; y: string }, bounds: BackgroundBounds | null) {
+  return {
+    x: axisPositionToPx(point.x, 'x', bounds),
+    y: axisPositionToPx(point.y, 'y', bounds),
+  }
+}
+
+function loadingOrbitKeyframes(index: number, total: number, bounds: BackgroundBounds | null) {
+  if (!bounds) return loadingOrbitKeyframesFromCenter(index, total, '50vw', '50vh')
+
+  return loadingOrbitKeyframesFromCenter(
+    index,
+    total,
+    `${bounds.width / 2}px`,
+    `${bounds.height / 2}px`,
+  )
+}
+
+function loadingOrbitKeyframesFromCenter(
+  index: number,
+  total: number,
+  centerX: string,
+  centerY: string,
+) {
   const baseAngle = (index / total) * Math.PI * 2
   const steps = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25, 1.375, 1.5, 1.625, 1.75, 1.875, 2]
 
@@ -194,22 +291,38 @@ function loadingOrbitKeyframes(index: number, total: number) {
       const x = Math.cos(angle) * LOADING_ORBIT_RADIUS
       const y = Math.sin(angle) * LOADING_ORBIT_RADIUS
 
-      acc.x.push(`calc(50vw + ${x.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`)
-      acc.y.push(`calc(50vh + ${y.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`)
+      acc.x.push(`calc(${centerX} + ${x.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`)
+      acc.y.push(`calc(${centerY} + ${y.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`)
       return acc
     },
     { x: [] as string[], y: [] as string[] },
   )
 }
 
-function loadingRestPosition(index: number, total: number) {
+function loadingRestPosition(index: number, total: number, bounds: BackgroundBounds | null) {
+  if (!bounds) return loadingRestPositionFromCenter(index, total, '50vw', '50vh')
+
+  return loadingRestPositionFromCenter(
+    index,
+    total,
+    `${bounds.width / 2}px`,
+    `${bounds.height / 2}px`,
+  )
+}
+
+function loadingRestPositionFromCenter(
+  index: number,
+  total: number,
+  centerX: string,
+  centerY: string,
+) {
   const angle = (index / total) * Math.PI * 2
   const x = Math.cos(angle) * LOADING_ORBIT_RADIUS
   const y = Math.sin(angle) * LOADING_ORBIT_RADIUS
 
   return {
-    x: `calc(50vw + ${x.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`,
-    y: `calc(50vh + ${y.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`,
+    x: `calc(${centerX} + ${x.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`,
+    y: `calc(${centerY} + ${y.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`,
   }
 }
 
@@ -244,10 +357,11 @@ function buildBlobAnimation(
   index: number,
   mode: BlobbyBackgroundMode,
   reduceMotion: boolean,
+  bounds: BackgroundBounds | null,
 ) {
   if (mode === 'loading') {
-    const restPosition = loadingRestPosition(index, blobs.length)
-    const orbit = loadingOrbitKeyframes(index, blobs.length)
+    const restPosition = loadingRestPosition(index, blobs.length, bounds)
+    const orbit = loadingOrbitKeyframes(index, blobs.length, bounds)
 
     return {
       animate: {
@@ -275,10 +389,12 @@ function buildBlobAnimation(
   }
 
   if (reduceMotion || mode === 'settling') {
+    const initialPosition = pointToPx(blob.initial, bounds)
+
     return {
       animate: {
-        x: blob.initial.x,
-        y: blob.initial.y,
+        x: initialPosition.x,
+        y: initialPosition.y,
         width: blob.size,
         height: blob.size,
         scale: 1,
@@ -293,10 +409,13 @@ function buildBlobAnimation(
     }
   }
 
+  const animateX = blob.animate.x.map((value) => axisPositionToPx(value, 'x', bounds))
+  const animateY = blob.animate.y.map((value) => axisPositionToPx(value, 'y', bounds))
+
   return {
     animate: {
-      x: blob.animate.x,
-      y: blob.animate.y,
+      x: animateX,
+      y: animateY,
       width: blob.size,
       height: blob.size,
       scale: blob.scale,
@@ -314,17 +433,37 @@ function buildBlobAnimation(
 export default function BlobbyBackground({ mode = 'idle' }: { mode?: BlobbyBackgroundMode }) {
   const shouldReduceMotion = useReducedMotion()
   const reduceMotion = Boolean(shouldReduceMotion)
+  const { ref, bounds } = useBackgroundBounds()
+  const layerStyle: React.CSSProperties = bounds?.isMobileLayout
+    ? {
+        backgroundColor: '#08131d',
+        left: '50%',
+        right: 'auto',
+        width: `${bounds.width}px`,
+        transform: 'translateX(-50%)',
+      }
+    : {
+        backgroundColor: '#08131d',
+        left: 0,
+        right: 0,
+        width: 'auto',
+        transform: 'none',
+      }
 
   return (
-    <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none" style={{ backgroundColor: '#08131d' }}>
+    <div ref={ref} className="fixed top-0 bottom-0 z-[-1] overflow-hidden pointer-events-none" style={layerStyle}>
       {blobs.map((blob, index) => {
-        const animation = buildBlobAnimation(blob, index, mode, reduceMotion)
+        const animation = buildBlobAnimation(blob, index, mode, reduceMotion, bounds)
+        const initialPosition = pointToPx(blob.initial, bounds)
+        const loadingInitialPosition = loadingRestPosition(index, blobs.length, bounds)
 
         return (
           <motion.div
             key={blob.id}
             style={{
               position: 'absolute',
+              top: 0,
+              left: 0,
               borderRadius: '50%',
               backgroundColor: blob.color,
               filter: blob.blur,
@@ -335,8 +474,8 @@ export default function BlobbyBackground({ mode = 'idle' }: { mode?: BlobbyBackg
               willChange: 'transform, width, height',
             }}
             initial={{
-              x: mode === 'loading' ? loadingRestPosition(index, blobs.length).x : blob.initial.x,
-              y: mode === 'loading' ? loadingRestPosition(index, blobs.length).y : blob.initial.y,
+              x: mode === 'loading' ? loadingInitialPosition.x : initialPosition.x,
+              y: mode === 'loading' ? loadingInitialPosition.y : initialPosition.y,
               width: mode === 'loading' ? LOADING_BLOB_SIZE : blob.size,
               height: mode === 'loading' ? LOADING_BLOB_SIZE : blob.size,
               scale: 1,

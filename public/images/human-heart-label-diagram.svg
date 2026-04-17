@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Human heart labeling diagram</title>
+  <desc id="desc">A stylized anatomical human heart with callout lines and blank label boxes for the aorta, pulmonary artery, superior vena cava, left atrium, right atrium, left ventricle, right ventricle, pulmonary veins, inferior vena cava, septum, and apex.</desc>
+  <defs>
+    <linearGradient id="heartRed" x1="330" y1="170" x2="820" y2="760" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff7a75"/>
+      <stop offset="0.48" stop-color="#c82d3a"/>
+      <stop offset="1" stop-color="#7d1021"/>
+    </linearGradient>
+    <linearGradient id="heartBlue" x1="360" y1="165" x2="610" y2="680" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#65b7e8"/>
+      <stop offset="0.55" stop-color="#2777b6"/>
+      <stop offset="1" stop-color="#154a83"/>
+    </linearGradient>
+    <linearGradient id="vesselRed" x1="460" y1="40" x2="770" y2="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff9a83"/>
+      <stop offset="1" stop-color="#a9192c"/>
+    </linearGradient>
+    <linearGradient id="vesselBlue" x1="330" y1="50" x2="670" y2="365" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8ad6f0"/>
+      <stop offset="1" stop-color="#1a5e9f"/>
+    </linearGradient>
+    <filter id="softShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#181818" flood-opacity="0.18"/>
+    </filter>
+    <style>
+      .artery { fill: url(#vesselRed); stroke: #74111d; stroke-width: 5; stroke-linejoin: round; }
+      .vein { fill: url(#vesselBlue); stroke: #123e68; stroke-width: 5; stroke-linejoin: round; }
+      .outline { stroke: #5f0f1b; stroke-width: 6; stroke-linejoin: round; }
+      .inner-line { fill: none; stroke: rgba(255,255,255,0.5); stroke-width: 5; stroke-linecap: round; }
+      .valve { fill: none; stroke: #ffccbf; stroke-width: 5; stroke-linecap: round; }
+      .label-line { fill: none; stroke: #3b4652; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .label-dot { fill: #ffffff; stroke: #3b4652; stroke-width: 3; }
+      .label-box { fill: #ffffff; stroke: #3b4652; stroke-width: 2.5; rx: 8; }
+      .label-text { font-family: Arial, Helvetica, sans-serif; font-size: 24px; fill: #1f2933; letter-spacing: 0; }
+      .small-note { font-family: Arial, Helvetica, sans-serif; font-size: 17px; fill: #52606d; letter-spacing: 0; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="900" fill="#f8fbff"/>
+  <text x="600" y="54" text-anchor="middle" class="label-text" font-weight="700">Human Heart Labeling Diagram</text>
+  <text x="600" y="82" text-anchor="middle" class="small-note">Replace the placeholder text in each box with your own labels.</text>
+
+  <g id="heart" filter="url(#softShadow)">
+    <!-- Major vessels behind the heart -->
+    <path id="aorta" class="artery" d="M587 223 C552 143 579 76 651 62 C728 48 786 95 792 164 C798 232 746 265 690 259 L691 207 C724 209 751 188 748 156 C744 117 708 91 666 96 C626 101 611 142 632 195 Z"/>
+    <path id="aortic-arch-branch-1" class="artery" d="M652 66 C645 42 650 21 667 6 L701 14 C678 36 673 58 685 83 Z"/>
+    <path id="aortic-arch-branch-2" class="artery" d="M716 80 C719 51 733 31 759 19 L788 40 C755 53 744 77 747 111 Z"/>
+    <path id="aortic-arch-branch-3" class="artery" d="M778 139 C797 116 819 106 849 105 L864 136 C828 134 809 147 789 173 Z"/>
+
+    <path id="pulmonary-artery" class="vein" d="M533 226 C483 150 412 122 343 147 C292 166 259 209 245 267 L291 293 C306 243 329 213 371 199 C420 182 465 205 498 253 Z"/>
+    <path id="pulmonary-artery-right" class="vein" d="M539 231 C604 180 680 172 756 197 C800 212 832 239 860 281 L831 319 C806 286 775 262 732 249 C665 229 610 242 560 286 Z"/>
+    <path id="superior-vena-cava" class="vein" d="M396 74 L470 70 C472 118 466 167 452 219 L378 212 C392 166 399 120 396 74 Z"/>
+    <path id="inferior-vena-cava" class="vein" d="M380 654 C376 704 365 752 347 798 L421 816 C444 760 455 700 455 636 Z"/>
+    <path id="pulmonary-veins-left" class="artery" d="M291 359 L165 327 C144 321 132 299 138 279 C144 260 165 249 185 255 L313 293 Z"/>
+    <path id="pulmonary-veins-left-lower" class="artery" d="M304 432 L178 438 C156 439 138 423 137 402 C136 382 152 364 173 363 L303 357 Z"/>
+    <path id="pulmonary-veins-right" class="artery" d="M805 344 L947 303 C969 297 991 310 997 332 C1003 353 990 375 968 381 L826 421 Z"/>
+    <path id="pulmonary-veins-right-lower" class="artery" d="M796 448 L940 466 C962 469 978 489 975 511 C972 532 952 548 930 545 L786 526 Z"/>
+
+    <!-- Heart body -->
+    <path id="right-heart" class="outline" fill="url(#heartBlue)" d="M469 206 C381 209 306 279 292 373 C277 476 326 595 422 706 C468 758 537 812 586 835 C607 773 615 707 604 643 C593 580 569 530 532 482 C487 424 466 356 481 287 C488 254 497 231 469 206 Z"/>
+    <path id="left-heart" class="outline" fill="url(#heartRed)" d="M508 217 C578 171 700 191 767 269 C836 349 831 474 772 586 C720 685 654 778 587 835 C571 757 555 693 527 639 C500 586 469 548 448 487 C420 404 438 295 508 217 Z"/>
+    <path id="apex" fill="#6b0d1c" opacity="0.38" d="M504 702 C537 743 565 795 586 835 C615 799 643 756 667 711 C620 729 560 727 504 702 Z"/>
+
+    <!-- Chambers and internal landmarks -->
+    <path id="septum" class="inner-line" d="M545 259 C511 335 508 432 545 507 C587 594 602 681 586 835"/>
+    <path id="right-atrium-highlight" class="inner-line" d="M402 260 C347 295 329 372 359 430 C388 487 452 500 500 466"/>
+    <path id="left-atrium-highlight" class="inner-line" d="M615 251 C690 245 747 303 747 377 C747 424 724 466 682 491"/>
+    <path id="right-ventricle-highlight" class="inner-line" d="M392 527 C422 620 481 697 565 737"/>
+    <path id="left-ventricle-highlight" class="inner-line" d="M656 517 C698 592 686 684 614 772"/>
+    <path id="tricuspid-valve" class="valve" d="M438 464 C468 446 502 445 532 462"/>
+    <path id="mitral-valve" class="valve" d="M585 480 C620 457 662 459 696 486"/>
+    <path id="pulmonary-valve" class="valve" d="M494 276 C518 262 544 263 568 279"/>
+    <path id="aortic-valve" class="valve" d="M591 235 C617 220 647 222 672 242"/>
+  </g>
+
+  <!-- Callouts and editable label placeholders -->
+  <g id="labels">
+    <g id="label-aorta">
+      <polyline class="label-line" points="711,142 863,109 980,109"/>
+      <circle class="label-dot" cx="711" cy="142" r="7"/>
+      <rect class="label-box" x="980" y="82" width="174" height="54"/>
+      <text class="label-text" x="999" y="117">Label 1</text>
+    </g>
+    <g id="label-pulmonary-artery">
+      <polyline class="label-line" points="355,195 245,139 61,139"/>
+      <circle class="label-dot" cx="355" cy="195" r="7"/>
+      <rect class="label-box" x="43" y="112" width="174" height="54"/>
+      <text class="label-text" x="62" y="147">Label 2</text>
+    </g>
+    <g id="label-superior-vena-cava">
+      <polyline class="label-line" points="424,118 330,82 72,82"/>
+      <circle class="label-dot" cx="424" cy="118" r="7"/>
+      <rect class="label-box" x="43" y="55" width="206" height="54"/>
+      <text class="label-text" x="62" y="90">Label 3</text>
+    </g>
+    <g id="label-left-atrium">
+      <polyline class="label-line" points="695,350 836,352 1005,257"/>
+      <circle class="label-dot" cx="695" cy="350" r="7"/>
+      <rect class="label-box" x="980" y="230" width="174" height="54"/>
+      <text class="label-text" x="999" y="265">Label 4</text>
+    </g>
+    <g id="label-right-atrium">
+      <polyline class="label-line" points="389,366 230,326 69,255"/>
+      <circle class="label-dot" cx="389" cy="366" r="7"/>
+      <rect class="label-box" x="43" y="228" width="174" height="54"/>
+      <text class="label-text" x="62" y="263">Label 5</text>
+    </g>
+    <g id="label-pulmonary-veins">
+      <polyline class="label-line" points="830,420 915,417 1007,404"/>
+      <circle class="label-dot" cx="830" cy="420" r="7"/>
+      <rect class="label-box" x="980" y="377" width="174" height="54"/>
+      <text class="label-text" x="999" y="412">Label 6</text>
+    </g>
+    <g id="label-right-ventricle">
+      <polyline class="label-line" points="449,611 256,567 70,499"/>
+      <circle class="label-dot" cx="449" cy="611" r="7"/>
+      <rect class="label-box" x="43" y="472" width="174" height="54"/>
+      <text class="label-text" x="62" y="507">Label 7</text>
+    </g>
+    <g id="label-left-ventricle">
+      <polyline class="label-line" points="654,609 821,584 1005,553"/>
+      <circle class="label-dot" cx="654" cy="609" r="7"/>
+      <rect class="label-box" x="980" y="526" width="174" height="54"/>
+      <text class="label-text" x="999" y="561">Label 8</text>
+    </g>
+    <g id="label-inferior-vena-cava">
+      <polyline class="label-line" points="400,735 263,747 70,680"/>
+      <circle class="label-dot" cx="400" cy="735" r="7"/>
+      <rect class="label-box" x="43" y="653" width="174" height="54"/>
+      <text class="label-text" x="62" y="688">Label 9</text>
+    </g>
+    <g id="label-septum">
+      <polyline class="label-line" points="565,535 803,727 1004,700"/>
+      <circle class="label-dot" cx="565" cy="535" r="7"/>
+      <rect class="label-box" x="980" y="673" width="174" height="54"/>
+      <text class="label-text" x="999" y="708">Label 10</text>
+    </g>
+    <g id="label-apex">
+      <polyline class="label-line" points="586,835 724,841 1004,813"/>
+      <circle class="label-dot" cx="586" cy="835" r="7"/>
+      <rect class="label-box" x="980" y="786" width="174" height="54"/>
+      <text class="label-text" x="999" y="821">Label 11</text>
+    </g>
+  </g>
+</svg>

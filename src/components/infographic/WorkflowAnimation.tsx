@@ -142,7 +142,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
         <div className="w-full flex flex-col items-center">
             <WindowsCollage workflowHeroCopy onReady={onCollageReady} />
             {/* HOW IT WORKS Heading */}
-            <div id="how-it-works" className="w-full flex justify-center mb-10 md:mb-16 lg:mb-12 xl:mb-14 mt-44 md:mt-80 lg:mt-96 xl:mt-80 z-40 scroll-mt-24">
+            <div id="how-it-works" className="w-full flex justify-center mb-10 md:mb-16 lg:mb-12 xl:mb-14 mt-12 z-40 scroll-mt-24">
                 <h1 className="text-5xl sm:text-7xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
                     <RandomizedTextReveal text="HOW IT WORKS" />
                 </h1>
@@ -156,7 +156,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                     className="relative w-full min-h-[45vh] md:min-h-[80vh] flex flex-col items-center justify-center mb-0 pb-0"
                 >
 
-                    <div className="sticky top-0 h-screen flex items-center justify-center overflow-visible">
+                    <div className="sticky top-0 flex items-center justify-center overflow-visible py-10 md:py-14 lg:py-16">
 
                         <motion.div
                             className="relative flex flex-col items-center justify-center z-30 overflow-visible w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 gap-4 sm:gap-6"
@@ -252,7 +252,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                 <div
                     id="processing-section"
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 min-h-[50vh] md:min-h-[65vh] lg:min-h-[100vh] flex flex-col items-center justify-center mt-14 md:mt-20 lg:mt-24 pb-0 mb-36 md:mb-80 lg:mb-8 xl:mb-8"
+                    className="relative w-full z-40 flex flex-col items-center justify-center mt-14 md:mt-20 lg:mt-24 pt-12 md:pt-16 lg:pt-20 pb-24 md:pb-32 lg:pb-24 mb-16 md:mb-24 lg:mb-12 xl:mb-12"
                 >
                     {/* Video Loop Snippet */}
                     <motion.div
@@ -260,13 +260,13 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-40 lg:mb-16 z-30 flex flex-col items-center min-h-[600px] justify-start pt-12 md:pt-12 lg:pt-10"
+                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 md:mb-20 lg:mb-12 z-30 flex flex-col items-center min-h-[600px] justify-start pt-12 md:pt-12 lg:pt-10"
                     >
                         {/* ANIMATION LOGIC */}
                         <ChatGptIntegrationSection />
                     </motion.div>
 
-                    <div className="sticky top-0 h-[60vh] md:h-[80vh] lg:h-screen flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh]">
+                    <div className="sticky top-0 flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh] min-h-[60vh] md:min-h-[72vh] lg:min-h-[56rem]">
                         <motion.div
                             className="relative flex flex-col items-center justify-center px-0 py-4 md:py-6 sm:p-8 z-30 overflow-visible w-full max-w-7xl mx-auto gap-2 md:gap-4 sm:gap-6"
                             initial={{ opacity: 0, scale: 0.9 }}

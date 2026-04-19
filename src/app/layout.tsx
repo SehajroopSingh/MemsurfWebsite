@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Dancing_Script, Inter } from 'next/font/google'
+import { Inter, Nanum_Brush_Script, Nanum_Pen_Script } from 'next/font/google'
 import './globals.css'
 import { AmplitudeProvider } from '@/components/AmplitudeProvider'
 import BlobbyBackgroundProvider from '@/components/BlobbyBackgroundProvider'
@@ -7,10 +7,17 @@ import BlobbyBackgroundProvider from '@/components/BlobbyBackgroundProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 /** Used for collage tagline cursive; exposed as CSS var for client components. */
-const collageTaglineScript = Dancing_Script({
+const collageTaglineScript = Nanum_Brush_Script({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: '400',
   variable: '--font-collage-tagline',
+})
+
+/** Used for collage note copy; exposed as CSS var for client components. */
+const collageNoteScript = Nanum_Pen_Script({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-collage-note',
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.com'
@@ -60,7 +67,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} ${collageTaglineScript.variable}`}>
+      <body className={`${inter.className} ${collageTaglineScript.variable} ${collageNoteScript.variable}`}>
         <BlobbyBackgroundProvider>
           <AmplitudeProvider>
             {children}

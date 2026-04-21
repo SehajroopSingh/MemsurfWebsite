@@ -1,0 +1,3 @@
+[submodule "app-store-screenshots"]
+	path = app-store-screenshots
+	url = https://github.com/ParthJadhav/app-store-screenshots.git

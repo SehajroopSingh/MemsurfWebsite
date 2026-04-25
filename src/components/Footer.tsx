@@ -13,6 +13,7 @@ const footerLinks = {
   legal: [
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms of Service', href: '/terms-of-service' },
+    { name: 'Terms of Use (EULA)', href: 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/' },
     { name: 'Cookie Policy', href: '/cookie-policy' },
   ],
 }

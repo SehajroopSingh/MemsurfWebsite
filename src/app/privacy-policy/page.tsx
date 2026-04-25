@@ -116,6 +116,7 @@ const choices = [
   'Update certain account and profile information in the app.',
   'Delete content you created where the app provides deletion controls.',
   'Delete your MemSurf account in the app.',
+  'Allow or revoke AI processing consent in Settings > AI Privacy before personal data is sent to third-party AI providers.',
   'Turn off push notifications in the app or in iOS Settings.',
   'Disable camera, photo library, microphone, speech recognition, and contacts permissions in iOS Settings.',
   'Manage Apple subscriptions through your Apple ID settings.',
@@ -136,7 +137,7 @@ export default function PrivacyPolicyPage() {
       <section className="flex-1 pt-32 pb-16 bg-transparent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-app-textMuted">
           <h1 className="text-4xl md:text-5xl font-bold text-app-text mb-2">Privacy Policy - MemSurf</h1>
-          <p className="text-sm text-gray-500 mb-8">Last updated: April 17, 2026</p>
+          <p className="text-sm text-gray-500 mb-8">Last updated: April 21, 2026</p>
 
           <div className="space-y-8">
             <p className="text-lg leading-relaxed">
@@ -185,9 +186,13 @@ export default function PrivacyPolicyPage() {
             <section>
               <h2 className="text-2xl font-semibold text-app-text mb-4">3. AI Processing</h2>
               <p className="text-app-textMuted">
-                MemSurf uses AI systems and related service providers to process content you submit and generate
-                learning outputs, including summaries, lessons, quizzes, classifications, and study materials. Content
-                sent for AI processing is used to provide the requested app features. We do not sell your user content.
+                MemSurf uses AI systems and related service providers, including OpenAI, Google (Gemini), and
+                Anthropic (Claude), to process content you submit and generate learning outputs, including summaries,
+                lessons, quizzes, classifications, and study materials. Depending on the feature you use, this may
+                include captured text, prompts, uploaded files or images, generated responses, and related request
+                metadata needed to process your request. We request in-app user permission before sending personal data
+                for third-party AI processing, and you can revoke that permission in Settings &gt; AI Privacy. Content
+                sent for AI processing is used to provide requested app features. We do not sell your user content.
               </p>
             </section>
 

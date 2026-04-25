@@ -14,7 +14,7 @@ export default function HomepageLoadingSplash({ onLogoReady }: HomepageLoadingSp
 
   return (
     <motion.div
-      className="fixed top-0 bottom-0 left-0 right-0 z-[70] flex items-center justify-center pointer-events-auto max-[640px]:left-1/2 max-[640px]:right-auto max-[640px]:w-[620px] max-[640px]:-translate-x-1/2"
+      className="fixed inset-0 z-[70] flex items-center justify-center pointer-events-auto"
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

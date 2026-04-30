@@ -165,7 +165,7 @@ export default function Home() {
               </div>
 
               {/* Social Icons - Full width on mobile */}
-              <div id="social-section" className="w-full pt-6 -mx-4 sm:mx-0">
+              <div id="social-section" className="flex flex-wrap align-bottom w-fit pt-6 -mx-4 sm:mx-0">
                 <SocialGlassButtons />
               </div>
 

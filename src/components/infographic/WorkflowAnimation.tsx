@@ -143,7 +143,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
             <WindowsCollage workflowHeroCopy onReady={onCollageReady} />
             {/* HOW IT WORKS Heading */}
             <div id="how-it-works" className="w-full flex justify-center mb-10 md:mb-16 lg:mb-12 xl:mb-14 mt-12 z-40 scroll-mt-24">
-                <h1 className="text-5xl sm:text-7xl md:text-7xl font-bold text-gray-500 tracking-tight text-center">
+                <h1 className="text-5xl font-bold text-white tracking-tight text-center">
                     <RandomizedTextReveal text="HOW IT WORKS" />
                 </h1>
             </div>
@@ -168,14 +168,14 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                         >
 
 
-                            {/* Main Layout: Flex col on mobile, Grid on desktop */}
-                            <div className="relative w-full flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_620px] gap-0 items-center justify-center">
+                            {/* Main Layout: Flex row across breakpoints */}
+                            <div className="relative w-full flex flex-row gap-0 items-center justify-center">
 
                                 {/* Desktop Text Area (Hidden on mobile) */}
                                 <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
                                     <div className="space-y-4 text-left drop-shadow-lg">
                                         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-app-softBlue">Universal Input</p>
-                                        <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                                        <h2 className="text-[40px] font-bold text-white leading-tight">
                                             The agent meets you where your information lives.
                                         </h2>
                                         <p className="text-xl md:text-lg text-gray-300 max-w-xl">
@@ -295,7 +295,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                 <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pr-0 lg:pr-4 z-10 pl-0 lg:pl-6 min-w-0 overflow-hidden mb-8 lg:mb-0">
                                     <div className="space-y-4 text-center lg:text-left px-4 lg:px-0 drop-shadow-lg">
                                         <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-app-mint">YOUR LEARNING ARCHITECT</p>
-                                        <h2 className="hidden md:block text-4xl md:text-6xl font-bold text-white leading-tight">
+                                        <h2 className="hidden md:block text-[40px] font-bold text-white leading-tight">
                                             Your Material, Made Learnable.
                                         </h2>
                                         <p className="text-xl md:text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">

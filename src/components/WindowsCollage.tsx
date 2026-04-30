@@ -264,7 +264,7 @@ const windowData: WindowData[] = [
     videoCropZoom: 1,
     top: designY(132),
     left: designX(680),
-    width: designX(246.09),
+    width: designX(300),
     height: designY(693.19),
     zIndex: 12,
     paneType: 'grid-4',
@@ -401,6 +401,22 @@ const ARCH_FRAME_PATH_D = `M 0,100 L 0,${ARCH_SPRING_LINE_PCT} A 50 ${ARCH_SPRIN
 const ARCH_RADIAL_DEGREES = [45, 90, 135]
 const FRAME_COLOR = '#000000'
 const COLLAGE_TEXT_SCALE = 0.97
+const W10_HOVER_COPY =
+  'Supermarket aisle. Cart half-full. You know there was a nutrition tip you wanted to follow. You forgot where you saved it. Now would be a good time to remember it.'
+const W2_HOVER_COPY =
+  'The meeting starts. You’re prepared and aiming for a promotion. One key comment would’ve made you shine in front of your boss- but when it mattered most, your mind went blank'
+const W1_HOVER_COPY =
+  'Evening. Podcast on while cooking. A funny joke lands. You tell yourself: this one I’ll remember. You smile. Tomorrow’s date will laugh at this.'
+const W9_HOVER_COPY =
+  'After a day of classes, you are too tired to sit down and study. Notes are scattered across apps, screenshots, and tabs. You don’t know where to start so you don’t and keep scrolling.'
+const W8_HOVER_COPY =
+  'You wake up. Shower running. A health thought crosses your mind. You’ll remember it later.'
+const W3_HOVER_COPY =
+  'You open ChatGPT. You ask one question, then another. You’re learning fast. Connecting ideas. Following threads. Somewhere in there, you find it. A great answer. A clear explanation. Exactly what you needed. You think: I’ll come back to this. Later, you can’t find it.'
+const W4_HOVER_COPY =
+  'Night. In bed. Your mind reaches for things'
+const W5_HOVER_COPY = 'it knows are there but can’t pull back.'
+const HOVER_FALLOFF_DELAY_MS = 2000
 
 function scaledFontSize(size: string): string {
   return `calc(${size} * ${COLLAGE_TEXT_SCALE})`
@@ -472,6 +488,109 @@ function ArchedTopWindowFrame() {
         vectorEffect="non-scaling-stroke"
       />
     </svg>
+  )
+}
+
+function AutoFitHoverCopy({
+  text,
+  isVisible,
+  justify = true,
+  fitRatio = 0.85,
+  fitWidthRatio,
+  fitHeightRatio,
+  offsetYPct = 0,
+}: {
+  text: string
+  isVisible: boolean
+  justify?: boolean
+  fitRatio?: number
+  fitWidthRatio?: number
+  fitHeightRatio?: number
+  offsetYPct?: number
+}) {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const textRef = useRef<HTMLParagraphElement | null>(null)
+
+  useEffect(() => {
+    const container = containerRef.current
+    const textEl = textRef.current
+    if (!container || !textEl) return
+
+    let rafId = 0
+
+    const fit = () => {
+      const frameW = container.clientWidth
+      const frameH = container.clientHeight
+      if (frameW <= 0 || frameH <= 0) return
+
+      const targetW = frameW * (fitWidthRatio ?? fitRatio)
+      const targetH = frameH * (fitHeightRatio ?? fitRatio)
+      const lineHeightRatio = 1.22
+
+      textEl.style.width = `${targetW}px`
+
+      let low = 8
+      let high = Math.max(9, Math.min(frameW * 0.16, frameH * 0.25))
+      let best = low
+
+      for (let i = 0; i < 18; i += 1) {
+        const mid = (low + high) / 2
+        textEl.style.fontSize = `${mid}px`
+        textEl.style.lineHeight = `${mid * lineHeightRatio}px`
+
+        const fits =
+          textEl.scrollHeight <= targetH + 1 && textEl.scrollWidth <= targetW + 1
+
+        if (fits) {
+          best = mid
+          low = mid
+        } else {
+          high = mid
+        }
+      }
+
+      textEl.style.fontSize = `${best}px`
+      textEl.style.lineHeight = `${best * lineHeightRatio}px`
+    }
+
+    const scheduleFit = () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(fit)
+    }
+
+    const observer = new ResizeObserver(scheduleFit)
+    observer.observe(container)
+    scheduleFit()
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      observer.disconnect()
+    }
+  }, [text, isVisible, fitRatio, fitWidthRatio, fitHeightRatio])
+
+  return (
+    <div
+      ref={containerRef}
+      className={`pointer-events-none absolute inset-0 z-[30] flex items-center justify-center bg-black/55 px-[3%] transition-opacity duration-300 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
+      aria-hidden={!isVisible}
+    >
+      <p
+        ref={textRef}
+        className="text-white"
+        style={{
+          fontFamily: 'var(--font-inter), Inter, sans-serif',
+          textAlign: 'center',
+          textAlignLast: 'center',
+          wordBreak: 'normal',
+          overflowWrap: 'break-word',
+          transform: `translateY(${offsetYPct}%)`,
+        }}
+      >
+        {text}
+      </p>
+    </div>
   )
 }
 
@@ -555,8 +674,11 @@ type CollageThirdMarkerKey = (typeof COLLAGE_THIRD_MARKERS)[number]['key']
 export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCollageProps = {}) {
   const archClipId = useId().replace(/:/g, '')
   const { track } = useAmplitude()
-  const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [hoveredIds, setHoveredIds] = useState<Set<string>>(new Set())
+  const [isMobileViewport, setIsMobileViewport] = useState(false)
   const videoRefs = useRef<Partial<Record<string, HTMLVideoElement | null>>>({})
+  const windowRefs = useRef<Partial<Record<string, HTMLDivElement | null>>>({})
+  const hoverFalloffTimeoutRef = useRef<number | null>(null)
   const collageThirdMarkerRefs = useRef<Partial<Record<CollageThirdMarkerKey, HTMLDivElement | null>>>({})
   const trackedCollageThirdsRef = useRef<Set<CollageThirdMarkerKey>>(new Set())
   const readyAssetKeysRef = useRef<Set<string>>(new Set())
@@ -632,7 +754,73 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
     return () => observer.disconnect()
   }, [track, workflowHeroCopy])
 
-  const getHoverId = (item: WindowData) => item.sharedSceneGroupId ?? item.id
+  const getHoverId = useCallback((item: WindowData) => item.sharedSceneGroupId ?? item.id, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mediaQuery = window.matchMedia('(max-width: 768px)')
+    const onChange = () => setIsMobileViewport(mediaQuery.matches)
+    onChange()
+    mediaQuery.addEventListener('change', onChange)
+    return () => mediaQuery.removeEventListener('change', onChange)
+  }, [])
+
+  useEffect(() => {
+    if (!isMobileViewport || typeof IntersectionObserver === 'undefined') return
+
+    const idToHoverId = new Map<string, string>()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const nextHoveredIds = new Set<string>()
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const paneId = entry.target.getAttribute('data-window-id')
+          if (!paneId) continue
+          const hoverId = idToHoverId.get(paneId)
+          if (!hoverId) continue
+          nextHoveredIds.add(hoverId)
+        }
+        if (nextHoveredIds.size > 0) {
+          if (hoverFalloffTimeoutRef.current != null) {
+            window.clearTimeout(hoverFalloffTimeoutRef.current)
+            hoverFalloffTimeoutRef.current = null
+          }
+          setHoveredIds(nextHoveredIds)
+          return
+        }
+
+        if (hoverFalloffTimeoutRef.current != null) {
+          window.clearTimeout(hoverFalloffTimeoutRef.current)
+        }
+        hoverFalloffTimeoutRef.current = window.setTimeout(() => {
+          setHoveredIds(new Set())
+          hoverFalloffTimeoutRef.current = null
+        }, HOVER_FALLOFF_DELAY_MS)
+      },
+      {
+        root: null,
+        // Wider middle trigger band so activation feels less abrupt.
+        rootMargin: '-35% 0px -35% 0px',
+        threshold: 0,
+      },
+    )
+
+    for (const item of visibleWindowData) {
+      const el = windowRefs.current[item.id]
+      if (!el) continue
+      idToHoverId.set(item.id, getHoverId(item))
+      observer.observe(el)
+    }
+
+    return () => {
+      observer.disconnect()
+      if (hoverFalloffTimeoutRef.current != null) {
+        window.clearTimeout(hoverFalloffTimeoutRef.current)
+        hoverFalloffTimeoutRef.current = null
+      }
+      setHoveredIds(new Set())
+    }
+  }, [getHoverId, isMobileViewport])
 
   const w10Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w10') : undefined
   const w3Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w3') : undefined
@@ -767,14 +955,14 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
       if (!getWindowVideoSrc(w)) continue
       const el = videoRefs.current[w.id]
       if (!el) continue
-      if (hoveredId === getHoverId(w)) {
+      if (hoveredIds.has(getHoverId(w))) {
         void el.play().catch(() => {})
       } else {
         el.pause()
         el.currentTime = 0
       }
     }
-  }, [hoveredId])
+  }, [hoveredIds, getHoverId])
 
   return (
     <div className="w-full bg-transparent relative overflow-hidden flex justify-center items-center">
@@ -822,7 +1010,7 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
             ? sharedSceneGroups[item.sharedSceneGroupId]
             : undefined
           const hoverId = getHoverId(item)
-          const isHovered = hoveredId === hoverId
+          const isHovered = hoveredIds.has(hoverId)
           const videoZoom = item.videoCropZoom ?? VIDEO_CROP_ZOOM
           const mediaW = item.videoMediaWidthPct
           const videoOp = videoCoverObjectPositionParts(item)
@@ -879,19 +1067,45 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
             w2WorkflowTopPct != null &&
             w2WorkflowHeightPct != null
 
+          const w3CenteredLayout = item.id === 'w3'
+
           return (
             <div
               key={item.id}
+              ref={(el) => {
+                windowRefs.current[item.id] = el
+              }}
+              data-window-id={item.id}
               className="absolute p-0"
               style={{
                 top: w1WorkflowLayout ? '50%' : item.top,
-                left: w1WorkflowLayout ? '1%' : item.left,
+                left: w1WorkflowLayout
+                  ? '1%'
+                  : w3CenteredLayout
+                    ? `${50 - percentValue(item.width) / 2 + 5}%`
+                    : item.left,
                 width: w1WorkflowLayout ? '29%' : item.width,
                 height: w1WorkflowLayout ? '17%' : item.height,
                 zIndex: isHovered ? 999 : item.zIndex,
               }}
-              onMouseEnter={() => setHoveredId(hoverId)}
-              onMouseLeave={() => setHoveredId(null)}
+              onMouseEnter={() => {
+                if (hoverFalloffTimeoutRef.current != null) {
+                  window.clearTimeout(hoverFalloffTimeoutRef.current)
+                  hoverFalloffTimeoutRef.current = null
+                }
+                if (!isMobileViewport) setHoveredIds(new Set([hoverId]))
+              }}
+              onMouseLeave={() => {
+                if (!isMobileViewport) {
+                  if (hoverFalloffTimeoutRef.current != null) {
+                    window.clearTimeout(hoverFalloffTimeoutRef.current)
+                  }
+                  hoverFalloffTimeoutRef.current = window.setTimeout(() => {
+                    setHoveredIds(new Set())
+                    hoverFalloffTimeoutRef.current = null
+                  }, HOVER_FALLOFF_DELAY_MS)
+                }
+              }}
             >
               <div 
                 className={`w-full h-full relative transition-transform duration-500 ease-out origin-center group ${
@@ -961,6 +1175,30 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                               </div>
                             </div>
                           </div>
+                        )}
+                        {item.id === 'w10' && (
+                          <AutoFitHoverCopy text={W10_HOVER_COPY} isVisible={isHovered} />
+                        )}
+                        {item.id === 'w1' && (
+                          <AutoFitHoverCopy text={W1_HOVER_COPY} isVisible={isHovered} />
+                        )}
+                        {item.id === 'w2' && (
+                          <AutoFitHoverCopy text={W2_HOVER_COPY} isVisible={isHovered} />
+                        )}
+                        {item.id === 'w9' && (
+                          <AutoFitHoverCopy text={W9_HOVER_COPY} isVisible={isHovered} />
+                        )}
+                        {item.id === 'w8' && (
+                          <AutoFitHoverCopy text={W8_HOVER_COPY} isVisible={isHovered} />
+                        )}
+                        {item.id === 'w3' && (
+                          <AutoFitHoverCopy
+                            text={W3_HOVER_COPY}
+                            isVisible={isHovered}
+                            fitWidthRatio={0.84}
+                            fitHeightRatio={0.72}
+                            offsetYPct={15}
+                          />
                         )}
                       </div>
                     </div>

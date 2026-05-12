@@ -4,6 +4,7 @@ import React, {
   Suspense,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -14,8 +15,10 @@ import { Environment, ContactShadows, Float, useGLTF, useTexture } from '@react-
 import {
   DoubleSide,
   LinearFilter,
+  MathUtils,
   Mesh,
   MeshBasicMaterial,
+  PerspectiveCamera,
   PlaneGeometry,
   ShaderMaterial,
   SRGBColorSpace,
@@ -398,6 +401,39 @@ function PhoneModel({
 // Preload to avoid pop-in
 useGLTF.preload('/models/iphone17pro.glb')
 
+/**
+ * Canvas aspect used to be ~620×470 when the site forced a wide mobile layout.
+ * Real narrow phones make the canvas much taller relative to width, which changes
+ * perspective framing unless the camera is adjusted for actual canvas size.
+ */
+function HeroPhoneCameraFit() {
+  const { camera, size } = useThree()
+
+  useLayoutEffect(() => {
+    const cam = camera as PerspectiveCamera
+    if (!cam || typeof cam.updateProjectionMatrix !== 'function') return
+
+    const w = Math.max(1, size.width)
+    const h = Math.max(1, size.height)
+    cam.aspect = w / h
+
+    const desktop = w >= 1024
+    if (desktop) {
+      cam.position.set(0, 1.45, 6.85)
+      cam.lookAt(0, -1.22, 0)
+    } else {
+      const referenceCanvasWidth = 560
+      const pull = MathUtils.clamp(referenceCanvasWidth / w, 1, 1.32)
+      cam.position.set(0, 1.65, 7.6 * pull)
+      cam.lookAt(0, -1.65, 0)
+    }
+
+    cam.updateProjectionMatrix()
+  }, [camera, size.height, size.width])
+
+  return null
+}
+
 // Internal component to handle scroll-linked rotation/translation via useFrame
 function ScrollAnimatedPhone({
   screenLogoSrc,
@@ -564,21 +600,12 @@ export default function PhoneHeroMockup({
     <PhoneHeroCanvasBoundary fallback={fallback}>
       <div className={`relative w-full h-[470px] md:h-[700px] overflow-visible ${className}`}>
         <Canvas
-          camera={{ position: [0, 1.55, 7.15], fov: 43 }}
+          camera={{ position: [0, 1.65, 7.6], fov: 43 }}
           dpr={[1, 2]}
           className="w-full h-full"
           style={{ pointerEvents: 'none' }}
-          onCreated={({ camera }) => {
-            const desktop = typeof window !== 'undefined' && window.innerWidth >= 1024
-            if (desktop) {
-              camera.position.set(0, 1.45, 6.85)
-              camera.lookAt(0, -1.22, 0)
-            } else {
-              camera.position.set(0, 1.65, 7.6)
-              camera.lookAt(0, -1.65, 0)
-            }
-          }}
         >
+          <HeroPhoneCameraFit />
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
           <directionalLight position={[-10, -10, -5]} intensity={0.2} />

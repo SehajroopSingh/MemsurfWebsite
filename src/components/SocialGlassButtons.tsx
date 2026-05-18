@@ -25,7 +25,9 @@ const InstagramIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-const socialIconClassName = 'relative z-10 w-8 h-8 sm:w-12 sm:h-12 md:w-8 md:h-8 transition-transform duration-300 group-hover:scale-110'
+/** Icon ~40% of button diameter at each tier (desktop: 32px / 80px). */
+const circleSocialIconClassName =
+  'relative z-10 h-6 w-6 shrink-0 sm:h-7 sm:w-7 md:h-8 md:w-8 transition-transform duration-300 group-hover:scale-110'
 
 const socialLinks = [
   {
@@ -46,35 +48,35 @@ const socialLinks = [
     href: 'https://www.linkedin.com/company/memsurf/',
     external: true,
     isPill: false,
-    icon: <Linkedin className={socialIconClassName} />,
+    icon: <Linkedin className={circleSocialIconClassName} />,
   },
   {
     label: 'TikTok',
     href: 'https://www.tiktok.com/@memsurf',
     external: true,
     isPill: false,
-    icon: <TikTokIcon className={socialIconClassName} />,
+    icon: <TikTokIcon className={circleSocialIconClassName} />,
   },
   {
     label: 'X',
     href: 'https://x.com/memsurf',
     external: true,
     isPill: false,
-    icon: <XIcon className={socialIconClassName} />,
+    icon: <XIcon className={circleSocialIconClassName} />,
   },
   {
     label: 'Instagram',
     href: 'https://www.instagram.com/memsurfai/',
     external: true,
     isPill: false,
-    icon: <InstagramIcon className={socialIconClassName} />,
+    icon: <InstagramIcon className={circleSocialIconClassName} />,
   },
   {
     label: 'Email',
     href: 'mailto:contact@memsurf.com',
     external: false,
     isPill: false,
-    icon: <Mail className={socialIconClassName} />,
+    icon: <Mail className={circleSocialIconClassName} />,
   },
 ]
 
@@ -136,10 +138,11 @@ export default function SocialGlassButtons({ className = '' }: SocialGlassButton
           whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.06 }}
           whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
           transition={{ type: 'spring', stiffness: 520, damping: 20 }}
-          className={`group relative flex h-16 overflow-hidden rounded-full border border-transparent text-white/85 items-center justify-center transition-colors duration-300 hover:border-app-mint/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-mint/75 focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas ${
+          className={`group relative flex overflow-hidden rounded-full border border-transparent text-white/85 items-center justify-center transition-colors duration-300 hover:border-app-mint/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-mint/75 focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas ${
             link.isPill
-              ? 'flex-[1.45] gap-2 px-4 sm:flex-none sm:h-20 sm:min-w-[10.5rem] sm:px-6 md:h-20'
-              : 'flex-1 w-auto sm:flex-none sm:w-20 sm:h-20 md:w-20 md:h-20'
+              ? 'h-16 flex-[1.45] gap-2 px-4 sm:flex-none sm:h-20 sm:min-w-[10.5rem] sm:px-6 md:h-20'
+              : // Perfect circles at every breakpoint; scale up toward desktop 80×80 reference.
+                'flex-none aspect-square h-14 w-14 min-h-14 min-w-14 sm:h-16 sm:w-16 sm:min-h-16 sm:min-w-16 md:h-20 md:w-20 md:min-h-20 md:min-w-20'
           }`}
           style={{
             background: 'linear-gradient(145deg, rgba(0, 0, 0, 0.027), rgba(0, 0, 0, 0.027))',

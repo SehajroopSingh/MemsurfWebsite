@@ -30,17 +30,23 @@ export default function Hero({
                 </div>
 
                 {/* Subtitle and Video Container - Side by side on desktop, stacked on mobile */}
-                <div className="relative w-full max-w-7xl mx-auto px-4 z-20 flex flex-col lg:flex-row lg:items-start lg:gap-5 gap-4 sm:gap-6">
+                <div className="relative z-[45] w-full max-w-7xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start lg:gap-5 gap-4 sm:gap-6">
 
                     {/* Subtitle - Left side on desktop, top on mobile */}
                     <motion.div
-                        className="text-center lg:text-left z-20 flex-1 lg:flex-shrink-0 lg:pt-6"
+                        className="text-center lg:text-left flex-1 lg:flex-shrink-0 lg:pt-6"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ duration: 0.8 }}
                     >
                         <h1 className="text-7xl sm:text-8xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight">
-                            <span className="bg-gradient-to-r from-app-softBlue via-app-lavender to-app-mint bg-clip-text text-transparent">
+                            <span
+                                className="bg-clip-text text-transparent"
+                                style={{
+                                    backgroundImage:
+                                        'linear-gradient(90deg, rgba(65, 139, 251, 1) 0%, rgba(140, 101, 198, 1) 50%, rgba(63, 202, 186, 1) 100%)',
+                                }}
+                            >
                                 The Memory Agent.
                             </span>
                         </h1>
@@ -51,7 +57,7 @@ export default function Hero({
 
                     {/* Phone mockup - Right side on desktop, below on mobile */}
                     <motion.div
-                        className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto lg:w-auto lg:max-w-none lg:flex-[2] lg:ml-auto lg:mx-0 lg:self-start z-10"
+                        className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto lg:w-auto lg:max-w-none lg:flex-[2] lg:ml-auto lg:mx-0 lg:self-start"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ duration: 0.8, delay: isRevealed ? 0.25 : 0 }}
@@ -63,11 +69,9 @@ export default function Hero({
                     </motion.div>
                 </div>
 
-                <SocialGlassButtons className="relative z-20" />
-
-                {/* App Store Links - Below community section */}
+                {/* App Store Links */}
                 <motion.div
-                    className="relative w-full max-w-7xl mx-auto px-4 sm:px-4 z-20 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-0 sm:gap-6 mt-4"
+                    className="relative z-[45] w-full max-w-7xl mx-auto px-4 sm:px-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-0 sm:gap-6 mt-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.8, delay: isRevealed ? 0.45 : 0 }}
@@ -75,7 +79,9 @@ export default function Hero({
                     <StoreBadges location="hero" />
                 </motion.div>
 
-                <div className="w-full z-10 mt-10">
+                <SocialGlassButtons className="relative z-[45]" />
+
+                <div className="relative w-full mt-10">
                     <WorkflowAnimation onCollageReady={onCollageReady} />
                 </div>
             </div>

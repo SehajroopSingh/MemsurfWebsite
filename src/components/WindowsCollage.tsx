@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState, useRef, useEffect, useId } from 'react'
+import React, { useCallback, useMemo, useState, useRef, useEffect, useId } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useAmplitude } from '@/hooks/useAmplitude'
@@ -54,6 +54,10 @@ interface SharedSceneGroup {
 
 /** Hover scale on the outer frame (was 1.5; keep subtle so panes donG��t dominate the collage). */
 const WINDOW_HOVER_SCALE = 1.1
+
+/** w3 arched window: soft glow echoing on-screen UI light (--app-blue-bright / lavender / mint). */
+const W3_FRAME_HOVER_FILTER =
+  'drop-shadow(0 0 22px rgba(137, 176, 235, 0.5)) drop-shadow(0 0 46px rgba(165, 128, 218, 0.3)) drop-shadow(0 0 72px rgba(143, 225, 212, 0.14)) drop-shadow(0 14px 32px rgba(0, 0, 0, 0.55))'
 
 /** Slight zoom so video/poster are cropped (edges clipped) inside the window. */
 const VIDEO_CROP_ZOOM = 1.14
@@ -413,10 +417,16 @@ const W8_HOVER_COPY =
   'You wake up. Shower running. A health thought crosses your mind. You’ll remember it later.'
 const W3_HOVER_COPY =
   'You open ChatGPT. You ask one question, then another. You’re learning fast. Connecting ideas. Following threads. Somewhere in there, you find it. A great answer. A clear explanation. Exactly what you needed. You think: I’ll come back to this. Later, you can’t find it.'
+
+/** One animated “line” per sentence for w3 hover. */
+const W3_HOVER_LINES = W3_HOVER_COPY.split(/(?<=[.!?])\s+/)
+  .map((s) => s.trim())
+  .filter(Boolean)
 const W4_HOVER_COPY =
   'Night. In bed. Your mind reaches for things'
 const W5_HOVER_COPY = 'it knows are there but can’t pull back.'
-const HOVER_FALLOFF_DELAY_MS = 2000
+/** After pointer leaves a pane, wait this long before starting dim/text fade-out. */
+const HOVER_FALLOFF_DELAY_MS = 700
 
 function scaledFontSize(size: string): string {
   return `calc(${size} * ${COLLAGE_TEXT_SCALE})`
@@ -569,11 +579,14 @@ function AutoFitHoverCopy({
   }, [text, isVisible, fitRatio, fitWidthRatio, fitHeightRatio])
 
   return (
-    <div
+    <motion.div
       ref={containerRef}
-      className={`pointer-events-none absolute inset-0 z-[30] flex items-center justify-center bg-black/55 px-[3%] transition-opacity duration-300 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
+      initial={false}
+      animate={
+        isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -14 }
+      }
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="pointer-events-none absolute inset-0 z-[30] flex items-center justify-center bg-black/55 px-[3%]"
       aria-hidden={!isVisible}
     >
       <p
@@ -590,6 +603,66 @@ function AutoFitHoverCopy({
       >
         {text}
       </p>
+    </motion.div>
+  )
+}
+
+const w3LineEase: [number, number, number, number] = [0.22, 1, 0.36, 1]
+
+/** Staggered copy placed outside the frame: 16px to the left of the pane edge. */
+function W3OutsideStaggerText({ isVisible }: { isVisible: boolean }) {
+  const lineVariants = useMemo(
+    () => ({
+      hidden: {
+        opacity: 0,
+        y: -10,
+        transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+      },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.52, ease: w3LineEase },
+      },
+    }),
+    [],
+  )
+
+  const containerVariants = useMemo(
+    () => ({
+      hidden: {
+        transition: { staggerChildren: 0.05, staggerDirection: -1 },
+      },
+      visible: {
+        transition: {
+          staggerChildren: 0.09,
+          delayChildren: 0.06,
+        },
+      },
+    }),
+    [],
+  )
+
+  return (
+    <div
+      className="pointer-events-none absolute right-full top-0 bottom-0 z-[55] flex w-[min(17rem,42vw)] max-w-[min(280px,calc(100vw-2rem))] min-w-0 flex-col justify-center [margin-right:16px]"
+      aria-hidden={!isVisible}
+    >
+      <motion.div
+        initial={false}
+        animate={isVisible ? 'visible' : 'hidden'}
+        variants={containerVariants}
+        className="flex max-h-full w-full flex-col justify-center gap-[0.28em] overflow-visible text-right"
+      >
+        {W3_HOVER_LINES.map((line, i) => (
+          <motion.span
+            key={`${i}-${line.slice(0, 12)}`}
+            variants={lineVariants}
+            className="block text-right text-[0.91875rem] leading-snug text-white shadow-black drop-shadow-[0_1px_8px_rgba(0,0,0,0.85)] [font-family:var(--font-inter),Inter,sans-serif] sm:text-[0.853125rem] md:text-[0.91875rem] [text-wrap:balance]"
+          >
+            {line}
+          </motion.span>
+        ))}
+      </motion.div>
     </div>
   )
 }
@@ -674,10 +747,8 @@ type CollageThirdMarkerKey = (typeof COLLAGE_THIRD_MARKERS)[number]['key']
 export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCollageProps = {}) {
   const archClipId = useId().replace(/:/g, '')
   const { track } = useAmplitude()
-  const [hoveredIds, setHoveredIds] = useState<Set<string>>(new Set())
-  const [isMobileViewport, setIsMobileViewport] = useState(false)
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
   const videoRefs = useRef<Partial<Record<string, HTMLVideoElement | null>>>({})
-  const windowRefs = useRef<Partial<Record<string, HTMLDivElement | null>>>({})
   const hoverFalloffTimeoutRef = useRef<number | null>(null)
   const collageThirdMarkerRefs = useRef<Partial<Record<CollageThirdMarkerKey, HTMLDivElement | null>>>({})
   const trackedCollageThirdsRef = useRef<Set<CollageThirdMarkerKey>>(new Set())
@@ -756,71 +827,12 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
 
   const getHoverId = useCallback((item: WindowData) => item.sharedSceneGroupId ?? item.id, [])
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const mediaQuery = window.matchMedia('(max-width: 768px)')
-    const onChange = () => setIsMobileViewport(mediaQuery.matches)
-    onChange()
-    mediaQuery.addEventListener('change', onChange)
-    return () => mediaQuery.removeEventListener('change', onChange)
-  }, [])
-
-  useEffect(() => {
-    if (!isMobileViewport || typeof IntersectionObserver === 'undefined') return
-
-    const idToHoverId = new Map<string, string>()
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const nextHoveredIds = new Set<string>()
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue
-          const paneId = entry.target.getAttribute('data-window-id')
-          if (!paneId) continue
-          const hoverId = idToHoverId.get(paneId)
-          if (!hoverId) continue
-          nextHoveredIds.add(hoverId)
-        }
-        if (nextHoveredIds.size > 0) {
-          if (hoverFalloffTimeoutRef.current != null) {
-            window.clearTimeout(hoverFalloffTimeoutRef.current)
-            hoverFalloffTimeoutRef.current = null
-          }
-          setHoveredIds(nextHoveredIds)
-          return
-        }
-
-        if (hoverFalloffTimeoutRef.current != null) {
-          window.clearTimeout(hoverFalloffTimeoutRef.current)
-        }
-        hoverFalloffTimeoutRef.current = window.setTimeout(() => {
-          setHoveredIds(new Set())
-          hoverFalloffTimeoutRef.current = null
-        }, HOVER_FALLOFF_DELAY_MS)
-      },
-      {
-        root: null,
-        // Wider middle trigger band so activation feels less abrupt.
-        rootMargin: '-35% 0px -35% 0px',
-        threshold: 0,
-      },
-    )
-
-    for (const item of visibleWindowData) {
-      const el = windowRefs.current[item.id]
-      if (!el) continue
-      idToHoverId.set(item.id, getHoverId(item))
-      observer.observe(el)
-    }
-
-    return () => {
-      observer.disconnect()
-      if (hoverFalloffTimeoutRef.current != null) {
-        window.clearTimeout(hoverFalloffTimeoutRef.current)
-        hoverFalloffTimeoutRef.current = null
-      }
-      setHoveredIds(new Set())
-    }
-  }, [getHoverId, isMobileViewport])
+  const visibleWindowsSorted = useMemo(() => {
+    if (!hoveredId) return visibleWindowData
+    const active = visibleWindowData.filter((w) => getHoverId(w) === hoveredId)
+    const rest = visibleWindowData.filter((w) => getHoverId(w) !== hoveredId)
+    return [...rest, ...active]
+  }, [hoveredId, visibleWindowData, getHoverId])
 
   const w10Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w10') : undefined
   const w3Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w3') : undefined
@@ -955,19 +967,21 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
       if (!getWindowVideoSrc(w)) continue
       const el = videoRefs.current[w.id]
       if (!el) continue
-      if (hoveredIds.has(getHoverId(w))) {
+      if (hoveredId === getHoverId(w)) {
         void el.play().catch(() => {})
       } else {
         el.pause()
         el.currentTime = 0
       }
     }
-  }, [hoveredIds, getHoverId])
+  }, [hoveredId, getHoverId])
 
   return (
-    <div className="w-full bg-transparent relative overflow-hidden flex justify-center items-center">
+    <>
+    <div className="relative w-full bg-transparent overflow-visible flex justify-center items-center">
       <div className="mx-auto w-full max-w-[1481.51px] px-[clamp(0.5rem,2vw,1.25rem)] [container-type:inline-size]">
-        <div className="relative w-full aspect-[1481.51/2582] -translate-y-[3%]">
+        <div className="relative w-full aspect-[1481.51/2582] isolate">
+          <div className="absolute inset-0 -translate-y-[3%]">
         <svg
           className="pointer-events-none absolute h-0 w-0 overflow-hidden"
           aria-hidden
@@ -993,24 +1007,33 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
           ))}
         {workflowHeroCopy && (
           <>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[25] text-right font-bold text-white" style={{ left: designX(199), top: designY(709.35), width: designX(411.08), fontSize: scaledFontSize('clamp(0.85rem, 3.9cqi, 3.6rem)'), lineHeight: '1.2', textShadow: '0px 0px 23px rgba(255,255,255,1)' }}>This is where</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[17] font-bold" style={{ left: designX(637), top: designY(878), fontSize: scaledFontSize('clamp(1rem, 5.25cqi, 4.9rem)'), lineHeight: '1', backgroundImage: 'linear-gradient(90deg, #E6B3FF 3.91%, #84AAE1 51.8%, #96EEDC 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent', textShadow: '0px 0px 23px rgba(134,170,225,1)' }}>MemSurf</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[17] font-bold italic text-white" style={{ left: designX(1037), top: '36%', fontSize: scaledFontSize('clamp(0.85rem, 3.85cqi, 3.6rem)'), lineHeight: '1.2', textShadow: '0px 0px 38px rgba(255,255,255,0.85)' }}>fits</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[26] whitespace-pre-line text-center text-white [font-family:var(--font-collage-tagline),cursive]" style={{ left: designX(674), top: designY(988), fontSize: scaledFontSize('clamp(1.3rem, 6.2cqi, 5.8rem)'), lineHeight: '1', textShadow: '0px 0px 23px rgba(255,255,255,1)' }}>{'Not just\nbetween \nmoments'}</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[25] text-center font-bold text-white" style={{ left: '37%', top: designY(1286), width: designX(509), fontSize: scaledFontSize('clamp(0.9rem, 3.9cqi, 3.6rem)'), textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>But after learning,</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[25] text-center font-bold text-white" style={{ left: '33.5%', top: designY(1613.81), width: designX(600), fontSize: scaledFontSize('clamp(0.95rem, 4.05cqi, 3.75rem)'), textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>after reading.</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[25] font-bold text-white" style={{ left: designX(789), top: '67.5%', width: designX(614), fontSize: scaledFontSize('clamp(0.95rem, 4.15cqi, 3.85rem)'), textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>After taking notes you&apos;ll never revisit.</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[25] text-[#f3f4f6] [font-family:var(--font-collage-note)]" style={{ left: designX(789), top: '75%', width: designX(713), fontSize: scaledFontSize('clamp(1rem, 4.3cqi, 4rem)'), textShadow: '0px 0px 23px rgba(255,255,255,1)' }}>If life gives you something worth keeping.</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[27] whitespace-pre-line text-center font-bold text-white" style={{ left: '21.4%', top: '85%', fontSize: scaledFontSize('clamp(1.35rem, 6.24cqi, 5.75rem)'), lineHeight: '1.01', textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>{'MemSurf helps you\nremember it.'}</motion.p>
-            <img src="/logos/memsurf-logo.svg" alt="MemSurf logo" className="pointer-events-none absolute z-[27]" style={{ left: '43.5%', top: '94%', width: designX(185.4), height: designY(111.99) }} />
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] text-right font-bold text-white" style={{ left: designX(199), top: designY(709.35), width: designX(411.08), fontSize: scaledFontSize('clamp(0.85rem, 3.9cqi, 3.6rem)'), lineHeight: '1.2', textShadow: '0px 0px 23px rgba(255,255,255,1)' }}>This is where</motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] font-bold" style={{ left: designX(637), top: designY(878), fontSize: scaledFontSize('clamp(1rem, 5.25cqi, 4.9rem)'), lineHeight: '1', backgroundImage: 'linear-gradient(90deg, #E6B3FF 3.91%, #84AAE1 51.8%, #96EEDC 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent', textShadow: '0px 0px 23px rgba(134,170,225,1)' }}>MemSurf</motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] font-bold italic text-white" style={{ left: designX(1037), top: '36%', fontSize: scaledFontSize('clamp(0.85rem, 3.85cqi, 3.6rem)'), lineHeight: '1.2', textShadow: '0px 0px 38px rgba(255,255,255,0.85)' }}>fits</motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] whitespace-pre-line text-center text-white [font-family:var(--font-collage-tagline),cursive]" style={{ left: designX(674), top: designY(988), fontSize: scaledFontSize('clamp(1.3rem, 6.2cqi, 5.8rem)'), lineHeight: '1', textShadow: '0px 0px 23px rgba(255,255,255,1)' }}>{'Not just\nbetween \nmoments'}</motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] text-center font-bold text-white" style={{ left: '37%', top: designY(1286), width: designX(509), fontSize: scaledFontSize('clamp(0.9rem, 3.9cqi, 3.6rem)'), textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>But after learning,</motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] text-center font-bold text-white" style={{ left: '33.5%', top: designY(1613.81), width: designX(600), fontSize: scaledFontSize('clamp(0.95rem, 4.05cqi, 3.75rem)'), textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>after reading.</motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] font-bold text-white" style={{ left: designX(789), top: '67.5%', width: designX(614), fontSize: scaledFontSize('clamp(0.95rem, 4.15cqi, 3.85rem)'), textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>After taking notes you&apos;ll never revisit.</motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] text-[#f3f4f6] [font-family:var(--font-collage-note)]" style={{ left: designX(789), top: '75%', width: designX(713), fontSize: scaledFontSize('clamp(1rem, 4.3cqi, 4rem)'), textShadow: '0px 0px 23px rgba(255,255,255,1)' }}>If life gives you something worth keeping.</motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] whitespace-pre-line text-center font-bold text-white" style={{ left: '21.4%', top: '85%', fontSize: scaledFontSize('clamp(1.35rem, 6.24cqi, 5.75rem)'), lineHeight: '1.01', textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>{'MemSurf helps you\nremember it.'}</motion.p>
+            <img src="/logos/memsurf-logo.svg" alt="MemSurf logo" className="pointer-events-none absolute z-[48]" style={{ left: '43.5%', top: '94%', width: designX(185.4), height: designY(111.99) }} />
           </>
         )}
-        {visibleWindowData.map((item, index) => {
+        {visibleWindowsSorted.map((item, index) => {
           const sharedSceneGroup = item.sharedSceneGroupId
             ? sharedSceneGroups[item.sharedSceneGroupId]
             : undefined
           const hoverId = getHoverId(item)
-          const isHovered = hoveredIds.has(hoverId)
+          const isHovered = hoveredId === hoverId
+          const dimmingOthers = hoveredId !== null && !isHovered
+          const spotlight = hoveredId !== null && isHovered
+          const paneStackZ = spotlight
+            ? 60
+            : dimmingOthers
+              ? Math.min(item.zIndex, 12)
+              : isHovered
+                ? 999
+                : item.zIndex
           const videoZoom = item.videoCropZoom ?? VIDEO_CROP_ZOOM
           const mediaW = item.videoMediaWidthPct
           const videoOp = videoCoverObjectPositionParts(item)
@@ -1029,7 +1052,9 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                 backfaceVisibility: 'hidden',
                 ...archClipStyle,
                 filter: isHovered
-                  ? 'drop-shadow(0 14px 28px rgba(0, 0, 0, 0.55))'
+                  ? item.id === 'w3'
+                    ? W3_FRAME_HOVER_FILTER
+                    : 'drop-shadow(0 14px 28px rgba(0, 0, 0, 0.55))'
                   : 'drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35))',
               }
             : {
@@ -1072,10 +1097,6 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
           return (
             <div
               key={item.id}
-              ref={(el) => {
-                windowRefs.current[item.id] = el
-              }}
-              data-window-id={item.id}
               className="absolute p-0"
               style={{
                 top: w1WorkflowLayout ? '50%' : item.top,
@@ -1086,25 +1107,23 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                     : item.left,
                 width: w1WorkflowLayout ? '29%' : item.width,
                 height: w1WorkflowLayout ? '17%' : item.height,
-                zIndex: isHovered ? 999 : item.zIndex,
+                zIndex: paneStackZ,
               }}
               onMouseEnter={() => {
                 if (hoverFalloffTimeoutRef.current != null) {
                   window.clearTimeout(hoverFalloffTimeoutRef.current)
                   hoverFalloffTimeoutRef.current = null
                 }
-                if (!isMobileViewport) setHoveredIds(new Set([hoverId]))
+                setHoveredId(hoverId)
               }}
               onMouseLeave={() => {
-                if (!isMobileViewport) {
-                  if (hoverFalloffTimeoutRef.current != null) {
-                    window.clearTimeout(hoverFalloffTimeoutRef.current)
-                  }
-                  hoverFalloffTimeoutRef.current = window.setTimeout(() => {
-                    setHoveredIds(new Set())
-                    hoverFalloffTimeoutRef.current = null
-                  }, HOVER_FALLOFF_DELAY_MS)
+                if (hoverFalloffTimeoutRef.current != null) {
+                  window.clearTimeout(hoverFalloffTimeoutRef.current)
                 }
+                hoverFalloffTimeoutRef.current = window.setTimeout(() => {
+                  setHoveredId(null)
+                  hoverFalloffTimeoutRef.current = null
+                }, HOVER_FALLOFF_DELAY_MS)
               }}
             >
               <div 
@@ -1190,15 +1209,6 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                         )}
                         {item.id === 'w8' && (
                           <AutoFitHoverCopy text={W8_HOVER_COPY} isVisible={isHovered} />
-                        )}
-                        {item.id === 'w3' && (
-                          <AutoFitHoverCopy
-                            text={W3_HOVER_COPY}
-                            isVisible={isHovered}
-                            fitWidthRatio={0.84}
-                            fitHeightRatio={0.72}
-                            offsetYPct={15}
-                          />
                         )}
                       </div>
                     </div>
@@ -1306,7 +1316,16 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                       </div>
                     </motion.div>
                   )}
-                  
+                  {dimmingOthers ? (
+                    <div
+                      className={`pointer-events-none absolute inset-0 z-[15] bg-black/74 transition-opacity duration-[700ms] ease-out ${
+                        isArchTop ? '' : 'rounded-sm'
+                      }`}
+                      style={isArchTop ? archClipStyle : undefined}
+                      aria-hidden
+                    />
+                  ) : null}
+
                   {/* Border and Panes */}
                   {isArchTop ? (
                     <ArchedTopWindowFrame />
@@ -1324,9 +1343,13 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                   
                 </div>
               </div>
+              {item.id === 'w3' ? (
+                <W3OutsideStaggerText isVisible={isHovered} />
+              ) : null}
             </div>
           )
         })}
+          </div>
         </div>
         
         {!workflowHeroCopy && (
@@ -1343,5 +1366,6 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
         )}
       </div>
     </div>
+    </>
   )
 }

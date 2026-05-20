@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback, useMemo, useState, useRef, useEffect, useId } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import { useAmplitude } from '@/hooks/useAmplitude'
 
@@ -405,28 +405,83 @@ const ARCH_FRAME_PATH_D = `M 0,100 L 0,${ARCH_SPRING_LINE_PCT} A 50 ${ARCH_SPRIN
 const ARCH_RADIAL_DEGREES = [45, 90, 135]
 const FRAME_COLOR = '#000000'
 const COLLAGE_TEXT_SCALE = 0.97
-const W10_HOVER_COPY =
-  'Supermarket aisle. Cart half-full. You know there was a nutrition tip you wanted to follow. You forgot where you saved it. Now would be a good time to remember it.'
+/** w10 (shopping / extended_shopping.mp4): one motion.span per sentence. */
+const W10_HOVER_LINES = [
+  'Supermarket aisle.',
+  'Cart half-full.',
+  'You know there was a nutrition tip you wanted to follow.',
+  'You forgot where you saved it.',
+  'Now would be a good time to remember it.',
+] as const
+const W10_HOVER_COPY = W10_HOVER_LINES.join(' ')
 const W2_HOVER_COPY =
   'The meeting starts. You’re prepared and aiming for a promotion. One key comment would’ve made you shine in front of your boss- but when it mattered most, your mind went blank'
-const W1_HOVER_COPY =
-  'Evening. Podcast on while cooking. A funny joke lands. You tell yourself: this one I’ll remember. You smile. Tomorrow’s date will laugh at this.'
-const W9_HOVER_COPY =
-  'After a day of classes, you are too tired to sit down and study. Notes are scattered across apps, screenshots, and tabs. You don’t know where to start so you don’t and keep scrolling.'
+/** w1 (kitchen): one motion.span per sentence (replaces former AutoFit `<p>`). */
+const W1_HOVER_LINES = [
+  'Evening.',
+  'Podcast on while cooking.',
+  'A funny joke lands.',
+  'You tell yourself: this one I’ll remember.',
+  'You smile.',
+  'Tomorrow’s date will laugh at this.',
+] as const
+const W1_HOVER_COPY = W1_HOVER_LINES.join(' ')
 const W8_HOVER_COPY =
   'You wake up. Shower running. A health thought crosses your mind. You’ll remember it later.'
+/** w6 (desk image under w2): short lines above the frame to avoid wrap orphans. */
+const W6_HOVER_LINES = [
+  'After a day of classes,',
+  'you are too tired to sit down and study.',
+  'Notes are scattered across apps,',
+  'screenshots, and tabs.',
+  'You don’t know where to start',
+  'so you don’t and keep scrolling.',
+] as const
+/** w9 (studying.mp4): one motion.span per sentence, above the frame (same as w8). */
+const W9_HOVER_LINES = [
+  'After a day of classes, you are too tired to sit down and study.',
+  'Notes are scattered across apps, screenshots, and tabs.',
+  'You don’t know where to start so you don’t and keep scrolling.',
+] as const
+const W9_HOVER_COPY = W9_HOVER_LINES.join(' ')
 const W3_HOVER_COPY =
   'You open ChatGPT. You ask one question, then another. You’re learning fast. Connecting ideas. Following threads. Somewhere in there, you find it. A great answer. A clear explanation. Exactly what you needed. You think: I’ll come back to this. Later, you can’t find it.'
 
-/** One animated “line” per sentence for w3 hover. */
-const W3_HOVER_LINES = W3_HOVER_COPY.split(/(?<=[.!?])\s+/)
-  .map((s) => s.trim())
-  .filter(Boolean)
-const W4_HOVER_COPY =
-  'Night. In bed. Your mind reaches for things'
-const W5_HOVER_COPY = 'it knows are there but can’t pull back.'
+function splitHoverCopyLines(copy: string): string[] {
+  return copy
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+}
+
+/** One animated line per sentence for w3 hover. */
+const W3_HOVER_LINES = splitHoverCopyLines(W3_HOVER_COPY)
+/** w2 (office.mp4): one motion.span per sentence, placed above the frame. */
+const W2_HOVER_LINES = [
+  'The meeting starts.',
+  'You’re prepared and aiming for a promotion.',
+  'One key comment would’ve made you shine in front of your boss- but when it mattered most, your mind went blank',
+] as const
+/** One animated line per sentence for w8 hover. */
+const W8_HOVER_LINES = splitHoverCopyLines(W8_HOVER_COPY)
+/** w4 + w5 (bed.mp4 shared scene): one motion.span per sentence, left of the frame. */
+const BEDROOM_HOVER_LINES = [
+  'Night. In bed.',
+  'Your mind reaches for things it knows are there but can’t pull back.',
+] as const
 /** After pointer leaves a pane, wait this long before starting dim/text fade-out. */
-const HOVER_FALLOFF_DELAY_MS = 700
+const HOVER_FALLOFF_DELAY_MS = 200
+/** Gap between pane edge and outside stagger hover copy (was 16px; +20px). */
+const HOVER_COPY_FRAME_GAP_PX = 36
+/** Figma hover spotlight: full-bleed vertical gradient (Variant2 / 387:890). */
+const COLLAGE_HOVER_OVERLAY_GRADIENT =
+  'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 32.692%, rgb(0, 0, 0) 69.231%, rgba(0, 0, 0, 0) 100%)'
+const COLLAGE_HOVER_OVERLAY_Z = 50
+/** Footer tagline + logo stay above the hover overlay (Figma). */
+const COLLAGE_BRAND_FOOTER_Z = 65
+/** Unified pointer target for multi-pane shared scenes (e.g. w4 + w5). */
+const COLLAGE_SHARED_SCENE_HOVER_Z_IDLE = 25
+const COLLAGE_SHARED_SCENE_HOVER_Z_ACTIVE = 61
 
 function scaledFontSize(size: string): string {
   return `calc(${size} * ${COLLAGE_TEXT_SCALE})`
@@ -501,166 +556,256 @@ function ArchedTopWindowFrame() {
   )
 }
 
-function AutoFitHoverCopy({
-  text,
-  isVisible,
-  justify = true,
-  fitRatio = 0.85,
-  fitWidthRatio,
-  fitHeightRatio,
-  offsetYPct = 0,
+const w3LineEase: [number, number, number, number] = [0.22, 1, 0.36, 1]
+
+/** Outside-pane hover stagger — matches “If life gives you something worth keeping.” */
+const HOVER_STAGGER_TEXT_SHADOW = '0px 0px 23px rgba(255, 255, 255, 1)'
+/** % of `.collage-scale-root` width; scales when the collage div resizes. */
+const COLLAGE_HOVER_FONT_CQI = 1.925
+
+function collageHoverFontSizeCssVar(): string {
+  const scale = COLLAGE_TEXT_SCALE
+  return `clamp(calc(1.1424rem * ${scale}), calc(${COLLAGE_HOVER_FONT_CQI * scale}cqi), calc(2.352rem * ${scale}))`
+}
+
+const hoverStaggerTextGlowHidden = '0px 0px 0px rgba(255, 255, 255, 0)'
+const hoverStaggerTextGlowVisible = HOVER_STAGGER_TEXT_SHADOW
+
+const outsideStaggerLineVariants = {
+  hidden: {
+    opacity: 0,
+    y: -10,
+    textShadow: hoverStaggerTextGlowHidden,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    textShadow: hoverStaggerTextGlowVisible,
+    transition: { duration: 0.52, ease: w3LineEase },
+  },
+}
+
+function CollageHoverStaggerLine({
+  textAlign,
+  children,
 }: {
-  text: string
-  isVisible: boolean
-  justify?: boolean
-  fitRatio?: number
-  fitWidthRatio?: number
-  fitHeightRatio?: number
-  offsetYPct?: number
+  textAlign: string
+  children: React.ReactNode
 }) {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const textRef = useRef<HTMLParagraphElement | null>(null)
-
-  useEffect(() => {
-    const container = containerRef.current
-    const textEl = textRef.current
-    if (!container || !textEl) return
-
-    let rafId = 0
-
-    const fit = () => {
-      const frameW = container.clientWidth
-      const frameH = container.clientHeight
-      if (frameW <= 0 || frameH <= 0) return
-
-      const targetW = frameW * (fitWidthRatio ?? fitRatio)
-      const targetH = frameH * (fitHeightRatio ?? fitRatio)
-      const lineHeightRatio = 1.22
-
-      textEl.style.width = `${targetW}px`
-
-      let low = 8
-      let high = Math.max(9, Math.min(frameW * 0.16, frameH * 0.25))
-      let best = low
-
-      for (let i = 0; i < 18; i += 1) {
-        const mid = (low + high) / 2
-        textEl.style.fontSize = `${mid}px`
-        textEl.style.lineHeight = `${mid * lineHeightRatio}px`
-
-        const fits =
-          textEl.scrollHeight <= targetH + 1 && textEl.scrollWidth <= targetW + 1
-
-        if (fits) {
-          best = mid
-          low = mid
-        } else {
-          high = mid
-        }
-      }
-
-      textEl.style.fontSize = `${best}px`
-      textEl.style.lineHeight = `${best * lineHeightRatio}px`
-    }
-
-    const scheduleFit = () => {
-      if (rafId) cancelAnimationFrame(rafId)
-      rafId = requestAnimationFrame(fit)
-    }
-
-    const observer = new ResizeObserver(scheduleFit)
-    observer.observe(container)
-    scheduleFit()
-
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId)
-      observer.disconnect()
-    }
-  }, [text, isVisible, fitRatio, fitWidthRatio, fitHeightRatio])
-
   return (
-    <motion.div
-      ref={containerRef}
-      initial={false}
-      animate={
-        isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -14 }
-      }
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-none absolute inset-0 z-[30] flex items-center justify-center bg-black/55 px-[3%]"
-      aria-hidden={!isVisible}
+    <motion.span
+      variants={outsideStaggerLineVariants}
+      className={`collage-hover-stagger-line ${textAlign}`}
     >
-      <p
-        ref={textRef}
-        className="text-white"
-        style={{
-          fontFamily: 'var(--font-inter), Inter, sans-serif',
-          textAlign: 'center',
-          textAlignLast: 'center',
-          wordBreak: 'normal',
-          overflowWrap: 'break-word',
-          transform: `translateY(${offsetYPct}%)`,
-        }}
-      >
-        {text}
-      </p>
-    </motion.div>
+      {children}
+    </motion.span>
   )
 }
 
-const w3LineEase: [number, number, number, number] = [0.22, 1, 0.36, 1]
+const outsideStaggerContainerVariants = {
+  hidden: {
+    transition: { staggerChildren: 0.05, staggerDirection: -1 as const },
+  },
+  visible: {
+    transition: {
+      staggerChildren: 0.09,
+      delayChildren: 0.06,
+    },
+  },
+}
 
-/** Staggered copy placed outside the frame: 16px to the left of the pane edge. */
-function W3OutsideStaggerText({ isVisible }: { isVisible: boolean }) {
-  const lineVariants = useMemo(
-    () => ({
-      hidden: {
-        opacity: 0,
-        y: -10,
-        transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-      },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.52, ease: w3LineEase },
-      },
-    }),
-    [],
+/** Kitchen video pane only (`kitchen-good.mp4`). */
+function isKitchenPane(item: WindowData): boolean {
+  return (
+    item.id === 'w1' ||
+    item.videoSrc?.includes('kitchen-good') === true
   )
+}
 
-  const containerVariants = useMemo(
-    () => ({
-      hidden: {
-        transition: { staggerChildren: 0.05, staggerDirection: -1 },
-      },
-      visible: {
-        transition: {
-          staggerChildren: 0.09,
-          delayChildren: 0.06,
-        },
-      },
-    }),
-    [],
+/** Office video pane only (`office.mp4`). */
+function isOfficePane(item: WindowData): boolean {
+  return (
+    item.id === 'w2' ||
+    item.videoSrc?.includes('office') === true
   )
+}
+
+/** Shower video pane only (`shower.mp4`). */
+function isShowerPane(item: WindowData): boolean {
+  return (
+    item.id === 'w8' ||
+    item.videoSrc?.includes('shower') === true
+  )
+}
+
+/** Studying video pane only (`studying.mp4`). */
+function isStudyingPane(item: WindowData): boolean {
+  return (
+    item.id === 'w9' ||
+    item.videoSrc?.includes('studying') === true
+  )
+}
+
+/** Desk image pane under w2 (`w6-under-w2-desk.png`). */
+function isW6Pane(item: WindowData): boolean {
+  return (
+    item.id === 'w6' ||
+    item.imageUrl?.includes('w6-under-w2-desk') === true
+  )
+}
+
+type SharedSceneHoverRect = {
+  groupId: string
+  leftPct: number
+  widthPct: number
+  top: string
+  height: string
+}
+
+function getSharedSceneHoverRects(): SharedSceneHoverRect[] {
+  return Object.keys(sharedSceneGroups).flatMap((groupId) => {
+    const panes = sharedScenePanesSorted(groupId)
+    if (panes.length < 2) return []
+    const group = sharedSceneGroups[groupId]
+    const [a, b] = panes
+    const span = combinedHorizontalSpan(a, b)
+    const extra = group.horizontalGapExtra ?? 0
+    return [
+      {
+        groupId,
+        leftPct: span.leftPct,
+        widthPct: span.widthPct + extra,
+        top: a.top,
+        height: a.height,
+      },
+    ]
+  })
+}
+
+type OutsideStaggerSide = 'left' | 'right'
+
+/**
+ * Staggered hover copy beside the pane (w3 = left; w1 / w10 = right).
+ * Same DOM as the working windows: outer column → motion container → motion.span per sentence.
+ */
+function PaneOutsideStaggerText({
+  paneId,
+  lines,
+  isVisible,
+  side,
+  verticalAlign = 'center',
+}: {
+  paneId: string
+  lines: readonly string[]
+  isVisible: boolean
+  side: OutsideStaggerSide
+  /** `end` = last line sits on the pane bottom edge (w6 desk). */
+  verticalAlign?: 'center' | 'end'
+}) {
+  const textAlign = side === 'left' ? 'text-right' : 'text-left'
+  const anchorClass =
+    side === 'left'
+      ? 'right-full top-0 bottom-0'
+      : 'left-full top-0 bottom-0'
+  const gapStyle =
+    side === 'left'
+      ? { marginRight: HOVER_COPY_FRAME_GAP_PX }
+      : { marginLeft: HOVER_COPY_FRAME_GAP_PX }
+  const justifyClass = verticalAlign === 'end' ? 'justify-end' : 'justify-center'
 
   return (
     <div
-      className="pointer-events-none absolute right-full top-0 bottom-0 z-[55] flex w-[min(17rem,42vw)] max-w-[min(280px,calc(100vw-2rem))] min-w-0 flex-col justify-center [margin-right:16px]"
+      data-pane-hover-copy={paneId}
+      className={`collage-hover-stagger-column pointer-events-none absolute z-[55] flex min-w-0 flex-col ${justifyClass} ${anchorClass}`}
+      style={gapStyle}
       aria-hidden={!isVisible}
     >
       <motion.div
         initial={false}
         animate={isVisible ? 'visible' : 'hidden'}
-        variants={containerVariants}
-        className="flex max-h-full w-full flex-col justify-center gap-[0.28em] overflow-visible text-right"
+        variants={outsideStaggerContainerVariants}
+        className={`collage-hover-stagger-stack flex max-h-full w-full flex-col ${justifyClass} overflow-visible ${textAlign}`}
       >
-        {W3_HOVER_LINES.map((line, i) => (
-          <motion.span
-            key={`${i}-${line.slice(0, 12)}`}
-            variants={lineVariants}
-            className="block text-right text-[0.91875rem] leading-snug text-white shadow-black drop-shadow-[0_1px_8px_rgba(0,0,0,0.85)] [font-family:var(--font-inter),Inter,sans-serif] sm:text-[0.853125rem] md:text-[0.91875rem] [text-wrap:balance]"
+        {lines.map((line, i) => (
+          <CollageHoverStaggerLine
+            key={`${paneId}-${i}-${line.slice(0, 12)}`}
+            textAlign={textAlign}
           >
             {line}
-          </motion.span>
+          </CollageHoverStaggerLine>
+        ))}
+      </motion.div>
+    </div>
+  )
+}
+
+function W3OutsideStaggerText({ isVisible }: { isVisible: boolean }) {
+  return (
+    <PaneOutsideStaggerText
+      paneId="w3"
+      lines={W3_HOVER_LINES}
+      isVisible={isVisible}
+      side="left"
+    />
+  )
+}
+
+function W10OutsideStaggerText({ isVisible }: { isVisible: boolean }) {
+  return (
+    <PaneOutsideStaggerText
+      paneId="w10"
+      lines={W10_HOVER_LINES}
+      isVisible={isVisible}
+      side="right"
+    />
+  )
+}
+
+/** Staggered copy above the pane (w2 office, w8 shower, w9 studying). */
+function PaneAboveStaggerText({
+  paneId,
+  lines,
+  isVisible,
+  textAlign = 'text-center',
+  stackZ = 55,
+  measure = 'centered',
+}: {
+  paneId: string
+  lines: readonly string[]
+  isVisible: boolean
+  textAlign?: 'text-center' | 'text-left' | 'text-right'
+  stackZ?: number
+  /** `pane` = full frame width (w6); default centered wide column. */
+  measure?: 'centered' | 'pane'
+}) {
+  const aboveClass =
+    measure === 'pane'
+      ? 'collage-hover-stagger-above collage-hover-stagger-above--pane'
+      : 'collage-hover-stagger-above'
+
+  return (
+    <div
+      data-pane-hover-copy={paneId}
+      className={`${aboveClass} pointer-events-none absolute bottom-full flex h-[min(10rem,28vh)] max-h-[min(180px,calc(100vw-2rem))] min-h-0 flex-col justify-end`}
+      style={{ marginBottom: HOVER_COPY_FRAME_GAP_PX, zIndex: stackZ }}
+      aria-hidden={!isVisible}
+    >
+      <motion.div
+        initial={false}
+        animate={isVisible ? 'visible' : 'hidden'}
+        variants={outsideStaggerContainerVariants}
+        className={`collage-hover-stagger-stack flex max-h-full w-full flex-col justify-end ${
+          measure === 'pane' ? 'items-start' : ''
+        } overflow-visible ${textAlign}`}
+      >
+        {lines.map((line, i) => (
+          <CollageHoverStaggerLine
+            key={`${paneId}-${i}-${line.slice(0, 12)}`}
+            textAlign={textAlign}
+          >
+            <span>{line}</span>
+          </CollageHoverStaggerLine>
         ))}
       </motion.div>
     </div>
@@ -834,6 +979,26 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
     return [...rest, ...active]
   }, [hoveredId, visibleWindowData, getHoverId])
 
+  const sharedSceneHoverRects = useMemo(() => getSharedSceneHoverRects(), [])
+
+  const activateHover = useCallback((id: string) => {
+    if (hoverFalloffTimeoutRef.current != null) {
+      window.clearTimeout(hoverFalloffTimeoutRef.current)
+      hoverFalloffTimeoutRef.current = null
+    }
+    setHoveredId(id)
+  }, [])
+
+  const scheduleHoverClear = useCallback(() => {
+    if (hoverFalloffTimeoutRef.current != null) {
+      window.clearTimeout(hoverFalloffTimeoutRef.current)
+    }
+    hoverFalloffTimeoutRef.current = window.setTimeout(() => {
+      setHoveredId(null)
+      hoverFalloffTimeoutRef.current = null
+    }, HOVER_FALLOFF_DELAY_MS)
+  }, [])
+
   const w10Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w10') : undefined
   const w3Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w3') : undefined
   const w8Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w8') : undefined
@@ -842,10 +1007,16 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
   const w5Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w5') : undefined
   const w2Pane = workflowHeroCopy ? windowData.find((w) => w.id === 'w2') : undefined
 
+  const w4BedPane = windowData.find((w) => w.id === 'w4')
+  const w5BedPane = windowData.find((w) => w.id === 'w5')
+  const bedRoomHoverSpan =
+    w4BedPane != null && w5BedPane != null
+      ? combinedHorizontalSpan(w4BedPane, w5BedPane)
+      : null
   const afterReadingBedSpan =
     w4Pane != null && w5Pane != null
       ? combinedHorizontalSpan(w4Pane, w5Pane)
-      : null
+      : bedRoomHoverSpan
   const afterReadingUnderTopPct =
     w4Pane != null ? paneBottomPct(w4Pane) : 0
 
@@ -979,9 +1150,17 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
   return (
     <>
     <div className="relative w-full bg-transparent overflow-visible flex justify-center items-center">
-      <div className="mx-auto w-full max-w-[1481.51px] px-[clamp(0.5rem,2vw,1.25rem)] [container-type:inline-size]">
-        <div className="relative w-full aspect-[1481.51/2582] isolate">
-          <div className="absolute inset-0 -translate-y-[3%]">
+      <div className="mx-auto w-full max-w-[1481.51px] px-[clamp(0.5rem,2vw,1.25rem)]">
+        <div
+          className="collage-scale-root relative w-full aspect-[1481.51/2582] isolate overflow-visible"
+          style={
+            {
+              ['--collage-hover-font-size' as string]:
+                collageHoverFontSizeCssVar(),
+            } as React.CSSProperties
+          }
+        >
+          <div className="absolute inset-0 -translate-y-[3%] overflow-visible">
         <svg
           className="pointer-events-none absolute h-0 w-0 overflow-hidden"
           aria-hidden
@@ -992,6 +1171,53 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
             </clipPath>
           </defs>
         </svg>
+        <AnimatePresence>
+          {hoveredId !== null ? (
+            <motion.div
+              key="collage-hover-spotlight-overlay"
+              className="pointer-events-none absolute left-1/2 top-0 z-[50] h-full w-screen -translate-x-1/2 backdrop-blur-[2px]"
+              style={{
+                zIndex: COLLAGE_HOVER_OVERLAY_Z,
+                backgroundImage: COLLAGE_HOVER_OVERLAY_GRADIENT,
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              aria-hidden
+            />
+          ) : null}
+        </AnimatePresence>
+        {sharedSceneHoverRects.map((rect) => {
+          const isGroupHovered = hoveredId === rect.groupId
+          return (
+            <div
+              key={`shared-scene-hover-${rect.groupId}`}
+              data-shared-scene={rect.groupId}
+              className="absolute"
+              style={{
+                left: `${rect.leftPct}%`,
+                width: `${rect.widthPct}%`,
+                top: rect.top,
+                height: rect.height,
+                zIndex: isGroupHovered
+                  ? COLLAGE_SHARED_SCENE_HOVER_Z_ACTIVE
+                  : COLLAGE_SHARED_SCENE_HOVER_Z_IDLE,
+              }}
+              onMouseEnter={() => activateHover(rect.groupId)}
+              onMouseLeave={scheduleHoverClear}
+            >
+              {rect.groupId === 'bedRoom' ? (
+                <PaneOutsideStaggerText
+                  paneId="bedRoom"
+                  lines={BEDROOM_HOVER_LINES}
+                  isVisible={isGroupHovered}
+                  side="left"
+                />
+              ) : null}
+            </div>
+          )
+        })}
         {workflowHeroCopy &&
           COLLAGE_THIRD_MARKERS.map((marker) => (
             <div
@@ -1015,8 +1241,36 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] text-center font-bold text-white" style={{ left: '33.5%', top: designY(1613.81), width: designX(600), fontSize: scaledFontSize('clamp(0.95rem, 4.05cqi, 3.75rem)'), textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>after reading.</motion.p>
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] font-bold text-white" style={{ left: designX(789), top: '67.5%', width: designX(614), fontSize: scaledFontSize('clamp(0.95rem, 4.15cqi, 3.85rem)'), textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>After taking notes you&apos;ll never revisit.</motion.p>
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] text-[#f3f4f6] [font-family:var(--font-collage-note)]" style={{ left: designX(789), top: '75%', width: designX(713), fontSize: scaledFontSize('clamp(1rem, 4.3cqi, 4rem)'), textShadow: '0px 0px 23px rgba(255,255,255,1)' }}>If life gives you something worth keeping.</motion.p>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.35 }} className="pointer-events-none absolute z-[48] whitespace-pre-line text-center font-bold text-white" style={{ left: '21.4%', top: '85%', fontSize: scaledFontSize('clamp(1.35rem, 6.24cqi, 5.75rem)'), lineHeight: '1.01', textShadow: '0px 0px 23px rgba(255,255,255,0.85)' }}>{'MemSurf helps you\nremember it.'}</motion.p>
-            <img src="/logos/memsurf-logo.svg" alt="MemSurf logo" className="pointer-events-none absolute z-[48]" style={{ left: '43.5%', top: '94%', width: designX(185.4), height: designY(111.99) }} />
+            <motion.p
+              data-collage-brand-footer
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.35 }}
+              className="pointer-events-none absolute whitespace-pre-line text-center font-bold text-white"
+              style={{
+                left: '21.4%',
+                top: '85%',
+                zIndex: COLLAGE_BRAND_FOOTER_Z,
+                fontSize: scaledFontSize('clamp(1.35rem, 6.24cqi, 5.75rem)'),
+                lineHeight: '1.01',
+                textShadow: '0px 0px 23px rgba(255,255,255,0.85)',
+              }}
+            >
+              {'MemSurf helps you\nremember it.'}
+            </motion.p>
+            <img
+              data-collage-brand-footer
+              src="/logos/memsurf-logo.svg"
+              alt="MemSurf logo"
+              className="pointer-events-none absolute"
+              style={{
+                left: '43.5%',
+                top: '94%',
+                width: designX(185.4),
+                height: designY(111.99),
+                zIndex: COLLAGE_BRAND_FOOTER_Z,
+              }}
+            />
           </>
         )}
         {visibleWindowsSorted.map((item, index) => {
@@ -1025,15 +1279,8 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
             : undefined
           const hoverId = getHoverId(item)
           const isHovered = hoveredId === hoverId
-          const dimmingOthers = hoveredId !== null && !isHovered
           const spotlight = hoveredId !== null && isHovered
-          const paneStackZ = spotlight
-            ? 60
-            : dimmingOthers
-              ? Math.min(item.zIndex, 12)
-              : isHovered
-                ? 999
-                : item.zIndex
+          const paneStackZ = spotlight ? 60 : item.zIndex
           const videoZoom = item.videoCropZoom ?? VIDEO_CROP_ZOOM
           const mediaW = item.videoMediaWidthPct
           const videoOp = videoCoverObjectPositionParts(item)
@@ -1041,9 +1288,11 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
           const archClipStyle = isArchTop
             ? { clipPath: `url(#${archClipId})` as const }
             : undefined
+          const hoverScalesPane =
+            isHovered && item.sharedSceneGroupId == null
           const outerWindowStyle: any = isArchTop
             ? {
-                transform: isHovered
+                transform: hoverScalesPane
                   ? `scale(${WINDOW_HOVER_SCALE})`
                   : 'scale(1)',
                 transformOrigin: sharedSceneGroup
@@ -1058,7 +1307,7 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                   : 'drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35))',
               }
             : {
-                transform: isHovered
+                transform: hoverScalesPane
                   ? `scale(${WINDOW_HOVER_SCALE})`
                   : 'scale(1)',
                 transformOrigin: sharedSceneGroup
@@ -1079,25 +1328,13 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
             w1WorkflowWidthPct != null &&
             w1WorkflowHeightPct != null
 
-          const w2WorkflowLayout =
-            item.id === 'w2' &&
-            workflowHeroCopy &&
-            w2WorkflowTopPct != null &&
-            w2WorkflowHeightPct != null
-
-          const w6UnderW2Layout =
-            item.id === 'w6' &&
-            workflowHeroCopy &&
-            w2Pane != null &&
-            w2WorkflowTopPct != null &&
-            w2WorkflowHeightPct != null
-
           const w3CenteredLayout = item.id === 'w3'
 
           return (
             <div
               key={item.id}
-              className="absolute p-0"
+              data-window-id={item.id}
+              className="absolute overflow-visible p-0"
               style={{
                 top: w1WorkflowLayout ? '50%' : item.top,
                 left: w1WorkflowLayout
@@ -1108,23 +1345,14 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                 width: w1WorkflowLayout ? '29%' : item.width,
                 height: w1WorkflowLayout ? '17%' : item.height,
                 zIndex: paneStackZ,
+                pointerEvents: item.sharedSceneGroupId ? 'none' : 'auto',
               }}
-              onMouseEnter={() => {
-                if (hoverFalloffTimeoutRef.current != null) {
-                  window.clearTimeout(hoverFalloffTimeoutRef.current)
-                  hoverFalloffTimeoutRef.current = null
-                }
-                setHoveredId(hoverId)
-              }}
-              onMouseLeave={() => {
-                if (hoverFalloffTimeoutRef.current != null) {
-                  window.clearTimeout(hoverFalloffTimeoutRef.current)
-                }
-                hoverFalloffTimeoutRef.current = window.setTimeout(() => {
-                  setHoveredId(null)
-                  hoverFalloffTimeoutRef.current = null
-                }, HOVER_FALLOFF_DELAY_MS)
-              }}
+              {...(item.sharedSceneGroupId
+                ? {}
+                : {
+                    onMouseEnter: () => activateHover(hoverId),
+                    onMouseLeave: scheduleHoverClear,
+                  })}
             >
               <div 
                 className={`w-full h-full relative transition-transform duration-500 ease-out origin-center group ${
@@ -1194,21 +1422,6 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                               </div>
                             </div>
                           </div>
-                        )}
-                        {item.id === 'w10' && (
-                          <AutoFitHoverCopy text={W10_HOVER_COPY} isVisible={isHovered} />
-                        )}
-                        {item.id === 'w1' && (
-                          <AutoFitHoverCopy text={W1_HOVER_COPY} isVisible={isHovered} />
-                        )}
-                        {item.id === 'w2' && (
-                          <AutoFitHoverCopy text={W2_HOVER_COPY} isVisible={isHovered} />
-                        )}
-                        {item.id === 'w9' && (
-                          <AutoFitHoverCopy text={W9_HOVER_COPY} isVisible={isHovered} />
-                        )}
-                        {item.id === 'w8' && (
-                          <AutoFitHoverCopy text={W8_HOVER_COPY} isVisible={isHovered} />
                         )}
                       </div>
                     </div>
@@ -1316,16 +1529,6 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                       </div>
                     </motion.div>
                   )}
-                  {dimmingOthers ? (
-                    <div
-                      className={`pointer-events-none absolute inset-0 z-[15] bg-black/74 transition-opacity duration-[700ms] ease-out ${
-                        isArchTop ? '' : 'rounded-sm'
-                      }`}
-                      style={isArchTop ? archClipStyle : undefined}
-                      aria-hidden
-                    />
-                  ) : null}
-
                   {/* Border and Panes */}
                   {isArchTop ? (
                     <ArchedTopWindowFrame />
@@ -1343,8 +1546,92 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
                   
                 </div>
               </div>
+              {item.id === 'w10' ? (
+                <W10OutsideStaggerText isVisible={isHovered} />
+              ) : null}
+              {isKitchenPane(item) ? (
+                <div
+                  data-pane-hover-copy="w1-kitchen"
+                  data-video-src={item.videoSrc}
+                  className="collage-hover-stagger-column pointer-events-none absolute left-full top-0 bottom-0 z-[55] flex min-w-0 flex-col justify-center"
+                  style={{ marginLeft: HOVER_COPY_FRAME_GAP_PX }}
+                  aria-hidden={!isHovered}
+                >
+                  <motion.div
+                    initial={false}
+                    animate={isHovered ? 'visible' : 'hidden'}
+                    variants={outsideStaggerContainerVariants}
+                    className="collage-hover-stagger-stack flex max-h-full w-full flex-col justify-center overflow-visible text-left"
+                  >
+                    {W1_HOVER_LINES.map((line, i) => (
+                      <CollageHoverStaggerLine
+                        key={`w1-kitchen-${i}`}
+                        textAlign="text-left"
+                      >
+                        <span>{line}</span>
+                      </CollageHoverStaggerLine>
+                    ))}
+                  </motion.div>
+                </div>
+              ) : null}
               {item.id === 'w3' ? (
                 <W3OutsideStaggerText isVisible={isHovered} />
+              ) : null}
+              {isOfficePane(item) ? (
+                <div
+                  data-pane-hover-copy="w2-office"
+                  data-video-src={item.videoSrc}
+                  className="collage-hover-stagger-above pointer-events-none absolute bottom-full flex h-[min(10rem,28vh)] max-h-[min(180px,calc(100vw-2rem))] min-h-0 flex-col justify-end"
+                  style={{
+                    marginBottom: HOVER_COPY_FRAME_GAP_PX,
+                    zIndex: isHovered ? 1001 : 55,
+                  }}
+                  aria-hidden={!isHovered}
+                >
+                  <motion.div
+                    initial={false}
+                    animate={isHovered ? 'visible' : 'hidden'}
+                    variants={outsideStaggerContainerVariants}
+                    className="collage-hover-stagger-stack flex max-h-full w-full flex-col justify-end overflow-visible text-center"
+                  >
+                    {W2_HOVER_LINES.map((line, i) => (
+                      <CollageHoverStaggerLine
+                        key={`w2-office-${i}`}
+                        textAlign="text-center"
+                      >
+                        <span>{line}</span>
+                      </CollageHoverStaggerLine>
+                    ))}
+                  </motion.div>
+                </div>
+              ) : null}
+              {isShowerPane(item) ? (
+                <PaneAboveStaggerText
+                  paneId="w8-shower"
+                  lines={W8_HOVER_LINES}
+                  isVisible={isHovered}
+                  textAlign="text-center"
+                  stackZ={isHovered ? 1001 : 55}
+                />
+              ) : null}
+              {isStudyingPane(item) ? (
+                <PaneAboveStaggerText
+                  paneId="w9-studying"
+                  lines={W9_HOVER_LINES}
+                  isVisible={isHovered}
+                  textAlign="text-center"
+                  stackZ={isHovered ? 1001 : 55}
+                />
+              ) : null}
+              {isW6Pane(item) ? (
+                <PaneAboveStaggerText
+                  paneId="w6-desk"
+                  lines={W6_HOVER_LINES}
+                  isVisible={isHovered}
+                  textAlign="text-left"
+                  measure="pane"
+                  stackZ={isHovered ? 1001 : 55}
+                />
               ) : null}
             </div>
           )
@@ -1354,11 +1641,12 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
         
         {!workflowHeroCopy && (
           <motion.p
+            data-collage-brand-footer
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.65, ease: 'easeOut', delay: 0.08 }}
-            className="w-full px-1 pt-8 pb-1 text-center font-bold leading-[1.05] tracking-tight text-white [text-wrap:balance] md:pt-10 md:pb-2"
+            className="relative z-[65] w-full px-1 pt-8 pb-1 text-center font-bold leading-[1.05] tracking-tight text-white [text-wrap:balance] md:pt-10 md:pb-2"
             style={{ fontSize: scaledFontSize('clamp(1.75rem, min(9cqi, 10vw), 5.75rem)') }}
           >
             MemSurf helps you remember it.

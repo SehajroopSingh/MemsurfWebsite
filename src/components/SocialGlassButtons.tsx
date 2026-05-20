@@ -2,6 +2,8 @@
 
 import { Linkedin, Mail } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
+import LiquidGlassOverlays from '@/components/ui/LiquidGlassOverlays'
+import { liquidGlassSurfaceStyle } from '@/lib/liquidGlass'
 
 type SocialGlassButtonsProps = {
   className?: string
@@ -144,23 +146,9 @@ export default function SocialGlassButtons({ className = '' }: SocialGlassButton
               : // Perfect circles at every breakpoint; scale up toward desktop 80×80 reference.
                 'flex-none aspect-square h-14 w-14 min-h-14 min-w-14 sm:h-16 sm:w-16 sm:min-h-16 sm:min-w-16 md:h-20 md:w-20 md:min-h-20 md:min-w-20'
           }`}
-          style={{
-            background: 'linear-gradient(145deg, rgba(0, 0, 0, 0.027), rgba(0, 0, 0, 0.027))',
-            backdropFilter: 'blur(2.64px) contrast(1.18) brightness(1.03) saturate(1.12)',
-            WebkitBackdropFilter: 'blur(2.64px) contrast(1.18) brightness(1.03) saturate(1.12)',
-            boxShadow:
-              '0 4px 8px rgba(0, 0, 0, 0.25), 0 -10px 25px inset rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.08)',
-          }}
+          style={liquidGlassSurfaceStyle}
         >
-          <span
-            className="pointer-events-none absolute inset-0 rounded-full opacity-75 transition-opacity duration-300 group-hover:opacity-100"
-            style={{
-              background:
-                'linear-gradient(180deg, rgba(255, 255, 255, 0) 62%, rgba(255, 255, 255, 0.06) 82%, rgba(255, 255, 255, 0.14) 100%)',
-              mixBlendMode: 'screen',
-            }}
-          />
-          <span className="pointer-events-none absolute -left-12 top-0 h-full w-10 rotate-12 bg-white/25 blur-sm transition-transform duration-700 group-hover:translate-x-40" />
+          <LiquidGlassOverlays sheenTranslateClassName="group-hover:translate-x-40" />
           {link.icon}
           {link.isPill && (
             <span className="relative z-10 hidden text-base font-semibold tracking-normal text-white sm:inline">

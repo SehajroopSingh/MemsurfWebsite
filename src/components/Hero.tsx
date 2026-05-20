@@ -64,6 +64,7 @@ export default function Hero({
                     >
                         <PhoneHeroMockup
                             className="w-full"
+                            screenContentSrc="/images/hero-phone-screen.png"
                             onReady={onPhoneReady}
                         />
                     </motion.div>

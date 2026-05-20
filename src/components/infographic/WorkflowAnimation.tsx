@@ -141,25 +141,28 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
     return (
         <div className="w-full flex flex-col items-center">
             <WindowsCollage workflowHeroCopy onReady={onCollageReady} />
-            {/* HOW IT WORKS Heading */}
-            <div id="how-it-works" className="w-full flex justify-center mb-10 md:mb-16 lg:mb-12 xl:mb-14 mt-12 z-40 scroll-mt-24">
-                <h1 className="text-5xl font-bold text-white tracking-tight text-center">
-                    <RandomizedTextReveal text="HOW IT WORKS" />
-                </h1>
-            </div>
 
-            {/* HOW IT WORKS Section */}
-            <div className="w-full mt-10 md:mt-10 lg:mt-14">
+            {/* HOW IT WORKS Section — [3] */}
+            <div className="w-full mt-10 md:mt-10 lg:mt-14 flex h-fit flex-col items-center gap-10 md:gap-14 lg:gap-12">
+                {/* 3a — HOW IT WORKS heading */}
+                <div
+                    id="how-it-works"
+                    className="flex h-fit w-full shrink-0 justify-center z-40 scroll-mt-24"
+                >
+                    <h1 className="text-5xl font-bold text-white tracking-tight text-center">
+                        <RandomizedTextReveal text="HOW IT WORKS" />
+                    </h1>
+                </div>
+
+                {/* 3b — Capture */}
                 <div
                     id="capture-section"
                     ref={phone1ContainerRef}
-                    className="relative w-full min-h-[45vh] md:min-h-[80vh] flex flex-col items-center justify-center mb-0 pb-0"
+                    className="relative flex h-fit w-full flex-col items-center"
                 >
-
-                    <div className="sticky top-0 flex items-center justify-center overflow-visible py-10 md:py-14 lg:py-16">
-
+                    <div className="relative flex h-fit w-full items-center justify-center overflow-visible py-4 md:py-6">
                         <motion.div
-                            className="relative flex flex-col items-center justify-center z-30 overflow-visible w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 gap-4 sm:gap-6"
+                            className="relative flex h-fit w-full max-w-7xl flex-col items-center justify-center z-30 overflow-visible mx-auto px-4 sm:px-6 lg:px-8 gap-4 sm:gap-6"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
@@ -186,15 +189,15 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
 
                                 {/* Phone + Background Container (Right Side) */}
                                 {/* This wrapper ensures the background sizes to the phone content, not the grid row */}
-                                <div className="relative col-start-2 col-end-3 row-start-1 w-full min-w-[620px] max-w-[620px] flex justify-start z-20 lg:pt-0">
+                                <div className="relative col-start-2 col-end-3 row-start-1 z-20 flex h-fit w-full min-w-0 max-w-[620px] justify-start sm:min-w-[620px] lg:pt-0">
 
                                     {/* Capture stage — lavender + blue wash (app palette) */}
-                                    <div className="relative w-full min-w-[620px] max-w-[620px] rounded-[2.5rem] shadow-lg border border-app-lavender/35 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 flex flex-col ring-1 ring-app-mint/10">
-                                        {/* "INPUT FROM ANY SOURCE" Text - Centered in Card */}
-                                        <div className="absolute top-[-7rem] sm:top-[-9rem] lg:top-[-4rem] xl:top-[-3rem] w-full flex flex-col items-center z-30 pointer-events-none">
-                                            <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide whitespace-nowrap drop-shadow-sm">Input from any source</p>
-                                            {/* Mobile-only text below */}
-                                            <div className="lg:hidden flex flex-col items-center mt-4 px-4">
+                                    <div className="relative flex h-fit w-full min-w-0 max-w-[620px] flex-col rounded-[2.5rem] border border-app-lavender/35 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 shadow-lg ring-1 ring-app-mint/10 sm:min-w-[620px]">
+                                        <div className="flex w-full flex-col items-center gap-4 px-4 pt-8 pb-2 sm:gap-5 sm:pt-10 sm:pb-3 lg:pt-10">
+                                            <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide text-center drop-shadow-sm sm:whitespace-nowrap">
+                                                Input from any source
+                                            </p>
+                                            <div className="flex flex-col items-center px-2 lg:hidden">
                                                 <p className="text-xl text-app-textMuted text-center max-w-xl">
                                                     Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
                                                 </p>
@@ -202,7 +205,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                         </div>
 
                                         {/* Phone Content */}
-                                        <div className="relative w-full flex justify-start pb-6 sm:pb-10 pt-40 sm:pt-32 lg:pt-36 z-20 pl-4">
+                                        <div className="relative z-20 flex w-full justify-start pb-6 pl-4 sm:pb-10">
                                             <div className="relative w-[280px]">
                                                 {/* Flying Icons */}
                                                 <div className="absolute inset-0 overflow-visible pointer-events-none">
@@ -243,32 +246,30 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                     </div>
                 </div>
 
-                {/* TRANSITION ZONE */}
-                <div className="relative w-full h-0 -mt-0 -mb-0 z-[50] pointer-events-none">
+                {/* 3c — Transition (zero flow height; scroll animation only) */}
+                <div className="relative h-0 w-full shrink-0 overflow-visible z-[50] pointer-events-none">
                     <RawContentTransition />
                 </div>
 
-                {/* PHONE 2 SECTION */}
+                {/* 3d — Processing */}
                 <div
                     id="processing-section"
                     ref={phone2ContainerRef}
-                    className="relative w-full z-40 flex flex-col items-center justify-center mt-14 md:mt-20 lg:mt-24 pt-12 md:pt-16 lg:pt-20 pb-24 md:pb-32 lg:pb-24 mb-16 md:mb-24 lg:mb-12 xl:mb-12"
+                    className="relative z-40 flex h-fit w-full flex-col items-center gap-10 md:gap-12"
                 >
-                    {/* Video Loop Snippet */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 md:mb-20 lg:mb-12 z-30 flex flex-col items-center min-h-[600px] justify-start pt-12 md:pt-12 lg:pt-10"
+                        className="z-30 flex h-fit w-full max-w-7xl flex-col items-center mx-auto px-4 sm:px-6 lg:px-8"
                     >
-                        {/* ANIMATION LOGIC */}
                         <ChatGptIntegrationSection />
                     </motion.div>
 
-                    <div className="sticky top-0 flex items-start justify-center overflow-visible pt-0 lg:pt-[2vh] min-h-[60vh] md:min-h-[72vh] lg:min-h-[56rem]">
+                    <div className="relative flex h-fit w-full items-start justify-center overflow-visible py-4 md:py-6">
                         <motion.div
-                            className="relative flex flex-col items-center justify-center px-0 py-4 md:py-6 sm:p-8 z-30 overflow-visible w-full max-w-7xl mx-auto gap-2 md:gap-4 sm:gap-6"
+                            className="relative z-30 flex h-fit w-full max-w-7xl flex-col items-center justify-center overflow-visible mx-auto gap-4 px-0 py-4 sm:gap-6 sm:p-8 md:py-6"
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
@@ -283,10 +284,10 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                             <div className="relative w-full flex flex-col-reverse lg:grid lg:grid-cols-[620px_minmax(0,1fr)] gap-0 items-center justify-center">
 
                                 {/* Phone + Background Container (Left Side) */}
-                                <div className="relative col-start-1 col-end-2 row-start-1 w-full min-w-[620px] max-w-[620px] flex justify-center z-20">
+                                <div className="relative col-start-1 col-end-2 row-start-1 z-20 flex h-fit w-full min-w-0 max-w-[620px] justify-center sm:min-w-[620px]">
 
                                     {/* Phone Content with Purple Card Wrapper */}
-                                    <div className="relative w-full min-w-[620px] max-w-[620px] rounded-[2.5rem] shadow-lg flex justify-center items-center py-10 px-4 z-20 border-[6px] border-app-lavender/45 bg-app-canvas/40 ring-2 ring-app-softBlue/25 ring-offset-0">
+                                    <div className="relative flex h-fit w-full min-w-0 max-w-[620px] items-center justify-center rounded-[2.5rem] border-[6px] border-app-lavender/45 bg-app-canvas/40 px-4 py-10 shadow-lg ring-2 ring-app-softBlue/25 ring-offset-0 sm:min-w-[620px] z-20">
                                         <ProcessingPhoneWithAnnotations progress={phone2Progress} />
                                     </div>
                                 </div>
@@ -308,8 +309,8 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                     </div>
                 </div>
 
-                {/* Practice Phone Section */}
-                <div className="w-full mt-20 md:mt-0">
+                {/* 3e — Practice */}
+                <div className="h-fit w-full">
                     <PracticeScrollShowcase />
                 </div>
             </div>

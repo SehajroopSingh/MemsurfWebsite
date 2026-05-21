@@ -18,11 +18,24 @@ import {
   MeshBasicMaterial,
   PlaneGeometry,
   SRGBColorSpace,
+  type Texture,
 } from 'three'
 
 const HERO_PHONE_SCREEN_CONTENT = '/images/hero-phone-screen.png'
-const SCREEN_CONTENT_INSET = 0.98
+/** Physical plane scale vs screen mesh (keeps image inside glass bezel). */
+const SCREEN_CONTENT_INSET = 0.91
+/** UV crop per edge — zooms texture in so screenshot corners don't spill past the screen. */
+const SCREEN_TEXTURE_EDGE_CROP = 0.045
 const SCREEN_SURFACE_OFFSET = 0.02
+
+function createCroppedScreenTexture(source: Texture) {
+  const cropped = source.clone()
+  const span = 1 - SCREEN_TEXTURE_EDGE_CROP * 2
+  cropped.repeat.set(span, span)
+  cropped.offset.set(SCREEN_TEXTURE_EDGE_CROP, SCREEN_TEXTURE_EDGE_CROP)
+  cropped.needsUpdate = true
+  return cropped
+}
 
 /** Aspect-ratio box for the WebGL canvas (tune after visual QA). */
 const PHONE_HERO_ASPECT_CLASS = 'aspect-[672/470] md:aspect-[672/700]'
@@ -82,7 +95,7 @@ function PhoneHeroFallback({
             <img
               src={screenContentSrc}
               alt="MemSurf app home screen"
-              className="absolute inset-0 h-full w-full object-cover object-top"
+              className="absolute inset-0 h-full w-full origin-center scale-[1.1] object-cover object-top"
             />
           </div>
           <div className="absolute left-1/2 top-3 h-5 w-20 -translate-x-1/2 rounded-full bg-black/65 md:top-5 md:h-7 md:w-28" />
@@ -198,7 +211,6 @@ function PhoneModel({
   const gltf = useGLTF('/models/iphone17pro.glb') as any
   const { gl } = useThree()
   const screenTexture = useTexture(screenContentSrc)
-  const screenOverlayRefs = useRef<Mesh[]>([])
 
   useEffect(() => {
     screenTexture.colorSpace = SRGBColorSpace
@@ -215,15 +227,22 @@ function PhoneModel({
   useEffect(() => {
     if (!scene) return
     let readyFrame: number | null = null
+    const overlayMeshes: Mesh[] = []
+
+    const texImage = screenTexture.image as { width?: number; height?: number } | undefined
+    const textureAspect =
+      texImage?.width && texImage?.height && texImage.width > 0
+        ? texImage.width / texImage.height
+        : 9 / 19.5
 
     scene.traverse((child: any) => {
       if (!child.isMesh || !child.material) return
 
       const materials = Array.isArray(child.material) ? child.material : [child.material]
       const nextMaterials = materials.map((material: any) => {
-        const nextMaterial = material.clone()
+        const materialName = material?.name ?? ''
 
-        if (nextMaterial.name === 'Screen_BG' || nextMaterial.name === 'HeroPhoneScreen') {
+        if (materialName === 'Screen_BG' || materialName === 'HeroPhoneScreen') {
           const position = child.geometry?.attributes?.position
           let minX = Infinity
           let minY = Infinity
@@ -246,28 +265,29 @@ function PhoneModel({
             }
 
             const screenWidth = maxX - minX
-            const screenHeight = maxY - minY
             const centerX = (minX + maxX) / 2
             const centerY = (minY + maxY) / 2
             const centerZ = (minZ + maxZ) / 2
 
             if (
               screenWidth > 0.001 &&
-              screenHeight > 0.001 &&
               Number.isFinite(centerX) &&
               Number.isFinite(centerY) &&
               Number.isFinite(centerZ)
             ) {
+              // Screen mesh thickness is on Y; use X span + texture aspect (same as legacy logo overlay).
               const planeWidth = screenWidth * SCREEN_CONTENT_INSET
-              const planeHeight = screenHeight * SCREEN_CONTENT_INSET
+              const planeHeight = planeWidth / textureAspect
               const screenGeometry = new PlaneGeometry(planeWidth, planeHeight)
-              const screenMaterial = new MeshBasicMaterial({
-                map: screenTexture,
+              const croppedTexture = createCroppedScreenTexture(screenTexture)
+              const overlayMaterial = new MeshBasicMaterial({
+                map: croppedTexture,
+                transparent: true,
                 toneMapped: false,
                 depthWrite: false,
                 side: DoubleSide,
               })
-              const screenMesh = new Mesh(screenGeometry, screenMaterial)
+              const screenMesh = new Mesh(screenGeometry, overlayMaterial)
 
               screenMesh.name = 'HeroPhoneScreenContent'
               screenMesh.position.set(centerX, centerY - SCREEN_SURFACE_OFFSET, centerZ)
@@ -275,7 +295,7 @@ function PhoneModel({
               screenMesh.renderOrder = 8
 
               child.add(screenMesh)
-              screenOverlayRefs.current.push(screenMesh)
+              overlayMeshes.push(screenMesh)
             }
           }
 
@@ -286,6 +306,8 @@ function PhoneModel({
           screenBgMaterial.name = 'HeroPhoneScreen'
           return screenBgMaterial
         }
+
+        const nextMaterial = material.clone()
 
         if (nextMaterial.name === 'Screen_Glass') {
           nextMaterial.transparent = true
@@ -307,13 +329,15 @@ function PhoneModel({
       if (readyFrame != null) {
         window.cancelAnimationFrame(readyFrame)
       }
-      screenOverlayRefs.current.forEach((overlay) => {
+      overlayMeshes.forEach((overlay) => {
         overlay.parent?.remove(overlay)
         overlay.geometry.dispose()
-        const materials = Array.isArray(overlay.material) ? overlay.material : [overlay.material]
-        materials.forEach((material) => material.dispose())
+        const mats = Array.isArray(overlay.material) ? overlay.material : [overlay.material]
+        mats.forEach((m) => {
+          m.map?.dispose()
+          m.dispose()
+        })
       })
-      screenOverlayRefs.current = []
       scene.traverse((child: any) => {
         const mats = Array.isArray(child.material) ? child.material : [child.material]
         mats.forEach((m: any) => {

@@ -26,7 +26,7 @@ export const steps = [
         color: "text-app-textMuted border-app-border bg-app-surfaceElevated",
         label: "Research Notes",
         source: "Notion",
-        position: { top: "-100px", left: "45%", x: "-50px" }
+        position: { top: "14px", left: "14%" }
     },
     {
         id: 2,
@@ -34,7 +34,7 @@ export const steps = [
         color: "text-rose-400 border-rose-500/35 bg-app-surface",
         label: "Lecture Audio",
         source: "Voice Note",
-        position: { top: "-100px", left: "45%", x: "90px" }
+        position: { top: "14px", left: "38%" }
     },
     {
         id: 3,
@@ -42,7 +42,7 @@ export const steps = [
         color: "text-app-blueBright border-app-softBlue/35 bg-app-surface",
         label: "Project Specs",
         source: "Google Drive",
-        position: { top: "-100px", left: "45%", x: "230px" }
+        position: { top: "14px", left: "62%" }
     },
     {
         id: 4,
@@ -50,7 +50,7 @@ export const steps = [
         color: "text-app-lavender border-app-lavender/30 bg-app-lavender/10",
         label: "Interesting Article",
         source: "Clipboard",
-        position: { top: "-100px", left: "45%", x: "370px" }
+        position: { top: "14px", left: "86%" }
     }
 ]
 

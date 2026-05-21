@@ -188,49 +188,49 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                 </div>
 
                                 {/* Phone + Background Container (Right Side) */}
-                                {/* This wrapper ensures the background sizes to the phone content, not the grid row */}
-                                <div className="relative col-start-2 col-end-3 row-start-1 z-20 flex h-fit w-full min-w-0 max-w-[620px] justify-start sm:min-w-[620px] lg:pt-0">
-
+                                <div className="relative col-start-2 col-end-3 row-start-1 z-20 flex h-fit w-full min-w-0 max-w-[960px] flex-col items-center justify-start lg:pt-0">
                                     {/* Capture stage — lavender + blue wash (app palette) */}
-                                    <div className="relative flex h-fit w-full min-w-0 max-w-[620px] flex-col rounded-[2.5rem] border border-app-lavender/35 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 shadow-lg ring-1 ring-app-mint/10 sm:min-w-[620px]">
-                                        <div className="flex w-full flex-col items-center gap-4 px-4 pt-8 pb-2 sm:gap-5 sm:pt-10 sm:pb-3 lg:pt-10">
-                                            <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide text-center drop-shadow-sm sm:whitespace-nowrap">
+                                    <div className="relative flex h-fit w-full min-w-0 max-w-[960px] flex-col overflow-visible rounded-[2.5rem] border border-app-lavender/35 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 shadow-lg ring-1 ring-app-mint/10">
+                                        <div className="flex w-full flex-col items-center gap-2 px-5 pt-6 pb-3 text-center sm:gap-3 sm:px-6 sm:pt-8 sm:pb-4">
+                                            <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide drop-shadow-sm sm:whitespace-nowrap">
                                                 Input from any source
                                             </p>
-                                            <div className="flex flex-col items-center px-2 lg:hidden">
-                                                <p className="text-xl text-app-textMuted text-center max-w-xl">
-                                                    Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
-                                                </p>
-                                            </div>
+                                            <p className="text-xl text-app-textMuted max-w-xl lg:hidden">
+                                                Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
+                                            </p>
                                         </div>
 
-                                        {/* Phone Content */}
-                                        <div className="relative z-20 flex w-full justify-start pb-6 pl-4 sm:pb-10">
-                                            <div className="relative w-[280px]">
-                                                {/* Flying Icons */}
-                                                <div className="absolute inset-0 overflow-visible pointer-events-none">
-                                                    <AnimatePresence>
-                                                        {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
-                                                            <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />
-                                                        )}
-                                                    </AnimatePresence>
-                                                    <StaticSourceIcons activeStep={phone1State.activeStep} animationStage={phone1State.animationStage} />
+                                        {/* Icons + phone + settings annotations */}
+                                        <div className="relative z-20 mx-auto w-full overflow-visible px-4 pb-6 sm:px-6 sm:pb-10">
+                                            <div className="relative mx-auto h-[6.5rem] w-full max-w-[560px] sm:h-[7rem]">
+                                                <StaticSourceIcons
+                                                    activeStep={phone1State.activeStep}
+                                                    animationStage={phone1State.animationStage}
+                                                />
+                                            </div>
+
+                                            <div className="relative mx-auto mt-1 flex w-fit max-w-full flex-row flex-nowrap items-center justify-center gap-6 overflow-visible sm:mt-2 sm:gap-8 md:gap-10">
+                                                <div className="relative w-[280px] shrink-0">
+                                                    <div className="pointer-events-none absolute -top-[6.5rem] bottom-0 left-1/2 z-50 w-[280px] -translate-x-1/2 overflow-visible sm:-top-[7rem]">
+                                                        <AnimatePresence>
+                                                            {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
+                                                                <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />
+                                                            )}
+                                                        </AnimatePresence>
+                                                    </div>
+
+                                                    <ContextAnnotation show={phone1State.animationStage === 'context'} />
+
+                                                    <CapturePhoneContent
+                                                        animationStage={phone1State.animationStage}
+                                                        capturedItems={phone1State.capturedItems}
+                                                        contextText={phone1State.contextText}
+                                                        depthStage={settingsState.depthStage}
+                                                        difficultyStage={settingsState.difficultyStage}
+                                                        timeStage={settingsState.timeStage}
+                                                    />
                                                 </div>
 
-                                                {/* Annotation Line */}
-                                                <ContextAnnotation show={phone1State.animationStage === 'context'} />
-
-                                                {/* Phone Content */}
-                                                <CapturePhoneContent
-                                                    animationStage={phone1State.animationStage}
-                                                    capturedItems={phone1State.capturedItems}
-                                                    contextText={phone1State.contextText}
-                                                    depthStage={settingsState.depthStage}
-                                                    difficultyStage={settingsState.difficultyStage}
-                                                    timeStage={settingsState.timeStage}
-                                                />
-
-                                                {/* Settings Pop-out */}
                                                 <SettingsPopout
                                                     show={['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(phone1State.animationStage)}
                                                     depthStage={settingsState.depthStage}

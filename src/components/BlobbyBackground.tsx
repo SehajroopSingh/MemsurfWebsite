@@ -457,7 +457,7 @@ export default function BlobbyBackground({ mode = 'idle' }: { mode?: BlobbyBackg
               width: blob.size,
               height: blob.size,
               transformOrigin: 'center center',
-              willChange: 'transform, width, height',
+              willChange: mode === 'idle' ? 'transform, width, height' : 'transform',
             }}
             initial={{
               x: mode === 'loading' ? loadingInitialPosition.x : initialPosition.x,

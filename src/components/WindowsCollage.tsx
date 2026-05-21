@@ -842,9 +842,6 @@ const MOBILE_COLLAGE_HOVER_LINES: Record<MobileCollageSlideId, readonly string[]
 /** Gap between bottom of window frames and the active-slide copy block (Figma mobile). */
 const MOBILE_FRAME_TO_COPY_GAP_PX = 36
 
-/** Vertical space between “If life gives…” and “MemSurf helps you…” (mobile brand footer). */
-const MOBILE_BRAND_COPY_GAP_PX = 28
-
 /** Mobile stagger line size (+5% over base clamp(0.95rem, 3.6vw, 1.125rem)). */
 const MOBILE_COLLAGE_STAGGER_FONT_SCALE = 1.05
 const MOBILE_COLLAGE_STAGGER_FONT_SIZE = `clamp(calc(0.95rem * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}), calc(3.6vw * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}), calc(1.125rem * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}))`
@@ -885,7 +882,13 @@ const MOBILE_SCROLL_INDICATOR_DOT_Y = 9.5
 const MOBILE_SCROLL_INDICATOR_DOT_START_X = 11.5
 const MOBILE_SCROLL_INDICATOR_DOT_END_X = 203.5
 
-function MobileCollageScrollIndicator({ activeIndex }: { activeIndex: number }) {
+function MobileCollageScrollIndicator({
+  activeIndex,
+  onSelectIndex,
+}: {
+  activeIndex: number
+  onSelectIndex: (index: number) => void
+}) {
   const count = MOBILE_COLLAGE_SLIDE_ORDER.length
   const step =
     count > 1
@@ -896,14 +899,13 @@ function MobileCollageScrollIndicator({ activeIndex }: { activeIndex: number }) 
   return (
     <div
       data-node-id="399:435"
-      className="pointer-events-none flex justify-center"
+      className="flex justify-center"
       role="tablist"
       aria-label={`Window carousel position, ${activeIndex + 1} of ${count}`}
     >
       <svg
         viewBox={`0 0 ${MOBILE_SCROLL_INDICATOR_WIDTH} ${MOBILE_SCROLL_INDICATOR_HEIGHT}`}
         className="h-[19px] w-[min(58vw,215px)] max-w-[215px]"
-        aria-hidden
       >
         <rect
           width={MOBILE_SCROLL_INDICATOR_WIDTH}
@@ -912,17 +914,42 @@ function MobileCollageScrollIndicator({ activeIndex }: { activeIndex: number }) 
           fill="rgba(0, 0, 0, 0.45)"
           stroke="rgba(255, 255, 255, 0.22)"
           strokeWidth={1}
+          pointerEvents="none"
         />
-        {Array.from({ length: count }, (_, i) => (
-          <circle
-            key={MOBILE_COLLAGE_SLIDE_ORDER[i]}
-            cx={MOBILE_SCROLL_INDICATOR_DOT_START_X + i * step}
-            cy={MOBILE_SCROLL_INDICATOR_DOT_Y}
-            r={MOBILE_SCROLL_INDICATOR_DOT_R}
-            fill={i === activeIndex ? '#ffffff' : '#8F8F8F'}
-            className="transition-[fill] duration-300 ease-out"
-          />
-        ))}
+        {Array.from({ length: count }, (_, i) => {
+          const cx = MOBILE_SCROLL_INDICATOR_DOT_START_X + i * step
+          const isActive = i === activeIndex
+          return (
+            <g key={MOBILE_COLLAGE_SLIDE_ORDER[i]}>
+              <circle
+                cx={cx}
+                cy={MOBILE_SCROLL_INDICATOR_DOT_Y}
+                r={12}
+                fill="transparent"
+                className="cursor-pointer"
+                role="tab"
+                aria-selected={isActive}
+                aria-label={`Go to window ${i + 1} of ${count}`}
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => onSelectIndex(i)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    onSelectIndex(i)
+                  }
+                }}
+              />
+              <circle
+                cx={cx}
+                cy={MOBILE_SCROLL_INDICATOR_DOT_Y}
+                r={MOBILE_SCROLL_INDICATOR_DOT_R}
+                fill={isActive ? '#ffffff' : '#8F8F8F'}
+                pointerEvents="none"
+                className="transition-[fill] duration-300 ease-out"
+              />
+            </g>
+          )
+        })}
       </svg>
     </div>
   )
@@ -1170,10 +1197,7 @@ function MobileCollageBrandFooter() {
       }}
       className="collage-mobile-brand-footer relative flex w-full flex-col items-stretch px-5 pb-[calc(0.5rem*0.95)] pt-[calc(0.5rem*0.95)]"
     >
-      <div
-        className="flex w-full flex-col"
-        style={{ gap: MOBILE_BRAND_COPY_GAP_PX }}
-      >
+      <div className="flex w-[496px] flex-col items-center justify-center gap-0">
         <p
           data-node-id="398:339"
           className="max-w-[20rem] text-[#f3f4f6] [font-family:var(--font-collage-note),serif] text-[clamp(1.25rem,6vw,1.5rem)] leading-normal [text-shadow:0_0_20.112px_rgba(255,255,255,1)]"
@@ -1268,6 +1292,24 @@ function MobileCollageCarousel({
     return () => observer.disconnect()
   }, [])
 
+  const scrollToSlideIndex = (index: number) => {
+    const slideId = MOBILE_COLLAGE_SLIDE_ORDER[index]
+    if (!slideId) return
+
+    const root = scrollRef.current
+    const slideEl = root?.querySelector<HTMLElement>(
+      `[data-mobile-slide="${slideId}"]`,
+    )
+    if (slideEl) {
+      slideEl.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      })
+    }
+    setActiveSlideId(slideId)
+  }
+
   return (
     <div ref={sectionRef} className="relative w-full md:hidden">
       <AnimatePresence>
@@ -1360,9 +1402,10 @@ function MobileCollageCarousel({
           )
         })}
         </div>
-        <div className="pointer-events-none absolute bottom-2 left-1/2 z-10 -translate-x-1/2">
+        <div className="absolute bottom-2 left-1/2 z-10 -translate-x-1/2">
           <MobileCollageScrollIndicator
             activeIndex={MOBILE_COLLAGE_SLIDE_ORDER.indexOf(activeSlideId)}
+            onSelectIndex={scrollToSlideIndex}
           />
         </div>
       </div>

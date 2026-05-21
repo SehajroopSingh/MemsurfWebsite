@@ -27,7 +27,9 @@ type BackgroundBounds = {
 const MOBILE_LAYOUT_WIDTH = 620
 const LOADING_BLOB_SIZE = 200
 const LOADING_ORBIT_RADIUS = 118
-const LOADING_ORBIT_DURATION = 8
+const LOADING_ORBIT_DURATION = 10
+const LOADING_ORBIT_STEPS = 9
+const LOADING_ORBIT_CACHE = new Map<string, { x: string[]; y: string[] }>()
 const SETTLE_DURATION = 1.6
 const SETTLE_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1]
 const PULSE_EASE: [number, number, number, number] = [0.4, 0, 0.2, 1]
@@ -282,21 +284,27 @@ function loadingOrbitKeyframesFromCenter(
   centerX: string,
   centerY: string,
 ) {
-  const baseAngle = (index / total) * Math.PI * 2
-  const steps = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1, 1.125, 1.25, 1.375, 1.5, 1.625, 1.75, 1.875, 2]
+  const cacheKey = `${index}:${total}:${centerX}:${centerY}`
+  const cached = LOADING_ORBIT_CACHE.get(cacheKey)
+  if (cached) return cached
 
-  return steps.reduce(
+  const baseAngle = (index / total) * Math.PI * 2
+  const steps = Array.from({ length: LOADING_ORBIT_STEPS + 1 }, (_, i) => (i / LOADING_ORBIT_STEPS) * 2)
+  const keyframes = steps.reduce(
     (acc, step) => {
       const angle = baseAngle + Math.PI * step
       const x = Math.cos(angle) * LOADING_ORBIT_RADIUS
       const y = Math.sin(angle) * LOADING_ORBIT_RADIUS
 
-      acc.x.push(`calc(${centerX} + ${x.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`)
-      acc.y.push(`calc(${centerY} + ${y.toFixed(2)}px - ${LOADING_BLOB_SIZE / 2}px)`)
+      acc.x.push(`calc(${centerX} + ${x.toFixed(1)}px - ${LOADING_BLOB_SIZE / 2}px)`)
+      acc.y.push(`calc(${centerY} + ${y.toFixed(1)}px - ${LOADING_BLOB_SIZE / 2}px)`)
       return acc
     },
     { x: [] as string[], y: [] as string[] },
   )
+
+  LOADING_ORBIT_CACHE.set(cacheKey, keyframes)
+  return keyframes
 }
 
 function loadingRestPosition(index: number, total: number, bounds: BackgroundBounds | null) {
@@ -327,29 +335,12 @@ function loadingRestPositionFromCenter(
 }
 
 function loadingPulseScale(index: number) {
-  const dip = 0.015 + (index % 4) * 0.002
-  const lift = 0.02 + ((index * 5) % 6) * 0.003
-  const secondaryLift = 0.008 + (index % 3) * 0.002
-
-  return [
-    1 - dip * 0.45,
-    1 + secondaryLift,
-    1 - dip,
-    1 + lift,
-    1 - dip * 0.2,
-    1 + lift * 0.52,
-    1 - dip * 0.45,
-  ].map((value) => Number(value.toFixed(3)))
-}
-
-function loadingPulseTimes(index: number) {
-  const offset = (index % 3) * 0.025
-
-  return [0, 0.16 + offset, 0.34, 0.57 - offset, 0.72, 0.86 + offset / 2, 1]
+  const lift = 0.018 + (index % 4) * 0.004
+  return [1, 1 + lift, 1]
 }
 
 function loadingPulseDuration(index: number) {
-  return 2.9 + (index % 5) * 0.22 + (index % 2) * 0.16
+  return 3.2 + (index % 5) * 0.35
 }
 
 function buildBlobAnimation(
@@ -367,8 +358,6 @@ function buildBlobAnimation(
       animate: {
         x: reduceMotion ? restPosition.x : orbit.x,
         y: reduceMotion ? restPosition.y : orbit.y,
-        width: LOADING_BLOB_SIZE,
-        height: LOADING_BLOB_SIZE,
         scale: reduceMotion ? 1 : loadingPulseScale(index),
       },
       transition: reduceMotion
@@ -380,10 +369,7 @@ function buildBlobAnimation(
               duration: loadingPulseDuration(index),
               repeat: Infinity,
               ease: PULSE_EASE,
-              times: loadingPulseTimes(index),
             },
-            width: { duration: 0.65, ease: 'easeOut' },
-            height: { duration: 0.65, ease: 'easeOut' },
           },
     }
   }

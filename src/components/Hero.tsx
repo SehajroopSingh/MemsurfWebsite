@@ -34,7 +34,7 @@ export default function Hero({
                 </div>
 
                 {/* Subtitle and Video Container - Side by side on desktop, stacked on mobile */}
-                <div className="relative z-[45] w-full max-w-7xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start lg:gap-5 gap-4 sm:gap-6">
+                <div className="relative z-[45] w-full max-w-7xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start lg:gap-5 gap-4 sm:gap-6 overflow-visible">
 
                     {/* Subtitle - Left side on desktop, top on mobile */}
                     <motion.div
@@ -61,7 +61,7 @@ export default function Hero({
 
                     {/* Phone mockup - Right side on desktop, below on mobile */}
                     <motion.div
-                        className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto lg:w-auto lg:max-w-none lg:flex-[2] lg:ml-auto lg:mx-0 lg:self-start"
+                        className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto lg:w-auto lg:max-w-none lg:flex-[2] lg:ml-auto lg:mx-0 lg:self-start overflow-visible"
                         initial={{ opacity: 0, y: 20 }}
                         animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ duration: 0.8, delay: isRevealed ? 0.25 : 0 }}

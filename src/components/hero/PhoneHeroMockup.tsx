@@ -24,21 +24,46 @@ import {
 const HERO_PHONE_SCREEN_CONTENT = '/images/hero-phone-screen.png'
 /** Physical plane scale vs screen mesh (keeps image inside glass bezel). */
 const SCREEN_CONTENT_INSET = 0.91
-/** UV crop per edge — zooms texture in so screenshot corners don't spill past the screen. */
-const SCREEN_TEXTURE_EDGE_CROP = 0.045
+/** UV crop per edge — lighter on the bottom so the screenshot isn't clipped there. */
+const SCREEN_TEXTURE_CROP_X = 0.03
+const SCREEN_TEXTURE_CROP_TOP = 0.03
+const SCREEN_TEXTURE_CROP_BOTTOM = 0.008
 const SCREEN_SURFACE_OFFSET = 0.02
 
 function createCroppedScreenTexture(source: Texture) {
   const cropped = source.clone()
-  const span = 1 - SCREEN_TEXTURE_EDGE_CROP * 2
-  cropped.repeat.set(span, span)
-  cropped.offset.set(SCREEN_TEXTURE_EDGE_CROP, SCREEN_TEXTURE_EDGE_CROP)
+  cropped.repeat.set(
+    1 - SCREEN_TEXTURE_CROP_X * 2,
+    1 - SCREEN_TEXTURE_CROP_TOP - SCREEN_TEXTURE_CROP_BOTTOM
+  )
+  cropped.offset.set(SCREEN_TEXTURE_CROP_X, SCREEN_TEXTURE_CROP_BOTTOM)
   cropped.needsUpdate = true
   return cropped
 }
 
-/** Aspect-ratio box for the WebGL canvas (tune after visual QA). */
-const PHONE_HERO_ASPECT_CLASS = 'aspect-[672/470] md:aspect-[672/700]'
+/** Fit screen image plane inside the GLB screen mesh without exceeding its bounds. */
+function fitScreenPlaneSize(
+  spanX: number,
+  spanY: number,
+  spanZ: number,
+  textureAspect: number,
+  inset: number
+) {
+  const maxW = spanX * inset
+  const maxH = Math.max(spanZ, spanY) * inset
+  let planeHeight = maxH
+  let planeWidth = planeHeight * textureAspect
+  if (planeWidth > maxW) {
+    planeWidth = maxW
+    planeHeight = planeWidth / textureAspect
+  }
+  return { planeWidth, planeHeight }
+}
+
+/** Aspect-ratio box + bottom padding reserves layout space for phone base / shadow. */
+const PHONE_HERO_ASPECT_CLASS = 'aspect-[672/540] md:aspect-[672/700]'
+const PHONE_HERO_FRAME_CLASS = `${PHONE_HERO_ASPECT_CLASS} max-w-full overflow-visible pb-[24%] sm:pb-[20%] md:pb-[16%]`
+const PHONE_HERO_CANVAS_CLASS = 'absolute inset-0 h-full w-full'
 
 interface PhoneHeroMockupProps {
   className?: string
@@ -55,9 +80,7 @@ function PhoneHeroCanvasFrame({
 }) {
   return (
     <div className={`relative w-full h-fit overflow-visible ${className}`}>
-      <div className={`relative w-full ${PHONE_HERO_ASPECT_CLASS} max-w-full`}>
-        {children}
-      </div>
+      <div className={`relative w-full ${PHONE_HERO_FRAME_CLASS}`}>{children}</div>
     </div>
   )
 }
@@ -89,13 +112,13 @@ function PhoneHeroFallback({
 
   return (
     <PhoneHeroCanvasFrame className={className}>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className={`${PHONE_HERO_CANVAS_CLASS} flex items-center justify-center`}>
         <div className="relative h-[390px] w-[195px] -rotate-[7deg] rounded-[2.4rem] border border-white/25 bg-[#111318] shadow-[0_34px_90px_rgba(0,0,0,0.55)] md:h-[560px] md:w-[280px] md:rounded-[3.3rem]">
           <div className="absolute inset-[0.55rem] overflow-hidden rounded-[1.95rem] bg-[#08131d] md:inset-[0.75rem] md:rounded-[2.55rem]">
             <img
               src={screenContentSrc}
               alt="MemSurf app home screen"
-              className="absolute inset-0 h-full w-full origin-center scale-[1.1] object-cover object-top"
+              className="absolute inset-0 h-full w-full origin-center scale-[1.04] object-cover object-center"
             />
           </div>
           <div className="absolute left-1/2 top-3 h-5 w-20 -translate-x-1/2 rounded-full bg-black/65 md:top-5 md:h-7 md:w-28" />
@@ -265,19 +288,25 @@ function PhoneModel({
             }
 
             const screenWidth = maxX - minX
+            const screenHeight = Math.max(maxZ - minZ, maxY - minY)
             const centerX = (minX + maxX) / 2
             const centerY = (minY + maxY) / 2
             const centerZ = (minZ + maxZ) / 2
 
             if (
               screenWidth > 0.001 &&
+              screenHeight > 0.001 &&
               Number.isFinite(centerX) &&
               Number.isFinite(centerY) &&
               Number.isFinite(centerZ)
             ) {
-              // Screen mesh thickness is on Y; use X span + texture aspect (same as legacy logo overlay).
-              const planeWidth = screenWidth * SCREEN_CONTENT_INSET
-              const planeHeight = planeWidth / textureAspect
+              const { planeWidth, planeHeight } = fitScreenPlaneSize(
+                screenWidth,
+                maxY - minY,
+                maxZ - minZ,
+                textureAspect,
+                SCREEN_CONTENT_INSET
+              )
               const screenGeometry = new PlaneGeometry(planeWidth, planeHeight)
               const croppedTexture = createCroppedScreenTexture(screenTexture)
               const overlayMaterial = new MeshBasicMaterial({
@@ -385,8 +414,8 @@ function ScrollAnimatedPhone({
 
     const startX = isSmallViewport ? -0.45 : -0.55
     const endX = isSmallViewport ? 0.45 : 0.55
-    const startY = isSmallViewport ? -1.95 : -1.55
-    const endY = isSmallViewport ? -1.15 : -0.75
+    const startY = isSmallViewport ? -1.35 : -0.95
+    const endY = isSmallViewport ? -0.85 : -0.45
 
     const targetRotX = -0.55 * (1 - progress)
     const targetRotY = -0.45 * (1 - progress)
@@ -421,7 +450,7 @@ function ScrollAnimatedPhone({
     <group
       ref={groupRef}
       rotation={[-0.55, -0.45, -0.065]}
-      position={[isSmallViewport ? -0.45 : -0.55, isSmallViewport ? -1.95 : -1.55, 0]}
+      position={[isSmallViewport ? -0.45 : -0.55, isSmallViewport ? -1.35 : -0.95, 0]}
       scale={isSmallViewport ? 1.26 : 1.14}
     >
       <Suspense
@@ -443,6 +472,24 @@ function ScrollAnimatedPhone({
   )
 }
 
+function HeroPhoneCameraRig() {
+  const { camera, size } = useThree()
+
+  useEffect(() => {
+    const desktop = size.width >= 1024
+    if (desktop) {
+      camera.position.set(0, 1.35, 7.35)
+      camera.lookAt(0, -0.35, 0)
+    } else {
+      camera.position.set(0, 1.48, 8.1)
+      camera.lookAt(0, -0.65, 0)
+    }
+    camera.updateProjectionMatrix()
+  }, [camera, size.width])
+
+  return null
+}
+
 function ScrollAnimatedShadow({ isSmallViewport, reduceMotion }: any) {
   const shadowRef = React.useRef<any>(null)
 
@@ -459,7 +506,7 @@ function ScrollAnimatedShadow({ isSmallViewport, reduceMotion }: any) {
   })
 
   return (
-    <group ref={shadowRef} position={[isSmallViewport ? -0.45 : -0.55, isSmallViewport ? -2.7 : -2.25, 0]}>
+    <group ref={shadowRef} position={[isSmallViewport ? -0.45 : -0.55, isSmallViewport ? -2.05 : -1.65, 0]}>
       <ContactShadows
         position={[0.35, 0, 0]}
         opacity={0.65}
@@ -498,7 +545,7 @@ export default function PhoneHeroMockup({
   if (!mounted || webglAvailable === null) {
     return (
       <PhoneHeroCanvasFrame className={className}>
-        <div className="absolute inset-0" aria-hidden />
+        <div className={PHONE_HERO_CANVAS_CLASS} aria-hidden />
       </PhoneHeroCanvasFrame>
     )
   }
@@ -519,26 +566,17 @@ export default function PhoneHeroMockup({
         <Canvas
           camera={{ position: [0, 1.55, 7.15], fov: 43 }}
           dpr={[1, 2]}
-          className="absolute inset-0 h-full w-full"
+          className={PHONE_HERO_CANVAS_CLASS}
           style={{ pointerEvents: 'none' }}
-          onCreated={({ camera }) => {
-            const desktop = typeof window !== 'undefined' && window.innerWidth >= 1024
-            if (desktop) {
-              camera.position.set(0, 1.45, 6.85)
-              camera.lookAt(0, -1.22, 0)
-            } else {
-              camera.position.set(0, 1.65, 7.6)
-              camera.lookAt(0, -1.65, 0)
-            }
-          }}
         >
+          <HeroPhoneCameraRig />
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
           <directionalLight position={[-10, -10, -5]} intensity={0.2} />
 
           <Environment preset="city" />
 
-          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? 0.2 : 0.45, 0]}>
+          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? 0.55 : 0.85, 0]}>
             <Float
               speed={reduceMotion ? 0 : 2.85}
               rotationIntensity={reduceMotion ? 0 : 0.55}
@@ -559,7 +597,7 @@ export default function PhoneHeroMockup({
         {allowDragRotation && (
           <div
             ref={overlayRef}
-            className="absolute inset-0 z-10 cursor-grab touch-none select-none active:cursor-grabbing"
+            className={`${PHONE_HERO_CANVAS_CLASS} z-10 cursor-grab touch-none select-none active:cursor-grabbing`}
             style={{ touchAction: 'none' }}
             aria-label="Drag to rotate the phone preview"
             {...overlayProps}

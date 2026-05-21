@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, useReducedMotion } from 'framer-motion'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
@@ -12,8 +12,6 @@ import ScrollTracker from '@/components/ScrollTracker'
 import SocialGlassButtons from '@/components/SocialGlassButtons'
 import HomepageLoadingSplash from '@/components/HomepageLoadingSplash'
 import { useBlobbyBackground } from '@/components/BlobbyBackgroundProvider'
-import { computeHomepageLoadProgress } from '@/lib/homepageLoadProgress'
-
 const MIN_SPLASH_DURATION_MS = 1400
 const MAX_SPLASH_DURATION_MS = 5000
 const BLOB_SETTLE_DURATION_MS = 1600
@@ -25,13 +23,10 @@ export default function Home() {
   const [mountHeavyAssets, setMountHeavyAssets] = useState(false)
   const [phoneReady, setPhoneReady] = useState(false)
   const [collageReady, setCollageReady] = useState(false)
-  const [collageLoad, setCollageLoad] = useState({ loaded: 0, total: 1 })
   const [minimumSplashElapsed, setMinimumSplashElapsed] = useState(false)
   const [loadTimedOut, setLoadTimedOut] = useState(false)
   const [isRevealed, setIsRevealed] = useState(false)
-  const [splashElapsedMs, setSplashElapsedMs] = useState(0)
   const settleTimerRef = useRef<number | null>(null)
-  const splashStartRef = useRef<number | null>(null)
 
   const handleLogoReady = useCallback(() => {
     setLogoReady(true)
@@ -41,50 +36,7 @@ export default function Home() {
   const handlePhoneReady = useCallback(() => setPhoneReady(true), [])
   const handleCollageReady = useCallback(() => setCollageReady(true), [])
 
-  const handleCollageLoadProgress = useCallback((loaded: number, total: number) => {
-    setCollageLoad({ loaded, total: Math.max(1, total) })
-  }, [])
-
   const criticalAssetsReady = logoReady && phoneReady && collageReady
-  const timeFraction = Math.min(1, splashElapsedMs / MIN_SPLASH_DURATION_MS)
-
-  const targetProgress = useMemo(
-    () =>
-      computeHomepageLoadProgress({
-        logoReady,
-        phoneReady,
-        collageLoaded: collageLoad.loaded,
-        collageTotal: collageLoad.total,
-        timeFraction,
-        allCriticalReady: criticalAssetsReady,
-        minimumSplashElapsed,
-      }),
-    [
-      collageLoad.loaded,
-      collageLoad.total,
-      criticalAssetsReady,
-      logoReady,
-      minimumSplashElapsed,
-      phoneReady,
-      timeFraction,
-    ],
-  )
-
-  useEffect(() => {
-    if (isRevealed) return
-
-    splashStartRef.current = performance.now()
-    let frame = 0
-
-    const tick = (now: number) => {
-      const start = splashStartRef.current ?? now
-      setSplashElapsedMs(now - start)
-      frame = window.requestAnimationFrame(tick)
-    }
-
-    frame = window.requestAnimationFrame(tick)
-    return () => window.cancelAnimationFrame(frame)
-  }, [isRevealed])
 
   useEffect(() => {
     setBackgroundMode('loading')
@@ -189,7 +141,6 @@ export default function Home() {
             mountHeavyAssets={mountHeavyAssets}
             onPhoneReady={handlePhoneReady}
             onCollageReady={handleCollageReady}
-            onCollageLoadProgress={handleCollageLoadProgress}
           />
         </div>
 
@@ -236,11 +187,7 @@ export default function Home() {
       </main>
       <AnimatePresence>
         {!isRevealed && (
-          <HomepageLoadingSplash
-            key="homepage-loading-splash"
-            onLogoReady={handleLogoReady}
-            progress={targetProgress}
-          />
+          <HomepageLoadingSplash key="homepage-loading-splash" onLogoReady={handleLogoReady} />
         )}
       </AnimatePresence>
     </>

@@ -310,7 +310,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                 </div>
 
                 {/* 3e — Practice */}
-                <div className="h-fit w-full">
+                <div className="h-fit w-full shrink-0">
                     <PracticeScrollShowcase />
                 </div>
             </div>

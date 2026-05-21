@@ -148,6 +148,14 @@ html {
   container-type: inline-size;
 }
 
+.mobile-collage-panel-inner {
+  overflow: visible;
+}
+
+.mobile-collage-scroll {
+  overflow-y: hidden;
+}
+
 .mobile-collage-hover-line {
   display: block;
   font-size: var(--mobile-hover-font-size);

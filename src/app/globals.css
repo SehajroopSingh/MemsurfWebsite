@@ -142,37 +142,3 @@ html {
   max-width: 100%;
   transform: none;
 }
-
-/* Mobile horizontal WindowsCollage */
-.mobile-collage-panel {
-  container-type: inline-size;
-}
-
-.mobile-collage-panel-inner {
-  overflow: visible;
-}
-
-.mobile-collage-scroll {
-  overflow-y: hidden;
-}
-
-.mobile-collage-hover-line {
-  display: block;
-  font-size: var(--mobile-hover-font-size);
-  line-height: normal;
-  color: #f3f4f6;
-  font-family: var(--font-collage-note), serif;
-  text-wrap: balance;
-  orphans: 2;
-  widows: 2;
-}
-
-.mobile-collage-hover-stack {
-  gap: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mobile-collage-scroll {
-    scroll-behavior: auto;
-  }
-}

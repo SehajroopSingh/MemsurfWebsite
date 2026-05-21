@@ -4,19 +4,6 @@ import React, { useCallback, useMemo, useState, useRef, useEffect, useId } from 
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import { useAmplitude } from '@/hooks/useAmplitude'
-import MobileCollageCarousel from './MobileCollageCarousel'
-
-function useMinWidthMd(): boolean {
-  const [isMd, setIsMd] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 768px)')
-    const update = () => setIsMd(mq.matches)
-    update()
-    mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
-  }, [])
-  return isMd
-}
 
 type PaneType = 'single' | 'split-v' | 'split-h' | 'grid-4' | 'grid-6' | 'grid-9';
 
@@ -903,7 +890,6 @@ const COLLAGE_THIRD_MARKERS = [
 type CollageThirdMarkerKey = (typeof COLLAGE_THIRD_MARKERS)[number]['key']
 
 export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCollageProps = {}) {
-  const isDesktop = useMinWidthMd()
   const archClipId = useId().replace(/:/g, '')
   const { track } = useAmplitude()
   const [hoveredId, setHoveredId] = useState<string | null>(null)
@@ -1160,10 +1146,6 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
       }
     }
   }, [hoveredId, getHoverId])
-
-  if (!isDesktop) {
-    return <MobileCollageCarousel onReady={onReady} />
-  }
 
   return (
     <>

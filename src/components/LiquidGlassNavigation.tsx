@@ -197,11 +197,11 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
         style={{ height: `${navHeight}px` }}
       >
         <div className="pointer-events-auto h-full w-full">
-          <div className="flex h-full items-center justify-between px-3 sm:px-5 lg:px-7">
+          <div className="flex h-full items-center justify-between px-6 sm:px-5 lg:px-7">
             <div className="h-full flex-shrink-0">
               <Link
                 href="/"
-                className="inline-flex h-full items-center justify-center"
+                className="inline-flex h-full items-center justify-center px-[5%]"
               >
                 <div className="flex h-full items-center" style={{ filter: 'drop-shadow(0 0 12px rgba(139, 176, 235, 0.4))' }}>
                   <svg
@@ -263,13 +263,14 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
               </Link>
             </div>
 
-            <div className="md:hidden">
+            <div className="md:hidden shrink-0">
               <button
-                className="text-app-textMuted transition-colors hover:text-app-text"
+                type="button"
+                className="inline-flex shrink-0 items-center justify-center px-[5%] text-app-textMuted transition-colors hover:text-app-text"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
               >
-                <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
+                <Menu className="h-[24px] w-[24px] min-h-[24px] min-w-[24px] shrink-0" size={24} />
               </button>
             </div>
           </div>
@@ -277,7 +278,7 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
           {isOpen ? (
             <div className="md:hidden mt-3 rounded-3xl border border-white/15 bg-app-surface/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(2,8,24,0.35)] px-4 pt-2 pb-4 space-y-2">
               <div className="px-3 pt-2 pb-1 text-xs font-semibold text-app-textMuted/80 uppercase tracking-wider">Product</div>
-              <Link href="/#how-it-works" className="block px-3 py-2 text-app-textMuted hover:bg-app-border rounded-md pl-6">
+              <Link href="/#how-it-works" className="block px-3 py-2 text-app-textMuted hover:bg-app-border rounded-md">
                 How it works
               </Link>
               <Link href="/team" className="block px-3 py-2 text-app-textMuted hover:bg-app-border rounded-md">

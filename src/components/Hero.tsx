@@ -11,14 +11,18 @@ import SocialGlassButtons from './SocialGlassButtons'
 
 type HeroProps = {
     isRevealed?: boolean
+    mountHeavyAssets?: boolean
     onPhoneReady?: () => void
     onCollageReady?: () => void
+    onCollageLoadProgress?: (loaded: number, total: number) => void
 }
 
 export default function Hero({
     isRevealed = true,
+    mountHeavyAssets = true,
     onPhoneReady,
     onCollageReady,
+    onCollageLoadProgress,
 }: HeroProps) {
     return (
         <section className="relative">
@@ -62,11 +66,18 @@ export default function Hero({
                         animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ duration: 0.8, delay: isRevealed ? 0.25 : 0 }}
                     >
-                        <PhoneHeroMockup
-                            className="w-full"
-                            screenContentSrc="/images/hero-phone-screen.png"
-                            onReady={onPhoneReady}
-                        />
+                        {mountHeavyAssets ? (
+                            <PhoneHeroMockup
+                                className="w-full"
+                                screenContentSrc="/images/hero-phone-screen.png"
+                                onReady={onPhoneReady}
+                            />
+                        ) : (
+                            <div
+                                className="w-full aspect-[9/19] max-h-[min(72vh,640px)]"
+                                aria-hidden
+                            />
+                        )}
                     </motion.div>
                 </div>
 
@@ -83,7 +94,12 @@ export default function Hero({
                 <SocialGlassButtons className="relative z-[45]" />
 
                 <div className="relative w-full mt-10">
-                    <WorkflowAnimation onCollageReady={onCollageReady} />
+                    {mountHeavyAssets ? (
+                        <WorkflowAnimation
+                            onCollageReady={onCollageReady}
+                            onCollageLoadProgress={onCollageLoadProgress}
+                        />
+                    ) : null}
                 </div>
             </div>
         </section>

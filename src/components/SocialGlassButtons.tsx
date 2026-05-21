@@ -148,7 +148,7 @@ export default function SocialGlassButtons({ className = '' }: SocialGlassButton
           }`}
           style={liquidGlassSurfaceStyle}
         >
-          <LiquidGlassOverlays sheenTranslateClassName="group-hover:translate-x-40" />
+          <LiquidGlassOverlays />
           {link.icon}
           {link.isPill && (
             <span className="relative z-10 hidden text-base font-semibold tracking-normal text-white sm:inline">

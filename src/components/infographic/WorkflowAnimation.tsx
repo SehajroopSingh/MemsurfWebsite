@@ -8,6 +8,7 @@ import StaticSourceIcons from './CapturePhone/StaticSourceIcons'
 import ContextAnnotation from './CapturePhone/ContextAnnotation'
 import CapturePhoneContent from './CapturePhone/CapturePhoneContent'
 import SettingsPopout from './CapturePhone/SettingsPopout'
+import CapturePhoneScaleFrame from './CapturePhone/CapturePhoneScaleFrame'
 import RawContentTransition from './RawContentTransition'
 import ProcessingPhoneWithAnnotations from './ProcessingPhone/ProcessingPhoneWithAnnotations'
 import PracticeScrollShowcase from './PracticeScrollShowcase'
@@ -19,9 +20,13 @@ import RandomizedTextReveal from '../ui/RandomizedTextReveal'
 
 type WorkflowAnimationProps = {
     onCollageReady?: () => void
+    onCollageLoadProgress?: (loaded: number, total: number) => void
 }
 
-export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationProps) {
+export default function WorkflowAnimation({
+    onCollageReady,
+    onCollageLoadProgress,
+}: WorkflowAnimationProps) {
     // --- SETTINGS CYCLING LOGIC ---
     const [settingsState, setSettingsState] = useState({
         depthStage: 0,
@@ -140,7 +145,11 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
 
     return (
         <div className="w-full flex flex-col items-center">
-            <WindowsCollage workflowHeroCopy onReady={onCollageReady} />
+            <WindowsCollage
+                workflowHeroCopy
+                onReady={onCollageReady}
+                onLoadProgress={onCollageLoadProgress}
+            />
 
             {/* HOW IT WORKS Section — [3] */}
             <div className="w-full mt-10 md:mt-10 lg:mt-14 flex h-fit flex-col items-center gap-10 md:gap-14 lg:gap-12">
@@ -190,7 +199,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                 {/* Phone + Background Container (Right Side) */}
                                 <div className="relative col-start-2 col-end-3 row-start-1 z-20 flex h-fit w-full min-w-0 max-w-[960px] flex-col items-center justify-start lg:pt-0">
                                     {/* Capture stage — lavender + blue wash (app palette) */}
-                                    <div className="relative flex h-fit w-full min-w-0 max-w-[960px] flex-col overflow-visible rounded-[2.5rem] border border-app-lavender/35 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 shadow-lg ring-1 ring-app-mint/10">
+                                    <div className="relative flex h-fit w-full min-w-0 max-w-[960px] flex-col overflow-visible rounded-[2.5rem] border-[6px] border-app-lavender/45 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 shadow-lg ring-2 ring-app-softBlue/25 ring-offset-0">
                                         <div className="flex w-full flex-col items-center gap-2 px-5 pt-6 pb-3 text-center sm:gap-3 sm:px-6 sm:pt-8 sm:pb-4">
                                             <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide drop-shadow-sm sm:whitespace-nowrap">
                                                 Input from any source
@@ -201,7 +210,7 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                         </div>
 
                                         {/* Icons + phone + settings annotations */}
-                                        <div className="relative z-20 mx-auto w-full overflow-visible px-4 pb-6 sm:px-6 sm:pb-10">
+                                        <div className="relative z-20 mx-auto w-full min-w-0 overflow-hidden px-4 pb-6 sm:px-6 sm:pb-10 lg:overflow-visible">
                                             <div className="relative mx-auto h-[6.5rem] w-full max-w-[560px] sm:h-[7rem]">
                                                 <StaticSourceIcons
                                                     activeStep={phone1State.activeStep}
@@ -209,35 +218,37 @@ export default function WorkflowAnimation({ onCollageReady }: WorkflowAnimationP
                                                 />
                                             </div>
 
-                                            <div className="relative mx-auto mt-1 flex w-fit max-w-full flex-row flex-nowrap items-center justify-center gap-6 overflow-visible sm:mt-2 sm:gap-8 md:gap-10">
-                                                <div className="relative w-[280px] shrink-0">
-                                                    <div className="pointer-events-none absolute -top-[6.5rem] bottom-0 left-1/2 z-50 w-[280px] -translate-x-1/2 overflow-visible sm:-top-[7rem]">
-                                                        <AnimatePresence>
-                                                            {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
-                                                                <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />
-                                                            )}
-                                                        </AnimatePresence>
+                                            <CapturePhoneScaleFrame className="mt-1 sm:mt-2">
+                                                <div className="relative flex flex-row flex-nowrap items-center justify-center gap-6 sm:gap-8 md:gap-10">
+                                                    <div className="relative w-[280px] shrink-0">
+                                                        <div className="pointer-events-none absolute -top-[6.5rem] bottom-0 left-1/2 z-50 w-[280px] -translate-x-1/2 overflow-visible sm:-top-[7rem]">
+                                                            <AnimatePresence>
+                                                                {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
+                                                                    <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />
+                                                                )}
+                                                            </AnimatePresence>
+                                                        </div>
+
+                                                        <ContextAnnotation show={phone1State.animationStage === 'context'} />
+
+                                                        <CapturePhoneContent
+                                                            animationStage={phone1State.animationStage}
+                                                            capturedItems={phone1State.capturedItems}
+                                                            contextText={phone1State.contextText}
+                                                            depthStage={settingsState.depthStage}
+                                                            difficultyStage={settingsState.difficultyStage}
+                                                            timeStage={settingsState.timeStage}
+                                                        />
                                                     </div>
 
-                                                    <ContextAnnotation show={phone1State.animationStage === 'context'} />
-
-                                                    <CapturePhoneContent
-                                                        animationStage={phone1State.animationStage}
-                                                        capturedItems={phone1State.capturedItems}
-                                                        contextText={phone1State.contextText}
+                                                    <SettingsPopout
+                                                        show={['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(phone1State.animationStage)}
                                                         depthStage={settingsState.depthStage}
                                                         difficultyStage={settingsState.difficultyStage}
                                                         timeStage={settingsState.timeStage}
                                                     />
                                                 </div>
-
-                                                <SettingsPopout
-                                                    show={['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(phone1State.animationStage)}
-                                                    depthStage={settingsState.depthStage}
-                                                    difficultyStage={settingsState.difficultyStage}
-                                                    timeStage={settingsState.timeStage}
-                                                />
-                                            </div>
+                                            </CapturePhoneScaleFrame>
                                         </div>
                                     </div>
                                 </div>

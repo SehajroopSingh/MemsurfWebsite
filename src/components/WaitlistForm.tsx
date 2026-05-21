@@ -89,7 +89,7 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
         animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
         transition={{ type: 'spring', stiffness: 420, damping: 28 }}
       >
-        <LiquidGlassOverlays roundedClassName="rounded-[1.75rem]" sheenTranslateClassName="group-hover:translate-x-[120%]" />
+        <LiquidGlassOverlays roundedClassName="rounded-[1.75rem]" />
         <div className="relative z-10">
           <h4 className="mb-1 font-semibold text-emerald-200">Thank you!</h4>
           <p className="text-sm text-emerald-100/90">You have successfully joined our subscriber list.</p>

@@ -26,7 +26,7 @@ export default function SettingsPopout({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
                 transition={{ duration: 0.4 }}
-                className="flex w-full max-w-[300px] shrink-0 flex-col justify-center gap-8 py-4 text-left sm:max-w-[320px] lg:min-h-[540px] lg:gap-10"
+                className="flex w-[240px] shrink-0 flex-col justify-center gap-6 py-2 text-left sm:w-[280px] sm:max-w-[300px] sm:gap-8 sm:py-4 md:max-w-[320px] lg:min-h-[540px] lg:gap-10"
             >
                 {/* Quiz Difficulty */}
                 <motion.div

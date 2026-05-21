@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback, useMemo, useState, useRef, useEffect, useId } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import Image from 'next/image'
 import { useAmplitude } from '@/hooks/useAmplitude'
 
@@ -356,6 +356,8 @@ const COLLAGE_READY_ASSET_KEYS = visibleWindowData.flatMap((item) => {
   }
   return keys
 })
+
+export const COLLAGE_READY_ASSET_TOTAL = COLLAGE_READY_ASSET_KEYS.length
 
 const renderWindowPanes = (type: PaneType) => {
   const lineClass = "absolute bg-[#1a1a1a] pointer-events-none z-10 opacity-80"
@@ -812,12 +814,603 @@ function PaneAboveStaggerText({
   )
 }
 
+/** Mobile carousel slide order (narrative flow). */
+const MOBILE_COLLAGE_SLIDE_ORDER = [
+  'w10',
+  'w1',
+  'w3',
+  'w8',
+  'w9',
+  'bedRoom',
+  'w2',
+  'w6',
+] as const
+
+type MobileCollageSlideId = (typeof MOBILE_COLLAGE_SLIDE_ORDER)[number]
+
+const MOBILE_COLLAGE_HOVER_LINES: Record<MobileCollageSlideId, readonly string[]> = {
+  w10: W10_HOVER_LINES,
+  w1: W1_HOVER_LINES,
+  w3: W3_HOVER_LINES,
+  w8: W8_HOVER_LINES,
+  w9: W9_HOVER_LINES,
+  bedRoom: BEDROOM_HOVER_LINES,
+  w2: W2_HOVER_LINES,
+  w6: W6_HOVER_LINES,
+}
+
+/** Gap between bottom of window frames and the active-slide copy block (Figma mobile). */
+const MOBILE_FRAME_TO_COPY_GAP_PX = 36
+
+/** Vertical space between “If life gives…” and “MemSurf helps you…” (mobile brand footer). */
+const MOBILE_BRAND_COPY_GAP_PX = 28
+
+/** Mobile stagger line size (+5% over base clamp(0.95rem, 3.6vw, 1.125rem)). */
+const MOBILE_COLLAGE_STAGGER_FONT_SCALE = 1.05
+const MOBILE_COLLAGE_STAGGER_FONT_SIZE = `clamp(calc(0.95rem * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}), calc(3.6vw * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}), calc(1.125rem * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}))`
+
+/** When this much of the mobile collage is visible, show the full-screen spotlight (desktop hover parity). */
+const MOBILE_COLLAGE_SPOTLIGHT_IN_VIEW_RATIO = 0.12
+
+const MOBILE_COLLAGE_CONTENT_Z = COLLAGE_HOVER_OVERLAY_Z + 1
+
+const MOBILE_COPY_LAYOUT_TRANSITION = {
+  layout: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+}
+
+const MOBILE_COLLAGE_ASPECT: Record<MobileCollageSlideId, string> = {
+  w10: 'aspect-[4/5]',
+  w1: 'aspect-[4/5]',
+  w3: 'aspect-[3/4]',
+  w8: 'aspect-video',
+  w9: 'aspect-[4/3]',
+  bedRoom: 'aspect-[5/3]',
+  w2: 'aspect-video',
+  w6: 'aspect-[4/3]',
+}
+
+function getMobileSlideWindowItems(slideId: MobileCollageSlideId): WindowData[] {
+  if (slideId === 'bedRoom') {
+    return windowData.filter((w) => w.sharedSceneGroupId === 'bedRoom')
+  }
+  const item = windowData.find((w) => w.id === slideId)
+  return item ? [item] : []
+}
+
+/** Figma 399:435 — pill scroll indicator (215×19, active dot white, inactive #8F8F8F). */
+const MOBILE_SCROLL_INDICATOR_WIDTH = 215
+const MOBILE_SCROLL_INDICATOR_HEIGHT = 19
+const MOBILE_SCROLL_INDICATOR_DOT_R = 4.5
+const MOBILE_SCROLL_INDICATOR_DOT_Y = 9.5
+const MOBILE_SCROLL_INDICATOR_DOT_START_X = 11.5
+const MOBILE_SCROLL_INDICATOR_DOT_END_X = 203.5
+
+function MobileCollageScrollIndicator({ activeIndex }: { activeIndex: number }) {
+  const count = MOBILE_COLLAGE_SLIDE_ORDER.length
+  const step =
+    count > 1
+      ? (MOBILE_SCROLL_INDICATOR_DOT_END_X - MOBILE_SCROLL_INDICATOR_DOT_START_X) /
+        (count - 1)
+      : 0
+
+  return (
+    <div
+      data-node-id="399:435"
+      className="pointer-events-none flex justify-center"
+      role="tablist"
+      aria-label={`Window carousel position, ${activeIndex + 1} of ${count}`}
+    >
+      <svg
+        viewBox={`0 0 ${MOBILE_SCROLL_INDICATOR_WIDTH} ${MOBILE_SCROLL_INDICATOR_HEIGHT}`}
+        className="h-[19px] w-[min(58vw,215px)] max-w-[215px]"
+        aria-hidden
+      >
+        <rect
+          width={MOBILE_SCROLL_INDICATOR_WIDTH}
+          height={MOBILE_SCROLL_INDICATOR_HEIGHT}
+          rx={MOBILE_SCROLL_INDICATOR_HEIGHT / 2}
+          fill="rgba(0, 0, 0, 0.45)"
+          stroke="rgba(255, 255, 255, 0.22)"
+          strokeWidth={1}
+        />
+        {Array.from({ length: count }, (_, i) => (
+          <circle
+            key={MOBILE_COLLAGE_SLIDE_ORDER[i]}
+            cx={MOBILE_SCROLL_INDICATOR_DOT_START_X + i * step}
+            cy={MOBILE_SCROLL_INDICATOR_DOT_Y}
+            r={MOBILE_SCROLL_INDICATOR_DOT_R}
+            fill={i === activeIndex ? '#ffffff' : '#8F8F8F'}
+            className="transition-[fill] duration-300 ease-out"
+          />
+        ))}
+      </svg>
+    </div>
+  )
+}
+
+/** Staggered copy below the active mobile frame (reuses desktop hover line animation). */
+function CollageMobileStaggerText({
+  lines,
+  isVisible = true,
+}: {
+  lines: readonly string[]
+  isVisible?: boolean
+}) {
+  return (
+    <motion.div
+      layout
+      initial={false}
+      animate={isVisible ? 'visible' : 'hidden'}
+      variants={outsideStaggerContainerVariants}
+      transition={MOBILE_COPY_LAYOUT_TRANSITION}
+      className="collage-mobile-stagger flex w-full flex-col items-center justify-start gap-0 px-2 pt-0 text-center"
+      style={{ fontSize: MOBILE_COLLAGE_STAGGER_FONT_SIZE }}
+      aria-hidden={!isVisible}
+    >
+      {lines.map((line, i) => (
+        <CollageHoverStaggerLine
+          key={`mobile-${i}-${line.slice(0, 12)}`}
+          textAlign="text-center"
+        >
+          {line}
+        </CollageHoverStaggerLine>
+      ))}
+    </motion.div>
+  )
+}
+
+function MobileCollageWindowPane({
+  item,
+  isActive,
+  archClipId,
+  markAssetReady,
+  videoRefs,
+}: {
+  item: WindowData
+  isActive: boolean
+  archClipId: string
+  markAssetReady: (key: string) => void
+  videoRefs: React.MutableRefObject<Partial<Record<string, HTMLVideoElement | null>>>
+}) {
+  const sharedSceneGroup = item.sharedSceneGroupId
+    ? sharedSceneGroups[item.sharedSceneGroupId]
+    : undefined
+  const videoSrc = getWindowVideoSrc(item)
+  const videoZoom = item.videoCropZoom ?? VIDEO_CROP_ZOOM
+  const mediaW = item.videoMediaWidthPct
+  const videoOp = videoCoverObjectPositionParts(item)
+  const isArchTop = item.frameShape === 'arched-top'
+  const archClipStyle = isArchTop
+    ? { clipPath: `url(#${archClipId})` as const }
+    : undefined
+
+  useEffect(() => {
+    const el = videoRefs.current[item.id]
+    if (!el || !videoSrc) return
+    if (isActive) {
+      void el.play().catch(() => {})
+    } else {
+      el.pause()
+      el.currentTime = 0
+    }
+  }, [isActive, item.id, videoSrc, videoRefs])
+
+  return (
+    <div
+      className={`relative h-full w-full overflow-hidden bg-black ${
+        isArchTop ? '' : 'rounded-sm'
+      }`}
+      style={isArchTop ? archClipStyle : undefined}
+    >
+      {item.videoSrc ? (
+        <div className="absolute inset-0 bg-black">
+          <div className="relative h-full w-full overflow-hidden">
+            <video
+              ref={(el) => {
+                if (el) {
+                  videoRefs.current[item.id] = el
+                  if (el.readyState >= 1) markAssetReady(`video:${item.id}`)
+                } else {
+                  delete videoRefs.current[item.id]
+                }
+              }}
+              src={item.videoSrc}
+              className={`${
+                mediaW != null
+                  ? 'absolute left-1/2 top-1/2 h-full max-w-none object-cover'
+                  : 'absolute left-1/2 top-1/2 min-h-full min-w-full object-cover'
+              } ${videoOp.extraClass}`.trim()}
+              style={{
+                width: mediaW != null ? `${mediaW}%` : undefined,
+                transform: `translate(-50%, -50%) scale(${videoZoom})`,
+                ...videoOp.positionStyle,
+              }}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              onLoadedMetadata={() => markAssetReady(`video:${item.id}`)}
+              onError={() => markAssetReady(`video:${item.id}`)}
+              aria-hidden
+            />
+            {!isActive && (
+              <div className="absolute inset-0 z-[1] overflow-hidden" aria-hidden>
+                <div
+                  className="absolute left-1/2 top-1/2 h-full max-w-none"
+                  style={{
+                    width: mediaW != null ? `${mediaW}%` : '100%',
+                    transform: `translate(-50%, -50%) scale(${videoZoom})`,
+                  }}
+                >
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={item.imageUrl}
+                      alt=""
+                      fill
+                      className={`object-cover opacity-95 ${videoOp.extraClass}`.trim()}
+                      style={videoOp.positionStyle}
+                      sizes="85vw"
+                      onLoad={() => markAssetReady(`image:${item.id}`)}
+                      onError={() => markAssetReady(`image:${item.id}`)}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : sharedSceneGroup ? (
+        <div className="relative h-full w-full overflow-hidden">
+          <div
+            className="absolute overflow-hidden"
+            style={getSharedSceneMediaStyle(item, sharedSceneGroup)}
+          >
+            {sharedSceneGroup.videoSrc ? (
+              <>
+                <video
+                  ref={(el) => {
+                    if (el) {
+                      videoRefs.current[item.id] = el
+                      if (el.readyState >= 1) markAssetReady(`video:${item.id}`)
+                    } else {
+                      delete videoRefs.current[item.id]
+                    }
+                  }}
+                  src={sharedSceneGroup.videoSrc}
+                  className={`absolute inset-0 h-full w-full object-cover ${videoOp.extraClass}`.trim()}
+                  style={{
+                    transform: `scale(${videoZoom})`,
+                    transformOrigin: 'center center',
+                    ...videoOp.positionStyle,
+                  }}
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  onLoadedMetadata={() => markAssetReady(`video:${item.id}`)}
+                  onError={() => markAssetReady(`video:${item.id}`)}
+                  aria-hidden
+                />
+                {!isActive && (
+                  <div className="absolute inset-0 z-[1] overflow-hidden" aria-hidden>
+                    <Image
+                      src={sharedSceneGroup.imageUrl}
+                      alt=""
+                      fill
+                      className={`object-cover opacity-95 ${videoOp.extraClass}`.trim()}
+                      style={videoOp.positionStyle}
+                      sizes="42vw"
+                      onLoad={() => markAssetReady(`image:${item.id}`)}
+                      onError={() => markAssetReady(`image:${item.id}`)}
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <Image
+                src={sharedSceneGroup.imageUrl}
+                alt=""
+                fill
+                className="object-cover opacity-80"
+                sizes="42vw"
+                onLoad={() => markAssetReady(`image:${item.id}`)}
+                onError={() => markAssetReady(`image:${item.id}`)}
+              />
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="relative h-full w-full overflow-hidden">
+          <div
+            className="absolute inset-0"
+            style={
+              isArchTop
+                ? {
+                    transform: `scale(${ARCH_TOP_MEDIA_SCALE})`,
+                    transformOrigin: 'center 42%',
+                  }
+                : undefined
+            }
+          >
+            <Image
+              src={item.imageUrl}
+              alt=""
+              fill
+              className="object-cover opacity-80"
+              style={isArchTop ? { objectPosition: 'center 32%' } : undefined}
+              sizes="85vw"
+              onLoad={() => markAssetReady(`image:${item.id}`)}
+              onError={() => markAssetReady(`image:${item.id}`)}
+            />
+          </div>
+        </div>
+      )}
+      {isArchTop ? <ArchedTopWindowFrame /> : (
+        <div
+          className="absolute inset-0 border-[6px] border-black pointer-events-none z-20"
+          aria-hidden
+        />
+      )}
+      {isArchTop ? <ArchedTopWindowMullions /> : renderWindowPanes(item.paneType)}
+    </div>
+  )
+}
+
+/** Figma 398:339 / 398:340 / 398:338 — brand block; shifts down via layout when copy expands. */
+function MobileCollageBrandFooter() {
+  return (
+    <motion.footer
+      layout
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{
+        ...MOBILE_COPY_LAYOUT_TRANSITION,
+        opacity: { duration: 0.65, ease: 'easeOut' },
+      }}
+      className="collage-mobile-brand-footer relative flex w-full flex-col items-stretch px-5 pb-[calc(0.5rem*0.95)] pt-[calc(0.5rem*0.95)]"
+    >
+      <div
+        className="flex w-full flex-col"
+        style={{ gap: MOBILE_BRAND_COPY_GAP_PX }}
+      >
+        <p
+          data-node-id="398:339"
+          className="max-w-[20rem] text-[#f3f4f6] [font-family:var(--font-collage-note),serif] text-[clamp(1.25rem,6vw,1.5rem)] leading-normal [text-shadow:0_0_20.112px_rgba(255,255,255,1)]"
+        >
+          If life gives you something worth keeping.
+        </p>
+        <p
+          data-node-id="398:340"
+          className="self-end text-right text-[clamp(1.125rem,5vw,1.25rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
+        >
+          <span className="block whitespace-nowrap">MemSurf helps you</span>
+          <span className="block whitespace-nowrap">remember it.</span>
+        </p>
+      </div>
+      <div
+        className="relative mx-auto mt-7 h-[clamp(3.25rem,13vw,4.75rem)] w-[clamp(7.5rem,32vw,11.5rem)]"
+        data-node-id="398:338"
+      >
+        <Image
+          src="/logos/memsurf-logo.svg"
+          alt="MemSurf logo"
+          fill
+          className="object-contain object-center"
+          sizes="(max-width: 768px) 40vw, 200px"
+        />
+      </div>
+    </motion.footer>
+  )
+}
+
+function MobileCollageCarousel({
+  archClipId,
+  markAssetReady,
+}: {
+  archClipId: string
+  markAssetReady: (key: string) => void
+}) {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const videoRefs = useRef<Partial<Record<string, HTMLVideoElement | null>>>({})
+  const [activeSlideId, setActiveSlideId] = useState<MobileCollageSlideId>(
+    MOBILE_COLLAGE_SLIDE_ORDER[0],
+  )
+  const [spotlightActive, setSpotlightActive] = useState(false)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setSpotlightActive(
+          entry.isIntersecting &&
+            entry.intersectionRatio >= MOBILE_COLLAGE_SPOTLIGHT_IN_VIEW_RATIO,
+        )
+      },
+      {
+        threshold: [0, 0.06, 0.12, 0.2, 0.35, 0.5],
+        rootMargin: '-8% 0px -12% 0px',
+      },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const root = scrollRef.current
+    if (!root || typeof IntersectionObserver === 'undefined') return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        const top = visible[0]
+        if (!top) return
+        const id = top.target.getAttribute('data-mobile-slide')
+        if (
+          id &&
+          (MOBILE_COLLAGE_SLIDE_ORDER as readonly string[]).includes(id)
+        ) {
+          setActiveSlideId(id as MobileCollageSlideId)
+        }
+      },
+      { root, threshold: [0.35, 0.5, 0.65, 0.8] },
+    )
+
+    const slides = root.querySelectorAll('[data-mobile-slide]')
+    slides.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={sectionRef} className="relative w-full md:hidden">
+      <AnimatePresence>
+        {spotlightActive ? (
+          <motion.div
+            key="mobile-collage-spotlight-overlay"
+            className="pointer-events-none fixed inset-0 backdrop-blur-[2px] md:hidden"
+            style={{
+              zIndex: COLLAGE_HOVER_OVERLAY_Z,
+              backgroundImage: COLLAGE_HOVER_OVERLAY_GRADIENT,
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            aria-hidden
+          />
+        ) : null}
+      </AnimatePresence>
+      <div
+        className="relative w-full"
+        style={{ zIndex: MOBILE_COLLAGE_CONTENT_Z }}
+      >
+      <svg className="pointer-events-none absolute h-0 w-0 overflow-hidden" aria-hidden>
+        <defs>
+          <clipPath id={`${archClipId}-mobile`} clipPathUnits="objectBoundingBox">
+            <path d={ARCH_CLIP_PATH_D} />
+          </clipPath>
+        </defs>
+      </svg>
+      <div
+        className="flex w-full flex-col items-center"
+        style={{ gap: MOBILE_FRAME_TO_COPY_GAP_PX }}
+      >
+      <div className="collage-mobile-viewport collage-mobile-viewport-fade relative w-full">
+        <div
+          ref={scrollRef}
+          className="collage-mobile-scroll flex w-full snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-visible scroll-smooth px-[max(1rem,calc((100%-min(88vw,340px))/2))] pb-8 pt-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label="MemSurf moment windows"
+        >
+        {MOBILE_COLLAGE_SLIDE_ORDER.map((slideId) => {
+          const items = getMobileSlideWindowItems(slideId)
+          const isActive = activeSlideId === slideId
+          const isBedPair = slideId === 'bedRoom' && items.length === 2
+          const mobileArchClipId = `${archClipId}-mobile`
+
+          return (
+            <div
+              key={slideId}
+              data-mobile-slide={slideId}
+              className="flex w-[min(88vw,340px)] shrink-0 snap-center flex-col"
+            >
+              <div
+                className={`relative w-full shrink-0 overflow-visible ${MOBILE_COLLAGE_ASPECT[slideId]}`}
+              >
+                <div
+                  className={`absolute inset-0 overflow-hidden shadow-[0_10px_28px_-6px_rgba(0,0,0,0.45)] transition-opacity duration-300 ${
+                    isActive ? 'opacity-100' : 'opacity-45'
+                  } ${isBedPair ? 'flex' : ''}`}
+                >
+                  {isBedPair ? (
+                    items.map((item, i) => (
+                      <div
+                        key={item.id}
+                        className={`relative h-full flex-1 overflow-hidden bg-black ${
+                          i === 0 ? 'border-r-[3px] border-black' : ''
+                        }`}
+                      >
+                        <MobileCollageWindowPane
+                          item={item}
+                          isActive={isActive}
+                          archClipId={mobileArchClipId}
+                          markAssetReady={markAssetReady}
+                          videoRefs={videoRefs}
+                        />
+                      </div>
+                    ))
+                  ) : items[0] ? (
+                    <MobileCollageWindowPane
+                      item={items[0]}
+                      isActive={isActive}
+                      archClipId={mobileArchClipId}
+                      markAssetReady={markAssetReady}
+                      videoRefs={videoRefs}
+                    />
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          )
+        })}
+        </div>
+        <div className="pointer-events-none absolute bottom-2 left-1/2 z-10 -translate-x-1/2">
+          <MobileCollageScrollIndicator
+            activeIndex={MOBILE_COLLAGE_SLIDE_ORDER.indexOf(activeSlideId)}
+          />
+        </div>
+      </div>
+
+      <LayoutGroup id="mobile-collage-copy">
+        <div
+          className="flex w-full max-w-[min(88vw,340px)] flex-col items-center px-2"
+          style={
+            {
+              ['--collage-hover-font-size' as string]:
+                MOBILE_COLLAGE_STAGGER_FONT_SIZE,
+            } as React.CSSProperties
+          }
+        >
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.div
+              key={activeSlideId}
+              layout="position"
+              className="w-full"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                ...MOBILE_COPY_LAYOUT_TRANSITION,
+                opacity: { duration: 0.28, ease: 'easeOut' },
+              }}
+            >
+              <CollageMobileStaggerText
+                lines={MOBILE_COLLAGE_HOVER_LINES[activeSlideId]}
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+        <MobileCollageBrandFooter />
+      </LayoutGroup>
+      </div>
+      </div>
+    </div>
+  )
+}
+
 type WindowsCollageProps = {
   /**
    * Split hero: Gǣthis is whereGǥ above `w10`; GǣNot just between moments.Gǥ between `w1`/`w4` and `w9`/`w2`; GǣButGǥ / GǣafterGǥ / Gǣlearning.Gǥ left of `w2`; GǣAfter taking notesGǪGǥ in the gutter above `w6`; GǣAfter reading.Gǥ under `w4`/`w5`; footer: GǣIf lifeGǪGǥ, GǣMemSurf helps you remember it.Gǥ; GǣMEMSURFGǥ / GǣFITSGǥ under `w3` / `w8`.
    */
   workflowHeroCopy?: boolean
   onReady?: () => void
+  onLoadProgress?: (loaded: number, total: number) => void
 }
 
 function paneBottomPct(pane: WindowData): number {
@@ -889,7 +1482,11 @@ const COLLAGE_THIRD_MARKERS = [
 
 type CollageThirdMarkerKey = (typeof COLLAGE_THIRD_MARKERS)[number]['key']
 
-export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCollageProps = {}) {
+export default function WindowsCollage({
+  workflowHeroCopy,
+  onReady,
+  onLoadProgress,
+}: WindowsCollageProps = {}) {
   const archClipId = useId().replace(/:/g, '')
   const { track } = useAmplitude()
   const [hoveredId, setHoveredId] = useState<string | null>(null)
@@ -902,16 +1499,21 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
 
   const markAssetReady = useCallback(
     (key: string) => {
-      if (!onReady || hasReportedReadyRef.current) return
+      if (readyAssetKeysRef.current.has(key)) return
 
       readyAssetKeysRef.current.add(key)
+      const loaded = readyAssetKeysRef.current.size
+      const total = COLLAGE_READY_ASSET_KEYS.length
+      onLoadProgress?.(loaded, total)
 
-      if (readyAssetKeysRef.current.size >= COLLAGE_READY_ASSET_KEYS.length) {
+      if (!onReady || hasReportedReadyRef.current) return
+
+      if (loaded >= total) {
         hasReportedReadyRef.current = true
         onReady()
       }
     },
-    [onReady],
+    [onReady, onLoadProgress],
   )
 
   useEffect(() => {
@@ -1149,7 +1751,11 @@ export default function WindowsCollage({ workflowHeroCopy, onReady }: WindowsCol
 
   return (
     <>
-    <div className="relative w-full bg-transparent overflow-visible flex justify-center items-center">
+    <MobileCollageCarousel
+      archClipId={archClipId}
+      markAssetReady={markAssetReady}
+    />
+    <div className="relative hidden w-full flex-col items-center justify-center overflow-visible bg-transparent md:flex">
       <div className="mx-auto w-full max-w-[1481.51px] px-[clamp(0.5rem,2vw,1.25rem)]">
         <div
           className="collage-scale-root relative w-full aspect-[1481.51/2582] isolate overflow-visible"

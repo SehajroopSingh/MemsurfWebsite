@@ -26,7 +26,9 @@ export default function StoreBadges({
     <div className="w-full sm:w-auto flex flex-col gap-3 items-center">
       <div className="w-full sm:w-auto flex flex-row gap-3 sm:gap-4 sm:gap-6 justify-center items-center">
         <a
-          href="/coming-soon"
+          href="https://apps.apple.com/us/app/id6745132314"
+          target="_blank"
+          rel="noopener noreferrer"
           onClick={() => handleClick('app_store')}
           className={`${linkClassName} flex-1 sm:flex-none sm:w-auto`}
           aria-label="Download on the App Store"

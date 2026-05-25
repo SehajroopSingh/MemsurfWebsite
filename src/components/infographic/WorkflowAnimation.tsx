@@ -117,17 +117,14 @@ export default function WorkflowAnimation({
                 // 7. CLICK ANIMATION (0.91 - 0.93) - Short click
                 else if (v < 0.93) {
                     newState.animationStage = 'button_click'
-                    newState.contextText = textToType
                 }
                 // 8. FLASH (0.93 - 0.95) - Immediate after click
                 else if (v < 0.95) {
                     newState.animationStage = 'flash'
-                    newState.contextText = textToType
                 }
                 // 8. DONE (0.92+)
                 else {
                     newState.animationStage = 'processing'
-                    newState.contextText = textToType
                 }
 
                 if (JSON.stringify(prev) !== JSON.stringify(newState)) {

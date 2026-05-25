@@ -7,7 +7,6 @@ import { steps } from './constants'
 import StaticSourceIcons from './CapturePhone/StaticSourceIcons'
 import ContextAnnotation from './CapturePhone/ContextAnnotation'
 import CapturePhoneContent from './CapturePhone/CapturePhoneContent'
-import SettingsPopout from './CapturePhone/SettingsPopout'
 import CapturePhoneScaleFrame from './CapturePhone/CapturePhoneScaleFrame'
 import RawContentTransition from './RawContentTransition'
 import ProcessingPhoneWithAnnotations from './ProcessingPhone/ProcessingPhoneWithAnnotations'
@@ -246,12 +245,6 @@ export default function WorkflowAnimation({
                                                         />
                                                     </div>
 
-                                                    <SettingsPopout
-                                                        show={['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(phone1State.animationStage)}
-                                                        depthStage={settingsState.depthStage}
-                                                        difficultyStage={settingsState.difficultyStage}
-                                                        timeStage={settingsState.timeStage}
-                                                    />
                                                 </div>
                                             </CapturePhoneScaleFrame>
                                         </div>

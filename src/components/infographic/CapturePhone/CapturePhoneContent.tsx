@@ -3,26 +3,24 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PhoneScreen from '../PhoneScreen'
-import { steps, DEPTH_STATES, TIME_STATES, DIFFICULTY_STATES } from '../constants'
+import { steps } from '../constants'
 
 type CapturePhoneContentProps = {
     animationStage: string
     capturedItems: typeof steps
     contextText: string
-    depthStage: number
-    difficultyStage: number
-    timeStage: number
+    scheduleStage: number
 }
 
 export default function CapturePhoneContent({
     animationStage,
     capturedItems,
     contextText,
-    depthStage,
-    difficultyStage,
-    timeStage
+    scheduleStage
 }: CapturePhoneContentProps) {
     const scrollContainerRef = React.useRef<HTMLDivElement>(null)
+    const scheduleOptions = ['Occasion', 'Keep Fresh', 'Sprint', 'By a Date'] as const
+    const scheduleLabel = scheduleOptions[scheduleStage % scheduleOptions.length]
 
     // Auto-scroll to bottom when button appears
     React.useEffect(() => {
@@ -147,7 +145,7 @@ export default function CapturePhoneContent({
                     )}
                 </AnimatePresence>
 
-                {/* SETTINGS UI (Depth, Time, Difficulty) */}
+                {/* SCHEDULE UI */}
                 <AnimatePresence>
                     {['settings', 'create_button', 'button_click', 'flash', 'processing'].includes(animationStage) && (
                         <motion.div
@@ -156,57 +154,20 @@ export default function CapturePhoneContent({
                             exit={{ opacity: 0 }}
                             className="w-full mt-4"
                         >
-                            <p className="text-sm font-bold text-white mb-3 px-1">Capture Settings</p>
-                            <div className="flex justify-between items-center px-1">
-                                <div className="flex flex-col items-center gap-1">
-                                    <span className="text-xs font-medium text-app-textMuted uppercase tracking-wide">Depth</span>
-                                    <div className="h-10 min-w-[60px] px-3 rounded-xl bg-app-surfaceElevated text-app-blueBright border border-app-border flex items-center justify-center">
-                                        <AnimatePresence mode="wait">
-                                            <motion.span
-                                                key={depthStage}
-                                                initial={{ opacity: 0, y: 3 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -3 }}
-                                                className="text-xs font-bold"
-                                            >
-                                                {DEPTH_STATES[depthStage].label}
-                                            </motion.span>
-                                        </AnimatePresence>
-                                    </div>
-                                </div>
-                                <div className="h-10 w-[1px] bg-app-border"></div>
-                                <div className="flex flex-col items-center gap-1">
-                                    <span className="text-xs font-medium text-app-textMuted uppercase tracking-wide">Time</span>
-                                    <div className="h-10 min-w-[60px] px-3 rounded-xl bg-app-surface text-app-textMuted border border-app-border flex items-center justify-center">
-                                        <AnimatePresence mode="wait">
-                                            <motion.span
-                                                key={timeStage}
-                                                initial={{ opacity: 0, y: 3 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -3 }}
-                                                className="text-xs font-bold"
-                                            >
-                                                {TIME_STATES[timeStage].label}
-                                            </motion.span>
-                                        </AnimatePresence>
-                                    </div>
-                                </div>
-                                <div className="h-10 w-[1px] bg-app-border"></div>
-                                <div className="flex flex-col items-center gap-1">
-                                    <span className="text-xs font-medium text-app-textMuted uppercase tracking-wide">Level</span>
-                                    <div className="h-10 min-w-[60px] px-3 rounded-xl bg-app-surface text-app-textMuted border border-app-border flex items-center justify-center">
-                                        <AnimatePresence mode="wait">
-                                            <motion.span
-                                                key={difficultyStage}
-                                                initial={{ opacity: 0, y: 3 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -3 }}
-                                                className="text-xs font-bold"
-                                            >
-                                                {DIFFICULTY_STATES[difficultyStage].label}
-                                            </motion.span>
-                                        </AnimatePresence>
-                                    </div>
+                            <p className="px-1 text-sm font-bold text-white mb-3">Choose Schedule</p>
+                            <div className="px-1">
+                                <div className="flex h-12 w-full items-center justify-center rounded-xl border border-app-border bg-app-surfaceElevated px-4 text-app-blueBright">
+                                    <AnimatePresence mode="wait">
+                                        <motion.span
+                                            key={scheduleLabel}
+                                            initial={{ opacity: 0, y: 6 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -6 }}
+                                            className="text-sm font-bold"
+                                        >
+                                            {scheduleLabel}
+                                        </motion.span>
+                                    </AnimatePresence>
                                 </div>
                             </div>
                         </motion.div>

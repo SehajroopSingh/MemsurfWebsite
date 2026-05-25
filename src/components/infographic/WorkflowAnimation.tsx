@@ -31,7 +31,8 @@ export default function WorkflowAnimation({
     const [settingsState, setSettingsState] = useState({
         depthStage: 0,
         timeStage: 0,
-        difficultyStage: 0
+        difficultyStage: 0,
+        scheduleStage: 0,
     })
 
     useEffect(() => {
@@ -40,7 +41,8 @@ export default function WorkflowAnimation({
             setSettingsState({
                 depthStage: Math.floor(now % 3),
                 timeStage: Math.floor((now + 0.5) % 3),
-                difficultyStage: Math.floor((now + 1) % 3)
+                difficultyStage: Math.floor((now + 1) % 3),
+                scheduleStage: Math.floor(now % 4),
             })
         }, 100) // Update frequency
         return () => clearInterval(interval)
@@ -235,9 +237,7 @@ export default function WorkflowAnimation({
                                                             animationStage={phone1State.animationStage}
                                                             capturedItems={phone1State.capturedItems}
                                                             contextText={phone1State.contextText}
-                                                            depthStage={settingsState.depthStage}
-                                                            difficultyStage={settingsState.difficultyStage}
-                                                            timeStage={settingsState.timeStage}
+                                                            scheduleStage={settingsState.scheduleStage}
                                                         />
                                                     </div>
 

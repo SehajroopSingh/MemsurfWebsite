@@ -5,7 +5,6 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import FlyingIcon from './FlyingIcon'
 import { steps } from './constants'
 import StaticSourceIcons from './CapturePhone/StaticSourceIcons'
-import ContextAnnotation from './CapturePhone/ContextAnnotation'
 import CapturePhoneContent from './CapturePhone/CapturePhoneContent'
 import CapturePhoneScaleFrame from './CapturePhone/CapturePhoneScaleFrame'
 import RawContentTransition from './RawContentTransition'
@@ -231,8 +230,6 @@ export default function WorkflowAnimation({
                                                                 )}
                                                             </AnimatePresence>
                                                         </div>
-
-                                                        <ContextAnnotation show={phone1State.animationStage === 'context'} />
 
                                                         <CapturePhoneContent
                                                             animationStage={phone1State.animationStage}

@@ -65,7 +65,7 @@ function fitScreenPlaneSize(
 
 /** Aspect-ratio box + bottom padding reserves layout space for phone base / shadow. */
 const PHONE_HERO_ASPECT_CLASS = 'aspect-[672/1250] sm:aspect-[672/1000] md:aspect-[672/700]'
-const PHONE_HERO_FRAME_CLASS = `${PHONE_HERO_ASPECT_CLASS} max-w-full overflow-visible pb-[8%] sm:pb-[8%] md:pb-[6%]`
+const PHONE_HERO_FRAME_CLASS = `${PHONE_HERO_ASPECT_CLASS} max-w-full overflow-visible pb-[2%] sm:pb-[2%] md:pb-0`
 const PHONE_HERO_CANVAS_CLASS = 'absolute inset-0 h-full w-full'
 
 interface PhoneHeroMockupProps {
@@ -613,7 +613,7 @@ export default function PhoneHeroMockup({
 
           <Environment preset="city" />
 
-          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? -0.35 : 0.2, 0]}>
+          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? -0.35 : -0.1, 0]}>
             <Float
               speed={reduceMotion ? 0 : 2.85}
               rotationIntensity={reduceMotion ? 0 : 0.55}

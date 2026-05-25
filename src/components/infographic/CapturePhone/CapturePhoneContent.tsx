@@ -19,6 +19,7 @@ export default function CapturePhoneContent({
 }: CapturePhoneContentProps) {
     const scheduleOptions = ['Keep Fresh', 'Occasional', 'Sprint', 'By a Date'] as const
     const scheduleLabel = scheduleOptions[scheduleStage % scheduleOptions.length]
+    const isTypingContext = animationStage === 'context' && contextText.length > 0
 
     return (
         <PhoneScreen>
@@ -113,21 +114,39 @@ export default function CapturePhoneContent({
                             className="w-full mt-4"
                         >
                             <div className="flex h-[100px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-app-border bg-app-surface p-4 transition-all duration-300">
-                                {contextText ? (
-                                    <p className="max-h-full w-full overflow-hidden break-words text-center text-sm font-medium leading-snug text-app-textMuted animate-pulse-cursor">
-                                        &quot;{contextText}&quot;
-                                        <span className="inline-block w-0.5 h-4 ml-0.5 bg-app-softBlue animate-pulse align-middle" />
-                                    </p>
-                                ) : (
-                                    <>
-                                        <div className="w-10 h-10 rounded-full bg-app-surfaceElevated flex items-center justify-center mb-2 text-app-mint">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
-                                                <path d="M12 5v14M5 12h14" />
-                                            </svg>
-                                        </div>
-                                        <p className="text-base font-semibold text-app-textMuted">Add Context</p>
-                                    </>
-                                )}
+                                <AnimatePresence mode="wait" initial={false}>
+                                    {contextText ? (
+                                        <motion.p
+                                            key="context-text"
+                                            initial={{ opacity: 0, y: 6 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -6 }}
+                                            transition={{ duration: 0.28, ease: 'easeOut' }}
+                                            className="max-h-full w-full overflow-hidden break-words text-center text-sm font-medium leading-snug text-app-textMuted"
+                                        >
+                                            &quot;{contextText}&quot;
+                                            {isTypingContext ? (
+                                                <span className="inline-block w-0.5 h-4 ml-0.5 bg-app-softBlue animate-pulse align-middle" />
+                                            ) : null}
+                                        </motion.p>
+                                    ) : (
+                                        <motion.div
+                                            key="context-placeholder"
+                                            initial={{ opacity: 0, y: 6 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -6 }}
+                                            transition={{ duration: 0.28, ease: 'easeOut' }}
+                                            className="flex flex-col items-center justify-center"
+                                        >
+                                            <div className="w-10 h-10 rounded-full bg-app-surfaceElevated flex items-center justify-center mb-2 text-app-mint">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+                                                    <path d="M12 5v14M5 12h14" />
+                                                </svg>
+                                            </div>
+                                            <p className="text-base font-semibold text-app-textMuted">Add Context</p>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         </motion.div>
                     )}
@@ -142,7 +161,14 @@ export default function CapturePhoneContent({
                             exit={{ opacity: 0 }}
                             className="w-full mt-4"
                         >
-                            <p className="px-1 text-sm font-bold text-white mb-3">Scheduling Options</p>
+                            <motion.p
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3, ease: 'easeOut', delay: 0.18 }}
+                                className="px-1 text-sm font-bold text-white mb-3"
+                            >
+                                Scheduling Options
+                            </motion.p>
                             <div className="grid grid-cols-2 gap-2 px-1">
                                 {scheduleOptions.map((option) => {
                                     const isActive = option === scheduleLabel
@@ -153,11 +179,17 @@ export default function CapturePhoneContent({
                                             type="button"
                                             tabIndex={-1}
                                             aria-pressed={isActive}
+                                            initial={{ opacity: 0, scale: 0.86, y: 8 }}
                                             animate={{
                                                 scale: isActive ? 1.03 : 1,
                                                 opacity: isActive ? 1 : 0.72,
+                                                y: 0,
                                             }}
-                                            transition={{ duration: 0.25, ease: 'easeOut' }}
+                                            transition={{
+                                                duration: 0.25,
+                                                ease: 'easeOut',
+                                                delay: 0.32 + scheduleOptions.indexOf(option) * 0.12,
+                                            }}
                                             className={`h-11 rounded-xl border px-2 text-center text-xs font-bold transition-colors duration-300 ${
                                                 isActive
                                                     ? 'border-app-softBlue bg-app-softBlue text-white shadow-[0_0_18px_rgba(96,165,250,0.28)]'
@@ -174,7 +206,7 @@ export default function CapturePhoneContent({
 
                     {/* CREATE CAPTURE BUTTON */}
                     <AnimatePresence>
-                        {['create_button', 'button_click', 'flash'].includes(animationStage) && (
+                        {['create_button', 'button_click', 'flash', 'processing'].includes(animationStage) && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.96, y: 8 }}
                                 animate={{

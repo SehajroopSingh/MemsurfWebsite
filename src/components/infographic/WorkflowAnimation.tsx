@@ -72,6 +72,7 @@ export default function WorkflowAnimation({
     useEffect(() => {
         return phone1Progress.on('change', (v) => {
             setPhone1State(prev => {
+                const textToType = "Focus on X, I want to learn Y content more deeply over time, build from the ground up."
                 let newState = {
                     activeStep: 0,
                     capturedItems: [] as typeof steps,
@@ -97,33 +98,37 @@ export default function WorkflowAnimation({
                 else if (v < 0.45) {
                     newState.animationStage = 'condensing'
                 }
-                // 4. CONTEXT (0.45 - 0.65)
-                else if (v < 0.65) {
+                // 4. CONTEXT (0.45 - 0.68)
+                else if (v < 0.68) {
                     newState.animationStage = 'context'
-                    const textToType = "Focus on X, I want to learn Y content more deeply over time, build from the ground up."
-                    const textProgress = Math.max(0, Math.min(1, (v - 0.45) / 0.20))
+                    const textProgress = Math.max(0, Math.min(1, (v - 0.45) / 0.23))
                     const charCount = Math.floor(textProgress * textToType.length)
                     newState.contextText = textToType.slice(0, charCount)
                 }
-                // 5. SETTINGS (0.65 - 0.84)
+                // 5. SETTINGS (0.68 - 0.84)
                 else if (v < 0.84) {
                     newState.animationStage = 'settings'
+                    newState.contextText = textToType
                 }
-                // 6. CREATE BUTTON (0.84 - 0.90)
-                else if (v < 0.90) {
+                // 6. CREATE BUTTON (0.84 - 0.91)
+                else if (v < 0.91) {
                     newState.animationStage = 'create_button'
+                    newState.contextText = textToType
                 }
-                // 7. CLICK ANIMATION (0.90 - 0.92) - Short click
-                else if (v < 0.92) {
+                // 7. CLICK ANIMATION (0.91 - 0.93) - Short click
+                else if (v < 0.93) {
                     newState.animationStage = 'button_click'
+                    newState.contextText = textToType
                 }
-                // 8. FLASH (0.92 - 0.95) - Immediate after click
+                // 8. FLASH (0.93 - 0.95) - Immediate after click
                 else if (v < 0.95) {
                     newState.animationStage = 'flash'
+                    newState.contextText = textToType
                 }
                 // 8. DONE (0.92+)
                 else {
                     newState.animationStage = 'processing'
+                    newState.contextText = textToType
                 }
 
                 if (JSON.stringify(prev) !== JSON.stringify(newState)) {

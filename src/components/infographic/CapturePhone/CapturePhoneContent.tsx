@@ -35,18 +35,24 @@ export default function CapturePhoneContent({
                     {/* CONDENSED STATE (Summary Card) */}
                     {['condensing', 'context', 'settings', 'create_button', 'button_click', 'flash', 'processing'].includes(animationStage) && (
                         <motion.div
-                            layoutId="summary-card"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="flex flex-col w-full"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.28, ease: 'easeOut' }}
+                            className="flex w-full flex-col overflow-hidden"
                         >
-                            <p className="text-base font-bold text-white mb-2">Combined Text</p>
-                            <div className="space-y-1.5">
-                                <div className="h-1.5 w-full bg-app-softBlue/35 rounded-full" />
-                                <div className="h-1.5 w-3/4 bg-app-softBlue/30 rounded-full" />
-                                <div className="h-1.5 w-1/2 bg-app-softBlue/25 rounded-full" />
-                            </div>
-                                        <p className="text-app-textMuted text-base mt-2 font-medium tracking-widest">...</p>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.28, ease: 'easeOut', delay: 0.12 }}
+                            >
+                                <p className="text-base font-bold text-white mb-2">Combined Text</p>
+                                <div className="space-y-1.5">
+                                    <div className="h-1.5 w-full bg-app-softBlue/35 rounded-full" />
+                                    <div className="h-1.5 w-3/4 bg-app-softBlue/30 rounded-full" />
+                                    <div className="h-1.5 w-1/2 bg-app-softBlue/25 rounded-full" />
+                                </div>
+                                <p className="text-app-textMuted text-base mt-2 font-medium tracking-widest">...</p>
+                            </motion.div>
                         </motion.div>
                     )}
 

@@ -1192,18 +1192,18 @@ function MobileCollageBrandFooter() {
         ...MOBILE_COPY_LAYOUT_TRANSITION,
         opacity: { duration: 0.65, ease: 'easeOut' },
       }}
-      className="collage-mobile-brand-footer relative flex w-full flex-col items-stretch px-5 pb-[calc(0.5rem*0.95)] pt-[calc(0.5rem*0.95)]"
+      className="collage-mobile-brand-footer relative mt-12 flex w-full flex-col items-stretch px-5 pb-[calc(0.5rem*0.95)] pt-[calc(0.5rem*0.95)]"
     >
       <div className="mx-auto flex w-full max-w-[min(88vw,340px)] flex-col items-center justify-center gap-0">
         <p
           data-node-id="398:339"
-          className="max-w-[20rem] text-center text-[clamp(1.25rem,6vw,1.5rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
+          className="max-w-[20rem] text-center text-[clamp(1.5rem,7vw,1.75rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
         >
           If life gives you something worth keeping.
         </p>
       </div>
       <div
-        className="relative mx-auto mt-7 h-[clamp(3.25rem,13vw,4.75rem)] w-[clamp(7.5rem,32vw,11.5rem)]"
+        className="relative mx-auto mt-7 h-[clamp(4.25rem,18vw,6.25rem)] w-[clamp(9.5rem,42vw,15rem)]"
         data-node-id="398:338"
       >
         <Image
@@ -1211,12 +1211,12 @@ function MobileCollageBrandFooter() {
           alt="MemSurf logo"
           fill
           className="object-contain object-center"
-          sizes="(max-width: 768px) 40vw, 200px"
+          sizes="(max-width: 768px) 55vw, 240px"
         />
       </div>
       <p
         data-node-id="398:340"
-        className="mt-4 self-center text-center text-[clamp(1.125rem,5vw,1.25rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
+        className="mt-4 self-center text-center text-[clamp(1.5rem,7vw,1.75rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
       >
         <span className="block whitespace-nowrap">MemSurf helps you</span>
         <span className="block whitespace-nowrap">remember it.</span>

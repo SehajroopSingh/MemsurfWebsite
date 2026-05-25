@@ -840,10 +840,10 @@ const MOBILE_COLLAGE_HOVER_LINES: Record<MobileCollageSlideId, readonly string[]
 }
 
 /** Gap between bottom of window frames and the active-slide copy block (Figma mobile). */
-const MOBILE_FRAME_TO_COPY_GAP_PX = 36
+const MOBILE_FRAME_TO_COPY_GAP_PX = 12
 
-/** Mobile stagger line size (+5% over base clamp(0.95rem, 3.6vw, 1.125rem)). */
-const MOBILE_COLLAGE_STAGGER_FONT_SCALE = 1.05
+/** Mobile stagger line size, used for the active slide captions below each frame. */
+const MOBILE_COLLAGE_STAGGER_FONT_SCALE = 1.45
 const MOBILE_COLLAGE_STAGGER_FONT_SIZE = `clamp(calc(0.95rem * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}), calc(3.6vw * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}), calc(1.125rem * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}))`
 
 const MOBILE_COLLAGE_CONTENT_Z = COLLAGE_HOVER_OVERLAY_Z + 1

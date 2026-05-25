@@ -81,10 +81,11 @@ export default function WorkflowAnimation({
                 // 1. CAPTURING (0.0 - 0.25)
                 if (v < 0.25) {
                     newState.animationStage = 'capturing'
+                    const cardArrivalDelay = 0.04
                     const stepIndex = Math.floor(v / 0.05)
-                    const count = Math.max(0, Math.min(stepIndex, 4))
-                    newState.activeStep = count
-                    newState.capturedItems = steps.slice(0, count).reverse()
+                    const capturedCount = Math.floor((v - cardArrivalDelay) / 0.05)
+                    newState.activeStep = Math.max(0, Math.min(stepIndex, 4))
+                    newState.capturedItems = steps.slice(0, Math.max(0, Math.min(capturedCount, 4))).reverse()
                 }
                 // 2. COMBINING (0.25 - 0.35)
                 else if (v < 0.35) {

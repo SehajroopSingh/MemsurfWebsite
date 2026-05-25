@@ -613,7 +613,7 @@ export default function PhoneHeroMockup({
 
           <Environment preset="city" />
 
-          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? 0.05 : 0.2, 0]}>
+          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? -0.35 : 0.2, 0]}>
             <Float
               speed={reduceMotion ? 0 : 2.85}
               rotationIntensity={reduceMotion ? 0 : 0.55}

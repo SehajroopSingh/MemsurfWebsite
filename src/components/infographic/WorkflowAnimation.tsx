@@ -152,7 +152,7 @@ export default function WorkflowAnimation({
             />
 
             {/* HOW IT WORKS Section — [3] */}
-            <div className="w-full mt-10 md:mt-10 lg:mt-14 flex h-fit flex-col items-center gap-10 md:gap-14 lg:gap-12">
+            <div className="w-full mt-20 md:mt-10 lg:mt-14 flex h-fit flex-col items-center gap-10 md:gap-14 lg:gap-12">
                 {/* 3a — HOW IT WORKS heading */}
                 <div
                     id="how-it-works"

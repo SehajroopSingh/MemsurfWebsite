@@ -19,7 +19,7 @@ export default function CapturePhoneContent({
     scheduleStage
 }: CapturePhoneContentProps) {
     const scrollContainerRef = React.useRef<HTMLDivElement>(null)
-    const scheduleOptions = ['Occasion', 'Keep Fresh', 'Sprint', 'By a Date'] as const
+    const scheduleOptions = ['Keep Fresh', 'Occasional', 'Sprint', 'By a Date'] as const
     const scheduleLabel = scheduleOptions[scheduleStage % scheduleOptions.length]
 
     // Auto-scroll to bottom when button appears
@@ -124,9 +124,9 @@ export default function CapturePhoneContent({
                             exit={{ opacity: 0, height: 0 }}
                             className="w-full mt-4"
                         >
-                            <div className="w-full rounded-2xl border-2 border-dashed border-app-border p-4 flex flex-col items-center justify-center bg-app-surface min-h-[100px] transition-all duration-300">
+                            <div className="flex h-[100px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-app-border bg-app-surface p-4 transition-all duration-300">
                                 {contextText ? (
-                                    <p className="text-base text-app-textMuted font-medium leading-relaxed text-center w-full break-words animate-pulse-cursor">
+                                    <p className="max-h-full w-full overflow-hidden break-words text-center text-sm font-medium leading-snug text-app-textMuted animate-pulse-cursor">
                                         &quot;{contextText}&quot;
                                         <span className="inline-block w-0.5 h-4 ml-0.5 bg-app-softBlue animate-pulse align-middle" />
                                     </p>
@@ -154,21 +154,32 @@ export default function CapturePhoneContent({
                             exit={{ opacity: 0 }}
                             className="w-full mt-4"
                         >
-                            <p className="px-1 text-sm font-bold text-white mb-3">Choose Schedule</p>
-                            <div className="px-1">
-                                <div className="flex h-12 w-full items-center justify-center rounded-xl border border-app-border bg-app-surfaceElevated px-4 text-app-blueBright">
-                                    <AnimatePresence mode="wait">
-                                        <motion.span
-                                            key={scheduleLabel}
-                                            initial={{ opacity: 0, y: 6 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -6 }}
-                                            className="text-sm font-bold"
+                            <p className="px-1 text-sm font-bold text-white mb-3">Scheduling Options</p>
+                            <div className="grid grid-cols-2 gap-2 px-1">
+                                {scheduleOptions.map((option) => {
+                                    const isActive = option === scheduleLabel
+
+                                    return (
+                                        <motion.button
+                                            key={option}
+                                            type="button"
+                                            tabIndex={-1}
+                                            aria-pressed={isActive}
+                                            animate={{
+                                                scale: isActive ? 1.03 : 1,
+                                                opacity: isActive ? 1 : 0.72,
+                                            }}
+                                            transition={{ duration: 0.25, ease: 'easeOut' }}
+                                            className={`h-11 rounded-xl border px-2 text-center text-xs font-bold transition-colors duration-300 ${
+                                                isActive
+                                                    ? 'border-app-softBlue bg-app-softBlue text-white shadow-[0_0_18px_rgba(96,165,250,0.28)]'
+                                                    : 'border-app-border bg-app-surfaceElevated text-app-textMuted'
+                                            }`}
                                         >
-                                            {scheduleLabel}
-                                        </motion.span>
-                                    </AnimatePresence>
-                                </div>
+                                            {option}
+                                        </motion.button>
+                                    )
+                                })}
                             </div>
                         </motion.div>
                     )}

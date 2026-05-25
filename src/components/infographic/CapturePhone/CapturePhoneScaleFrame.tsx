@@ -49,7 +49,7 @@ export default function CapturePhoneScaleFrame({ children, className = '' }: Cap
     return (
         <div
             ref={containerRef}
-            className={`mx-auto flex w-full max-w-full justify-center overflow-hidden ${className}`}
+            className={`mx-auto flex w-full max-w-full justify-center overflow-visible ${className}`}
         >
             <div
                 className="relative shrink-0"

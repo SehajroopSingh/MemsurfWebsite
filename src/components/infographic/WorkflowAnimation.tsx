@@ -213,7 +213,7 @@ export default function WorkflowAnimation({
                                         </div>
 
                                         {/* Icons + phone + settings annotations */}
-                                        <div className="relative z-20 mx-auto w-full min-w-0 overflow-hidden px-4 pb-6 sm:px-6 sm:pb-10 lg:overflow-visible">
+                                        <div className="relative z-20 mx-auto w-full min-w-0 overflow-visible px-4 pb-6 sm:px-6 sm:pb-10">
                                             <div className="relative mx-auto h-[6.5rem] w-full max-w-[560px] sm:h-[7rem]">
                                                 <StaticSourceIcons
                                                     activeStep={phone1State.activeStep}

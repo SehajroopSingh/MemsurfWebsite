@@ -71,24 +71,18 @@ export default function CapturePhoneContent({
                                 )}
                             </AnimatePresence>
 
-                            <AnimatePresence mode='popLayout'>
+                            <AnimatePresence>
                                 {capturedItems.map((item, index) => (
                                     <motion.div
-                                        layoutId={`item-${item.id}`}
                                         key={item.id}
-                                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                                        initial={{ opacity: 0, y: 6, scale: 0.98 }}
                                         animate={{
                                             opacity: 1,
                                             y: 0,
-                                            scale: [1.05, 1],
+                                            scale: 1,
                                         }}
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 400,
-                                            damping: 25,
-                                            opacity: { duration: 0.2 }
-                                        }}
-                                        exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+                                        transition={{ duration: 0.22, ease: 'easeOut' }}
+                                        exit={{ opacity: 0, y: -4, scale: 0.98, transition: { duration: 0.16, ease: 'easeOut' } }}
                                         className={`flex h-[72px] w-full items-center gap-3 overflow-hidden rounded-2xl border border-app-border bg-app-surfaceElevated p-3 shadow-sm z-20`}
                                     >
                                         <motion.div

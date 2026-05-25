@@ -488,7 +488,7 @@ function ScrollAnimatedPhone({
       ref={groupRef}
       rotation={[-0.55, -0.45, -0.065]}
       position={[isSmallViewport ? -0.45 : -0.55, isSmallViewport ? -1.35 : -0.95, 0]}
-      scale={isSmallViewport ? 1.22 : 0.88}
+      scale={isSmallViewport ? 1.22 : 0.96}
     >
       <Suspense
         fallback={

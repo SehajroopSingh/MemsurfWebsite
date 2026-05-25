@@ -81,7 +81,6 @@ export default function CapturePhoneContent({
                                             opacity: 1,
                                             y: 0,
                                             scale: [1.05, 1],
-                                            height: 'auto'
                                         }}
                                         transition={{
                                             type: "spring",
@@ -90,7 +89,7 @@ export default function CapturePhoneContent({
                                             opacity: { duration: 0.2 }
                                         }}
                                         exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
-                                        className={`w-full rounded-2xl border shadow-sm flex items-center gap-3 overflow-hidden p-3 border-app-border bg-app-surfaceElevated z-20`}
+                                        className={`flex h-[72px] w-full items-center gap-3 overflow-hidden rounded-2xl border border-app-border bg-app-surfaceElevated p-3 shadow-sm z-20`}
                                     >
                                         <motion.div
                                             className="flex items-center gap-3 w-full"

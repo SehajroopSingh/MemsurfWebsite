@@ -160,45 +160,47 @@ export default function CapturePhoneContent({
                             exit={{ opacity: 0 }}
                             className="w-full mt-4"
                         >
-                            <motion.p
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, ease: 'easeOut', delay: 0.18 }}
-                                className="px-1 text-sm font-bold text-white mb-3"
-                            >
-                                Scheduling Options
-                            </motion.p>
-                            <div className="grid grid-cols-2 gap-2 px-1">
-                                {scheduleOptions.map((option) => {
-                                    const isActive = option === scheduleLabel
+                            <div className="w-full rounded-2xl border border-app-border bg-app-surface p-3">
+                                <motion.p
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.3, ease: 'easeOut', delay: 0.18 }}
+                                    className="mb-3 text-center text-sm font-bold text-white"
+                                >
+                                    Scheduling Options
+                                </motion.p>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {scheduleOptions.map((option) => {
+                                        const isActive = option === scheduleLabel
 
-                                    return (
-                                        <motion.button
-                                            key={option}
-                                            type="button"
-                                            tabIndex={-1}
-                                            aria-pressed={isActive}
-                                            initial={{ opacity: 0, scale: 0.86, y: 8 }}
-                                            animate={{
-                                                scale: isActive ? 1.03 : 1,
-                                                opacity: isActive ? 1 : 0.72,
-                                                y: 0,
-                                            }}
-                                            transition={{
-                                                duration: 0.25,
-                                                ease: 'easeOut',
-                                                delay: 0.32 + scheduleOptions.indexOf(option) * 0.12,
-                                            }}
-                                            className={`h-11 rounded-xl border px-2 text-center text-xs font-bold transition-colors duration-300 ${
-                                                isActive
-                                                    ? 'border-app-softBlue bg-app-softBlue text-white shadow-[0_0_18px_rgba(96,165,250,0.28)]'
-                                                    : 'border-app-border bg-app-surfaceElevated text-app-textMuted'
-                                            }`}
-                                        >
-                                            {option}
-                                        </motion.button>
-                                    )
-                                })}
+                                        return (
+                                            <motion.button
+                                                key={option}
+                                                type="button"
+                                                tabIndex={-1}
+                                                aria-pressed={isActive}
+                                                initial={{ opacity: 0, scale: 0.86, y: 8 }}
+                                                animate={{
+                                                    scale: isActive ? 1.03 : 1,
+                                                    opacity: isActive ? 1 : 0.72,
+                                                    y: 0,
+                                                }}
+                                                transition={{
+                                                    duration: 0.25,
+                                                    ease: 'easeOut',
+                                                    delay: 0.32 + scheduleOptions.indexOf(option) * 0.12,
+                                                }}
+                                                className={`h-11 rounded-xl border px-2 text-center text-xs font-bold transition-colors duration-300 ${
+                                                    isActive
+                                                        ? 'border-app-softBlue bg-app-softBlue text-white shadow-[0_0_18px_rgba(96,165,250,0.28)]'
+                                                        : 'border-app-border bg-app-surfaceElevated text-app-textMuted'
+                                                }`}
+                                            >
+                                                {option}
+                                            </motion.button>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         </motion.div>
                     )}

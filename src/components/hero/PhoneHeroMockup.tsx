@@ -414,10 +414,10 @@ function HeroPhoneCameraFit() {
       cam.position.set(0, 1.45, 6.85)
       cam.lookAt(0, -1.22, 0)
     } else {
-      const referenceCanvasWidth = 560
-      const pull = MathUtils.clamp(referenceCanvasWidth / w, 1, 1.32)
-      cam.position.set(0, 1.65, 7.6 * pull)
-      cam.lookAt(0, -1.65, 0)
+      const referenceCanvasWidth = 500
+      const pull = MathUtils.clamp(referenceCanvasWidth / w, 1, 1.1)
+      cam.position.set(0, 1.48, 6.5 * pull)
+      cam.lookAt(0, -1.36, 0)
     }
 
     cam.updateProjectionMatrix()
@@ -488,7 +488,7 @@ function ScrollAnimatedPhone({
       ref={groupRef}
       rotation={[-0.55, -0.45, -0.065]}
       position={[isSmallViewport ? -0.45 : -0.55, isSmallViewport ? -1.35 : -0.95, 0]}
-      scale={isSmallViewport ? 1.26 : 1.14}
+      scale={isSmallViewport ? 1.85 : 1.14}
     >
       <Suspense
         fallback={
@@ -613,7 +613,7 @@ export default function PhoneHeroMockup({
 
           <Environment preset="city" />
 
-          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? 0.55 : 0.85, 0]}>
+          <group position={[isSmallViewport ? 0 : 0.35, 0.55, 0]}>
             <Float
               speed={reduceMotion ? 0 : 2.85}
               rotationIntensity={reduceMotion ? 0 : 0.55}

@@ -26,7 +26,7 @@ export default function PracticeScrollCopy({
                 style={{ opacity: copyStageOneOpacity, y: copyStageOneY }}
                 className="flex-1 bg-app-surfaceElevated rounded-l-[2.5rem] rounded-r-[1.5rem] shadow-lg border border-app-border border-l-4 border-l-app-mint/55 p-6 flex flex-col justify-center w-full z-10 ring-1 ring-app-softBlue/15"
             >
-                <div className="max-w-xl">
+                <div className="mx-auto max-w-xl text-center md:mx-0 md:text-left">
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-app-mint mb-2">Built Around Your Rhythm</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-app-text leading-tight mb-2">
                         The Right Practice, Right Now.
@@ -42,7 +42,7 @@ export default function PracticeScrollCopy({
                 style={{ opacity: copyStageTwoOpacity, y: copyStageTwoY, backgroundColor: 'transparent' }}
                 className="flex-1 border-[6px] border-app-lavender/45 rounded-[2.5rem] shadow-lg p-6 flex flex-col justify-center w-full z-10 bg-gradient-to-br from-app-lavender/12 via-app-surface/70 to-app-softBlue/10 backdrop-blur-sm ring-2 ring-app-mint/20"
             >
-                <div className="max-w-xl">
+                <div className="mx-auto max-w-xl text-center md:mx-0 md:text-left">
                     <p className="hidden md:block text-xs font-semibold uppercase tracking-[0.3em] text-app-blueBright mb-2">Focused Lessons</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-app-text leading-tight mb-2">
                         Learn What Matters.
@@ -58,7 +58,7 @@ export default function PracticeScrollCopy({
                 style={{ opacity: copyStageThreeOpacity, y: copyStageThreeY }}
                 className="flex-1 bg-app-surfaceElevated rounded-l-[2.5rem] rounded-r-[1.5rem] shadow-lg border border-app-border border-r-4 border-r-app-lavender/45 p-6 flex flex-col justify-center w-full z-10 ring-1 ring-app-lilac/20"
             >
-                <div className="max-w-xl">
+                <div className="mx-auto max-w-xl text-center md:mx-0 md:text-left">
                     <p className="hidden md:block text-xs font-semibold uppercase tracking-[0.3em] text-app-lilac mb-2">Adaptive Quizzes</p>
                     <h2 className="text-2xl md:text-3xl font-bold text-app-text leading-tight mb-2">
                         Harder When You&apos;re Ready.

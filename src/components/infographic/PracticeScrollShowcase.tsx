@@ -124,7 +124,7 @@ export default function PracticeScrollShowcase() {
                             Daily Reinforcement
                         </h2>
 
-                        <div className="relative mx-auto grid h-fit w-full max-w-[680px] grid-cols-1 items-center gap-8 md:max-w-none md:grid-cols-[minmax(0,1fr)_280px] md:gap-4">
+                        <div className="relative mx-auto grid h-fit w-full max-w-[680px] grid-cols-1 items-center gap-12 md:max-w-none md:grid-cols-[minmax(0,1fr)_280px] md:gap-4">
 
                             {/* Text Content (Left) */}
                             <div className="relative z-10 row-start-1 h-fit w-full min-w-0 md:col-start-1 md:col-end-2">
@@ -139,7 +139,7 @@ export default function PracticeScrollShowcase() {
                             </div>
 
                             {/* Phone Content (Right) */}
-                            <div className="relative z-20 row-start-2 flex h-fit w-full justify-center md:col-start-2 md:col-end-3 md:row-start-1 md:justify-end">
+                            <div className="relative z-20 row-start-2 mt-6 flex h-fit w-full justify-center md:col-start-2 md:col-end-3 md:row-start-1 md:mt-0 md:justify-end">
                                 <motion.div
                                     style={{ opacity: phoneOpacity, y: phoneY }}
                                     className="flex h-fit min-h-[540px] w-full max-w-[280px] justify-center"

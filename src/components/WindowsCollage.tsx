@@ -1203,7 +1203,7 @@ function MobileCollageBrandFooter() {
         </p>
       </div>
       <div
-        className="relative mx-auto mt-7 h-[clamp(4.25rem,18vw,6.25rem)] w-[clamp(9.5rem,42vw,15rem)]"
+        className="relative mx-auto mt-6 h-[clamp(4.25rem,18vw,6.25rem)] w-[clamp(9.5rem,42vw,15rem)]"
         data-node-id="398:338"
       >
         <Image
@@ -1216,7 +1216,7 @@ function MobileCollageBrandFooter() {
       </div>
       <p
         data-node-id="398:340"
-        className="mt-4 self-center text-center text-[clamp(1.5rem,7vw,1.75rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
+        className="mt-6 self-center text-center text-[clamp(1.5rem,7vw,1.75rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
       >
         <span className="block whitespace-nowrap">MemSurf helps you</span>
         <span className="block whitespace-nowrap">remember it.</span>

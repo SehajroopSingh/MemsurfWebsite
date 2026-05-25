@@ -158,14 +158,14 @@ export default function CapturePhoneContent({
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
-                            className="w-full mt-4"
+                            className="w-full mt-3"
                         >
                             <div className="w-full rounded-2xl border border-app-border bg-app-surface p-3">
                                 <motion.p
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.3, ease: 'easeOut', delay: 0.18 }}
-                                    className="mb-3 text-center text-sm font-bold text-white"
+                                    className="mb-2 text-center text-sm font-bold text-white"
                                 >
                                     Scheduling Options
                                 </motion.p>
@@ -190,7 +190,7 @@ export default function CapturePhoneContent({
                                                     ease: 'easeOut',
                                                     delay: 0.32 + scheduleOptions.indexOf(option) * 0.12,
                                                 }}
-                                                className={`h-11 rounded-xl border px-2 text-center text-xs font-bold transition-colors duration-300 ${
+                                                className={`h-[38px] rounded-xl border px-2 text-center text-xs font-bold transition-colors duration-300 ${
                                                     isActive
                                                         ? 'border-app-softBlue bg-app-softBlue text-white shadow-[0_0_18px_rgba(96,165,250,0.28)]'
                                                         : 'border-app-border bg-app-surfaceElevated text-app-textMuted'

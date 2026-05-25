@@ -846,9 +846,6 @@ const MOBILE_FRAME_TO_COPY_GAP_PX = 36
 const MOBILE_COLLAGE_STAGGER_FONT_SCALE = 1.05
 const MOBILE_COLLAGE_STAGGER_FONT_SIZE = `clamp(calc(0.95rem * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}), calc(3.6vw * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}), calc(1.125rem * ${MOBILE_COLLAGE_STAGGER_FONT_SCALE}))`
 
-/** When this much of the mobile collage is visible, show the full-screen spotlight (desktop hover parity). */
-const MOBILE_COLLAGE_SPOTLIGHT_IN_VIEW_RATIO = 0.12
-
 const MOBILE_COLLAGE_CONTENT_Z = COLLAGE_HOVER_OVERLAY_Z + 1
 
 const MOBILE_COPY_LAYOUT_TRANSITION = {
@@ -1235,13 +1232,11 @@ function MobileCollageCarousel({
   archClipId: string
   markAssetReady: (key: string) => void
 }) {
-  const sectionRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<Partial<Record<string, HTMLVideoElement | null>>>({})
   const [activeSlideId, setActiveSlideId] = useState<MobileCollageSlideId>(
     MOBILE_COLLAGE_SLIDE_ORDER[0],
   )
-  const [spotlightActive, setSpotlightActive] = useState(false)
 
   const updateActiveSlideFromCenter = useCallback(() => {
     const root = scrollRef.current
@@ -1277,27 +1272,6 @@ function MobileCollageCarousel({
         current === nextSlideId ? current : nextSlideId,
       )
     }
-  }, [])
-
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el || typeof IntersectionObserver === 'undefined') return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setSpotlightActive(
-          entry.isIntersecting &&
-            entry.intersectionRatio >= MOBILE_COLLAGE_SPOTLIGHT_IN_VIEW_RATIO,
-        )
-      },
-      {
-        threshold: [0, 0.06, 0.12, 0.2, 0.35, 0.5],
-        rootMargin: '-8% 0px -12% 0px',
-      },
-    )
-
-    observer.observe(el)
-    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
@@ -1345,24 +1319,7 @@ function MobileCollageCarousel({
   }
 
   return (
-    <div ref={sectionRef} className="relative w-full md:hidden">
-      <AnimatePresence>
-        {spotlightActive ? (
-          <motion.div
-            key="mobile-collage-spotlight-overlay"
-            className="pointer-events-none fixed inset-0 backdrop-blur-[2px] md:hidden"
-            style={{
-              zIndex: COLLAGE_HOVER_OVERLAY_Z,
-              backgroundImage: COLLAGE_HOVER_OVERLAY_GRADIENT,
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-            aria-hidden
-          />
-        ) : null}
-      </AnimatePresence>
+    <div className="relative w-full md:hidden">
       <div
         className="relative w-full"
         style={{ zIndex: MOBILE_COLLAGE_CONTENT_Z }}

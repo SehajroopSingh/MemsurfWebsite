@@ -477,7 +477,7 @@ const HOVER_FALLOFF_DELAY_MS = 200
 const HOVER_COPY_FRAME_GAP_PX = 36
 /** Figma hover spotlight: full-bleed vertical gradient (Variant2 / 387:890). */
 const COLLAGE_HOVER_OVERLAY_GRADIENT =
-  'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 32.692%, rgb(0, 0, 0) 69.231%, rgba(0, 0, 0, 0) 100%)'
+  'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.62) 32.692%, rgba(0, 0, 0, 0.62) 69.231%, rgba(0, 0, 0, 0) 100%)'
 const COLLAGE_HOVER_OVERLAY_Z = 50
 /** Footer tagline + logo stay above the hover overlay (Figma). */
 const COLLAGE_BRAND_FOOTER_Z = 65
@@ -1823,7 +1823,12 @@ export default function WindowsCollage({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
+              transition={{
+                opacity: {
+                  duration: 0.48,
+                  ease: 'easeOut',
+                },
+              }}
               aria-hidden
             />
           ) : null}

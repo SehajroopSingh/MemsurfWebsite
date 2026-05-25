@@ -1197,7 +1197,7 @@ function MobileCollageBrandFooter() {
       }}
       className="collage-mobile-brand-footer relative flex w-full flex-col items-stretch px-5 pb-[calc(0.5rem*0.95)] pt-[calc(0.5rem*0.95)]"
     >
-      <div className="flex w-[496px] flex-col items-center justify-center gap-0">
+      <div className="mx-auto flex w-full max-w-[min(88vw,340px)] flex-col items-center justify-center gap-0">
         <p
           data-node-id="398:339"
           className="max-w-[20rem] text-[#f3f4f6] [font-family:var(--font-collage-note),serif] text-[clamp(1.25rem,6vw,1.5rem)] leading-normal [text-shadow:0_0_20.112px_rgba(255,255,255,1)]"

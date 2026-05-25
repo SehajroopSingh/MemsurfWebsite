@@ -44,31 +44,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Desktop min-width */
-@media (min-width: 641px) {
-  body {
-    min-width: 700px;
-  }
-}
-
-/* Mobile - match purple card width (620px) */
-@media (max-width: 640px) {
-
-  html,
-  body {
-    min-width: 620px;
-    width: 620px;
-    margin: 0 auto;
-    overflow-x: hidden;
-    overscroll-behavior-x: none;
-  }
-
-  main {
-    min-width: 620px;
-    width: 620px;
-    margin: 0 auto;
-    overflow-x: hidden;
-  }
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 @layer utilities {

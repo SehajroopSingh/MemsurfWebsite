@@ -1338,7 +1338,7 @@ function MobileCollageCarousel({
       <div className="collage-mobile-viewport collage-mobile-viewport-fade relative w-screen max-w-[100vw] self-start">
         <div
           ref={scrollRef}
-          className="collage-mobile-scroll flex w-full snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-visible scroll-smooth px-[max(1rem,calc((100%-min(88vw,340px))/2))] pb-8 pt-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="collage-mobile-scroll flex w-full snap-x snap-mandatory items-end gap-4 overflow-x-auto overflow-y-visible scroll-smooth px-[max(1rem,calc((100%-min(88vw,340px))/2))] pb-8 pt-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           aria-label="MemSurf moment windows"
         >
         {MOBILE_COLLAGE_SLIDE_ORDER.map((slideId) => {

@@ -287,7 +287,7 @@ export default function WorkflowAnimation({
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide whitespace-nowrap text-center mb-6 lg:mb-8 drop-shadow-sm">
+                            <h2 className="max-w-full px-4 text-center text-3xl font-semibold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright mb-6 drop-shadow-sm sm:whitespace-nowrap lg:mb-8">
                                 Your Agent Designs The Learning
                             </h2>
 

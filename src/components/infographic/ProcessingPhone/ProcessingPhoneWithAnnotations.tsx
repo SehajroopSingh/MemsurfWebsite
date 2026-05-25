@@ -27,22 +27,22 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
     const bullet3Y = useTransform(progress, [0.70, 0.80], [10, 0])
 
     return (
-        <div className="relative flex items-center w-full z-30">
-            <div className="flex-shrink-0 relative w-[280px]">
+        <div className="relative z-30 flex w-full flex-col items-center md:flex-row md:items-center">
+            <div className="relative w-[min(72vw,280px)] flex-shrink-0 md:w-[280px]">
                 <PhoneScreen>
                     <ProcessingScreen progress={progress} loop={true} />
                 </PhoneScreen>
             </div>
 
             {/* Processing annotations anchored outside the phone */}
-            <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-[calc(280px+1rem)] z-40 flex flex-col gap-2 items-start max-w-[260px] text-app-textMuted text-sm sm:text-base leading-relaxed">
+            <div className="pointer-events-none z-40 mt-8 flex w-full max-w-[min(82vw,28rem)] flex-col items-center gap-2 text-center text-sm leading-relaxed text-app-textMuted sm:text-base md:absolute md:left-[calc(280px+1rem)] md:top-1/2 md:mt-0 md:max-w-[260px] md:-translate-y-1/2 md:items-start md:text-left">
 
                 {/* Bullet 1 */}
                 <motion.div
-                    className="relative text-left"
+                    className="relative"
                     style={{ opacity: bullet1Opacity, y: bullet1Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-app-softBlue/55" />
+                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-softBlue/55 md:block" />
                     <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-blueBright">We Do the Heavy Lifting</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         Just send in the material. Our agent reads, listens, and analyzes the content for you, extracting the exact concepts you need to understand.
@@ -59,11 +59,11 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
 
                 {/* Bullet 2 */}
                 <motion.div
-                    className="relative text-left"
+                    className="relative"
                     style={{ opacity: bullet2Opacity, y: bullet2Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-app-mint/50" />
-                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-mintBright">Custom Lesson Plan</p>
+                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-mint/50 md:block" />
+                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-mintBright">Custom Lesson Plans</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         We take those insights and organize them for you. Instead of a messy wall of text, you get a clean, step-by-step lesson plan that&apos;s easy to digest in minutes.
                     </p>
@@ -79,10 +79,10 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
 
                 {/* Bullet 3 */}
                 <motion.div
-                    className="relative text-left"
+                    className="relative"
                     style={{ opacity: bullet3Opacity, y: bullet3Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 w-16 h-px bg-app-lavender/50" />
+                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-lavender/50 md:block" />
                     <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-lilac">Quizzes That Adapt</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         Start easy, finish strong. Our quizzes adapt to your progress-beginning with simple questions to build momentum, and slowly getting more challenging as you master the material.
@@ -92,6 +92,5 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
         </div>
     )
 }
-
 
 

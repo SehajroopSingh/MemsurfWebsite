@@ -43,7 +43,7 @@ export default function Hero({
                         animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className="text-7xl sm:text-8xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight">
+                        <h1 className="text-8xl sm:text-9xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight tracking-tight">
                             <span
                                 className="bg-clip-text text-transparent"
                                 style={{
@@ -54,7 +54,7 @@ export default function Hero({
                                 The Memory Agent.
                             </span>
                         </h1>
-                        <p className="text-3xl sm:text-4xl md:text-2xl text-gray-300 mb-0 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto lg:mx-0 leading-relaxed">
+                        <p className="text-[2.15rem] sm:text-[2.65rem] md:text-3xl text-gray-300 mb-0 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto lg:mx-0 leading-relaxed">
                             You decide what&apos;s worth remembering. The agent optimizes how it sticks.
                         </p>
                     </motion.div>

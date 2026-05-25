@@ -1,0 +1,34 @@
+{
+  "accepts_unknown_cell_types": true,
+  "entrypoint": "index.html",
+  "renderer_id": "dynamic_gridcell",
+  "schema_version": "three_step_gridcell_v1",
+  "supported_cell_types": [
+    "HeadingCell",
+    "TextCell",
+    "CompareCell",
+    "PairCell",
+    "KeyValueCell",
+    "TripletCell",
+    "ImageCell",
+    "KeyPointsCell",
+    "RecallPromptCell",
+    "SpacerCell",
+    "ProcessStepCell",
+    "TimelineStepCell",
+    "MathExpressionCell",
+    "FunctionPlotCell",
+    "MiniChartCell",
+    "CodeTraceCell",
+    "MapRegionCell"
+  ],
+  "math_rendering": {
+    "latex": true,
+    "latex_fields": [
+      "MathExpressionCell.content.expression",
+      "MathExpressionCell.content.variables[].symbol"
+    ],
+    "plain_notation_in_prose": true
+  },
+  "version": "2026.05.25.1"
+}

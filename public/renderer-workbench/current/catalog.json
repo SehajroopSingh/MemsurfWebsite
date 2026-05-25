@@ -1,0 +1,2186 @@
+{
+  "renderer_id": "dynamic_gridcell",
+  "version": "2026.05.25.1",
+  "schema_version": "three_step_gridcell_v1",
+  "stylePolicy": "first-only",
+  "entry_count": 40,
+  "entries": [
+    {
+      "id": "text-orientation",
+      "group": "TextCell",
+      "label": "Orientation",
+      "cell_type": "TextCell",
+      "render_mode": "orientation",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TextCell: orientation",
+            "subtitle": "Text render mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TextCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "render_mode": "orientation"
+                },
+                "content": {
+                  "title": "Orientation",
+                  "orientation": "A compact text sample for the mobile renderer lab.",
+                  "body": "A compact text sample for the mobile renderer lab.",
+                  "attribution": "MemSurf renderer"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-body",
+      "group": "TextCell",
+      "label": "Body",
+      "cell_type": "TextCell",
+      "render_mode": "body",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TextCell: body",
+            "subtitle": "Text render mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TextCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "render_mode": "body"
+                },
+                "content": {
+                  "title": "Body",
+                  "body": "A compact text sample for the mobile renderer lab.",
+                  "attribution": "MemSurf renderer"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-definition",
+      "group": "TextCell",
+      "label": "Definition",
+      "cell_type": "TextCell",
+      "render_mode": "definition",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TextCell: definition",
+            "subtitle": "Text render mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TextCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "render_mode": "definition"
+                },
+                "content": {
+                  "title": "Definition",
+                  "definition": "A compact text sample for the mobile renderer lab.",
+                  "body": "A compact text sample for the mobile renderer lab.",
+                  "attribution": "MemSurf renderer"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-quote",
+      "group": "TextCell",
+      "label": "Quote",
+      "cell_type": "TextCell",
+      "render_mode": "quote",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TextCell: quote",
+            "subtitle": "Text render mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TextCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "render_mode": "quote"
+                },
+                "content": {
+                  "title": "Quote",
+                  "quote": "A compact text sample for the mobile renderer lab.",
+                  "body": "A compact text sample for the mobile renderer lab.",
+                  "attribution": "MemSurf renderer"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-rule",
+      "group": "TextCell",
+      "label": "Rule",
+      "cell_type": "TextCell",
+      "render_mode": "rule",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TextCell: rule",
+            "subtitle": "Text render mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TextCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "render_mode": "rule"
+                },
+                "content": {
+                  "title": "Rule",
+                  "rule": "A compact text sample for the mobile renderer lab.",
+                  "body": "A compact text sample for the mobile renderer lab.",
+                  "attribution": "MemSurf renderer"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-example",
+      "group": "TextCell",
+      "label": "Example",
+      "cell_type": "TextCell",
+      "render_mode": "example",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TextCell: example",
+            "subtitle": "Text render mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TextCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "render_mode": "example"
+                },
+                "content": {
+                  "title": "Example",
+                  "example": "A compact text sample for the mobile renderer lab.",
+                  "body": "A compact text sample for the mobile renderer lab.",
+                  "attribution": "MemSurf renderer"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-warning",
+      "group": "TextCell",
+      "label": "Warning",
+      "cell_type": "TextCell",
+      "render_mode": "warning",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TextCell: warning",
+            "subtitle": "Text render mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TextCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "render_mode": "warning"
+                },
+                "content": {
+                  "title": "Warning",
+                  "warning": "A compact text sample for the mobile renderer lab.",
+                  "body": "A compact text sample for the mobile renderer lab.",
+                  "attribution": "MemSurf renderer"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "text-caption",
+      "group": "TextCell",
+      "label": "Caption",
+      "cell_type": "TextCell",
+      "render_mode": "caption",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TextCell: caption",
+            "subtitle": "Text render mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TextCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "render_mode": "caption"
+                },
+                "content": {
+                  "title": "Caption",
+                  "caption": "A compact text sample for the mobile renderer lab.",
+                  "body": "A compact text sample for the mobile renderer lab.",
+                  "attribution": "MemSurf renderer"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "heading",
+      "group": "HeadingCell",
+      "label": "Heading",
+      "cell_type": "HeadingCell",
+      "render_mode": "heading",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "HeadingCell: Heading",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "HeadingCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "heading": "Renderer Lab"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "image",
+      "group": "ImageCell",
+      "label": "Image",
+      "cell_type": "ImageCell",
+      "render_mode": "image",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "ImageCell: Image",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "ImageCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "image_url": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20640%20420%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20x2%3D%271%27%20y1%3D%270%27%20y2%3D%271%27%3E%3Cstop%20stop-color%3D%27%236ee7d8%27/%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%237c8cf8%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%27640%27%20height%3D%27420%27%20rx%3D%2742%27%20fill%3D%27url%28%23g%29%27/%3E%3Ccircle%20cx%3D%27488%27%20cy%3D%27128%27%20r%3D%2776%27%20fill%3D%27rgba%28255%2C255%2C255%2C.34%29%27/%3E%3Cpath%20d%3D%27M82%20318c82-92%20138-132%20206-94%2034%2019%2054%2055%2096%2053%2045-2%2080-47%20168-104v145z%27%20fill%3D%27rgba%2810%2C31%2C52%2C.34%29%27/%3E%3Ctext%20x%3D%2770%27%20y%3D%2792%27%20fill%3D%27white%27%20font-family%3D%27Arial%27%20font-size%3D%2742%27%20font-weight%3D%27700%27%3ERenderer%20image%3C/text%3E%3C/svg%3E",
+                  "caption": "Generated inline sample image."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "compare",
+      "group": "CompareCell",
+      "label": "Compare",
+      "cell_type": "CompareCell",
+      "render_mode": "compare",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "CompareCell: Compare",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "CompareCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "title": "Study method contrast",
+                  "left_title": "Passive review",
+                  "right_title": "Active recall",
+                  "rows": [
+                    {
+                      "aspect": "Signal",
+                      "left": "Familiarity",
+                      "right": "Retrieval"
+                    },
+                    {
+                      "aspect": "Effort",
+                      "left": "Low",
+                      "right": "Productive"
+                    },
+                    {
+                      "aspect": "Outcome",
+                      "left": "Short-lived confidence",
+                      "right": "Durable recall"
+                    }
+                  ],
+                  "takeaway": "The renderer should keep contrast readable on a phone."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "key-points",
+      "group": "KeyPointsCell",
+      "label": "Key points",
+      "cell_type": "KeyPointsCell",
+      "render_mode": "key_points",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "KeyPointsCell: Key points",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "KeyPointsCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "points": [
+                    "Use first-only style policy.",
+                    "Preview mobile density.",
+                    "Edit payloads locally."
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "recall",
+      "group": "RecallPromptCell",
+      "label": "Recall prompt",
+      "cell_type": "RecallPromptCell",
+      "render_mode": "recall_prompt",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "RecallPromptCell: Recall prompt",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "RecallPromptCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "question": "What does first-only style policy do?",
+                  "answer": "It chooses the first registered renderer style."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "timeline",
+      "group": "TimelineStepCell",
+      "label": "Timeline step",
+      "cell_type": "TimelineStepCell",
+      "render_mode": "timeline_step",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TimelineStepCell: Timeline step",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TimelineStepCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "sequence_index": 1
+                },
+                "content": {
+                  "chain_label": "Renderer rollout",
+                  "time_label": "May 25",
+                  "event_title": "Preview endpoint ships",
+                  "description": "The website can load the latest renderer bundle."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "process",
+      "group": "ProcessStepCell",
+      "label": "Process step",
+      "cell_type": "ProcessStepCell",
+      "render_mode": "process_step",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "ProcessStepCell: Process step",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "ProcessStepCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "sequence_index": 1
+                },
+                "content": {
+                  "chain_label": "Lab workflow",
+                  "action": "Adjust payload or CSS",
+                  "output": "Refresh the phone preview",
+                  "note": "Changes stay local to the browser."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "math",
+      "group": "MathExpressionCell",
+      "label": "Math expression",
+      "cell_type": "MathExpressionCell",
+      "render_mode": "math_expression",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "MathExpressionCell: Math expression",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "MathExpressionCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "expression": "R(t)=R_0 e^{-kt}",
+                  "explanation": "A simple forgetting curve expression.",
+                  "variables": [
+                    {
+                      "symbol": "R(t)",
+                      "meaning": "recall strength at time t"
+                    },
+                    {
+                      "symbol": "k",
+                      "meaning": "decay rate"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "function-plot",
+      "group": "FunctionPlotCell",
+      "label": "Function plot",
+      "cell_type": "FunctionPlotCell",
+      "render_mode": "function_plot",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "FunctionPlotCell: Function plot",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "FunctionPlotCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "show_legend": true
+                },
+                "content": {
+                  "x_domain": {
+                    "min": -3,
+                    "max": 3
+                  },
+                  "y_domain": {
+                    "min": -1,
+                    "max": 9
+                  },
+                  "series": [
+                    {
+                      "label": "y = x^2",
+                      "expression": "x^2",
+                      "color_token": "lesson_1"
+                    }
+                  ],
+                  "points": [
+                    {
+                      "x": 2,
+                      "y": 4,
+                      "label": "review"
+                    }
+                  ],
+                  "caption": "Quadratic recall effort curve."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "code-trace",
+      "group": "CodeTraceCell",
+      "label": "Code trace",
+      "cell_type": "CodeTraceCell",
+      "render_mode": "code_trace",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "CodeTraceCell: Code trace",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "CodeTraceCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "language": "js",
+                  "code": "let score = 2;\nscore += 3;\nscore *= 2;",
+                  "trace_steps": [
+                    {
+                      "focus_line": 1,
+                      "step": "Start with the saved score.",
+                      "state": {
+                        "score": "2"
+                      }
+                    },
+                    {
+                      "focus_line": 2,
+                      "step": "Add the new review points.",
+                      "state": {
+                        "score": "5"
+                      }
+                    },
+                    {
+                      "focus_line": 3,
+                      "step": "Apply the streak multiplier.",
+                      "state": {
+                        "score": "10"
+                      }
+                    }
+                  ],
+                  "result": "Final score: 10"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "map-region",
+      "group": "MapRegionCell",
+      "label": "Map region",
+      "cell_type": "MapRegionCell",
+      "render_mode": "map_region",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "MapRegionCell: Map region",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "MapRegionCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "caption": "Learning route preview.",
+                  "regions": [
+                    {
+                      "color_token": "lesson_0",
+                      "polygon": [
+                        [
+                          0.08,
+                          0.2
+                        ],
+                        [
+                          0.42,
+                          0.12
+                        ],
+                        [
+                          0.46,
+                          0.52
+                        ],
+                        [
+                          0.16,
+                          0.62
+                        ]
+                      ]
+                    },
+                    {
+                      "color_token": "lesson_2",
+                      "polygon": [
+                        [
+                          0.5,
+                          0.28
+                        ],
+                        [
+                          0.86,
+                          0.22
+                        ],
+                        [
+                          0.78,
+                          0.74
+                        ],
+                        [
+                          0.48,
+                          0.68
+                        ]
+                      ]
+                    }
+                  ],
+                  "points": [
+                    {
+                      "id": "capture",
+                      "x": 0.22,
+                      "y": 0.42,
+                      "label": "Capture"
+                    },
+                    {
+                      "id": "practice",
+                      "x": 0.68,
+                      "y": 0.52,
+                      "label": "Practice"
+                    }
+                  ],
+                  "routes": [
+                    {
+                      "from_id": "capture",
+                      "to_id": "practice",
+                      "label": "review"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spacer",
+      "group": "SpacerCell",
+      "label": "Spacer",
+      "cell_type": "SpacerCell",
+      "render_mode": "spacer",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "SpacerCell: Spacer",
+            "subtitle": "Base cell sample",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "SpacerCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {},
+                "content": {
+                  "label": "Section break"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pair-parallel_examples",
+      "group": "PairCell",
+      "label": "Parallel Examples",
+      "cell_type": "PairCell",
+      "render_mode": "parallel_examples",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "PairCell: parallel examples",
+            "subtitle": "Pair relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "PairCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "parallel_examples",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "left": {
+                    "label": "Example A",
+                    "body": "A concise mobile-sized explanation for the first panel."
+                  },
+                  "right": {
+                    "label": "Example B",
+                    "body": "A paired explanation that completes the relationship."
+                  },
+                  "connector_label": "links to",
+                  "relationship_sentence": "Both show active recall"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pair-contrast",
+      "group": "PairCell",
+      "label": "Contrast",
+      "cell_type": "PairCell",
+      "render_mode": "contrast",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "PairCell: contrast",
+            "subtitle": "Pair relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "PairCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "contrast",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "left": {
+                    "label": "Recognition",
+                    "body": "A concise mobile-sized explanation for the first panel."
+                  },
+                  "right": {
+                    "label": "Recall",
+                    "body": "A paired explanation that completes the relationship."
+                  },
+                  "connector_label": "links to",
+                  "relationship_sentence": "Recognition feels familiar; recall proves retrievability."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pair-before_after",
+      "group": "PairCell",
+      "label": "Before After",
+      "cell_type": "PairCell",
+      "render_mode": "before_after",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "PairCell: before after",
+            "subtitle": "Pair relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "PairCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "before_after",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "left": {
+                    "label": "Before review",
+                    "body": "A concise mobile-sized explanation for the first panel."
+                  },
+                  "right": {
+                    "label": "After review",
+                    "body": "A paired explanation that completes the relationship."
+                  },
+                  "connector_label": "links to",
+                  "relationship_sentence": "Practice turns vague memory into a usable answer."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pair-problem_solution",
+      "group": "PairCell",
+      "label": "Problem Solution",
+      "cell_type": "PairCell",
+      "render_mode": "problem_solution",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "PairCell: problem solution",
+            "subtitle": "Pair relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "PairCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "problem_solution",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "left": {
+                    "label": "Forgetting curve",
+                    "body": "A concise mobile-sized explanation for the first panel."
+                  },
+                  "right": {
+                    "label": "Spaced prompt",
+                    "body": "A paired explanation that completes the relationship."
+                  },
+                  "connector_label": "links to",
+                  "relationship_sentence": "Spacing repairs weak retrieval before it collapses."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pair-cause_effect",
+      "group": "PairCell",
+      "label": "Cause Effect",
+      "cell_type": "PairCell",
+      "render_mode": "cause_effect",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "PairCell: cause effect",
+            "subtitle": "Pair relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "PairCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "cause_effect",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "left": {
+                    "label": "Interleaving",
+                    "body": "A concise mobile-sized explanation for the first panel."
+                  },
+                  "right": {
+                    "label": "Flexible transfer",
+                    "body": "A paired explanation that completes the relationship."
+                  },
+                  "connector_label": "links to",
+                  "relationship_sentence": "Mixed practice creates stronger discrimination."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pair-example_nonexample",
+      "group": "PairCell",
+      "label": "Example Nonexample",
+      "cell_type": "PairCell",
+      "render_mode": "example_nonexample",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "PairCell: example nonexample",
+            "subtitle": "Pair relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "PairCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "example_nonexample",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "left": {
+                    "label": "Good cue",
+                    "body": "A concise mobile-sized explanation for the first panel."
+                  },
+                  "right": {
+                    "label": "Weak cue",
+                    "body": "A paired explanation that completes the relationship."
+                  },
+                  "connector_label": "links to",
+                  "relationship_sentence": "Specific cues beat generic rereading."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pair-claim_evidence",
+      "group": "PairCell",
+      "label": "Claim Evidence",
+      "cell_type": "PairCell",
+      "render_mode": "claim_evidence",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "PairCell: claim evidence",
+            "subtitle": "Pair relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "PairCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "claim_evidence",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "left": {
+                    "label": "Claim",
+                    "body": "A concise mobile-sized explanation for the first panel."
+                  },
+                  "right": {
+                    "label": "Evidence",
+                    "body": "A paired explanation that completes the relationship."
+                  },
+                  "connector_label": "links to",
+                  "relationship_sentence": "Repeated testing improves long-term retention."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "key-value-neutral",
+      "group": "KeyValueCell",
+      "label": "Neutral",
+      "cell_type": "KeyValueCell",
+      "render_mode": "neutral",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "KeyValueCell: neutral",
+            "subtitle": "Key-value tone",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "KeyValueCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "tone": "neutral",
+                  "density": "normal"
+                },
+                "content": {
+                  "title": "Neutral facts",
+                  "items": [
+                    {
+                      "key": "Cue",
+                      "value": "Short prompt"
+                    },
+                    {
+                      "key": "Action",
+                      "value": "Recall before checking"
+                    },
+                    {
+                      "key": "Result",
+                      "value": "Stronger memory"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "key-value-key",
+      "group": "KeyValueCell",
+      "label": "Key",
+      "cell_type": "KeyValueCell",
+      "render_mode": "key",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "KeyValueCell: key",
+            "subtitle": "Key-value tone",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "KeyValueCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "tone": "key",
+                  "density": "normal"
+                },
+                "content": {
+                  "title": "Key facts",
+                  "items": [
+                    {
+                      "key": "Cue",
+                      "value": "Short prompt"
+                    },
+                    {
+                      "key": "Action",
+                      "value": "Recall before checking"
+                    },
+                    {
+                      "key": "Result",
+                      "value": "Stronger memory"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "key-value-definition",
+      "group": "KeyValueCell",
+      "label": "Definition",
+      "cell_type": "KeyValueCell",
+      "render_mode": "definition",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "KeyValueCell: definition",
+            "subtitle": "Key-value tone",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "KeyValueCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "tone": "definition",
+                  "density": "normal"
+                },
+                "content": {
+                  "title": "Definition facts",
+                  "items": [
+                    {
+                      "key": "Cue",
+                      "value": "Short prompt"
+                    },
+                    {
+                      "key": "Action",
+                      "value": "Recall before checking"
+                    },
+                    {
+                      "key": "Result",
+                      "value": "Stronger memory"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "key-value-example",
+      "group": "KeyValueCell",
+      "label": "Example",
+      "cell_type": "KeyValueCell",
+      "render_mode": "example",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "KeyValueCell: example",
+            "subtitle": "Key-value tone",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "KeyValueCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "tone": "example",
+                  "density": "normal"
+                },
+                "content": {
+                  "title": "Example facts",
+                  "items": [
+                    {
+                      "key": "Cue",
+                      "value": "Short prompt"
+                    },
+                    {
+                      "key": "Action",
+                      "value": "Recall before checking"
+                    },
+                    {
+                      "key": "Result",
+                      "value": "Stronger memory"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "triplet-cause_mechanism_effect",
+      "group": "TripletCell",
+      "label": "Cause Mechanism Effect",
+      "cell_type": "TripletCell",
+      "render_mode": "cause_mechanism_effect",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TripletCell: cause mechanism effect",
+            "subtitle": "Triplet relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TripletCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "cause_mechanism_effect",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "chain_label": "Cause Mechanism Effect",
+                  "relationship_sentence": "The three parts form one readable mobile relationship.",
+                  "connector_labels": [
+                    "drives",
+                    "produces"
+                  ],
+                  "items": [
+                    {
+                      "label": "Spacing",
+                      "body": "The starting point is intentionally compact."
+                    },
+                    {
+                      "label": "Effortful retrieval",
+                      "body": "The middle part explains the mechanism."
+                    },
+                    {
+                      "label": "Durable memory",
+                      "body": "The final part shows the learning result."
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "triplet-input_process_output",
+      "group": "TripletCell",
+      "label": "Input Process Output",
+      "cell_type": "TripletCell",
+      "render_mode": "input_process_output",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TripletCell: input process output",
+            "subtitle": "Triplet relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TripletCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "input_process_output",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "chain_label": "Input Process Output",
+                  "relationship_sentence": "The three parts form one readable mobile relationship.",
+                  "connector_labels": [
+                    "drives",
+                    "produces"
+                  ],
+                  "items": [
+                    {
+                      "label": "Raw note",
+                      "body": "The starting point is intentionally compact."
+                    },
+                    {
+                      "label": "Lesson renderer",
+                      "body": "The middle part explains the mechanism."
+                    },
+                    {
+                      "label": "Structured grid",
+                      "body": "The final part shows the learning result."
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "triplet-problem_method_result",
+      "group": "TripletCell",
+      "label": "Problem Method Result",
+      "cell_type": "TripletCell",
+      "render_mode": "problem_method_result",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TripletCell: problem method result",
+            "subtitle": "Triplet relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TripletCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "problem_method_result",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "chain_label": "Problem Method Result",
+                  "relationship_sentence": "The three parts form one readable mobile relationship.",
+                  "connector_labels": [
+                    "drives",
+                    "produces"
+                  ],
+                  "items": [
+                    {
+                      "label": "Confusion",
+                      "body": "The starting point is intentionally compact."
+                    },
+                    {
+                      "label": "Worked comparison",
+                      "body": "The middle part explains the mechanism."
+                    },
+                    {
+                      "label": "Clear distinction",
+                      "body": "The final part shows the learning result."
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "triplet-claim_evidence_implication",
+      "group": "TripletCell",
+      "label": "Claim Evidence Implication",
+      "cell_type": "TripletCell",
+      "render_mode": "claim_evidence_implication",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TripletCell: claim evidence implication",
+            "subtitle": "Triplet relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TripletCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "claim_evidence_implication",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "chain_label": "Claim Evidence Implication",
+                  "relationship_sentence": "The three parts form one readable mobile relationship.",
+                  "connector_labels": [
+                    "drives",
+                    "produces"
+                  ],
+                  "items": [
+                    {
+                      "label": "Claim",
+                      "body": "The starting point is intentionally compact."
+                    },
+                    {
+                      "label": "Evidence",
+                      "body": "The middle part explains the mechanism."
+                    },
+                    {
+                      "label": "Implication",
+                      "body": "The final part shows the learning result."
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "triplet-trigger_response_outcome",
+      "group": "TripletCell",
+      "label": "Trigger Response Outcome",
+      "cell_type": "TripletCell",
+      "render_mode": "trigger_response_outcome",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TripletCell: trigger response outcome",
+            "subtitle": "Triplet relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TripletCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "trigger_response_outcome",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "chain_label": "Trigger Response Outcome",
+                  "relationship_sentence": "The three parts form one readable mobile relationship.",
+                  "connector_labels": [
+                    "drives",
+                    "produces"
+                  ],
+                  "items": [
+                    {
+                      "label": "Prompt",
+                      "body": "The starting point is intentionally compact."
+                    },
+                    {
+                      "label": "Recall attempt",
+                      "body": "The middle part explains the mechanism."
+                    },
+                    {
+                      "label": "Feedback loop",
+                      "body": "The final part shows the learning result."
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "triplet-before_change_after",
+      "group": "TripletCell",
+      "label": "Before Change After",
+      "cell_type": "TripletCell",
+      "render_mode": "before_change_after",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "TripletCell: before change after",
+            "subtitle": "Triplet relationship mode",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "TripletCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "relation": "before_change_after",
+                  "orientation": "vertical"
+                },
+                "content": {
+                  "chain_label": "Before Change After",
+                  "relationship_sentence": "The three parts form one readable mobile relationship.",
+                  "connector_labels": [
+                    "drives",
+                    "produces"
+                  ],
+                  "items": [
+                    {
+                      "label": "Before",
+                      "body": "The starting point is intentionally compact."
+                    },
+                    {
+                      "label": "Change",
+                      "body": "The middle part explains the mechanism."
+                    },
+                    {
+                      "label": "After",
+                      "body": "The final part shows the learning result."
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mini-chart-bar",
+      "group": "MiniChartCell",
+      "label": "Bar",
+      "cell_type": "MiniChartCell",
+      "render_mode": "bar",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "MiniChartCell: bar",
+            "subtitle": "Mini chart type",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "MiniChartCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "show_legend": true,
+                  "show_axes": true,
+                  "show_grid": true
+                },
+                "content": {
+                  "chart_type": "bar",
+                  "caption": "Bar chart preview",
+                  "x_label": "Session",
+                  "y_label": "Recall",
+                  "series": [
+                    {
+                      "label": "Score",
+                      "color_token": "lesson_0",
+                      "points": [
+                        {
+                          "x": 1,
+                          "y": 2
+                        },
+                        {
+                          "x": 2,
+                          "y": 4
+                        },
+                        {
+                          "x": 3,
+                          "y": 3
+                        },
+                        {
+                          "x": 4,
+                          "y": 5
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mini-chart-line",
+      "group": "MiniChartCell",
+      "label": "Line",
+      "cell_type": "MiniChartCell",
+      "render_mode": "line",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "MiniChartCell: line",
+            "subtitle": "Mini chart type",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "MiniChartCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "show_legend": true,
+                  "show_axes": true,
+                  "show_grid": true
+                },
+                "content": {
+                  "chart_type": "line",
+                  "caption": "Line chart preview",
+                  "x_label": "Session",
+                  "y_label": "Recall",
+                  "series": [
+                    {
+                      "label": "Score",
+                      "color_token": "lesson_0",
+                      "points": [
+                        {
+                          "x": 1,
+                          "y": 2
+                        },
+                        {
+                          "x": 2,
+                          "y": 2.7
+                        },
+                        {
+                          "x": 3,
+                          "y": 4.1
+                        },
+                        {
+                          "x": 4,
+                          "y": 4.8
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mini-chart-scatter",
+      "group": "MiniChartCell",
+      "label": "Scatter",
+      "cell_type": "MiniChartCell",
+      "render_mode": "scatter",
+      "payload": {
+        "renderer_id": "dynamic_gridcell",
+        "schema_version": "three_step_gridcell_v1",
+        "version": "2026.05.25.1",
+        "stylePolicy": "first-only",
+        "theme": "light",
+        "showScenarioTitles": true,
+        "scenarios": [
+          {
+            "title": "MiniChartCell: scatter",
+            "subtitle": "Mini chart type",
+            "screenExplanation": "Renderer lab sample using the first registered style.",
+            "grid": {
+              "rows": 1,
+              "cols": 1
+            },
+            "slots": [
+              {
+                "slot_id": "slot_1",
+                "cell_type": "MiniChartCell",
+                "r": 0,
+                "c": 0,
+                "rowspan": 1,
+                "colspan": 1,
+                "props": {
+                  "show_legend": true,
+                  "show_axes": true,
+                  "show_grid": true
+                },
+                "content": {
+                  "chart_type": "scatter",
+                  "caption": "Scatter chart preview",
+                  "x_label": "Session",
+                  "y_label": "Recall",
+                  "series": [
+                    {
+                      "label": "Score",
+                      "color_token": "lesson_0",
+                      "points": [
+                        {
+                          "x": 1,
+                          "y": 2
+                        },
+                        {
+                          "x": 2,
+                          "y": 3.5
+                        },
+                        {
+                          "x": 3,
+                          "y": 3
+                        },
+                        {
+                          "x": 4,
+                          "y": 5
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

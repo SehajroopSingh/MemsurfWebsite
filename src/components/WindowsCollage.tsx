@@ -1197,16 +1197,9 @@ function MobileCollageBrandFooter() {
       <div className="mx-auto flex w-full max-w-[min(88vw,340px)] flex-col items-center justify-center gap-0">
         <p
           data-node-id="398:339"
-          className="max-w-[20rem] text-center text-[#f3f4f6] [font-family:var(--font-collage-note),serif] text-[clamp(1.25rem,6vw,1.5rem)] leading-normal [text-shadow:0_0_20.112px_rgba(255,255,255,1)]"
+          className="max-w-[20rem] text-center text-[clamp(1.25rem,6vw,1.5rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
         >
           If life gives you something worth keeping.
-        </p>
-        <p
-          data-node-id="398:340"
-          className="self-center text-center text-[clamp(1.125rem,5vw,1.25rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
-        >
-          <span className="block whitespace-nowrap">MemSurf helps you</span>
-          <span className="block whitespace-nowrap">remember it.</span>
         </p>
       </div>
       <div
@@ -1221,6 +1214,13 @@ function MobileCollageBrandFooter() {
           sizes="(max-width: 768px) 40vw, 200px"
         />
       </div>
+      <p
+        data-node-id="398:340"
+        className="mt-4 self-center text-center text-[clamp(1.125rem,5vw,1.25rem)] font-bold leading-[calc(1.05*0.95)] tracking-normal text-white [text-shadow:0_0_20.112px_rgba(255,255,255,0.85)]"
+      >
+        <span className="block whitespace-nowrap">MemSurf helps you</span>
+        <span className="block whitespace-nowrap">remember it.</span>
+      </p>
     </motion.footer>
   )
 }

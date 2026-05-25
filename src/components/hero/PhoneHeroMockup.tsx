@@ -64,7 +64,7 @@ function fitScreenPlaneSize(
 }
 
 /** Aspect-ratio box + bottom padding reserves layout space for phone base / shadow. */
-const PHONE_HERO_ASPECT_CLASS = 'aspect-[672/540] md:aspect-[672/700]'
+const PHONE_HERO_ASPECT_CLASS = 'aspect-[672/1250] sm:aspect-[672/1000] md:aspect-[672/760]'
 const PHONE_HERO_FRAME_CLASS = `${PHONE_HERO_ASPECT_CLASS} max-w-full overflow-visible pb-[24%] sm:pb-[20%] md:pb-[16%]`
 const PHONE_HERO_CANVAS_CLASS = 'absolute inset-0 h-full w-full'
 
@@ -488,7 +488,7 @@ function ScrollAnimatedPhone({
       ref={groupRef}
       rotation={[-0.55, -0.45, -0.065]}
       position={[isSmallViewport ? -0.45 : -0.55, isSmallViewport ? -1.35 : -0.95, 0]}
-      scale={isSmallViewport ? 1.85 : 1.14}
+      scale={isSmallViewport ? 1.85 : 1.04}
     >
       <Suspense
         fallback={
@@ -613,7 +613,7 @@ export default function PhoneHeroMockup({
 
           <Environment preset="city" />
 
-          <group position={[isSmallViewport ? 0 : 0.35, 0.55, 0]}>
+          <group position={[isSmallViewport ? 0 : 0.35, isSmallViewport ? 0.35 : 0.2, 0]}>
             <Float
               speed={reduceMotion ? 0 : 2.85}
               rotationIntensity={reduceMotion ? 0 : 0.55}

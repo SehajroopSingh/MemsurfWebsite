@@ -105,19 +105,19 @@ export default function WorkflowAnimation({
                     const charCount = Math.floor(textProgress * textToType.length)
                     newState.contextText = textToType.slice(0, charCount)
                 }
-                // 5. SETTINGS (0.65 - 0.75)
-                else if (v < 0.75) {
+                // 5. SETTINGS (0.65 - 0.84)
+                else if (v < 0.84) {
                     newState.animationStage = 'settings'
                 }
-                // 6. CREATE BUTTON (0.75 - 0.88)
-                else if (v < 0.88) {
+                // 6. CREATE BUTTON (0.84 - 0.90)
+                else if (v < 0.90) {
                     newState.animationStage = 'create_button'
                 }
-                // 7. CLICK ANIMATION (0.88 - 0.90) - Short click
-                else if (v < 0.90) {
+                // 7. CLICK ANIMATION (0.90 - 0.92) - Short click
+                else if (v < 0.92) {
                     newState.animationStage = 'button_click'
                 }
-                // 8. FLASH (0.90 - 0.95) - Immediate after click
+                // 8. FLASH (0.92 - 0.95) - Immediate after click
                 else if (v < 0.95) {
                     newState.animationStage = 'flash'
                 }

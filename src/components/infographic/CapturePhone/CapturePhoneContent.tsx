@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PhoneScreen from '../PhoneScreen'
 import { steps } from '../constants'
@@ -18,23 +17,12 @@ export default function CapturePhoneContent({
     contextText,
     scheduleStage
 }: CapturePhoneContentProps) {
-    const scrollContainerRef = React.useRef<HTMLDivElement>(null)
     const scheduleOptions = ['Keep Fresh', 'Occasional', 'Sprint', 'By a Date'] as const
     const scheduleLabel = scheduleOptions[scheduleStage % scheduleOptions.length]
 
-    // Auto-scroll to bottom when button appears
-    React.useEffect(() => {
-        if (['create_button', 'button_click'].includes(animationStage) && scrollContainerRef.current) {
-            scrollContainerRef.current.scrollTo({
-                top: scrollContainerRef.current.scrollHeight,
-                behavior: 'smooth'
-            })
-        }
-    }, [animationStage])
-
     return (
         <PhoneScreen>
-            <div ref={scrollContainerRef} className="absolute inset-0 bg-app-canvas flex flex-col px-3 pt-[58px] pb-4 justify-start transition-all duration-500 ease-in-out overflow-y-auto scrollbar-hide">
+            <div className="absolute inset-0 bg-app-canvas flex flex-col px-3 pt-[58px] pb-4 justify-start transition-all duration-500 ease-in-out overflow-y-auto scrollbar-hide">
                 {/* Content Container */}
                 <motion.div
                     layout
@@ -188,17 +176,17 @@ export default function CapturePhoneContent({
                     <AnimatePresence>
                         {['create_button', 'button_click', 'flash'].includes(animationStage) && (
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                initial={{ opacity: 0, scale: 0.96, y: 8 }}
                                 animate={{
                                     opacity: 1,
-                                    scale: animationStage === 'button_click' ? 0.85 : (animationStage === 'flash' ? 0.95 : 1),
+                                    scale: animationStage === 'button_click' ? 0.92 : (animationStage === 'flash' ? 0.96 : 1),
                                     y: 0
                                 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                className="w-full mt-auto mb-8"
+                                exit={{ opacity: 0, scale: 0.96, y: 8 }}
+                                className="pointer-events-none absolute bottom-5 left-6 right-6 z-50"
                             >
-                                <div className={`w-full py-4 rounded-xl font-bold text-center text-lg shadow-md transition-all duration-75 
-                                    ${animationStage === 'button_click' ? 'bg-app-blueDark scale-95' : 'bg-app-softBlue'} 
+                                <div className={`w-full rounded-xl py-2.5 text-center text-sm font-bold shadow-md transition-all duration-75
+                                    ${animationStage === 'button_click' ? 'bg-app-blueDark scale-95' : 'bg-app-softBlue'}
                                     text-white
                                 `}>
                                     Create Capture

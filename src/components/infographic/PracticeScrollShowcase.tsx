@@ -107,27 +107,27 @@ export default function PracticeScrollShowcase() {
 
     // Increase height enough to scroll past but not be huge
     return (
-        <section id="practice-section" className="relative w-full z-40 -mt-[2vh] lg:-mt-24 xl:-mt-24">
+        <section id="practice-section" className="relative z-40 w-full h-fit pt-10 md:pt-14 lg:-mt-24 lg:pt-0">
             <div
                 ref={containerRef}
-                className="relative min-h-[65vh] lg:min-h-[100vh] flex items-center"
+                className="relative flex h-fit w-full items-center lg:min-h-[100vh]"
             >
-                <div className="sticky top-0 h-[80vh] lg:h-screen w-full flex items-center justify-center">
+                <div className="relative flex h-fit w-full items-center justify-center py-6 sm:py-8 lg:sticky lg:top-0 lg:h-screen lg:py-0">
                     <motion.div
-                        className="relative flex flex-col items-center justify-center z-30 overflow-visible w-[95vw] max-w-[1800px] gap-4 sm:gap-6 min-w-[620px] mt-4 md:mt-24 lg:mt-0"
+                        className="relative z-30 mt-0 flex h-fit w-full min-w-0 max-w-[1800px] flex-col items-center justify-center gap-4 overflow-visible px-4 sm:gap-6 sm:px-6 md:mt-24 lg:mt-0"
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide whitespace-nowrap text-center mb-4 drop-shadow-sm">
+                        <h2 className="mb-4 max-w-full text-center text-3xl font-semibold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright drop-shadow-sm sm:whitespace-nowrap">
                             Daily Reinforcement
                         </h2>
 
-                        <div className="relative w-full max-w-[680px] md:max-w-none mx-auto grid grid-cols-[minmax(0,1fr)_280px] gap-4 items-center">
+                        <div className="relative mx-auto grid h-fit w-full max-w-[680px] grid-cols-1 items-center gap-8 md:max-w-none md:grid-cols-[minmax(0,1fr)_280px] md:gap-4">
 
                             {/* Text Content (Left) */}
-                            <div className="col-start-1 col-end-2 row-start-1 h-full w-full z-10 relative">
+                            <div className="relative z-10 row-start-1 h-fit w-full min-w-0 md:col-start-1 md:col-end-2">
                                 <PracticeScrollCopy
                                     copyStageOneOpacity={copyStageOneOpacity}
                                     copyStageOneY={copyStageOneY}
@@ -139,10 +139,10 @@ export default function PracticeScrollShowcase() {
                             </div>
 
                             {/* Phone Content (Right) */}
-                            <div className="col-start-2 col-end-3 row-start-1 relative w-full flex justify-end z-20 pl-0">
+                            <div className="relative z-20 row-start-2 flex h-fit w-full justify-center md:col-start-2 md:col-end-3 md:row-start-1 md:justify-end">
                                 <motion.div
                                     style={{ opacity: phoneOpacity, y: phoneY }}
-                                    className="flex justify-center min-h-[540px] w-full max-w-[280px]"
+                                    className="flex h-fit min-h-[540px] w-full max-w-[280px] justify-center"
                                 >
                                     <PracticePhoneContent
                                         baseScreenOpacity={baseScreenOpacity}

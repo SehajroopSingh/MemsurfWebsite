@@ -24,45 +24,45 @@ export default function ChatGptIntegrationSection() {
             // Start sequence
             setStage('icon-entry')
 
-            // 1. Entry: Fast fade in and grow (0.8s)
+            // 1. Entry: Fast fade in and grow (0.6s)
             setTimeout(() => {
                 setStage('icon-spinning')
-            }, 800)
+            }, 600)
 
             // 2. Spinning: Spin for a bit
             setTimeout(() => {
                 setStage('icon-moving')
-            }, 2000)
+            }, 1800)
 
             // 3. Moving: Move to header
             setTimeout(() => {
                 setStage('header-settled')
-            }, 3000)
+            }, 2800)
 
             // 4. Header Settled -> Show Initial Overlay
             setTimeout(() => {
                 setStage('initial-overlay')
-            }, 3800)
+            }, 3600)
 
             // 5. Initial Overlay -> Text Exiting (Wait for read)
             setTimeout(() => {
                 setStage('text-exiting')
-            }, 5300) // Show initial text for 1.5s
+            }, 5100) // Show initial text for 1.3s
         }
     }, [inView, stage])
 
     // Effect to handle transitions from text-exiting -> video-fading-in -> video-playing
     useEffect(() => {
         if (stage === 'text-exiting') {
-            // Wait for text exit animation (0.8s) + buffer
+            // Wait for text exit animation (0.6s) + buffer
             setTimeout(() => {
                 setStage('video-fading-in')
-            }, 1000)
+            }, 800)
         } else if (stage === 'video-fading-in') {
-            // Wait for video fade in (transition-opacity duration-500) + buffer
+            // Wait for video fade in (transition-opacity duration-300) + buffer
             setTimeout(() => {
                 setStage('video-playing')
-            }, 600)
+            }, 400)
         }
     }, [stage])
 
@@ -73,11 +73,11 @@ export default function ChatGptIntegrationSection() {
         setTimeout(() => {
             setStage('overlay-loop')
 
-            // Show final text for 1.5 seconds, then restart sequence (text-exiting -> video-fading-in -> video-playing)
+            // Show final text for 1.3 seconds, then restart sequence (text-exiting -> video-fading-in -> video-playing)
             setTimeout(() => {
                 setStage('text-exiting')
-            }, 1500)
-        }, 8000)
+            }, 1300)
+        }, 7800)
     }
 
     const isHeaderState = stage !== 'idle' && stage !== 'icon-entry' && stage !== 'icon-spinning'
@@ -92,8 +92,8 @@ export default function ChatGptIntegrationSection() {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.08, // Slower typing speed
-                delayChildren: 0.5 // Wait a bit before starting
+                staggerChildren: 0.06,
+                delayChildren: 0.3
             }
         }
     }
@@ -145,11 +145,11 @@ export default function ChatGptIntegrationSection() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1, scale: isMobile ? 1.1 : 1.3 }}
                                 transition={{
-                                    layout: { duration: 0.9, ease: "easeInOut" },
+                                    layout: { duration: 0.7, ease: "easeInOut" },
                                     type: "spring",
                                     stiffness: 50,
                                     damping: 20,
-                                    opacity: { duration: 0.4 }
+                                    opacity: { duration: 0.2 }
                                 }}
                             />
                             <motion.h2
@@ -183,7 +183,7 @@ export default function ChatGptIntegrationSection() {
                         className="w-full"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: isCardVisible ? 1 : 0 }} // Only visible when active
-                        transition={{ duration: 1 }}
+                        transition={{ duration: 0.8 }}
                     >
                         <VideoOverlayContainer
                             className="w-full"
@@ -207,7 +207,7 @@ export default function ChatGptIntegrationSection() {
                                                     key={index}
                                                     initial={{ opacity: 0, x: -20 }}
                                                     animate={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: 0.8 + (index * 2.5), duration: 0.5 }} // Stagger appearance + delay for video fadeout
+                                                    transition={{ delay: 0.6 + (index * 2.3), duration: 0.3 }}
                                                     className="flex items-start gap-4"
                                                 >
                                                     <div className="w-2 h-2 rounded-full bg-app-textMuted mt-2.5 shrink-0" />
@@ -228,7 +228,7 @@ export default function ChatGptIntegrationSection() {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -20 }}
-                                        transition={{ duration: 0.8 }}
+                                        transition={{ duration: 0.6 }}
                                     >
                                         <p className="text-3xl md:text-5xl font-medium text-white text-center px-4">
                                             From any chat, send to MemSurf.
@@ -261,11 +261,11 @@ export default function ChatGptIntegrationSection() {
                                         rotate: stage === 'icon-spinning' ? 360 : 0
                                     }}
                                     transition={{
-                                        layout: { duration: 0.9, ease: "easeInOut" },
-                                        scale: { duration: 0.8, ease: "easeOut" }, // Faster appear
-                                        opacity: { duration: 0.4 },
+                                        layout: { duration: 0.7, ease: "easeInOut" },
+                                        scale: { duration: 0.6, ease: "easeOut" },
+                                        opacity: { duration: 0.2 },
                                         rotate: {
-                                            duration: stage === 'icon-spinning' ? 1.5 : 1.5,
+                                            duration: 1.3,
                                             repeat: stage === 'icon-spinning' ? Infinity : 0,
                                             ease: "linear"
                                         }

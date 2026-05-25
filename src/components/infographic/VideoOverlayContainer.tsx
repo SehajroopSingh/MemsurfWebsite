@@ -31,23 +31,23 @@ export default function VideoOverlayContainer({ className = '', shouldPlay = fal
     React.useEffect(() => {
         if (videoRef.current) {
             if (!activeIsVideoVisible) {
-                // If hiding, wait for fade out (500ms) then reset
+                // If hiding, wait for fade out (300ms) then reset
                 const timer = setTimeout(() => {
                     if (videoRef.current) {
                         videoRef.current.currentTime = 0
                     }
-                }, 600)
+                }, 400)
                 return () => clearTimeout(timer)
             }
         }
     }, [activeIsVideoVisible])
 
     return (
-        <div className={`relative overflow-hidden rounded-[2.5rem] border-[6px] border-app-lavender/45 shadow-lg bg-app-surface ring-2 ring-app-softBlue/20 ${className}`}>
+        <div className={`relative overflow-hidden rounded-[2.5rem] border-[6px] border-app-lavender/45 bg-app-surface shadow-lg ring-2 ring-app-softBlue/25 ring-offset-0 ${className}`}>
             {/* Video Layer */}
             <video
                 ref={videoRef}
-                className={`w-full h-auto block transition-opacity duration-500 ${activeIsVideoVisible ? 'opacity-100' : 'opacity-0'}`}
+                className={`w-full h-auto block transition-opacity duration-300 ${activeIsVideoVisible ? 'opacity-100' : 'opacity-0'}`}
                 muted
                 playsInline
                 onEnded={onEnded}

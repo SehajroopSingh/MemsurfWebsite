@@ -44,10 +44,31 @@ body {
   overflow-x: hidden;
 }
 
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
+/* Desktop min-width */
+@media (min-width: 641px) {
+  body {
+    min-width: 700px;
+  }
+}
+
+/* Mobile - match purple card width (620px) */
+@media (max-width: 640px) {
+
+  html,
+  body {
+    min-width: 620px;
+    width: 620px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+  }
+
+  main {
+    min-width: 620px;
+    width: 620px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
 }
 
 @layer utilities {
@@ -62,6 +83,7 @@ html {
   background: var(--background);
   min-height: 100%;
   color-scheme: dark;
+  overflow-x: hidden;
 }
 
 /* Custom gradient backgrounds */
@@ -79,3 +101,86 @@ html {
 
 /* Custom waitlist form styling */
 /* No longer needed - form is now custom React component */
+
+/* WindowsCollage hover stagger — font size from --collage-hover-font-size on .collage-scale-root */
+.collage-scale-root {
+  container-type: inline-size;
+}
+
+.collage-hover-stagger-line {
+  display: block;
+  font-size: var(--collage-hover-font-size);
+  line-height: normal;
+  color: #f3f4f6;
+  font-family: var(--font-collage-note), serif;
+  text-wrap: balance;
+  orphans: 2;
+  widows: 2;
+}
+
+.collage-hover-stagger-stack {
+  gap: 0;
+}
+
+/* Side columns (w1, w3, w6, w10, bed) — wider measure = longer lines before wrap */
+.collage-hover-stagger-column {
+  width: min(58cqi, 24rem);
+  max-width: min(58cqi, 24rem);
+}
+
+/* Above-pane copy — wider than narrow frames, centered on the pane */
+.collage-hover-stagger-above {
+  left: 50%;
+  right: auto;
+  width: min(72cqi, 28rem);
+  max-width: min(72cqi, 28rem);
+  transform: translateX(-50%);
+}
+
+/* w6 desk: match pane width, left-aligned measure */
+.collage-hover-stagger-above--pane {
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  transform: none;
+}
+
+/* Mobile WindowsCollage carousel — horizontal snap + stagger copy below each pane */
+.collage-mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+/* Transparent edge mask only — fades carousel into the page background (no color overlays) */
+.collage-mobile-viewport-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.collage-mobile-stagger .collage-hover-stagger-line {
+  font-size: var(
+    --collage-hover-font-size,
+    clamp(calc(0.95rem * 1.05), calc(3.6vw * 1.05), calc(1.125rem * 1.05))
+  );
+  line-height: 1.15;
+  font-family: var(--font-collage-note), serif;
+  color: #f3f4f6;
+  text-shadow: 0px 0px 23px rgba(255, 255, 255, 1);
+}

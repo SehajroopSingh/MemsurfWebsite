@@ -12,7 +12,6 @@ import ScrollTracker from '@/components/ScrollTracker'
 import SocialGlassButtons from '@/components/SocialGlassButtons'
 import HomepageLoadingSplash from '@/components/HomepageLoadingSplash'
 import { useBlobbyBackground } from '@/components/BlobbyBackgroundProvider'
-
 const MIN_SPLASH_DURATION_MS = 1400
 const MAX_SPLASH_DURATION_MS = 5000
 const BLOB_SETTLE_DURATION_MS = 1600
@@ -21,6 +20,7 @@ export default function Home() {
   const shouldReduceMotion = useReducedMotion()
   const { setBackgroundMode } = useBlobbyBackground()
   const [logoReady, setLogoReady] = useState(false)
+  const [mountHeavyAssets, setMountHeavyAssets] = useState(false)
   const [phoneReady, setPhoneReady] = useState(false)
   const [collageReady, setCollageReady] = useState(false)
   const [minimumSplashElapsed, setMinimumSplashElapsed] = useState(false)
@@ -28,9 +28,15 @@ export default function Home() {
   const [isRevealed, setIsRevealed] = useState(false)
   const settleTimerRef = useRef<number | null>(null)
 
-  const handleLogoReady = useCallback(() => setLogoReady(true), [])
+  const handleLogoReady = useCallback(() => {
+    setLogoReady(true)
+    setMountHeavyAssets(true)
+  }, [])
+
   const handlePhoneReady = useCallback(() => setPhoneReady(true), [])
   const handleCollageReady = useCallback(() => setCollageReady(true), [])
+
+  const criticalAssetsReady = logoReady && phoneReady && collageReady
 
   useEffect(() => {
     setBackgroundMode('loading')
@@ -58,8 +64,6 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    const criticalAssetsReady = logoReady && phoneReady && collageReady
-
     if (isRevealed || !minimumSplashElapsed || (!criticalAssetsReady && !loadTimedOut)) {
       return
     }
@@ -77,15 +81,18 @@ export default function Home() {
       settleTimerRef.current = null
     }, BLOB_SETTLE_DURATION_MS)
   }, [
-    collageReady,
+    criticalAssetsReady,
     isRevealed,
     loadTimedOut,
-    logoReady,
     minimumSplashElapsed,
-    phoneReady,
     setBackgroundMode,
     shouldReduceMotion,
   ])
+
+  useEffect(() => {
+    if (loadTimedOut && !phoneReady) setPhoneReady(true)
+    if (loadTimedOut && !collageReady) setCollageReady(true)
+  }, [collageReady, loadTimedOut, phoneReady])
 
   useEffect(() => {
     const html = document.documentElement
@@ -131,6 +138,7 @@ export default function Home() {
         <div id="hero-section">
           <Hero
             isRevealed={isRevealed}
+            mountHeavyAssets={mountHeavyAssets}
             onPhoneReady={handlePhoneReady}
             onCollageReady={handleCollageReady}
           />
@@ -165,7 +173,7 @@ export default function Home() {
               </div>
 
               {/* Social Icons - Full width on mobile */}
-              <div id="social-section" className="w-full pt-6 -mx-4 sm:mx-0">
+              <div id="social-section" className="flex flex-wrap align-bottom w-fit pt-6 -mx-4 sm:mx-0">
                 <SocialGlassButtons />
               </div>
 
@@ -179,10 +187,7 @@ export default function Home() {
       </main>
       <AnimatePresence>
         {!isRevealed && (
-          <HomepageLoadingSplash
-            key="homepage-loading-splash"
-            onLogoReady={handleLogoReady}
-          />
+          <HomepageLoadingSplash key="homepage-loading-splash" onLogoReady={handleLogoReady} />
         )}
       </AnimatePresence>
     </>

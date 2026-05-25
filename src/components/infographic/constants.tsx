@@ -9,14 +9,14 @@ export const NotionIcon = () => (
 )
 
 export const GDriveIcon = () => (
-    <svg viewBox="0 0 87.3 78" className="w-6 h-6">
-        <path d="M6.6 66.85l3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066DA" />
-        <path d="M43.65 25l13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.25l13.75 23.75z" fill="#00AC47" />
-        <path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l9.6-16.65c.8-1.4 1.2-2.95 1.2-4.5h-27.5l13.4 24.45z" fill="#EA4335" />
-        <path d="M43.65 25L29.9 1.2c-1.35.8-2.5 1.9-3.3 3.3l-9.6 16.65c-.8 1.4-1.2 2.95-1.2 4.5h27.85z" fill="#00832D" />
-        <path d="M59.8 53.05h27.5c0-1.55-.4-3.1-1.2-4.5l-3.85-6.65c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8z" fill="#2684FC" />
-        <path d="M73.4 76.8l-13.75-23.75h-27.5l13.75 23.75c1.6 0 3.15-.45 4.5-1.25z" fill="#FFBA00" />
-    </svg>
+    <img
+        src="/images/google-drive-logo.svg"
+        alt=""
+        width={24}
+        height={24}
+        className="h-6 w-6 shrink-0 object-contain"
+        aria-hidden
+    />
 )
 
 export const steps = [
@@ -26,7 +26,7 @@ export const steps = [
         color: "text-app-textMuted border-app-border bg-app-surfaceElevated",
         label: "Research Notes",
         source: "Notion",
-        position: { top: "-100px", left: "45%", x: "-50px" }
+        position: { top: "14px", left: "14%" }
     },
     {
         id: 2,
@@ -34,7 +34,7 @@ export const steps = [
         color: "text-rose-400 border-rose-500/35 bg-app-surface",
         label: "Lecture Audio",
         source: "Voice Note",
-        position: { top: "-100px", left: "45%", x: "90px" }
+        position: { top: "14px", left: "38%" }
     },
     {
         id: 3,
@@ -42,7 +42,7 @@ export const steps = [
         color: "text-app-blueBright border-app-softBlue/35 bg-app-surface",
         label: "Project Specs",
         source: "Google Drive",
-        position: { top: "-100px", left: "45%", x: "230px" }
+        position: { top: "14px", left: "62%" }
     },
     {
         id: 4,
@@ -50,7 +50,7 @@ export const steps = [
         color: "text-app-lavender border-app-lavender/30 bg-app-lavender/10",
         label: "Interesting Article",
         source: "Clipboard",
-        position: { top: "-100px", left: "45%", x: "370px" }
+        position: { top: "14px", left: "86%" }
     }
 ]
 

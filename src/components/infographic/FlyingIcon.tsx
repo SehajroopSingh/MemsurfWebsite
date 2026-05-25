@@ -15,7 +15,7 @@ export default function FlyingIcon({ data }: { data: any }) {
                 scale: 0.5,
                 top: data.position.top,
                 left: data.position.left,
-                x: data.position.x || 0,
+                x: '-50%',
                 width: "auto"
             }}
             animate={{

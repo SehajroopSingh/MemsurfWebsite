@@ -21,7 +21,7 @@ export default function StaticSourceIcons({ activeStep, animationStage }: Static
                     style={{
                         top: step.position.top,
                         left: step.position.left,
-                        transform: `translateX(-50%) ${step.position.x ? `translateX(${step.position.x})` : ''}`
+                        transform: 'translateX(-50%)',
                     }}
                 >
                     <div className="scale-[1.75]">{step.icon}</div>

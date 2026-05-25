@@ -21,15 +21,70 @@ export default function SettingsPopout({
 
     return (
         <AnimatePresence>
-            <>
-                {/* Pop-out Content (No Card Background) */}
-                {/* DEPTH - NOW BOTTOM RIGHT */}
+            <motion.div
+                initial={{ opacity: 0, x: 16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.4 }}
+                className="flex w-[240px] shrink-0 flex-col justify-center gap-6 py-2 text-left sm:w-[280px] sm:max-w-[300px] sm:gap-8 sm:py-4 md:max-w-[320px] lg:min-h-[540px] lg:gap-10"
+            >
+                {/* Quiz Difficulty */}
                 <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    transition={{ duration: 0.5, delay: 0.8 }}
-                    className="absolute top-[270px] left-[325px] w-[280px] z-50 text-left"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                    <h4 className="text-xl font-bold text-white leading-tight mb-3">
+                        Quiz Difficulty
+                    </h4>
+                    <p className="text-sm text-white/90 mb-3">Choose quiz difficulty levels.</p>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={difficultyStage}
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -5 }}
+                            className="text-sm"
+                        >
+                            <p className="font-bold text-white leading-relaxed">
+                                {DIFFICULTY_STATES[difficultyStage].label} - {DIFFICULTY_STATES[difficultyStage].desc}
+                            </p>
+                        </motion.div>
+                    </AnimatePresence>
+                </motion.div>
+
+                {/* Mastery Time */}
+                <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    transition={{ duration: 0.5, delay: 0.35 }}
+                >
+                    <h4 className="text-xl font-bold text-white leading-tight mb-3">
+                        Mastery Time
+                    </h4>
+                    <p className="text-sm text-white/90 mb-3">Master the material by?</p>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={timeStage}
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -5 }}
+                            className="text-sm"
+                        >
+                            <p className="font-bold text-white mb-2">{TIME_STATES[timeStage].label}</p>
+                            <p className="leading-relaxed text-white/90">{TIME_STATES[timeStage].desc}</p>
+                        </motion.div>
+                    </AnimatePresence>
+                </motion.div>
+
+                {/* Depth */}
+                <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
                 >
                     <div className="mb-4">
                         <h4 className="text-xl font-bold text-white leading-tight">
@@ -48,8 +103,6 @@ export default function SettingsPopout({
                             </motion.p>
                         </AnimatePresence>
                     </div>
-
-                    {/* Depth Visualization reused (aligned right) */}
                     <div className="h-[185px] w-full overflow-hidden">
                         <DepthVisualization stage={depthStage} />
                     </div>
@@ -130,60 +183,7 @@ export default function SettingsPopout({
                     transition={{ duration: 0.3, delay: 0.4 }}
                     className="absolute top-[465px] left-[244px] w-3 h-3 rounded-full bg-blue-300 z-50 ring-4 ring-blue-50"
                 /> */}
-
-                {/* Text Pop-outs (Positioned at end of SVG lines) */}
-
-                {/* Adaptive Difficulty Text (NOW TOP) */}
-                <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    transition={{ duration: 0.5, delay: 1.6 }}
-                    className="absolute top-[5px] left-[325px] w-[280px] z-50 text-left"
-                >
-                    <h4 className="text-xl font-bold text-white leading-tight mb-3">
-                        Quiz Difficulty
-                    </h4>
-                    <p className="text-sm text-white/90 mb-3">Choose quiz difficulty levels.</p>
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={difficultyStage}
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -5 }}
-                            className="text-sm"
-                        >
-                            <p className="font-bold text-white leading-relaxed">{DIFFICULTY_STATES[difficultyStage].label} - {DIFFICULTY_STATES[difficultyStage].desc}</p>
-                        </motion.div>
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* Mastery Time Text (NOW MIDDLE) */}
-                <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    transition={{ duration: 0.5, delay: 1.4 }}
-                    className="absolute top-[130px] left-[325px] w-[260px] z-50 text-left"
-                >
-                    <h4 className="text-xl font-bold text-white leading-tight mb-3">
-                        Mastery Time
-                    </h4>
-                    <p className="text-sm text-white/90 mb-3">Master the material by?</p>
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={timeStage}
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -5 }}
-                            className="text-sm"
-                        >
-                            <p className="font-bold text-white mb-2">{TIME_STATES[timeStage].label}</p>
-                            <p className="leading-relaxed mb-1 text-white/90">{TIME_STATES[timeStage].desc}</p>
-                        </motion.div>
-                    </AnimatePresence>
-                </motion.div>
-            </>
+            </motion.div>
         </AnimatePresence>
     )
 }

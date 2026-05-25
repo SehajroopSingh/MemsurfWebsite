@@ -224,7 +224,7 @@ export default function WorkflowAnimation({
                                             <CapturePhoneScaleFrame className="mt-1 sm:mt-2">
                                                 <div className="relative flex flex-row flex-nowrap items-center justify-center gap-6 sm:gap-8 md:gap-10">
                                                     <div className="relative w-[280px] shrink-0">
-                                                        <div className="pointer-events-none absolute -top-[6.5rem] bottom-0 left-1/2 z-50 w-[280px] -translate-x-1/2 overflow-visible sm:-top-[7rem]">
+                                                        <div className="pointer-events-none absolute -top-[6.5rem] bottom-0 left-1/2 z-50 w-[min(560px,calc(100vw-2rem))] -translate-x-1/2 overflow-visible sm:-top-[7rem]">
                                                             <AnimatePresence>
                                                                 {phone1State.activeStep > 0 && phone1State.animationStage === 'capturing' && (
                                                                     <FlyingIcon key={phone1State.activeStep} data={steps[phone1State.activeStep - 1]} />

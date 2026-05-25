@@ -34,7 +34,7 @@ export default function CapturePhoneContent({
 
     return (
         <PhoneScreen>
-            <div ref={scrollContainerRef} className="absolute inset-0 bg-app-canvas flex flex-col px-3 pt-20 pb-4 justify-start transition-all duration-500 ease-in-out overflow-y-auto scrollbar-hide">
+            <div ref={scrollContainerRef} className="absolute inset-0 bg-app-canvas flex flex-col px-3 pt-[58px] pb-4 justify-start transition-all duration-500 ease-in-out overflow-y-auto scrollbar-hide">
                 {/* Content Container */}
                 <motion.div
                     layout

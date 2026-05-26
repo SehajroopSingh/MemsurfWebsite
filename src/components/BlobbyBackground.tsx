@@ -21,10 +21,8 @@ type BlobSpec = {
 type BackgroundBounds = {
   width: number
   height: number
-  isMobileLayout: boolean
 }
 
-const MOBILE_LAYOUT_WIDTH = 620
 const LOADING_BLOB_SIZE = 200
 const LOADING_ORBIT_RADIUS = 118
 const LOADING_ORBIT_DURATION = 10
@@ -198,24 +196,19 @@ function useBackgroundBounds() {
   const [bounds, setBounds] = React.useState<BackgroundBounds | null>(() => {
     if (typeof window === 'undefined') return null
 
-    const isMobileLayout = window.matchMedia('(max-width: 640px)').matches
-
     return {
-      width: isMobileLayout ? getMobileLayoutWidth() : window.innerWidth,
+      width: document.documentElement.clientWidth || window.innerWidth,
       height: window.innerHeight,
-      isMobileLayout,
     }
   })
 
   React.useEffect(() => {
     const updateBounds = () => {
       const rect = ref.current?.getBoundingClientRect()
-      const isMobileLayout = window.matchMedia('(max-width: 640px)').matches
 
       setBounds({
-        width: isMobileLayout ? getMobileLayoutWidth() : rect?.width || window.innerWidth,
+        width: rect?.width || document.documentElement.clientWidth || window.innerWidth,
         height: rect?.height || window.innerHeight,
-        isMobileLayout,
       })
     }
 
@@ -229,21 +222,6 @@ function useBackgroundBounds() {
   }, [])
 
   return { ref, bounds }
-}
-
-function getMobileLayoutWidth() {
-  const mainWidth = document.querySelector('main')?.getBoundingClientRect().width
-  const bodyWidth = document.body?.getBoundingClientRect().width
-  const computedBodyWidth = document.body
-    ? Number.parseFloat(window.getComputedStyle(document.body).width)
-    : Number.NaN
-
-  return Math.max(
-    mainWidth || 0,
-    bodyWidth || 0,
-    computedBodyWidth || 0,
-    MOBILE_LAYOUT_WIDTH,
-  )
 }
 
 function axisPositionToPx(value: string, axis: 'x' | 'y', bounds: BackgroundBounds | null) {
@@ -420,21 +398,13 @@ export default function BlobbyBackground({ mode = 'idle' }: { mode?: BlobbyBackg
   const shouldReduceMotion = useReducedMotion()
   const reduceMotion = Boolean(shouldReduceMotion)
   const { ref, bounds } = useBackgroundBounds()
-  const layerStyle: React.CSSProperties = bounds?.isMobileLayout
-    ? {
-        backgroundColor: '#08131d',
-        left: '50%',
-        right: 'auto',
-        width: `${bounds.width}px`,
-        transform: 'translateX(-50%)',
-      }
-    : {
-        backgroundColor: '#08131d',
-        left: 0,
-        right: 0,
-        width: 'auto',
-        transform: 'none',
-      }
+  const layerStyle: React.CSSProperties = {
+    backgroundColor: '#08131d',
+    left: 0,
+    right: 0,
+    width: 'auto',
+    transform: 'none',
+  }
 
   return (
     <div ref={ref} className="fixed top-0 bottom-0 z-[-1] overflow-hidden pointer-events-none" style={layerStyle}>

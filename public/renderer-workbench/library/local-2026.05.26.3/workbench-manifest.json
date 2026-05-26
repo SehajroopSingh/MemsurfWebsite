@@ -1,0 +1,52 @@
+{
+  "source": "local-workbench",
+  "renderer_id": "dynamic_gridcell",
+  "version": "2026.05.26.3",
+  "schema_version": "three_step_gridcell_v1",
+  "entrypoint": "index.html",
+  "bundle_base_path": "/renderer-workbench/current/bundle/",
+  "catalog_path": "/renderer-workbench/current/catalog.json",
+  "style_availability_path": "/renderer-workbench/current/bundle/renderer_style_availability.json",
+  "editable_files": [
+    "public/renderer-workbench/current/bundle/renderer.js",
+    "public/renderer-workbench/current/bundle/renderer.css",
+    "public/renderer-workbench/current/bundle/renderer_style_availability.json",
+    "public/renderer-workbench/current/catalog.json"
+  ],
+  "catalog_entry_count": 179,
+  "capabilities": {
+    "accepts_unknown_cell_types": true,
+    "entrypoint": "index.html",
+    "math_rendering": {
+      "latex": true,
+      "latex_fields": [
+        "MathExpressionCell.content.expression",
+        "MathExpressionCell.content.variables[].symbol"
+      ],
+      "plain_notation_in_prose": true
+    },
+    "renderer_id": "dynamic_gridcell",
+    "schema_version": "three_step_gridcell_v1",
+    "style_availability_path": "renderer_style_availability.json",
+    "supported_cell_types": [
+      "HeadingCell",
+      "TextCell",
+      "CompareCell",
+      "PairCell",
+      "KeyValueCell",
+      "TripletCell",
+      "ImageCell",
+      "KeyPointsCell",
+      "RecallPromptCell",
+      "SpacerCell",
+      "ProcessStepCell",
+      "TimelineStepCell",
+      "MathExpressionCell",
+      "FunctionPlotCell",
+      "MiniChartCell",
+      "CodeTraceCell",
+      "MapRegionCell"
+    ],
+    "version": "2026.05.26.3"
+  }
+}

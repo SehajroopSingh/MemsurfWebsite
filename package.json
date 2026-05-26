@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:clean": "rm -rf .next node_modules/.cache && next dev",
+    "renderer-lab:server": "node scripts/renderer-lab-server.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Nanum_Brush_Script, Nanum_Pen_Script } from 'next/font/google'
 import './globals.css'
 import { AmplitudeProvider } from '@/components/AmplitudeProvider'
@@ -41,6 +41,14 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: '#08131d',
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -48,25 +56,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="theme-color" content="#08131d" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var contentWidth = 620;
-                var deviceWidth = window.screen.width || window.innerWidth || 375;
-                var calculatedScale = Math.min(deviceWidth / contentWidth, 1);
-                var viewportContent = 'width=' + contentWidth + ', initial-scale=' + calculatedScale + ', maximum-scale=5, user-scalable=yes';
-                var meta = document.createElement('meta');
-                meta.name = 'viewport';
-                meta.content = viewportContent;
-                document.getElementsByTagName('head')[0].appendChild(meta);
-              })();
-            `,
-          }}
-        />
-      </head>
       <body className={`${inter.className} ${collageTaglineScript.variable} ${collageNoteScript.variable}`}>
         <BlobbyBackgroundProvider>
           <AmplitudeProvider>

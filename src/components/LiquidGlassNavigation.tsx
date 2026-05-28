@@ -91,9 +91,9 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
         const distanceToEdge = roundedRectSDF(ix, iy, 0.8, 0.6, 0.6)
         const displacement = smoothStep(0.8, 0, distanceToEdge - 0.15)
         const scaled = smoothStep(0, 1, displacement)
-        // Slightly increase distortion in the lower band so the bottom edge reads as refractive.
+        // Increase distortion in the lower band so the bottom edge reads as refractive.
         const bottomBandBoost = smoothStep(0.05, 0.45, iy + 0.5)
-        const boost = 1 + bottomBandBoost * 0.24
+        const boost = 1 + bottomBandBoost * 0.42
         return texture(ix * scaled * boost + 0.5, iy * scaled * boost + 0.5)
       })()
 
@@ -103,7 +103,7 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
       rawValues.push(dx, dy)
     }
 
-    maxScale *= 0.5
+    maxScale *= 0.68
 
     let index = 0
     for (let i = 0; i < data.length; i += 4) {
@@ -162,11 +162,13 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
         className="pointer-events-none fixed left-3 right-3 top-3 z-[52] rounded-full overflow-hidden"
         style={{
           height: `${navHeight}px`,
-          background: 'linear-gradient(145deg, rgba(0, 0, 0, 0.027), rgba(0, 0, 0, 0.027))',
-          backdropFilter: `url(#${id}_filter) blur(2.64px) contrast(1.18) brightness(1.03) saturate(1.12)`,
-          WebkitBackdropFilter: `url(#${id}_filter) blur(2.64px) contrast(1.18) brightness(1.03) saturate(1.12)`,
-          border: '1px solid transparent',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.25), 0 -10px 25px inset rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.08)',
+          background:
+            'linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(2, 8, 24, 0.12) 52%, rgba(255, 255, 255, 0.035))',
+          backdropFilter: `url(#${id}_filter) blur(3.4px) contrast(1.26) brightness(1.06) saturate(1.2)`,
+          WebkitBackdropFilter: `url(#${id}_filter) blur(3.4px) contrast(1.26) brightness(1.06) saturate(1.2)`,
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+          boxShadow:
+            '0 12px 32px rgba(0, 0, 0, 0.28), 0 -14px 32px inset rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 -1px 0 rgba(255, 255, 255, 0.16)',
         }}
       >
         <div
@@ -178,19 +180,24 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
             mixBlendMode: 'screen',
           }}
         />
-        {/* Glow edge temporarily disabled. */}
-        {/*
         <div
           aria-hidden="true"
           className="absolute inset-0 rounded-full"
           style={{
             background:
-              'linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.14) 10%, rgba(255, 255, 255, 0.03) 28%, rgba(255, 255, 255, 0) 48%, rgba(255, 255, 255, 0.05) 70%, rgba(255, 255, 255, 0.18) 100%)',
-            opacity: 0.7,
+              'linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.18) 10%, rgba(255, 255, 255, 0.04) 28%, rgba(255, 255, 255, 0) 48%, rgba(255, 255, 255, 0.08) 70%, rgba(255, 255, 255, 0.24) 100%)',
+            opacity: 0.82,
             mixBlendMode: 'screen',
           }}
         />
-        */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-[1px] rounded-full"
+          style={{
+            boxShadow:
+              'inset 10px 0 22px rgba(255, 255, 255, 0.08), inset -10px 0 22px rgba(255, 255, 255, 0.08)',
+          }}
+        />
       </div>
       <div
         className="pointer-events-none fixed left-3 right-3 top-3 z-[52] flex items-center justify-center"
@@ -240,15 +247,24 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
 
             <div className="hidden md:flex md:items-center md:space-x-6 lg:space-x-8">
               <div className="relative group">
-                <button className="flex items-center gap-1 text-app-textMuted hover:text-app-text transition-colors py-2 text-sm font-medium">
+                <button className="flex items-center gap-1 rounded-full border border-transparent px-3 py-2 text-sm font-medium text-app-textMuted transition-all duration-200 hover:border-white/14 hover:bg-white/10 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_24px_rgba(2,8,24,0.18)] group-hover:border-white/16 group-hover:bg-white/12 group-hover:text-app-text">
                   Product
                   <ChevronDown className="w-4 h-4" />
                 </button>
-                <div className="absolute top-full left-0 pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <div className="bg-app-surfaceElevated rounded-lg shadow-xl border border-app-border overflow-hidden py-1">
+                <div className="absolute left-1/2 top-full w-56 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-app-surface/90 px-2.5 py-2.5 shadow-[0_18px_48px_rgba(2,8,24,0.38),inset_0_1px_0_rgba(255,255,255,0.20)] backdrop-blur-xl">
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 rounded-3xl"
+                      style={{
+                        background:
+                          'linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.03) 38%, rgba(255,255,255,0.10))',
+                        mixBlendMode: 'screen',
+                      }}
+                    />
                     <Link
                       href="/#how-it-works"
-                      className="block px-4 py-2 text-sm text-app-textMuted hover:bg-app-border hover:text-app-text"
+                      className="relative block rounded-2xl px-4 py-2.5 text-sm font-medium text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none"
                     >
                       How it works
                     </Link>
@@ -278,13 +294,13 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
           {isOpen ? (
             <div className="md:hidden mt-3 rounded-3xl border border-white/15 bg-app-surface/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(2,8,24,0.35)] px-4 pt-2 pb-4 space-y-2">
               <div className="px-3 pt-2 pb-1 text-xs font-semibold text-app-textMuted/80 uppercase tracking-wider">Product</div>
-              <Link href="/#how-it-works" className="block px-3 py-2 text-app-textMuted hover:bg-app-border rounded-md">
+              <Link href="/#how-it-works" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
                 How it works
               </Link>
-              <Link href="/team" className="block px-3 py-2 text-app-textMuted hover:bg-app-border rounded-md">
+              <Link href="/team" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
                 Meet the Team
               </Link>
-              <Link href="/blog" className="block px-3 py-2 text-app-textMuted hover:bg-app-border rounded-md">
+              <Link href="/blog" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
                 Blog
               </Link>
             </div>

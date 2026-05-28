@@ -1,0 +1,17 @@
+/* heading local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.heading-card .heading-value {
+      margin: 0;
+      font-size: 29px;
+      line-height: 1.05;
+      letter-spacing: 0;
+      color: var(--heading);
+      font-weight: 780;
+    }
+
+@media (max-width: 620px) {
+
+      .heading-card .heading-value {
+        font-size: 25px;
+      }
+}

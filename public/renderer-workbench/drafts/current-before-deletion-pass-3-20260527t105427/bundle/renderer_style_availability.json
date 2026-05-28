@@ -1,0 +1,1549 @@
+{
+  "default_lock_policy": "deterministic-unlocked-rotation",
+  "group_count": 44,
+  "groups": [
+    {
+      "cell_type": "TextCell",
+      "default_style_id": "glass-card",
+      "group_id": "text:orientation",
+      "is_locked": false,
+      "layout_id": "orientation",
+      "layout_kind": "text_render_mode",
+      "layout_label": "Orientation mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "orientation",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Glass Card",
+          "real_lesson_enabled": true,
+          "style_id": "glass-card"
+        },
+        {
+          "is_locked": false,
+          "label": "Edge Note",
+          "real_lesson_enabled": true,
+          "style_id": "edge-note"
+        },
+        {
+          "is_locked": true,
+          "label": "Frosted Panel",
+          "real_lesson_enabled": false,
+          "style_id": "frosted-panel"
+        },
+        {
+          "is_locked": false,
+          "label": "Notification",
+          "real_lesson_enabled": true,
+          "style_id": "notification"
+        },
+        {
+          "is_locked": false,
+          "label": "Paper Note",
+          "real_lesson_enabled": true,
+          "style_id": "paper-note"
+        },
+        {
+          "is_locked": true,
+          "label": "Corner Focus",
+          "real_lesson_enabled": false,
+          "style_id": "corner-focus"
+        }
+      ]
+    },
+    {
+      "cell_type": "TextCell",
+      "default_style_id": "editorial",
+      "group_id": "text:body",
+      "is_locked": false,
+      "layout_id": "body",
+      "layout_kind": "text_render_mode",
+      "layout_label": "Body mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "body",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Editorial",
+          "real_lesson_enabled": true,
+          "style_id": "editorial"
+        },
+        {
+          "is_locked": true,
+          "label": "Dropcap",
+          "real_lesson_enabled": false,
+          "style_id": "dropcap"
+        },
+        {
+          "is_locked": true,
+          "label": "Notebook",
+          "real_lesson_enabled": false,
+          "style_id": "notebook"
+        },
+        {
+          "is_locked": true,
+          "label": "Briefing",
+          "real_lesson_enabled": false,
+          "style_id": "briefing"
+        }
+      ]
+    },
+    {
+      "cell_type": "TextCell",
+      "default_style_id": "lexicon",
+      "group_id": "text:definition",
+      "is_locked": false,
+      "layout_id": "definition",
+      "layout_kind": "text_render_mode",
+      "layout_label": "Definition mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "definition",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Lexicon",
+          "real_lesson_enabled": true,
+          "style_id": "lexicon"
+        },
+        {
+          "is_locked": true,
+          "label": "Specimen",
+          "real_lesson_enabled": false,
+          "style_id": "specimen"
+        },
+        {
+          "is_locked": true,
+          "label": "Ribbon",
+          "real_lesson_enabled": false,
+          "style_id": "ribbon"
+        }
+      ]
+    },
+    {
+      "cell_type": "TextCell",
+      "default_style_id": "aperture",
+      "group_id": "text:quote",
+      "is_locked": false,
+      "layout_id": "quote",
+      "layout_kind": "text_render_mode",
+      "layout_label": "Quote mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "quote",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Aperture",
+          "real_lesson_enabled": true,
+          "style_id": "aperture"
+        },
+        {
+          "is_locked": true,
+          "label": "Margin",
+          "real_lesson_enabled": false,
+          "style_id": "margin"
+        },
+        {
+          "is_locked": true,
+          "label": "Signal",
+          "real_lesson_enabled": false,
+          "style_id": "signal"
+        }
+      ]
+    },
+    {
+      "cell_type": "TextCell",
+      "default_style_id": "compass",
+      "group_id": "text:rule",
+      "is_locked": false,
+      "layout_id": "rule",
+      "layout_kind": "text_render_mode",
+      "layout_label": "Rule mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "rule",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Compass",
+          "real_lesson_enabled": true,
+          "style_id": "compass"
+        },
+        {
+          "is_locked": true,
+          "label": "Circuit",
+          "real_lesson_enabled": false,
+          "style_id": "circuit"
+        },
+        {
+          "is_locked": true,
+          "label": "Stamp",
+          "real_lesson_enabled": false,
+          "style_id": "stamp"
+        }
+      ]
+    },
+    {
+      "cell_type": "TextCell",
+      "default_style_id": "detached-title",
+      "group_id": "text:example",
+      "is_locked": false,
+      "layout_id": "example",
+      "layout_kind": "text_render_mode",
+      "layout_label": "Example mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "example",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Detached Title",
+          "real_lesson_enabled": true,
+          "style_id": "detached-title"
+        },
+        {
+          "is_locked": true,
+          "label": "Center Focus",
+          "real_lesson_enabled": false,
+          "style_id": "center-focus"
+        },
+        {
+          "is_locked": true,
+          "label": "Side Note",
+          "real_lesson_enabled": false,
+          "style_id": "side-note"
+        }
+      ]
+    },
+    {
+      "cell_type": "TextCell",
+      "default_style_id": "floating-label",
+      "group_id": "text:warning",
+      "is_locked": false,
+      "layout_id": "warning",
+      "layout_kind": "text_render_mode",
+      "layout_label": "Warning mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "warning",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Floating Label",
+          "real_lesson_enabled": true,
+          "style_id": "floating-label"
+        },
+        {
+          "is_locked": true,
+          "label": "Center Focus",
+          "real_lesson_enabled": false,
+          "style_id": "center-focus"
+        },
+        {
+          "is_locked": true,
+          "label": "Quiet Rule",
+          "real_lesson_enabled": false,
+          "style_id": "quiet-rule"
+        }
+      ]
+    },
+    {
+      "cell_type": "TextCell",
+      "default_style_id": "plate",
+      "group_id": "text:caption",
+      "is_locked": false,
+      "layout_id": "caption",
+      "layout_kind": "text_render_mode",
+      "layout_label": "Caption mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "caption",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Plate",
+          "real_lesson_enabled": true,
+          "style_id": "plate"
+        },
+        {
+          "is_locked": true,
+          "label": "Filmstrip",
+          "real_lesson_enabled": false,
+          "style_id": "filmstrip"
+        },
+        {
+          "is_locked": true,
+          "label": "Whisper",
+          "real_lesson_enabled": false,
+          "style_id": "whisper"
+        }
+      ]
+    },
+    {
+      "cell_type": "HeadingCell",
+      "default_style_id": "masthead",
+      "group_id": "cell:HeadingCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Masthead",
+          "real_lesson_enabled": true,
+          "style_id": "masthead"
+        },
+        {
+          "is_locked": true,
+          "label": "Tab",
+          "real_lesson_enabled": false,
+          "style_id": "tab"
+        },
+        {
+          "is_locked": true,
+          "label": "Runway",
+          "real_lesson_enabled": false,
+          "style_id": "runway"
+        }
+      ]
+    },
+    {
+      "cell_type": "ImageCell",
+      "default_style_id": "gallery",
+      "group_id": "cell:ImageCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Gallery",
+          "real_lesson_enabled": true,
+          "style_id": "gallery"
+        },
+        {
+          "is_locked": true,
+          "label": "Polaroid",
+          "real_lesson_enabled": false,
+          "style_id": "polaroid"
+        },
+        {
+          "is_locked": true,
+          "label": "Viewport",
+          "real_lesson_enabled": false,
+          "style_id": "viewport"
+        }
+      ]
+    },
+    {
+      "cell_type": "CompareCell",
+      "default_style_id": "splitbeam",
+      "group_id": "cell:CompareCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Splitbeam",
+          "real_lesson_enabled": true,
+          "style_id": "splitbeam"
+        },
+        {
+          "is_locked": true,
+          "label": "Scorecard",
+          "real_lesson_enabled": false,
+          "style_id": "scorecard"
+        },
+        {
+          "is_locked": true,
+          "label": "Hinge",
+          "real_lesson_enabled": false,
+          "style_id": "hinge"
+        }
+      ]
+    },
+    {
+      "cell_type": "PairCell",
+      "default_style_id": "duet",
+      "group_id": "cell:PairCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Duet",
+          "real_lesson_enabled": true,
+          "style_id": "duet"
+        },
+        {
+          "is_locked": true,
+          "label": "Bridge",
+          "real_lesson_enabled": false,
+          "style_id": "bridge"
+        },
+        {
+          "is_locked": true,
+          "label": "Mirror",
+          "real_lesson_enabled": false,
+          "style_id": "mirror"
+        }
+      ]
+    },
+    {
+      "cell_type": "KeyValueCell",
+      "default_style_id": "ledger",
+      "group_id": "cell:KeyValueCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Ledger",
+          "real_lesson_enabled": true,
+          "style_id": "ledger"
+        },
+        {
+          "is_locked": true,
+          "label": "Chips",
+          "real_lesson_enabled": false,
+          "style_id": "chips"
+        },
+        {
+          "is_locked": true,
+          "label": "Specsheet",
+          "real_lesson_enabled": false,
+          "style_id": "specsheet"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "cascade",
+      "group_id": "cell:TripletCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Cascade",
+          "real_lesson_enabled": true,
+          "style_id": "cascade"
+        },
+        {
+          "is_locked": true,
+          "label": "Orbit",
+          "real_lesson_enabled": false,
+          "style_id": "orbit"
+        },
+        {
+          "is_locked": true,
+          "label": "Blueprint",
+          "real_lesson_enabled": false,
+          "style_id": "blueprint"
+        }
+      ]
+    },
+    {
+      "cell_type": "RecallPromptCell",
+      "default_style_id": "peel",
+      "group_id": "cell:RecallPromptCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Peel",
+          "real_lesson_enabled": true,
+          "style_id": "peel"
+        },
+        {
+          "is_locked": true,
+          "label": "Flashcard",
+          "real_lesson_enabled": false,
+          "style_id": "flashcard"
+        },
+        {
+          "is_locked": true,
+          "label": "Focus Lens",
+          "real_lesson_enabled": false,
+          "style_id": "focus-lens"
+        }
+      ]
+    },
+    {
+      "cell_type": "KeyPointsCell",
+      "default_style_id": "orb",
+      "group_id": "cell:KeyPointsCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Orb",
+          "real_lesson_enabled": true,
+          "style_id": "orb"
+        },
+        {
+          "is_locked": true,
+          "label": "Halo",
+          "real_lesson_enabled": false,
+          "style_id": "halo"
+        },
+        {
+          "is_locked": true,
+          "label": "Rail",
+          "real_lesson_enabled": false,
+          "style_id": "rail"
+        },
+        {
+          "is_locked": true,
+          "label": "Marker",
+          "real_lesson_enabled": false,
+          "style_id": "marker"
+        }
+      ]
+    },
+    {
+      "cell_type": "TimelineStepCell",
+      "default_style_id": "rail",
+      "group_id": "cell:TimelineStepCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Rail",
+          "real_lesson_enabled": true,
+          "style_id": "rail"
+        },
+        {
+          "is_locked": true,
+          "label": "Milestone",
+          "real_lesson_enabled": false,
+          "style_id": "milestone"
+        },
+        {
+          "is_locked": true,
+          "label": "Ticker",
+          "real_lesson_enabled": false,
+          "style_id": "ticker"
+        }
+      ]
+    },
+    {
+      "cell_type": "ProcessStepCell",
+      "default_style_id": "pipeline",
+      "group_id": "cell:ProcessStepCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Pipeline",
+          "real_lesson_enabled": true,
+          "style_id": "pipeline"
+        },
+        {
+          "is_locked": true,
+          "label": "Gearpath",
+          "real_lesson_enabled": false,
+          "style_id": "gearpath"
+        },
+        {
+          "is_locked": true,
+          "label": "Handoff",
+          "real_lesson_enabled": false,
+          "style_id": "handoff"
+        }
+      ]
+    },
+    {
+      "cell_type": "MathExpressionCell",
+      "default_style_id": "chalk",
+      "group_id": "cell:MathExpressionCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Chalk",
+          "real_lesson_enabled": true,
+          "style_id": "chalk"
+        },
+        {
+          "is_locked": true,
+          "label": "Glass",
+          "real_lesson_enabled": false,
+          "style_id": "glass"
+        },
+        {
+          "is_locked": true,
+          "label": "Proofline",
+          "real_lesson_enabled": false,
+          "style_id": "proofline"
+        },
+        {
+          "is_locked": true,
+          "label": "Signal",
+          "real_lesson_enabled": false,
+          "style_id": "signal"
+        },
+        {
+          "is_locked": true,
+          "label": "Notebook",
+          "real_lesson_enabled": false,
+          "style_id": "notebook"
+        }
+      ]
+    },
+    {
+      "cell_type": "FunctionPlotCell",
+      "default_style_id": "oscilloscope",
+      "group_id": "cell:FunctionPlotCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Oscilloscope",
+          "real_lesson_enabled": true,
+          "style_id": "oscilloscope"
+        },
+        {
+          "is_locked": true,
+          "label": "Graphpaper",
+          "real_lesson_enabled": false,
+          "style_id": "graphpaper"
+        },
+        {
+          "is_locked": true,
+          "label": "Neoncurve",
+          "real_lesson_enabled": false,
+          "style_id": "neoncurve"
+        }
+      ]
+    },
+    {
+      "cell_type": "MiniChartCell",
+      "default_style_id": "dashboard",
+      "group_id": "cell:MiniChartCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Dashboard",
+          "real_lesson_enabled": true,
+          "style_id": "dashboard"
+        },
+        {
+          "is_locked": true,
+          "label": "Spark",
+          "real_lesson_enabled": false,
+          "style_id": "spark"
+        },
+        {
+          "is_locked": true,
+          "label": "Instrument",
+          "real_lesson_enabled": false,
+          "style_id": "instrument"
+        }
+      ]
+    },
+    {
+      "cell_type": "CodeTraceCell",
+      "default_style_id": "terminal",
+      "group_id": "cell:CodeTraceCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Terminal",
+          "real_lesson_enabled": true,
+          "style_id": "terminal"
+        },
+        {
+          "is_locked": true,
+          "label": "Diff",
+          "real_lesson_enabled": false,
+          "style_id": "diff"
+        },
+        {
+          "is_locked": true,
+          "label": "Debugger",
+          "real_lesson_enabled": false,
+          "style_id": "debugger"
+        }
+      ]
+    },
+    {
+      "cell_type": "MapRegionCell",
+      "default_style_id": "atlas",
+      "group_id": "cell:MapRegionCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Atlas",
+          "real_lesson_enabled": true,
+          "style_id": "atlas"
+        },
+        {
+          "is_locked": true,
+          "label": "Radar",
+          "real_lesson_enabled": false,
+          "style_id": "radar"
+        },
+        {
+          "is_locked": true,
+          "label": "Routecard",
+          "real_lesson_enabled": false,
+          "style_id": "routecard"
+        }
+      ]
+    },
+    {
+      "cell_type": "SpacerCell",
+      "default_style_id": "breather",
+      "group_id": "cell:SpacerCell",
+      "is_locked": false,
+      "layout_id": "default",
+      "layout_kind": "cell_style",
+      "layout_label": "Default mode",
+      "orientation": "",
+      "relationship_kind": "",
+      "relationship_mode": "",
+      "render_mode": "",
+      "style_key": "preview_cell_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Breather",
+          "real_lesson_enabled": true,
+          "style_id": "breather"
+        },
+        {
+          "is_locked": true,
+          "label": "Divider",
+          "real_lesson_enabled": false,
+          "style_id": "divider"
+        },
+        {
+          "is_locked": true,
+          "label": "Labelstrip",
+          "real_lesson_enabled": false,
+          "style_id": "labelstrip"
+        }
+      ]
+    },
+    {
+      "cell_type": "PairCell",
+      "default_style_id": "duet",
+      "group_id": "relationship:pair:parallel_examples",
+      "is_locked": false,
+      "layout_id": "parallel_examples",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Parallel Examples mode",
+      "orientation": "",
+      "relationship_kind": "pair",
+      "relationship_mode": "parallel_examples",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Duet",
+          "real_lesson_enabled": true,
+          "style_id": "duet"
+        },
+        {
+          "is_locked": true,
+          "label": "Mirror",
+          "real_lesson_enabled": false,
+          "style_id": "mirror"
+        },
+        {
+          "is_locked": true,
+          "label": "Shared Rail",
+          "real_lesson_enabled": false,
+          "style_id": "shared-rail"
+        }
+      ]
+    },
+    {
+      "cell_type": "PairCell",
+      "default_style_id": "versus-split",
+      "group_id": "relationship:pair:contrast",
+      "is_locked": false,
+      "layout_id": "contrast",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Contrast mode",
+      "orientation": "",
+      "relationship_kind": "pair",
+      "relationship_mode": "contrast",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Versus Split",
+          "real_lesson_enabled": true,
+          "style_id": "versus-split"
+        },
+        {
+          "is_locked": true,
+          "label": "Opposing Corners",
+          "real_lesson_enabled": false,
+          "style_id": "opposing-corners"
+        },
+        {
+          "is_locked": true,
+          "label": "Tension Line",
+          "real_lesson_enabled": false,
+          "style_id": "tension-line"
+        }
+      ]
+    },
+    {
+      "cell_type": "PairCell",
+      "default_style_id": "then-now",
+      "group_id": "relationship:pair:before_after",
+      "is_locked": false,
+      "layout_id": "before_after",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Before After mode",
+      "orientation": "",
+      "relationship_kind": "pair",
+      "relationship_mode": "before_after",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Then Now",
+          "real_lesson_enabled": true,
+          "style_id": "then-now"
+        },
+        {
+          "is_locked": true,
+          "label": "Transition Track",
+          "real_lesson_enabled": false,
+          "style_id": "transition-track"
+        },
+        {
+          "is_locked": true,
+          "label": "Wipe",
+          "real_lesson_enabled": false,
+          "style_id": "wipe"
+        }
+      ]
+    },
+    {
+      "cell_type": "PairCell",
+      "default_style_id": "diagnosis-fix",
+      "group_id": "relationship:pair:problem_solution",
+      "is_locked": false,
+      "layout_id": "problem_solution",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Problem Solution mode",
+      "orientation": "",
+      "relationship_kind": "pair",
+      "relationship_mode": "problem_solution",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Diagnosis Fix",
+          "real_lesson_enabled": true,
+          "style_id": "diagnosis-fix"
+        },
+        {
+          "is_locked": true,
+          "label": "Lock Key",
+          "real_lesson_enabled": false,
+          "style_id": "lock-key"
+        },
+        {
+          "is_locked": true,
+          "label": "Repair Card",
+          "real_lesson_enabled": false,
+          "style_id": "repair-card"
+        }
+      ]
+    },
+    {
+      "cell_type": "PairCell",
+      "default_style_id": "ripple",
+      "group_id": "relationship:pair:cause_effect",
+      "is_locked": false,
+      "layout_id": "cause_effect",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Cause Effect mode",
+      "orientation": "",
+      "relationship_kind": "pair",
+      "relationship_mode": "cause_effect",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Ripple",
+          "real_lesson_enabled": true,
+          "style_id": "ripple"
+        },
+        {
+          "is_locked": true,
+          "label": "Domino",
+          "real_lesson_enabled": false,
+          "style_id": "domino"
+        },
+        {
+          "is_locked": true,
+          "label": "Causal Arrow",
+          "real_lesson_enabled": false,
+          "style_id": "causal-arrow"
+        }
+      ]
+    },
+    {
+      "cell_type": "PairCell",
+      "default_style_id": "check-cross",
+      "group_id": "relationship:pair:example_nonexample",
+      "is_locked": false,
+      "layout_id": "example_nonexample",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Example Nonexample mode",
+      "orientation": "",
+      "relationship_kind": "pair",
+      "relationship_mode": "example_nonexample",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Check Cross",
+          "real_lesson_enabled": true,
+          "style_id": "check-cross"
+        },
+        {
+          "is_locked": true,
+          "label": "Sample Filter",
+          "real_lesson_enabled": false,
+          "style_id": "sample-filter"
+        },
+        {
+          "is_locked": true,
+          "label": "Green Red",
+          "real_lesson_enabled": false,
+          "style_id": "green-red"
+        }
+      ]
+    },
+    {
+      "cell_type": "PairCell",
+      "default_style_id": "brief-proof",
+      "group_id": "relationship:pair:claim_evidence",
+      "is_locked": false,
+      "layout_id": "claim_evidence",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Claim Evidence mode",
+      "orientation": "",
+      "relationship_kind": "pair",
+      "relationship_mode": "claim_evidence",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Brief Proof",
+          "real_lesson_enabled": true,
+          "style_id": "brief-proof"
+        },
+        {
+          "is_locked": true,
+          "label": "Citation Stack",
+          "real_lesson_enabled": false,
+          "style_id": "citation-stack"
+        },
+        {
+          "is_locked": true,
+          "label": "Argument Line",
+          "real_lesson_enabled": false,
+          "style_id": "argument-line"
+        }
+      ]
+    },
+    {
+      "cell_type": "KeyValueCell",
+      "default_style_id": "ledger",
+      "group_id": "relationship:keyValue:neutral",
+      "is_locked": false,
+      "layout_id": "neutral",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Neutral mode",
+      "orientation": "",
+      "relationship_kind": "keyValue",
+      "relationship_mode": "neutral",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Ledger",
+          "real_lesson_enabled": true,
+          "style_id": "ledger"
+        },
+        {
+          "is_locked": true,
+          "label": "Index Card",
+          "real_lesson_enabled": false,
+          "style_id": "index-card"
+        },
+        {
+          "is_locked": true,
+          "label": "Quiet Sheet",
+          "real_lesson_enabled": false,
+          "style_id": "quiet-sheet"
+        }
+      ]
+    },
+    {
+      "cell_type": "KeyValueCell",
+      "default_style_id": "priority-strip",
+      "group_id": "relationship:keyValue:key",
+      "is_locked": false,
+      "layout_id": "key",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Key mode",
+      "orientation": "",
+      "relationship_kind": "keyValue",
+      "relationship_mode": "key",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Priority Strip",
+          "real_lesson_enabled": true,
+          "style_id": "priority-strip"
+        },
+        {
+          "is_locked": true,
+          "label": "Anchor List",
+          "real_lesson_enabled": false,
+          "style_id": "anchor-list"
+        },
+        {
+          "is_locked": true,
+          "label": "Highlight Sheet",
+          "real_lesson_enabled": false,
+          "style_id": "highlight-sheet"
+        }
+      ]
+    },
+    {
+      "cell_type": "KeyValueCell",
+      "default_style_id": "lexicon",
+      "group_id": "relationship:keyValue:definition",
+      "is_locked": false,
+      "layout_id": "definition",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Definition mode",
+      "orientation": "",
+      "relationship_kind": "keyValue",
+      "relationship_mode": "definition",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Lexicon",
+          "real_lesson_enabled": true,
+          "style_id": "lexicon"
+        },
+        {
+          "is_locked": true,
+          "label": "Spec Sheet",
+          "real_lesson_enabled": false,
+          "style_id": "spec-sheet"
+        },
+        {
+          "is_locked": true,
+          "label": "Term Table",
+          "real_lesson_enabled": false,
+          "style_id": "term-table"
+        }
+      ]
+    },
+    {
+      "cell_type": "KeyValueCell",
+      "default_style_id": "case-notes",
+      "group_id": "relationship:keyValue:example",
+      "is_locked": false,
+      "layout_id": "example",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Example mode",
+      "orientation": "",
+      "relationship_kind": "keyValue",
+      "relationship_mode": "example",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Case Notes",
+          "real_lesson_enabled": true,
+          "style_id": "case-notes"
+        },
+        {
+          "is_locked": true,
+          "label": "Sample Sheet",
+          "real_lesson_enabled": false,
+          "style_id": "sample-sheet"
+        },
+        {
+          "is_locked": true,
+          "label": "Worked List",
+          "real_lesson_enabled": false,
+          "style_id": "worked-list"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "domino-flow",
+      "group_id": "relationship:triplet:cause_mechanism_effect",
+      "is_locked": false,
+      "layout_id": "cause_mechanism_effect",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Cause Mechanism Effect mode",
+      "orientation": "",
+      "relationship_kind": "triplet",
+      "relationship_mode": "cause_mechanism_effect",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Domino Flow",
+          "real_lesson_enabled": true,
+          "style_id": "domino-flow"
+        },
+        {
+          "is_locked": true,
+          "label": "Mechanism Bridge",
+          "real_lesson_enabled": false,
+          "style_id": "mechanism-bridge"
+        },
+        {
+          "is_locked": true,
+          "label": "Ripple Chain",
+          "real_lesson_enabled": false,
+          "style_id": "ripple-chain"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "pipeline",
+      "group_id": "relationship:triplet:input_process_output",
+      "is_locked": false,
+      "layout_id": "input_process_output",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Input Process Output mode",
+      "orientation": "",
+      "relationship_kind": "triplet",
+      "relationship_mode": "input_process_output",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Pipeline",
+          "real_lesson_enabled": true,
+          "style_id": "pipeline"
+        },
+        {
+          "is_locked": true,
+          "label": "Machine Flow",
+          "real_lesson_enabled": false,
+          "style_id": "machine-flow"
+        },
+        {
+          "is_locked": true,
+          "label": "Transformer",
+          "real_lesson_enabled": false,
+          "style_id": "transformer"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "solve-path",
+      "group_id": "relationship:triplet:problem_method_result",
+      "is_locked": false,
+      "layout_id": "problem_method_result",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Problem Method Result mode",
+      "orientation": "",
+      "relationship_kind": "triplet",
+      "relationship_mode": "problem_method_result",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Solve Path",
+          "real_lesson_enabled": true,
+          "style_id": "solve-path"
+        },
+        {
+          "is_locked": true,
+          "label": "Method Card",
+          "real_lesson_enabled": false,
+          "style_id": "method-card"
+        },
+        {
+          "is_locked": true,
+          "label": "Outcome Lift",
+          "real_lesson_enabled": false,
+          "style_id": "outcome-lift"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "evidence-rail",
+      "group_id": "relationship:triplet:claim_evidence_implication",
+      "is_locked": false,
+      "layout_id": "claim_evidence_implication",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Claim Evidence Implication mode",
+      "orientation": "",
+      "relationship_kind": "triplet",
+      "relationship_mode": "claim_evidence_implication",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Evidence Rail",
+          "real_lesson_enabled": true,
+          "style_id": "evidence-rail"
+        },
+        {
+          "is_locked": true,
+          "label": "Logic Ladder",
+          "real_lesson_enabled": false,
+          "style_id": "logic-ladder"
+        },
+        {
+          "is_locked": true,
+          "label": "Inference Cascade",
+          "real_lesson_enabled": false,
+          "style_id": "inference-cascade"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "pulse-chain",
+      "group_id": "relationship:triplet:trigger_response_outcome",
+      "is_locked": false,
+      "layout_id": "trigger_response_outcome",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Trigger Response Outcome mode",
+      "orientation": "",
+      "relationship_kind": "triplet",
+      "relationship_mode": "trigger_response_outcome",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Pulse Chain",
+          "real_lesson_enabled": true,
+          "style_id": "pulse-chain"
+        },
+        {
+          "is_locked": true,
+          "label": "Signal Response",
+          "real_lesson_enabled": false,
+          "style_id": "signal-response"
+        },
+        {
+          "is_locked": true,
+          "label": "Reaction Path",
+          "real_lesson_enabled": false,
+          "style_id": "reaction-path"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "time-slice",
+      "group_id": "relationship:triplet:before_change_after",
+      "is_locked": false,
+      "layout_id": "before_change_after",
+      "layout_kind": "relationship_mode",
+      "layout_label": "Before Change After mode",
+      "orientation": "",
+      "relationship_kind": "triplet",
+      "relationship_mode": "before_change_after",
+      "render_mode": "",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Time Slice",
+          "real_lesson_enabled": true,
+          "style_id": "time-slice"
+        },
+        {
+          "is_locked": true,
+          "label": "Change Bridge",
+          "real_lesson_enabled": false,
+          "style_id": "change-bridge"
+        },
+        {
+          "is_locked": true,
+          "label": "Then Now",
+          "real_lesson_enabled": false,
+          "style_id": "then-now"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "machine-flow",
+      "group_id": "triplet-layout:vertical-rail",
+      "is_locked": false,
+      "layout_id": "vertical-rail",
+      "layout_kind": "triplet_layout",
+      "layout_label": "Vertical Rail mode",
+      "orientation": "vertical",
+      "relationship_kind": "triplet",
+      "relationship_mode": "input_process_output",
+      "render_mode": "vertical-rail",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": true,
+          "label": "Pipeline",
+          "real_lesson_enabled": false,
+          "style_id": "pipeline"
+        },
+        {
+          "is_locked": false,
+          "label": "Machine Flow",
+          "real_lesson_enabled": true,
+          "style_id": "machine-flow"
+        },
+        {
+          "is_locked": true,
+          "label": "Transformer",
+          "real_lesson_enabled": false,
+          "style_id": "transformer"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "solve-path",
+      "group_id": "triplet-layout:chain-strip",
+      "is_locked": false,
+      "layout_id": "chain-strip",
+      "layout_kind": "triplet_layout",
+      "layout_label": "Chain Strip mode",
+      "orientation": "vertical",
+      "relationship_kind": "triplet",
+      "relationship_mode": "problem_method_result",
+      "render_mode": "chain-strip",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Solve Path",
+          "real_lesson_enabled": true,
+          "style_id": "solve-path"
+        },
+        {
+          "is_locked": true,
+          "label": "Method Card",
+          "real_lesson_enabled": false,
+          "style_id": "method-card"
+        },
+        {
+          "is_locked": true,
+          "label": "Outcome Lift",
+          "real_lesson_enabled": false,
+          "style_id": "outcome-lift"
+        }
+      ]
+    },
+    {
+      "cell_type": "TripletCell",
+      "default_style_id": "evidence-rail",
+      "group_id": "triplet-layout:ladder",
+      "is_locked": false,
+      "layout_id": "ladder",
+      "layout_kind": "triplet_layout",
+      "layout_label": "Reasoning Ladder mode",
+      "orientation": "vertical",
+      "relationship_kind": "triplet",
+      "relationship_mode": "claim_evidence_implication",
+      "render_mode": "ladder",
+      "style_key": "preview_relationship_style",
+      "styles": [
+        {
+          "is_locked": false,
+          "label": "Evidence Rail",
+          "real_lesson_enabled": true,
+          "style_id": "evidence-rail"
+        },
+        {
+          "is_locked": true,
+          "label": "Logic Ladder",
+          "real_lesson_enabled": false,
+          "style_id": "logic-ladder"
+        },
+        {
+          "is_locked": true,
+          "label": "Inference Cascade",
+          "real_lesson_enabled": false,
+          "style_id": "inference-cascade"
+        }
+      ]
+    }
+  ],
+  "renderer_id": "dynamic_gridcell",
+  "schema_version": "renderer_style_availability_v1",
+  "style_count": 139,
+  "style_policy": "backend-owned",
+  "version": "2026.05.26.4"
+}

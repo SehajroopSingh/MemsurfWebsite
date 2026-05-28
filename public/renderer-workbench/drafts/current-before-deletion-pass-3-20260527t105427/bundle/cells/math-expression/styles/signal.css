@@ -1,0 +1,16 @@
+/* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.math-expression-card.cell-style-signal .formula-stage {
+      border-color: rgba(123, 105, 239, 0.20);
+      background:
+        linear-gradient(90deg, rgba(123, 105, 239, 0.08), transparent 30%, rgba(74, 120, 210, 0.08)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.40), rgba(255, 255, 255, 0.12));
+    }
+
+    .math-expression-card.cell-style-signal .formula-sparkline span {
+      background: color-mix(in srgb, var(--accent-2) 72%, transparent);
+    }
+
+    .math-expression-card.cell-style-signal .formula-operator {
+      color: var(--accent-2);
+    }

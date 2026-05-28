@@ -1,0 +1,88 @@
+/* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.math-expression-card .eyebrow {
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .math-expression-card .formula-expression {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.08em 0.18em;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      color: var(--heading);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: clamp(23px, 2rem, 34px);
+      font-weight: 780;
+      letter-spacing: 0;
+      line-height: 1.18;
+      text-align: center;
+    }
+
+    .math-expression-card .formula-expression .katex-display {
+      width: 100%;
+      margin: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 2px 0;
+    }
+
+    .math-expression-card .formula-size-dense .formula-explanation {
+      text-align: left;
+      margin-left: 0;
+    }
+
+    .math-expression-card .variable-symbol {
+      flex: 0 0 auto;
+      width: fit-content;
+      max-width: 100%;
+      padding: 3px 7px;
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--accent-1) 12%, transparent);
+      color: var(--heading);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.1;
+      overflow-wrap: anywhere;
+    }
+
+    .cell-card.math-expression-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .math-expression-card .math-expression-content,
+.math-expression-card .formula-stage {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .math-expression-card .math-expression-content,
+.math-expression-card .math-expression-topline,
+.math-expression-card .formula-explanation,
+.math-expression-card .variable-list,
+.math-expression-card .variable-chip {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.math-expression-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .math-expression-card .variable-chip {
+      padding-left: 14px !important;
+    }

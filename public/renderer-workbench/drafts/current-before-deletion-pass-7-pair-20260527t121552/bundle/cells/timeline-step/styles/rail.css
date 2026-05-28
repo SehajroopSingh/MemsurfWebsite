@@ -1,0 +1,11 @@
+/* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
+
+.timeline-card.cell-style-rail .timeline-rail-wrap {
+      border-left: 3px solid rgba(74, 120, 210, 0.26);
+      padding-left: 8px;
+    }
+
+    .timeline-card.cell-style-rail .timeline-rail-wrap {
+      padding-left: 8px !important;
+      border-left-width: 3px !important;
+    }

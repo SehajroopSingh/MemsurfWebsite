@@ -1,0 +1,59 @@
+/* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
+
+.keypoint-card.cell-style-rail .grid-keypoint-row {
+      border-left: 4px solid rgba(74, 120, 210, 0.24);
+      padding-left: 12px;
+    }
+
+    .keypoint-style-rail .grid-keypoint-row,
+    .cell-card.keypoint-card.cell-style-rail .grid-keypoint-row {
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 18px;
+      min-height: 76px;
+      align-items: stretch;
+    }
+
+    .keypoint-style-rail .grid-keypoint-dot,
+    .cell-card.keypoint-card.cell-style-rail .grid-keypoint-dot {
+      align-self: stretch;
+      justify-self: center;
+      width: 9px;
+      min-height: 62px;
+      height: auto;
+      border-radius: 999px;
+      background:
+        linear-gradient(180deg, var(--accent-2), var(--accent-1) 50%, var(--accent-0));
+      box-shadow:
+        0 0 0 5px rgba(126, 161, 255, 0.08),
+        0 16px 28px rgba(74, 120, 210, 0.18);
+    }
+
+    .keypoint-style-rail .grid-keypoint-dot::after,
+    .cell-card.keypoint-card.cell-style-rail .grid-keypoint-dot::after {
+      inset: 50% auto auto 50%;
+      width: 21px;
+      height: 21px;
+      border: 3px solid var(--page-bg);
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-0));
+      box-shadow:
+        0 0 0 5px rgba(74, 120, 210, 0.11),
+        0 10px 18px rgba(74, 120, 210, 0.22);
+      transform: translate(-50%, -50%);
+    }
+
+    :root[data-theme="dark"] .keypoint-style-rail .grid-keypoint-dot,
+    :root[data-theme="dark"] .cell-card.keypoint-card.cell-style-rail .grid-keypoint-dot {
+      box-shadow:
+        0 0 0 5px rgba(126, 161, 255, 0.13),
+        0 18px 30px rgba(2, 8, 20, 0.44);
+    }
+
+    :root[data-theme="dark"] .keypoint-style-rail .grid-keypoint-dot::after,
+    :root[data-theme="dark"] .cell-card.keypoint-card.cell-style-rail .grid-keypoint-dot::after {
+      border-color: rgba(15, 22, 37, 0.95);
+    }
+
+    .keypoint-card.cell-style-rail .grid-keypoint-row {
+      padding-left: 12px !important;
+      border-left-width: 4px !important;
+    }

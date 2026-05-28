@@ -1,0 +1,73 @@
+/* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.process-card.has-incoming-connection::before,
+.cell-card.process-card.has-outgoing-connection::after {
+      display: none;
+    }
+
+    .process-card .chain-label {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 820;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 620px) {
+
+      .process-action {
+        font-size: 16px;
+      }
+}
+
+    .cell-card.process-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .process-step-layout,
+.process-card .chain-label {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .process-node-wrap {
+      justify-self: start !important;
+      justify-content: flex-start !important;
+    }
+
+    .process-step-layout,
+.process-card .chain-label {
+      width: 100%;
+    }
+
+    .cell-card.process-card {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .process-node {
+      margin-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.process-card {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .process-card .chain-label,
+.process-card .process-step-layout,
+.process-card .process-content,
+.process-card .process-action,
+.process-card .process-result,
+.process-card .process-note {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .process-card .process-note {
+      border-left-width: 0 !important;
+    }

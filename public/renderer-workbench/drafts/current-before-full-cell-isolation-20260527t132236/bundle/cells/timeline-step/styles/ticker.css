@@ -1,0 +1,17 @@
+/* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
+
+.timeline-card.cell-style-ticker .timeline-node {
+      width: 22px;
+      height: 10px;
+      border-radius: 4px;
+    }
+
+    .timeline-card.cell-style-ticker .timeline-content {
+      border-left: 1px solid rgba(123, 105, 239, 0.18);
+      padding-left: 12px;
+    }
+
+    .timeline-card.cell-style-ticker .timeline-content {
+      padding-left: 12px !important;
+      border-left-width: 1px !important;
+    }

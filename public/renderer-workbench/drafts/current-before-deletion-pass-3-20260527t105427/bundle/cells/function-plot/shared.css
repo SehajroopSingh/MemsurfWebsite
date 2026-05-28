@@ -1,0 +1,76 @@
+/* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.function-plot-card .eyebrow {
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .function-plot-card .viz-caption,
+.function-plot-card .legend-list {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .function-plot-card .viz-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .function-plot-card .legend-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .function-plot-card .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .function-plot-card .legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+    }
+
+    .function-plot-card .viz-caption {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .cell-card.function-plot-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .function-plot-card .viz-wrapper,
+.function-plot-card .function-plot-frame {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .function-plot-card > .eyebrow,
+.function-plot-card .viz-wrapper,
+.function-plot-card .viz-caption,
+.function-plot-card .function-plot-legend {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.function-plot-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }

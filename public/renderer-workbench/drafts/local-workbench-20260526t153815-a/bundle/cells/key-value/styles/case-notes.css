@@ -1,0 +1,83 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.key-value-card.key-value-style-case-notes .key-value-title {
+      margin-bottom: 8px;
+      border: 1px solid rgba(82, 101, 135, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.44);
+      box-shadow: 0 10px 22px rgba(31, 42, 68, 0.06);
+    }
+
+    .key-value-card.key-value-style-case-notes .key-value-title {
+      background:
+        linear-gradient(135deg, rgba(47, 143, 131, 0.10), rgba(255, 191, 108, 0.12)),
+        rgba(255, 255, 255, 0.46);
+    }
+
+    :root[data-theme="dark"] .key-value-card.key-value-style-case-notes .key-value-title {
+      background: rgba(18, 27, 45, 0.62);
+      border-color: rgba(214, 221, 235, 0.13);
+    }
+
+    .key-value-card.key-value-style-case-notes .key-value-row::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: var(--relationship-a);
+    }
+
+    .key-value-card.key-value-style-case-notes .key-value-cell {
+      gap: 9px;
+      overflow: visible;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .key-value-card.key-value-style-case-notes .key-value-row {
+      border: 1px solid rgba(47, 143, 131, 0.15);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(47, 143, 131, 0.09), rgba(255, 191, 108, 0.11)),
+        rgba(255, 255, 255, 0.44);
+      box-shadow: 0 14px 25px rgba(31, 42, 68, 0.08);
+      overflow: hidden;
+    }
+
+    .key-value-card.key-value-style-case-notes .key-value-row:nth-child(odd) {
+      transform: rotate(-0.35deg);
+    }
+
+    .key-value-card.key-value-style-case-notes .key-value-row:nth-child(even) {
+      transform: rotate(0.28deg);
+    }
+
+    .key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row {
+      animation-name: kv-note-drop;
+    }
+
+    .key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row:nth-child(odd) {
+      animation-name: kv-note-drop-left;
+    }
+
+    .key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row:nth-child(even) {
+      animation-name: kv-note-drop-right;
+    }
+
+    :root[data-theme="dark"] .key-value-card.key-value-style-case-notes .key-value-cell {
+      background:
+        linear-gradient(135deg, rgba(88, 193, 178, 0.065), rgba(126, 161, 255, 0.055)),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    :root[data-theme="dark"] .key-value-card.key-value-style-case-notes .key-value-cell {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .key-value-card.key-value-style-case-notes .key-value-row {
+      background: rgba(255, 255, 255, 0.045);
+      border-color: rgba(126, 161, 255, 0.14);
+    }

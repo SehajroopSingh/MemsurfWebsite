@@ -1,0 +1,24 @@
+/* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.code-trace-card.cell-style-debugger {
+      border-color: rgba(74, 120, 210, 0.34);
+      background:
+        linear-gradient(145deg, rgba(10, 16, 28, 0.92), rgba(22, 31, 48, 0.90));
+      color: rgba(245, 248, 255, 0.94);
+      box-shadow:
+        0 18px 38px rgba(74, 120, 210, 0.16),
+        inset 0 0 0 1px rgba(255,255,255,0.32);
+    }
+
+    .code-trace-card.cell-style-debugger .trace-step {
+      border-left: 4px solid rgba(241, 174, 96, 0.42);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .code-trace-card.cell-style-debugger .trace-step {
+      border-left-width: 0 !important;
+    }
+
+    .code-trace-card.cell-style-debugger .trace-step {
+      border-left-width: 4px !important;
+    }

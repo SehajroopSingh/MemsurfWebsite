@@ -1,0 +1,12 @@
+/* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.spacer-card.cell-style-breather {
+      box-shadow: none;
+      border-color: transparent;
+      background: transparent;
+    }
+        .spacer-card.cell-style-breather {
+      min-height: 34px;
+      background: transparent;
+      border-color: transparent;
+    }

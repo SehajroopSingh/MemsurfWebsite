@@ -1,0 +1,16 @@
+/* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.map-region-card.cell-style-atlas {
+      --cell-style-accent: var(--accent-0);
+      border-top: 4px solid var(--cell-style-accent);
+      background:
+        linear-gradient(135deg, rgba(47, 143, 131, 0.13), transparent 42%),
+        var(--card-bg);
+    }
+
+    .map-region-card.cell-style-atlas .viz-frame {
+      background:
+        linear-gradient(rgba(82, 101, 135, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(82, 101, 135, 0.10) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }

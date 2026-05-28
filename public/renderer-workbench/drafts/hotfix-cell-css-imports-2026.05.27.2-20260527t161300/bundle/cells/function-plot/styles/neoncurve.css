@@ -1,0 +1,20 @@
+/* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.function-plot-card.cell-style-neoncurve {
+      border-color: rgba(74, 120, 210, 0.34);
+      box-shadow:
+        0 18px 38px rgba(74, 120, 210, 0.16),
+        inset 0 0 0 1px rgba(255,255,255,0.32);
+    }
+
+    .function-plot-card.cell-style-neoncurve .function-plot-stage {
+      background:
+        linear-gradient(180deg, rgba(250, 252, 255, 0.42), rgba(255, 255, 255, 0.10)),
+        linear-gradient(135deg, rgba(126, 161, 255, 0.09), rgba(47, 143, 131, 0.04) 46%, rgba(255, 176, 111, 0.09));
+    }
+
+    :root[data-theme="dark"] .function-plot-card.cell-style-neoncurve .function-plot-stage {
+      background:
+        linear-gradient(180deg, rgba(18, 24, 40, 0.76), rgba(8, 12, 22, 0.54)),
+        linear-gradient(135deg, rgba(126, 161, 255, 0.12), rgba(88, 193, 178, 0.05) 48%, rgba(255, 176, 111, 0.08));
+    }

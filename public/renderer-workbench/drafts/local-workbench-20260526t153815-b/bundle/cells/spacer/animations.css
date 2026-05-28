@@ -1,0 +1,8 @@
+/* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
+
+@media (prefers-reduced-motion: reduce) {
+      .cell-card.spacer-card[class*="cell-style-"] {
+        transition: none;
+        transform: none;
+      }
+}

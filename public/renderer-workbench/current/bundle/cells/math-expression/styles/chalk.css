@@ -1,0 +1,36 @@
+/* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.math-expression-card.cell-style-chalk {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.86), rgba(238, 255, 250, 0.52)),
+        var(--card-bg);
+      border-color: rgba(47, 143, 131, 0.20);
+    }
+
+    .cell-card.math-expression-card.cell-style-proofline .formula-expression,
+.cell-card.math-expression-card.cell-style-chalk .formula-expression {
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+    }
+
+    .math-expression-card.cell-style-chalk {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .math-expression-card.cell-style-chalk .formula-stage {
+      border-color: rgba(47, 143, 131, 0.18);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.56), rgba(237, 248, 244, 0.30));
+    }
+
+    .math-expression-card.cell-style-chalk .formula-expression {
+      color: #21443a;
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    :root[data-theme="dark"] .math-expression-card.cell-style-chalk .formula-expression {
+      color: #ecfff8;
+      text-shadow: 0 0 16px rgba(88, 193, 178, 0.12);
+    }

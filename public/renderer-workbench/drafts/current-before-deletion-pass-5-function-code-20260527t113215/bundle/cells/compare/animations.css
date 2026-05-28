@@ -1,0 +1,215 @@
+/* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.compare-card.compare-card-enter {
+      opacity: 0;
+      transform: translateY(8px) scale(0.992);
+      filter: blur(7px) saturate(0.96);
+      animation: compare-card-bloom 620ms cubic-bezier(0.18, 0.78, 0.18, 1) forwards;
+      animation-delay: var(--compare-card-delay, 0ms);
+      will-change: opacity, transform, filter;
+    }
+
+    .cell-card.compare-card.compare-card-enter .compare-table::before {
+      opacity: 0;
+      transform: scaleX(0.88) scaleY(0.96);
+      animation: compare-table-border-draw 560ms ease-out both;
+      animation-delay: calc(var(--compare-card-delay, 0ms) + 150ms);
+    }
+
+    .cell-card.compare-card.compare-card-enter .compare-label-left {
+      animation: compare-label-left-enter 500ms cubic-bezier(0.2, 0.86, 0.24, 1) both;
+      animation-delay: calc(var(--compare-card-delay, 0ms) + 130ms);
+    }
+
+    .cell-card.compare-card.compare-card-enter .compare-label-right {
+      animation: compare-label-right-enter 500ms cubic-bezier(0.2, 0.86, 0.24, 1) both;
+      animation-delay: calc(var(--compare-card-delay, 0ms) + 150ms);
+    }
+
+    .cell-card.compare-card.compare-card-enter .compare-vs-badge span {
+      animation: compare-vs-enter 520ms cubic-bezier(0.18, 1.18, 0.22, 1) both;
+      animation-delay: calc(var(--compare-card-delay, 0ms) + 230ms);
+    }
+
+    .cell-card.compare-card.compare-card-enter .compare-vs-badge::before,
+.cell-card.compare-card.compare-card-enter .compare-axis::before {
+      transform-origin: 50% 50%;
+      animation: compare-axis-draw 520ms ease-out both;
+      animation-delay: calc(var(--compare-card-delay, 0ms) + 260ms);
+    }
+
+    .cell-card.compare-card.compare-card-enter .compare-row {
+      opacity: 0;
+      transform: translateY(7px);
+      filter: blur(5px);
+      animation: compare-row-cascade 520ms cubic-bezier(0.2, 0.84, 0.2, 1) both;
+      animation-delay: calc(var(--compare-card-delay, 0ms) + var(--compare-row-delay, 230ms));
+      will-change: opacity, transform, filter;
+    }
+
+    .cell-card.compare-card.compare-card-enter .compare-axis span {
+      transform: scale(0);
+      transform-origin: 50% 50%;
+      animation: compare-bridge-draw 360ms ease-out both;
+      animation-delay: calc(var(--compare-card-delay, 0ms) + var(--compare-row-delay, 230ms) + 120ms);
+    }
+
+    .cell-card.compare-card.compare-card-enter .compare-takeaway {
+      opacity: 0;
+      transform: translateY(7px);
+      animation: compare-takeaway-enter 520ms cubic-bezier(0.2, 0.84, 0.2, 1) both;
+      animation-delay: calc(var(--compare-card-delay, 0ms) + 640ms);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cell-card.compare-card.compare-card-enter,
+.cell-card.compare-card.compare-card-enter::before,
+.cell-card.compare-card.compare-card-enter .compare-table::before,
+.cell-card.compare-card.compare-card-enter .compare-label-left,
+.cell-card.compare-card.compare-card-enter .compare-label-right,
+.cell-card.compare-card.compare-card-enter .compare-vs-badge span,
+.cell-card.compare-card.compare-card-enter .compare-vs-badge::before,
+.cell-card.compare-card.compare-card-enter .compare-axis::before,
+.cell-card.compare-card.compare-card-enter .compare-row,
+.cell-card.compare-card.compare-card-enter .compare-axis span,
+.cell-card.compare-card.compare-card-enter .compare-takeaway {
+        animation: none;
+        opacity: 1;
+        filter: none;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .cell-card.compare-card.compare-card-enter .compare-table::before {
+        opacity: 0.30;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .cell-card.compare-card.compare-card-enter,
+.cell-card.compare-card.compare-card-enter::before,
+.cell-card.compare-card.compare-card-enter .compare-table::before,
+.cell-card.compare-card.compare-card-enter .compare-label-left,
+.cell-card.compare-card.compare-card-enter .compare-label-right,
+.cell-card.compare-card.compare-card-enter .compare-vs-badge span,
+.cell-card.compare-card.compare-card-enter .compare-vs-badge::before,
+.cell-card.compare-card.compare-card-enter .compare-axis::before,
+.cell-card.compare-card.compare-card-enter .compare-row,
+.cell-card.compare-card.compare-card-enter .compare-axis span,
+.cell-card.compare-card.compare-card-enter .compare-takeaway {
+        transform: none;
+      }
+}
+
+    @keyframes compare-card-bloom {
+      0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.992);
+        filter: blur(7px) saturate(0.96);
+      }
+      70% {
+        opacity: 1;
+        filter: blur(0) saturate(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0) saturate(1);
+      }
+    }
+
+    @keyframes compare-table-border-draw {
+      from {
+        opacity: 0;
+        transform: scaleX(0.88) scaleY(0.96);
+      }
+      to {
+        opacity: 0.30;
+        transform: scaleX(1) scaleY(1);
+      }
+    }
+
+    @keyframes compare-label-left-enter {
+      from {
+        opacity: 0;
+        transform: translateX(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes compare-label-right-enter {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes compare-vs-enter {
+      0% {
+        opacity: 0;
+        transform: translateY(2px) scale(0.84);
+      }
+      64% {
+        opacity: 1;
+        transform: translateY(0) scale(1.05);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes compare-axis-draw {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) scaleY(0);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) scaleY(1);
+      }
+    }
+
+    @keyframes compare-row-cascade {
+      0% {
+        opacity: 0;
+        transform: translateY(7px);
+        filter: blur(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes compare-bridge-draw {
+      from {
+        opacity: 0;
+        transform: scale(0);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes compare-takeaway-enter {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }

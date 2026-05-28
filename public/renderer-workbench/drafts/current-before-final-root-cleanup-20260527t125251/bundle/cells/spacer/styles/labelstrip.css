@@ -1,0 +1,19 @@
+/* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.spacer-card.cell-style-labelstrip {
+      border-style: dashed;
+      background:
+        linear-gradient(90deg, rgba(82, 101, 135, 0.10), transparent),
+        var(--card-bg);
+    }
+
+    .spacer-card.cell-style-labelstrip .spacer-label {
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: rgba(74, 120, 210, 0.10);
+      color: rgba(35, 82, 128, 0.86);
+    }
+
+    .spacer-card.cell-style-labelstrip .spacer-label {
+      padding-left: 10px !important;
+    }

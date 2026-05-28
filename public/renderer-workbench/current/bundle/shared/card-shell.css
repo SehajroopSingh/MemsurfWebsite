@@ -1,0 +1,35 @@
+.cell-card {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  background: transparent !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--text);
+  --cell-content-edge: var(--gridcell-content-edge);
+}
+
+.cell-card::before {
+  display: none !important;
+  background: none !important;
+}
+
+.cell-card[class*="cell-style-"] {
+  --cell-style-accent: var(--accent-0);
+  --cell-style-accent-2: var(--accent-1);
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.grid-shell.stacked .cell-card {
+  --cell-content-edge: var(--gridcell-content-edge-narrow);
+}

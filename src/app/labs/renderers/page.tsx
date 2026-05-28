@@ -2,10 +2,12 @@
 
 import JSZip from "jszip";
 import {
+  BookOpen,
   ChevronDown,
   ChevronRight,
   Copy,
   DownloadCloud,
+  Grid2X2,
   Lock,
   MonitorSmartphone,
   Moon,
@@ -23,6 +25,7 @@ type Device = "iphone" | "android";
 type Theme = "light" | "dark";
 type RendererSource = "local" | "backend";
 type BundleKind = "current" | "library" | "draft";
+type LabMode = "catalog" | "real-lessons";
 
 type RendererManifest = {
   source?: string;
@@ -33,6 +36,7 @@ type RendererManifest = {
   bundle_base_path?: string;
   catalog_path?: string;
   style_availability_path?: string;
+  extra_stylesheet_paths?: string[];
   bundle_sha256?: string;
   bundle_size_bytes?: number;
 };
@@ -108,10 +112,69 @@ type RendererCatalog = {
   entries: CatalogEntry[];
 };
 
+type RealLessonModule = {
+  id: number;
+  module_reference?: string;
+  title?: string;
+  order?: number;
+  overview?: string;
+  content?: unknown;
+  content_raw?: unknown;
+  content_schema_version?: string;
+  generation_failed?: boolean;
+};
+
+type RealLessonPlan = {
+  id: number;
+  plan_kind?: string;
+  plan_summary?: string;
+  modules?: RealLessonModule[];
+};
+
+type RealLessonSample = {
+  quick_capture_id: number;
+  source_quick_capture_id?: number;
+  title: string;
+  preview_text: string;
+  classification?: string | null;
+  lesson_plan?: RealLessonPlan | null;
+};
+
+type RealLessonSamplesResponse = {
+  renderer_id: string;
+  version: string;
+  schema_version: string;
+  sample_count: number;
+  samples: RealLessonSample[];
+};
+
+type RealLessonScreenOption = {
+  key: string;
+  sample: RealLessonSample;
+  module: RealLessonModule;
+  section: Record<string, unknown>;
+  sectionIndex: number;
+  screenIndex: number;
+  scenario: Record<string, unknown>;
+  cellTypes: string[];
+  title: string;
+  subtitle: string;
+};
+
+type RealLessonStats = {
+  moduleCount: number;
+  sectionCount: number;
+  screenCount: number;
+  gridcellScreenCount: number;
+};
+
 type RendererBundle = {
   rendererCss: string;
+  rendererCssHref?: string;
+  rendererCssExtraHrefs?: string[];
   rendererJs: string;
   katexCss: string;
+  katexCssHref?: string;
   katexJs: string;
   styleAvailability?: RendererStyleAvailability;
 };
@@ -172,7 +235,19 @@ const DEVICE_FRAMES: Record<Device, { label: string; width: number; height: numb
 };
 
 function apiUrl(path: string) {
-  return `${API_BASE_URL}/${path.replace(/^\//, "")}`;
+  const normalizedPath = path.replace(/^\//, "");
+  const explicitlyProxy = process.env.NEXT_PUBLIC_RENDERER_API_PROXY === "1";
+  const explicitlyDirect = process.env.NEXT_PUBLIC_RENDERER_API_PROXY === "0";
+  const isLocalLab =
+    typeof window !== "undefined" &&
+    ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+  const shouldProxy =
+    !explicitlyDirect &&
+    (explicitlyProxy || (isLocalLab && API_BASE_URL === "https://api.memsurf.com/api"));
+  if (shouldProxy) {
+    return `${RENDERER_LAB_API_URL}/django-proxy/${normalizedPath}`;
+  }
+  return `${API_BASE_URL}/${normalizedPath}`;
 }
 
 function labApiUrl(path: string) {
@@ -187,6 +262,12 @@ function assetUrl(path: string) {
   return `${SITE_BASE_PATH}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
+function absoluteAssetUrl(path: string) {
+  const url = assetUrl(path);
+  if (typeof window === "undefined") return url;
+  return new URL(url, window.location.origin).toString();
+}
+
 function withCacheBust(url: string, token: number) {
   const separator = url.includes("?") ? "&" : "?";
   return `${url}${separator}v=${token}`;
@@ -198,6 +279,10 @@ function scriptSafe(value: string) {
 
 function styleSafe(value: string) {
   return value.replace(/<\/style/gi, "<\\/style");
+}
+
+function attrSafe(value: string) {
+  return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 }
 
 function jsonForScript(value: unknown) {
@@ -232,6 +317,60 @@ async function rewriteKatexFontUrls(zip: JSZip, css: string) {
   });
 }
 
+function cssImportPath(fromPath: string, importPath: string) {
+  if (
+    importPath.startsWith("/") ||
+    importPath.startsWith("#") ||
+    /^[a-z][a-z0-9+.-]*:/i.test(importPath)
+  ) {
+    return null;
+  }
+
+  const baseParts = fromPath.split("/").slice(0, -1);
+  const parts = [...baseParts, ...importPath.split("/")];
+  const resolved: string[] = [];
+  for (const part of parts) {
+    if (!part || part === ".") continue;
+    if (part === "..") {
+      resolved.pop();
+      continue;
+    }
+    resolved.push(part);
+  }
+  return resolved.join("/");
+}
+
+async function resolveZipCssImports(
+  zip: JSZip,
+  cssPath: string,
+  css: string,
+  seen = new Set<string>(),
+): Promise<string> {
+  if (seen.has(cssPath)) return css;
+  const nextSeen = new Set(seen);
+  nextSeen.add(cssPath);
+  const importPattern = /@import\s+(?:url\(\s*)?(?:"([^"]+)"|'([^']+)')\s*\)?\s*([^;]*);/g;
+  let resolvedCss = "";
+  let lastIndex = 0;
+  for (const match of css.matchAll(importPattern)) {
+    const importPath = match[1] || match[2] || "";
+    const importOptions = match[3]?.trim();
+    const importStart = match.index || 0;
+    resolvedCss += css.slice(lastIndex, importStart);
+
+    const zipPath = importOptions ? null : cssImportPath(cssPath, importPath);
+    const importedFile = zipPath ? zip.file(zipPath) : null;
+    if (!zipPath || !importedFile || nextSeen.has(zipPath)) {
+      resolvedCss += match[0];
+    } else {
+      const importedCss = await importedFile.async("string");
+      resolvedCss += `\n${await resolveZipCssImports(zip, zipPath, importedCss, nextSeen)}\n`;
+    }
+    lastIndex = importStart + match[0].length;
+  }
+  return resolvedCss + css.slice(lastIndex);
+}
+
 async function loadBundle(buffer: ArrayBuffer): Promise<RendererBundle> {
   const zip = await JSZip.loadAsync(buffer);
   const rendererCssFile = zip.file("renderer.css");
@@ -244,7 +383,7 @@ async function loadBundle(buffer: ArrayBuffer): Promise<RendererBundle> {
     throw new Error("Renderer bundle is missing required JS/CSS assets.");
   }
 
-  const [rendererCss, rendererJs, katexCssRaw, katexJs, styleAvailabilityText] = await Promise.all([
+  const [rendererCssRaw, rendererJs, katexCssRaw, katexJs, styleAvailabilityText] = await Promise.all([
     rendererCssFile.async("string"),
     rendererJsFile.async("string"),
     katexCssFile.async("string"),
@@ -252,6 +391,7 @@ async function loadBundle(buffer: ArrayBuffer): Promise<RendererBundle> {
     styleAvailabilityFile?.async("string") || Promise.resolve(""),
   ]);
 
+  const rendererCss = await resolveZipCssImports(zip, "renderer.css", rendererCssRaw);
   const katexCss = await rewriteKatexFontUrls(zip, katexCssRaw);
   const styleAvailability = styleAvailabilityText
     ? (JSON.parse(styleAvailabilityText) as RendererStyleAvailability)
@@ -282,8 +422,12 @@ async function loadWorkbenchBundle(manifest: RendererManifest, cacheToken: numbe
   const availabilityPath = manifest.style_availability_path?.startsWith("/")
     ? manifest.style_availability_path
     : `${normalizedBase}/${manifest.style_availability_path || "renderer_style_availability.json"}`;
-  const [rendererCss, rendererJs, katexCssRaw, katexJs, styleAvailabilityText] = await Promise.all([
-    fetchTextAsset(`${normalizedBase}/renderer.css`, cacheToken),
+  const rendererCssHref = withCacheBust(absoluteAssetUrl(`${normalizedBase}/renderer.css`), cacheToken);
+  const rendererCssExtraHrefs = (manifest.extra_stylesheet_paths || []).map((stylesheetPath) => {
+    const resolvedPath = stylesheetPath.startsWith("/") ? stylesheetPath : `${normalizedBase}/${stylesheetPath}`;
+    return withCacheBust(absoluteAssetUrl(resolvedPath), cacheToken);
+  });
+  const [rendererJs, katexCssRaw, katexJs, styleAvailabilityText] = await Promise.all([
     fetchTextAsset(`${normalizedBase}/renderer.js`, cacheToken),
     fetchTextAsset(`${normalizedBase}/katex.min.css`, cacheToken),
     fetchTextAsset(`${normalizedBase}/katex.min.js`, cacheToken),
@@ -291,7 +435,9 @@ async function loadWorkbenchBundle(manifest: RendererManifest, cacheToken: numbe
   ]);
 
   return {
-    rendererCss,
+    rendererCss: "",
+    rendererCssHref,
+    rendererCssExtraHrefs,
     rendererJs,
     katexCss: rewriteStaticKatexFontUrls(katexCssRaw, bundleBasePath, cacheToken),
     katexJs,
@@ -368,6 +514,175 @@ function payloadWithScenarioMetadata(basePayload: RendererPayload, title: string
   }
 
   return payload;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function recordValue(value: unknown): Record<string, unknown> | null {
+  return isRecord(value) ? value : null;
+}
+
+function arrayRecords(value: unknown): Record<string, unknown>[] {
+  return Array.isArray(value) ? value.filter(isRecord) : [];
+}
+
+function stringValue(value: unknown, fallback = "") {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed || fallback;
+  }
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return String(value);
+  }
+  return fallback;
+}
+
+function moduleContent(module: RealLessonModule) {
+  return recordValue(module.content_raw) || recordValue(module.content) || {};
+}
+
+function sectionsForModule(module: RealLessonModule) {
+  return arrayRecords(moduleContent(module).sections);
+}
+
+function screensForSection(section: Record<string, unknown>) {
+  const screens = arrayRecords(section.screens);
+  if (screens.length) return screens;
+  const screen = recordValue(section.screen);
+  return screen ? [screen] : [];
+}
+
+function primaryComponentForScreen(screen: Record<string, unknown>) {
+  return recordValue(screen.primary_component) || recordValue(screen.primaryComponent);
+}
+
+function layoutGridSlots(primaryComponent: Record<string, unknown>) {
+  const content = recordValue(primaryComponent.content);
+  const contentSlots = content ? arrayRecords(content.slots) : [];
+  if (contentSlots.length) return contentSlots;
+  return arrayRecords(primaryComponent.slots);
+}
+
+function layoutGridDefinition(primaryComponent: Record<string, unknown>) {
+  const content = recordValue(primaryComponent.content);
+  return (
+    (content ? recordValue(content.grid) : null) ||
+    recordValue(primaryComponent.grid) ||
+    { rows: 20, cols: 10 }
+  );
+}
+
+function scenarioFromRealLessonScreen(
+  sample: RealLessonSample,
+  module: RealLessonModule,
+  section: Record<string, unknown>,
+  sectionIndex: number,
+  screen: Record<string, unknown>,
+  screenIndex: number,
+): RealLessonScreenOption | null {
+  const primaryComponent = primaryComponentForScreen(screen);
+  const primaryType = stringValue(primaryComponent?.type).toLowerCase();
+  if (!primaryComponent || (primaryType !== "layoutgrid" && primaryType !== "layout_grid")) {
+    return null;
+  }
+
+  const rawSlots = layoutGridSlots(primaryComponent);
+  if (!rawSlots.length) return null;
+
+  const slots = rawSlots.map((slot, slotIndex) => {
+    const cellType = stringValue(slot.cell_type ?? slot.type, "TextCell");
+    return {
+      ...slot,
+      slot_id: stringValue(slot.slot_id ?? slot.id, `slot_${slotIndex + 1}`),
+      cell_type: cellType,
+      props: recordValue(slot.props) || {},
+      content: slot.content ?? {},
+    };
+  });
+  const cellTypes = Array.from(new Set(slots.map((slot) => stringValue(slot.cell_type, "Cell"))));
+  const sectionTitle = stringValue(
+    section.section_title ?? section.title ?? section.section_reference,
+    `Section ${sectionIndex + 1}`,
+  );
+  const screenTitle = stringValue(
+    screen.title ?? screen.screen_title ?? screen.screen_explanation ?? screen.screenExplanation,
+    `Screen ${screenIndex + 1}`,
+  );
+  const moduleTitle = stringValue(module.title, `Module ${module.order || module.id}`);
+  const supportingComponents = arrayRecords(screen.supporting_components ?? screen.supportingComponents);
+
+  return {
+    key: `${sample.quick_capture_id}:${module.id}:${sectionIndex}:${screenIndex}`,
+    sample,
+    module,
+    section,
+    sectionIndex,
+    screenIndex,
+    cellTypes,
+    title: `${moduleTitle} - ${sectionTitle}`,
+    subtitle: `${screenTitle} - ${cellTypes.join(", ")}`,
+    scenario: {
+      title: `${moduleTitle}: ${sectionTitle}`,
+      subtitle: screenTitle,
+      screenExplanation: stringValue(
+        screen.screen_explanation ?? screen.screenExplanation ?? section.section_goal,
+        stringValue(sample.preview_text, "Real lesson sample"),
+      ),
+      grid: layoutGridDefinition(primaryComponent),
+      slots,
+      supportingComponents,
+    },
+  };
+}
+
+function realLessonScreenOptions(sample: RealLessonSample) {
+  const modules = sample.lesson_plan?.modules || [];
+  return modules.flatMap((module) =>
+    sectionsForModule(module).flatMap((section, sectionIndex) =>
+      screensForSection(section)
+        .map((screen, screenIndex) =>
+          scenarioFromRealLessonScreen(sample, module, section, sectionIndex, screen, screenIndex),
+        )
+        .filter((option): option is RealLessonScreenOption => option !== null),
+    ),
+  );
+}
+
+function realLessonSampleStats(sample: RealLessonSample): RealLessonStats {
+  const modules = sample.lesson_plan?.modules || [];
+  let sectionCount = 0;
+  let screenCount = 0;
+  for (const module of modules) {
+    const sections = sectionsForModule(module);
+    sectionCount += sections.length;
+    screenCount += sections.reduce((total, section) => total + screensForSection(section).length, 0);
+  }
+  return {
+    moduleCount: modules.length,
+    sectionCount,
+    screenCount,
+    gridcellScreenCount: realLessonScreenOptions(sample).length,
+  };
+}
+
+function realLessonRendererPayload(
+  option: RealLessonScreenOption,
+  theme: Theme,
+  manifest: RendererManifest | null,
+  sampleLessons: RealLessonSamplesResponse | null,
+): RendererPayload {
+  return {
+    renderer_id: manifest?.renderer_id || sampleLessons?.renderer_id || "dynamic_gridcell",
+    schema_version: manifest?.schema_version || sampleLessons?.schema_version || "three_step_gridcell_v1",
+    version: manifest?.version || sampleLessons?.version,
+    stylePolicy: "first-only",
+    style_policy: "first-only",
+    theme,
+    showScenarioTitles: false,
+    scenarios: [option.scenario],
+  };
 }
 
 function pairVisualCatalogEntries(entries: CatalogEntry[]): CatalogEntry[] {
@@ -503,13 +818,23 @@ function prettyJson(payload: RendererPayload) {
 }
 
 function buildIframeDocument(bundle: RendererBundle, payload: RendererPayload, cssOverride: string) {
+  const katexStylesheet = bundle.katexCssHref
+    ? `<link rel="stylesheet" href="${attrSafe(bundle.katexCssHref)}" />`
+    : `<style>${styleSafe(bundle.katexCss)}</style>`;
+  const rendererStylesheet = bundle.rendererCssHref
+    ? `<link rel="stylesheet" href="${attrSafe(bundle.rendererCssHref)}" />`
+    : `<style>${styleSafe(bundle.rendererCss)}</style>`;
+  const rendererExtraStylesheets = (bundle.rendererCssExtraHrefs || [])
+    .map((href) => `<link rel="stylesheet" href="${attrSafe(href)}" />`)
+    .join("\n  ");
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <style>${styleSafe(bundle.katexCss)}</style>
-  <style>${styleSafe(bundle.rendererCss)}</style>
+  ${katexStylesheet}
+  ${rendererStylesheet}
+  ${rendererExtraStylesheets}
   <style>
     html, body { min-height: 100%; margin: 0; }
     body { background: ${payload.theme === "dark" ? "#06111d" : "#eef5fb"}; }
@@ -541,7 +866,164 @@ async function postWorkbenchAction(path: string, payload: Record<string, unknown
   return data;
 }
 
+type RealLessonsPanelProps = {
+  sampleLessons: RealLessonSamplesResponse | null;
+  isLoading: boolean;
+  error: string;
+  selectedSampleId: number | null;
+  selectedScreenKey: string;
+  onSelectSample: (sampleId: number) => void;
+  onSelectScreen: (screenKey: string) => void;
+};
+
+function RealLessonsPanel({
+  sampleLessons,
+  isLoading,
+  error,
+  selectedSampleId,
+  selectedScreenKey,
+  onSelectSample,
+  onSelectScreen,
+}: RealLessonsPanelProps) {
+  const samples = sampleLessons?.samples || [];
+  const selectedSample = samples.find((sample) => sample.quick_capture_id === selectedSampleId) || samples[0] || null;
+  const selectedStats = selectedSample ? realLessonSampleStats(selectedSample) : null;
+  const selectedOptions = selectedSample ? realLessonScreenOptions(selectedSample) : [];
+  const modules = selectedSample?.lesson_plan?.modules || [];
+
+  return (
+    <>
+      <div className="flex items-center justify-between border-b border-[#e1e8ee] px-4 py-3">
+        <div>
+          <h2 className="text-sm font-semibold text-[#17212b]">Real Lessons</h2>
+          <p className="text-xs text-[#6c7d89]">
+            {sampleLessons ? `${sampleLessons.sample_count} reserved samples` : "Loading example captures"}
+          </p>
+        </div>
+        <BookOpen className="h-4 w-4 text-[#6c7d89]" />
+      </div>
+      <div className="max-h-[calc(100vh-315px)] overflow-y-auto px-3 py-3">
+        {isLoading ? <div className="px-1 py-3 text-sm text-[#6c7d89]">Loading sample lessons...</div> : null}
+        {error ? (
+          <div className="mb-3 rounded-md border border-[#f0b6b6] bg-[#fff3f3] px-3 py-2 text-xs text-[#8a2525]">{error}</div>
+        ) : null}
+        <div className="space-y-2">
+          {samples.map((sample) => {
+            const stats = realLessonSampleStats(sample);
+            const isSelected = selectedSample?.quick_capture_id === sample.quick_capture_id;
+            return (
+              <button
+                key={sample.quick_capture_id}
+                type="button"
+                onClick={() => onSelectSample(sample.quick_capture_id)}
+                className={`w-full rounded-md border px-3 py-2 text-left transition ${
+                  isSelected
+                    ? "border-[#17212b] bg-[#17212b] text-white"
+                    : "border-[#dce5ec] bg-[#fbfcfd] text-[#253440] hover:bg-[#eef3f6]"
+                }`}
+              >
+                <span className="block text-sm font-semibold">{sample.title}</span>
+                <span className={`mt-1 line-clamp-2 block text-xs ${isSelected ? "text-[#d2dbe3]" : "text-[#6c7d89]"}`}>
+                  {sample.preview_text || "Reserved onboarding capture"}
+                </span>
+                <span className={`mt-2 block text-[10px] font-semibold ${isSelected ? "text-[#d2dbe3]" : "text-[#7b8c98]"}`}>
+                  {stats.moduleCount} modules - {stats.gridcellScreenCount} grid screens
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {selectedSample && selectedStats ? (
+          <div className="mt-4 border-t border-[#e1e8ee] pt-4">
+            <div className="rounded-md bg-[#f6f9fb] px-3 py-3">
+              <div className="text-sm font-semibold text-[#17212b]">{selectedSample.title}</div>
+              <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-[#5b6f7c]">
+                <span>Kind: {selectedSample.lesson_plan?.plan_kind || "Unknown"}</span>
+                <span>Modules: {selectedStats.moduleCount}</span>
+                <span>Sections: {selectedStats.sectionCount}</span>
+                <span>Grid screens: {selectedStats.gridcellScreenCount}</span>
+              </div>
+              {selectedStats.screenCount > selectedStats.gridcellScreenCount ? (
+                <p className="mt-2 text-[11px] text-[#8a6d2f]">
+                  {selectedStats.screenCount - selectedStats.gridcellScreenCount} non-grid screens skipped.
+                </p>
+              ) : null}
+            </div>
+
+            <div className="mt-3 space-y-3">
+              {modules.map((module, moduleIndex) => {
+                const moduleSections = sectionsForModule(module);
+                const moduleTitle = stringValue(module.title, `Module ${moduleIndex + 1}`);
+                return (
+                  <div key={module.id || moduleIndex} className="rounded-md border border-[#e1e8ee] bg-white">
+                    <div className="border-b border-[#edf2f6] px-3 py-2">
+                      <div className="text-xs font-semibold uppercase tracking-[0.12em] text-[#728390]">
+                        Module {moduleIndex + 1}
+                      </div>
+                      <div className="mt-1 text-sm font-semibold text-[#253440]">{moduleTitle}</div>
+                    </div>
+                    <div className="space-y-2 px-3 py-3">
+                      {moduleSections.map((section, sectionIndex) => {
+                        const sectionTitle = stringValue(
+                          section.section_title ?? section.title ?? section.section_reference,
+                          `Section ${sectionIndex + 1}`,
+                        );
+                        const sectionOptions = selectedOptions.filter(
+                          (option) => option.module.id === module.id && option.sectionIndex === sectionIndex,
+                        );
+                        return (
+                          <div key={`${module.id || moduleIndex}-${sectionIndex}`} className="border-l border-[#dfe7ee] pl-3">
+                            <div className="text-xs font-semibold text-[#506676]">{sectionTitle}</div>
+                            <div className="mt-2 space-y-1">
+                              {sectionOptions.length ? (
+                                sectionOptions.map((option) => {
+                                  const isSelected = option.key === selectedScreenKey;
+                                  return (
+                                    <button
+                                      key={option.key}
+                                      type="button"
+                                      onClick={() => onSelectScreen(option.key)}
+                                      className={`w-full rounded-md px-3 py-2 text-left text-sm transition ${
+                                        isSelected
+                                          ? "bg-[#17212b] text-white"
+                                          : "bg-[#f8fafb] text-[#253440] hover:bg-[#eef3f6]"
+                                      }`}
+                                    >
+                                      <span className="block font-medium">Screen {option.screenIndex + 1}</span>
+                                      <span className={`block text-xs ${isSelected ? "text-[#d2dbe3]" : "text-[#718390]"}`}>
+                                        {option.cellTypes.join(", ")}
+                                      </span>
+                                    </button>
+                                  );
+                                })
+                              ) : (
+                                <div className="rounded-md bg-[#f8fafb] px-3 py-2 text-xs text-[#7b8c98]">
+                                  No LayoutGrid screen in this section.
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : !isLoading ? (
+          <div className="mt-4 rounded-md bg-[#f6f9fb] px-3 py-3 text-sm text-[#6c7d89]">
+            No reserved sample lessons with gridcell screens were returned.
+          </div>
+        ) : null}
+      </div>
+    </>
+  );
+}
+
 export default function RendererLabPage() {
+  const [labMode, setLabMode] = useState<LabMode>("catalog");
   const [source, setSource] = useState<RendererSource>(() => {
     if (typeof window === "undefined") return "local";
     return new URLSearchParams(window.location.search).get("source") === "backend" ? "backend" : "local";
@@ -568,6 +1050,11 @@ export default function RendererLabPage() {
   const [isWorkbenchMutating, setIsWorkbenchMutating] = useState(false);
   const [expandedCellGroups, setExpandedCellGroups] = useState<Record<string, boolean>>({});
   const [expandedRenderModes, setExpandedRenderModes] = useState<Record<string, boolean>>({});
+  const [sampleLessons, setSampleLessons] = useState<RealLessonSamplesResponse | null>(null);
+  const [isSampleLessonsLoading, setIsSampleLessonsLoading] = useState(false);
+  const [sampleLessonsError, setSampleLessonsError] = useState("");
+  const [selectedSampleId, setSelectedSampleId] = useState<number | null>(null);
+  const [selectedRealLessonScreenKey, setSelectedRealLessonScreenKey] = useState("");
 
   const catalogEntries = useMemo(
     () => catalogEntriesWithRenderModeStyles(catalog?.entries || []),
@@ -577,6 +1064,24 @@ export default function RendererLabPage() {
   const selectedEntry = useMemo(
     () => catalogEntries.find((entry) => entry.id === selectedId) || catalogEntries[0] || null,
     [catalogEntries, selectedId],
+  );
+
+  const selectedSample = useMemo(
+    () => sampleLessons?.samples.find((sample) => sample.quick_capture_id === selectedSampleId) || sampleLessons?.samples[0] || null,
+    [sampleLessons, selectedSampleId],
+  );
+
+  const selectedRealLessonScreenOptions = useMemo(
+    () => (selectedSample ? realLessonScreenOptions(selectedSample) : []),
+    [selectedSample],
+  );
+
+  const selectedRealLessonScreen = useMemo(
+    () =>
+      selectedRealLessonScreenOptions.find((option) => option.key === selectedRealLessonScreenKey) ||
+      selectedRealLessonScreenOptions[0] ||
+      null,
+    [selectedRealLessonScreenKey, selectedRealLessonScreenOptions],
   );
 
   const workbenchOptions = useMemo(() => {
@@ -741,6 +1246,72 @@ export default function RendererLabPage() {
     };
   }, [reloadToken, setPayloadDraft, source]);
 
+  useEffect(() => {
+    if (labMode !== "real-lessons") return;
+    let cancelled = false;
+
+    async function loadSampleLessons() {
+      setIsSampleLessonsLoading(true);
+      setSampleLessonsError("");
+      try {
+        const response = await fetch(apiUrl("user-interface/lesson-renderer/preview/sample-lessons/"), {
+          cache: "no-store",
+        });
+        if (!response.ok) {
+          throw new Error(`Sample lessons request failed with HTTP ${response.status}.`);
+        }
+        const nextSampleLessons = (await response.json()) as RealLessonSamplesResponse;
+        if (cancelled) return;
+        setSampleLessons(nextSampleLessons);
+      } catch (sampleError) {
+        if (!cancelled) {
+          setSampleLessonsError(sampleError instanceof Error ? sampleError.message : "Unable to load sample lessons.");
+        }
+      } finally {
+        if (!cancelled) {
+          setIsSampleLessonsLoading(false);
+        }
+      }
+    }
+
+    loadSampleLessons();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [labMode, reloadToken]);
+
+  useEffect(() => {
+    if (!sampleLessons?.samples.length) return;
+    const hasSelectedSample = sampleLessons.samples.some((sample) => sample.quick_capture_id === selectedSampleId);
+    if (!hasSelectedSample) {
+      setSelectedSampleId(sampleLessons.samples[0].quick_capture_id);
+    }
+  }, [sampleLessons, selectedSampleId]);
+
+  useEffect(() => {
+    if (!selectedRealLessonScreenOptions.length) {
+      setSelectedRealLessonScreenKey("");
+      return;
+    }
+    const hasSelectedScreen = selectedRealLessonScreenOptions.some((option) => option.key === selectedRealLessonScreenKey);
+    if (!hasSelectedScreen) {
+      setSelectedRealLessonScreenKey(selectedRealLessonScreenOptions[0].key);
+    }
+  }, [selectedRealLessonScreenKey, selectedRealLessonScreenOptions]);
+
+  useEffect(() => {
+    if (labMode !== "real-lessons") return;
+    setShowAll(false);
+    if (!selectedRealLessonScreen) {
+      setAppliedPayload(null);
+      setDraftJson("");
+      setJsonError("");
+      return;
+    }
+    setPayloadDraft(realLessonRendererPayload(selectedRealLessonScreen, theme, manifest, sampleLessons));
+  }, [labMode, manifest, sampleLessons, selectedRealLessonScreen, setPayloadDraft, theme]);
+
   const activePayload = useMemo(() => {
     if (!appliedPayload) return null;
     return payloadWithTheme(appliedPayload, theme);
@@ -752,6 +1323,7 @@ export default function RendererLabPage() {
   }, [activePayload, bundle, cssOverride]);
 
   const handleSelectEntry = (entry: CatalogEntry) => {
+    setLabMode("catalog");
     setSelectedId(entry.id);
     setShowAll(false);
     setPayloadDraft(payloadWithTheme(entry.payload, theme));
@@ -759,6 +1331,7 @@ export default function RendererLabPage() {
 
   const handleShowAll = () => {
     if (!catalogEntries.length) return;
+    setLabMode("catalog");
     setShowAll(true);
     setSelectedId("");
     setPayloadDraft(combinedPayload(catalogEntries, theme));
@@ -793,6 +1366,12 @@ export default function RendererLabPage() {
   };
 
   const handleResetJson = () => {
+    if (labMode === "real-lessons") {
+      if (selectedRealLessonScreen) {
+        setPayloadDraft(realLessonRendererPayload(selectedRealLessonScreen, theme, manifest, sampleLessons));
+      }
+      return;
+    }
     if (showAll && catalog) {
       setPayloadDraft(combinedPayload(catalogEntries, theme));
       return;
@@ -863,10 +1442,45 @@ export default function RendererLabPage() {
     );
   };
 
+  const handleSelectLabMode = (nextLabMode: LabMode) => {
+    setLabMode(nextLabMode);
+    setJsonError("");
+    if (nextLabMode === "catalog") {
+      if (showAll && catalogEntries.length) {
+        setPayloadDraft(combinedPayload(catalogEntries, theme));
+      } else if (selectedEntry) {
+        setPayloadDraft(payloadWithTheme(selectedEntry.payload, theme));
+      }
+    } else {
+      setShowAll(false);
+      if (selectedRealLessonScreen) {
+        setPayloadDraft(realLessonRendererPayload(selectedRealLessonScreen, theme, manifest, sampleLessons));
+      } else {
+        setAppliedPayload(null);
+        setDraftJson("");
+        setJsonError("");
+      }
+    }
+  };
+
   const frame = DEVICE_FRAMES[device];
   const FrameIcon = frame.icon;
   const sourceLabel = source === "local" ? "Local workbench" : "Backend latest";
   const canEditWorkbench = source === "local" && workbenchApiAvailable && !isWorkbenchMutating;
+  const previewTitle =
+    labMode === "real-lessons"
+      ? selectedRealLessonScreen
+        ? selectedRealLessonScreen.title
+        : "Real lesson preview"
+      : showAll
+        ? "All catalog samples"
+        : selectedEntry
+          ? `${selectedEntry.cell_type}: ${selectedEntry.label}`
+          : "Preview";
+  const previewSubtitle =
+    labMode === "real-lessons"
+      ? selectedRealLessonScreen?.subtitle || "Reserved sample lesson screen"
+      : `stylePolicy: ${activePayload?.stylePolicy || "first-only"}`;
 
   return (
     <main className="min-h-screen bg-[#f4f7f9] text-[#17212b]">
@@ -925,6 +1539,29 @@ export default function RendererLabPage() {
         {error ? (
           <div className="mt-5 rounded-md border border-[#f0b6b6] bg-[#fff3f3] px-4 py-3 text-sm text-[#8a2525]">{error}</div>
         ) : null}
+
+        <div className="mt-4 inline-flex w-fit rounded-md border border-[#c7d2dc] bg-[#f8fafb] p-1">
+          <button
+            type="button"
+            onClick={() => handleSelectLabMode("catalog")}
+            className={`inline-flex h-9 items-center gap-2 rounded px-3 text-sm font-medium ${
+              labMode === "catalog" ? "bg-white text-[#17212b] shadow-sm" : "text-[#5c6e7b]"
+            }`}
+          >
+            <Grid2X2 className="h-4 w-4" />
+            Cell Catalog
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSelectLabMode("real-lessons")}
+            className={`inline-flex h-9 items-center gap-2 rounded px-3 text-sm font-medium ${
+              labMode === "real-lessons" ? "bg-white text-[#17212b] shadow-sm" : "text-[#5c6e7b]"
+            }`}
+          >
+            <BookOpen className="h-4 w-4" />
+            Real Lessons
+          </button>
+        </div>
 
         <section className="grid flex-1 gap-5 py-5 lg:grid-cols-[340px_minmax(420px,1fr)_420px]">
           <aside className="min-h-0 overflow-hidden rounded-lg border border-[#d4dde5] bg-white">
@@ -1001,6 +1638,8 @@ export default function RendererLabPage() {
               ) : null}
             </div>
 
+            {labMode === "catalog" ? (
+              <>
             <div className="flex items-center justify-between border-b border-[#e1e8ee] px-4 py-3">
               <div>
                 <h2 className="text-sm font-semibold text-[#17212b]">Catalog</h2>
@@ -1133,15 +1772,25 @@ export default function RendererLabPage() {
                 );
               })}
             </div>
+              </>
+            ) : (
+              <RealLessonsPanel
+                sampleLessons={sampleLessons}
+                isLoading={isSampleLessonsLoading}
+                error={sampleLessonsError}
+                selectedSampleId={selectedSampleId}
+                selectedScreenKey={selectedRealLessonScreen?.key || selectedRealLessonScreenKey}
+                onSelectSample={setSelectedSampleId}
+                onSelectScreen={setSelectedRealLessonScreenKey}
+              />
+            )}
           </aside>
 
           <section className="flex min-h-[780px] flex-col rounded-lg border border-[#d4dde5] bg-[#e8eef3]">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#d4dde5] bg-white px-4 py-3">
               <div>
-                <h2 className="text-sm font-semibold text-[#17212b]">
-                  {showAll ? "All catalog samples" : selectedEntry ? `${selectedEntry.cell_type}: ${selectedEntry.label}` : "Preview"}
-                </h2>
-                <p className="text-xs text-[#6c7d89]">stylePolicy: {activePayload?.stylePolicy || "first-only"}</p>
+                <h2 className="text-sm font-semibold text-[#17212b]">{previewTitle}</h2>
+                <p className="text-xs text-[#6c7d89]">{previewSubtitle}</p>
               </div>
               <div className="inline-flex rounded-md border border-[#c7d2dc] bg-[#f8fafb] p-1">
                 {(Object.keys(DEVICE_FRAMES) as Device[]).map((deviceKey) => {
@@ -1183,7 +1832,7 @@ export default function RendererLabPage() {
                 >
                   {iframeDocument ? (
                     <iframe
-                      key={`${device}-${theme}-${showAll ? "all" : selectedId}-${manifest?.version || "unknown"}-${reloadToken}`}
+                      key={`${labMode}-${device}-${theme}-${showAll ? "all" : selectedId}-${selectedRealLessonScreenKey}-${manifest?.version || "unknown"}-${reloadToken}`}
                       title="Renderer mobile preview"
                       sandbox="allow-scripts"
                       srcDoc={iframeDocument}
@@ -1208,7 +1857,9 @@ export default function RendererLabPage() {
               <div className="flex items-center justify-between border-b border-[#e1e8ee] px-4 py-3">
                 <div>
                   <h2 className="text-sm font-semibold text-[#17212b]">Payload JSON</h2>
-                  <p className="text-xs text-[#6c7d89]">Local preview only</p>
+                  <p className="text-xs text-[#6c7d89]">
+                    {labMode === "real-lessons" ? "Real lesson first-only payload" : "Local preview only"}
+                  </p>
                 </div>
                 <div className="flex gap-2">
                   <button

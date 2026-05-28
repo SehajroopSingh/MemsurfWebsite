@@ -112,10 +112,20 @@ export default function SocialGlassButtons({ className = '' }: SocialGlassButton
           scale: 1,
           filter: 'blur(0px)',
           transition: {
-            type: 'spring',
-            stiffness: 480,
-            damping: 25,
-            mass: 0.75,
+            opacity: { duration: 0.22, ease: 'easeOut' },
+            filter: { duration: 0.22, ease: 'easeOut' },
+            x: {
+              type: 'spring',
+              stiffness: 480,
+              damping: 25,
+              mass: 0.75,
+            },
+            scale: {
+              type: 'spring',
+              stiffness: 480,
+              damping: 25,
+              mass: 0.75,
+            },
           },
         },
       }

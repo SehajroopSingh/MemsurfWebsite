@@ -1,0 +1,33 @@
+/* heading local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.heading-card.cell-style-tab {
+      --cell-style-accent: var(--accent-1);
+      border-left: 6px solid var(--cell-style-accent);
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.12), transparent 48%),
+        var(--card-bg);
+    }
+
+    .heading-card.cell-style-tab {
+      border-left-width: 8px;
+      border-radius: 10px;
+    }
+
+    .heading-card.cell-style-tab .heading-value {
+      font-size: 20px;
+      padding-left: 4px;
+    }
+
+    .heading-card.cell-style-tab {
+      border-left-width: 0 !important;
+    }
+
+    .heading-card > .eyebrow,
+.heading-card .heading-value,
+.heading-card.cell-style-tab .heading-value,
+.function-plot-card > .heading-card .eyebrow,
+.code-trace-card > .heading-card .eyebrow,
+.map-region-card > .heading-card .eyebrow {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }

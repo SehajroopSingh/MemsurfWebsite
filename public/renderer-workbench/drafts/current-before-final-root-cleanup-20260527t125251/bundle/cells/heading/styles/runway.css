@@ -1,0 +1,26 @@
+/* heading local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.heading-card.cell-style-runway {
+      --cell-style-accent: var(--accent-2);
+      background:
+        repeating-linear-gradient(135deg, rgba(123, 105, 239, 0.11) 0 1px, transparent 1px 11px),
+        linear-gradient(180deg, rgba(255,255,255,0.76), rgba(246,248,252,0.70)),
+        var(--card-bg);
+    }
+
+    .heading-card.cell-style-runway .heading-value {
+      letter-spacing: 0;
+      padding-bottom: 9px;
+      border-bottom: 3px solid rgba(123, 105, 239, 0.28);
+    }
+
+    .heading-card.cell-style-runway::after {
+      content: "";
+      position: absolute;
+      right: 16px;
+      bottom: 12px;
+      width: 72px;
+      height: 3px;
+      border-radius: 999px;
+      background: repeating-linear-gradient(90deg, rgba(123, 105, 239, 0.42) 0 12px, transparent 12px 18px);
+    }

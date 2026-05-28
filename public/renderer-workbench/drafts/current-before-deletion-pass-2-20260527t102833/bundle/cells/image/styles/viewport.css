@@ -1,0 +1,18 @@
+/* image local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.image-card.cell-style-viewport {
+      border-color: rgba(255,255,255,0.52);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.68), rgba(239,245,255,0.46)),
+        var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .image-card.cell-style-viewport .image-frame {
+      border-radius: 20px;
+      border: 2px solid rgba(74, 120, 210, 0.28);
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.20) 0 2px, transparent 2px calc(100% - 2px), rgba(74, 120, 210, 0.20) calc(100% - 2px)),
+        linear-gradient(0deg, rgba(74, 120, 210, 0.20) 0 2px, transparent 2px calc(100% - 2px), rgba(74, 120, 210, 0.20) calc(100% - 2px));
+    }

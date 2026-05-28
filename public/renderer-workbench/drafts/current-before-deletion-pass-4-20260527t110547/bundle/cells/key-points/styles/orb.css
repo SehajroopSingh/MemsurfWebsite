@@ -1,0 +1,7 @@
+/* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
+
+.keypoint-card.cell-style-orb .grid-keypoint-dot {
+      width: 14px;
+      height: 14px;
+      box-shadow: 0 0 0 8px rgba(47, 143, 131, 0.10);
+    }

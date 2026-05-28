@@ -1,0 +1,23 @@
+/* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.math-expression-card.cell-style-proofline {
+      background:
+        linear-gradient(rgba(74, 120, 210, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 120, 210, 0.10) 1px, transparent 1px),
+        var(--card-bg);
+      background-size: 18px 18px, 18px 18px, auto;
+      border-color: rgba(74, 120, 210, 0.24);
+    }
+
+    .math-expression-card.cell-style-proofline .formula-stage {
+      align-items: stretch;
+      border-color: rgba(47, 143, 131, 0.22);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.14));
+    }
+
+    .math-expression-card.cell-style-proofline .formula-rule {
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-0), var(--accent-1));
+    }

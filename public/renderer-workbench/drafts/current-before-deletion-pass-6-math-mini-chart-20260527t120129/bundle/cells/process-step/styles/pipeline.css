@@ -1,0 +1,16 @@
+/* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.process-card.cell-style-pipeline {
+      --cell-style-accent: var(--accent-1);
+      border-left: 6px solid var(--cell-style-accent);
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.12), transparent 48%),
+        var(--card-bg);
+    }
+        .process-card.cell-style-pipeline .process-step-layout {
+      border-bottom: 3px solid rgba(74, 120, 210, 0.22);
+      padding-bottom: 12px;
+    }
+        .process-card.cell-style-pipeline {
+      border-left-width: 0 !important;
+    }

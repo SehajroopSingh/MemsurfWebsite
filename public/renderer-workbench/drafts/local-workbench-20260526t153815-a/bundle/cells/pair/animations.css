@@ -1,0 +1,296 @@
+/* PairCell local workbench copy. Source rules remain in renderer.css for safety. */
+
+.pair-card.cell-style-bridge .pair-connector {
+      width: 62px;
+    }
+
+    .pair-card.cell-style-bridge .pair-connector span {
+      width: 46px;
+      height: 22px;
+      border-radius: 999px;
+      background: rgba(47, 143, 131, 0.12);
+    }
+
+    .cell-card.pair-card .pair-connector {
+      position: relative;
+      z-index: 2;
+      min-width: 58px;
+    }
+
+    .cell-card.pair-card .pair-connector span {
+      position: relative;
+      z-index: 1;
+      min-width: 42px;
+      padding-inline: 10px;
+      color: var(--heading);
+      box-shadow: 0 10px 22px rgba(43, 55, 84, 0.10);
+    }
+
+    .cell-card.pair-card.pair-card-enter {
+      pointer-events: auto;
+      animation: pairCardSettle 220ms ease-out both;
+      will-change: opacity, filter;
+    }
+
+    .cell-card.pair-card.pair-card-enter .pair-panel-left {
+      animation: pairPanelLeftEnter 680ms cubic-bezier(0.17, 0.84, 0.19, 1) both;
+    }
+
+    .cell-card.pair-card.pair-card-enter .pair-panel-right {
+      animation: pairPanelRightEnter 720ms cubic-bezier(0.17, 0.84, 0.19, 1) both;
+      animation-delay: 90ms;
+    }
+
+    .cell-card.pair-card.pair-card-enter .pair-connector span {
+      animation: pairConnectorPop 560ms cubic-bezier(0.16, 0.84, 0.2, 1) both;
+      animation-delay: 230ms;
+    }
+
+    @keyframes pairCardSettle {
+      from {
+        opacity: 0;
+        filter: blur(8px) saturate(0.94);
+      }
+      to {
+        opacity: 1;
+        filter: none;
+      }
+    }
+
+    @keyframes pairPanelLeftEnter {
+      from {
+        opacity: 0;
+        transform: translate3d(var(--pair-left-x), var(--pair-left-y), 0) rotate(var(--pair-left-rotate)) scale(0.96);
+        filter: blur(7px);
+      }
+      to {
+        opacity: 1;
+        transform: var(--pair-left-final);
+        filter: none;
+      }
+    }
+
+    @keyframes pairPanelRightEnter {
+      from {
+        opacity: 0;
+        transform: translate3d(var(--pair-right-x), var(--pair-right-y), 0) rotate(var(--pair-right-rotate)) scale(0.96);
+        filter: blur(7px);
+      }
+      to {
+        opacity: 1;
+        transform: var(--pair-right-final);
+        filter: none;
+      }
+    }
+
+    @keyframes pairConnectorPop {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+        filter: blur(6px);
+      }
+      62% {
+        opacity: 1;
+        transform: scale(1.08);
+        filter: none;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: none;
+      }
+    }
+
+    @keyframes pairRailDraw {
+      from {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      to {
+        opacity: 0.42;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes pairWipeSweep {
+      from {
+        transform: translateX(-120%);
+      }
+      to {
+        transform: translateX(120%);
+      }
+    }
+
+    @keyframes pairRipplePing {
+      from {
+        opacity: 0.9;
+        transform: scale(0.62);
+        box-shadow: 0 0 0 0 rgba(47, 143, 131, 0.16);
+      }
+      to {
+        opacity: 0.5;
+        transform: scale(1);
+        box-shadow: 0 0 0 14px rgba(47, 143, 131, 0);
+      }
+    }
+
+    @keyframes pairTensionPulse {
+      0% {
+        opacity: 0;
+        transform: scaleX(0.35);
+      }
+      55% {
+        opacity: 1;
+        transform: scaleX(1.08);
+      }
+      100% {
+        opacity: 0.86;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes pairCitationStackSettle {
+      from {
+        box-shadow:
+          0 0 0 rgba(74, 120, 210, 0),
+          0 0 0 rgba(47, 143, 131, 0),
+          inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      }
+      to {
+        box-shadow:
+          7px 7px 0 rgba(74, 120, 210, 0.08),
+          14px 14px 0 rgba(47, 143, 131, 0.06),
+          inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      }
+    }
+
+    .pair-flow-main .relationship-bridge {
+      min-height: 20px !important;
+    }
+
+    .pair-vertical-flow .relationship-bridge {
+      justify-content: flex-start !important;
+      min-height: 28px !important;
+      padding-left: 5px !important;
+    }
+
+    .pair-vertical-flow .relationship-bridge-line {
+      flex: 0 0 18px !important;
+      width: 1px !important;
+      min-width: 0 !important;
+      height: 18px !important;
+    }
+
+    .pair-divider {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      row-gap: 8px !important;
+    }
+
+    .pair-divider-main {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+      align-items: center !important;
+      column-gap: 12px !important;
+    }
+
+    .pair-divider-bodies {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+      column-gap: 12px !important;
+      min-width: 0 !important;
+    }
+
+    .pair-divider-bodies .left-body {
+      grid-column: 1 !important;
+    }
+
+    .pair-divider-bodies .right-body {
+      grid-column: 3 !important;
+    }
+
+    .pair-divider-center {
+      display: grid !important;
+      grid-template-rows: 1fr auto 1fr !important;
+      align-items: center !important;
+      justify-items: center !important;
+      min-width: 56px !important;
+      color: var(--muted) !important;
+    }
+
+    .pair-divider-center .divider-line {
+      display: block !important;
+      width: 1px !important;
+      min-height: 14px !important;
+      height: 100% !important;
+      background: currentColor !important;
+      opacity: 0.22 !important;
+    }
+
+    .pair-divider-center .relationship-bridge {
+      display: block !important;
+      min-height: 0 !important;
+      padding: 6px 0 !important;
+    }
+
+    .pair-divider-center .relationship-bridge-line,
+    .pair-divider-center .relationship-arrow,
+    .pair-divider-center .relationship-support-marker {
+      display: none !important;
+    }
+
+    .pair-divider-center .relationship-bridge-label {
+      display: block !important;
+      writing-mode: horizontal-tb !important;
+      transform: none !important;
+      font-size: 12px !important;
+      letter-spacing: 0.05em !important;
+      opacity: 0.68 !important;
+      white-space: nowrap !important;
+      overflow-wrap: normal !important;
+      word-break: keep-all !important;
+      hyphens: none !important;
+    }
+
+    .pair-support .relationship-bridge {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+      column-gap: 8px !important;
+      color: var(--relationship-b) !important;
+    }
+
+    .relationship-cell.pair-cell .pair-connector::before,
+    .relationship-cell.pair-cell .pair-connector::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .pair-divider {
+		        grid-template-columns: minmax(0, 1fr) !important;
+		      }
+
+    .pair-divider-center {
+        grid-template-rows: none !important;
+        grid-template-columns: 1fr auto 1fr !important;
+        min-width: 0 !important;
+      }
+
+    .pair-divider-center .divider-line {
+        width: 100% !important;
+        height: 1px !important;
+        min-height: 0 !important;
+      }
+
+    .pair-divider-center .relationship-bridge-label {
+	        writing-mode: horizontal-tb !important;
+	        transform: none !important;
+	      }
+
+    @keyframes pairDividerConnectorFadeIn {
+	      0% {
+	        opacity: 0;
+	      }
+	      100% {
+	        opacity: 1;
+	      }
+	    }

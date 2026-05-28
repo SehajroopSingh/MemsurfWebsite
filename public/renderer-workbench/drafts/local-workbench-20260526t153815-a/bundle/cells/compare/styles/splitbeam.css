@@ -1,0 +1,18 @@
+/* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.compare-card.cell-style-splitbeam {
+      --cell-style-accent: var(--accent-0);
+      border-top: 4px solid var(--cell-style-accent);
+      background:
+        linear-gradient(90deg, rgba(47, 143, 131, 0.12), transparent 49%, rgba(74, 120, 210, 0.12)),
+        var(--card-bg);
+    }
+        .compare-card.cell-style-splitbeam .compare-header {
+      background: rgba(250, 252, 255, 0.88);
+    }
+        .compare-card.cell-style-splitbeam .compare-vs-badge span {
+      width: 34px;
+    }
+        :root[data-theme="dark"] .compare-card.cell-style-splitbeam .compare-header {
+      background: rgba(23, 31, 45, 0.88);
+    }

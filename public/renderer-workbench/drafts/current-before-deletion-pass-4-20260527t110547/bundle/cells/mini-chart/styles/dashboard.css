@@ -1,0 +1,137 @@
+/* mini-chart local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.mini-chart-card.cell-style-dashboard {
+      --cell-style-accent: var(--accent-0);
+      border-top: 4px solid var(--cell-style-accent);
+      background:
+        linear-gradient(135deg, rgba(47, 143, 131, 0.13), transparent 42%),
+        var(--card-bg);
+    }
+
+    .cell-card.mini-chart-card.cell-style-dashboard .mini-chart-header,
+.cell-card.mini-chart-card.cell-style-instrument .mini-chart-header {
+      border-bottom: 1px solid rgba(82, 101, 135, 0.12);
+      padding-bottom: 10px;
+    }
+
+    .mini-chart-card.cell-style-dashboard {
+      --mini-chart-glass-tint: rgba(255, 255, 255, 0.64);
+      --mini-chart-glass-edge: rgba(74, 120, 210, 0.20);
+      --mini-chart-glass-highlight: rgba(255, 255, 255, 0.70);
+      --mini-chart-quiet-grid: rgba(91, 111, 148, 0.08);
+      --mini-chart-glass-shadow: rgba(47, 74, 148, 0.10);
+      border-color: rgba(74, 120, 210, 0.16);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.84), rgba(243, 249, 255, 0.56) 54%, rgba(231, 249, 245, 0.42)),
+        var(--card-bg);
+      box-shadow:
+        0 18px 44px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.76);
+      backdrop-filter: var(--glass);
+      -webkit-backdrop-filter: var(--glass);
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-header {
+      margin-bottom: -2px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(82, 101, 135, 0.12);
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-title {
+      letter-spacing: 0;
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-frame {
+      border-color: var(--mini-chart-glass-edge);
+      background:
+        radial-gradient(circle at 14% 10%, rgba(255, 255, 255, 0.82), transparent 86px),
+        radial-gradient(circle at 88% 18%, rgba(88, 193, 178, 0.16), transparent 94px),
+        linear-gradient(90deg, var(--mini-chart-quiet-grid) 1px, transparent 1px),
+        linear-gradient(180deg, var(--mini-chart-quiet-grid) 1px, transparent 1px),
+        linear-gradient(155deg, var(--mini-chart-glass-tint), rgba(255, 255, 255, 0.30));
+      background-size: auto, auto, 48px 48px, 48px 48px, auto;
+      box-shadow:
+        inset 0 1px 0 var(--mini-chart-glass-highlight),
+        inset 0 -1px 0 rgba(74, 120, 210, 0.08),
+        0 16px 32px var(--mini-chart-glass-shadow);
+      backdrop-filter: blur(16px) saturate(1.22);
+      -webkit-backdrop-filter: blur(16px) saturate(1.22);
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-frame::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 17px;
+      background:
+        linear-gradient(115deg, rgba(255, 255, 255, 0.48), transparent 38%),
+        radial-gradient(circle at 12% 82%, rgba(47, 143, 131, 0.13), transparent 74px);
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-soft-field {
+      fill: rgba(255, 255, 255, 0.30);
+      stroke: rgba(74, 120, 210, 0.12);
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-field-shine {
+      stroke: rgba(255, 255, 255, 0.54);
+      stroke-width: 14;
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-grid-line {
+      stroke: rgba(91, 111, 148, 0.10);
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-axis-line {
+      stroke: rgba(66, 83, 111, 0.25);
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-point-ring {
+      fill: color-mix(in srgb, var(--mark-color) 14%, transparent);
+      stroke: color-mix(in srgb, var(--mark-color) 58%, white);
+    }
+
+    .mini-chart-card.cell-style-dashboard .mini-chart-empty-state {
+      border-color: rgba(74, 120, 210, 0.18);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(232, 245, 255, 0.32)),
+        rgba(255, 255, 255, 0.20);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.48);
+    }
+
+    :root[data-theme="dark"] .mini-chart-card.cell-style-dashboard {
+      --mini-chart-glass-tint: rgba(29, 39, 60, 0.62);
+      --mini-chart-glass-edge: rgba(126, 161, 255, 0.20);
+      --mini-chart-glass-highlight: rgba(255, 255, 255, 0.10);
+      --mini-chart-quiet-grid: rgba(140, 163, 196, 0.08);
+      --mini-chart-glass-shadow: rgba(2, 8, 20, 0.34);
+      border-color: rgba(126, 161, 255, 0.18);
+      background:
+        linear-gradient(145deg, rgba(28, 39, 62, 0.82), rgba(15, 22, 37, 0.66) 54%, rgba(18, 43, 39, 0.44)),
+        var(--card-bg);
+      box-shadow:
+        0 22px 44px rgba(2, 8, 20, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    }
+
+    :root[data-theme="dark"] .mini-chart-card.cell-style-dashboard .mini-chart-header {
+      border-bottom-color: rgba(162, 183, 217, 0.12);
+    }
+
+    :root[data-theme="dark"] .mini-chart-card.cell-style-dashboard .mini-chart-frame {
+      background:
+        radial-gradient(circle at 14% 10%, rgba(255, 255, 255, 0.10), transparent 86px),
+        radial-gradient(circle at 88% 18%, rgba(88, 193, 178, 0.14), transparent 94px),
+        linear-gradient(90deg, var(--mini-chart-quiet-grid) 1px, transparent 1px),
+        linear-gradient(180deg, var(--mini-chart-quiet-grid) 1px, transparent 1px),
+        linear-gradient(155deg, var(--mini-chart-glass-tint), rgba(9, 15, 26, 0.36));
+      background-size: auto, auto, 48px 48px, 48px 48px, auto;
+    }
+
+    :root[data-theme="dark"] .mini-chart-card.cell-style-dashboard .mini-chart-empty-state {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(126, 161, 255, 0.08)),
+        rgba(255, 255, 255, 0.03);
+    }

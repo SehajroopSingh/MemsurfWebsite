@@ -1,0 +1,15 @@
+/* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.map-region-card.cell-style-radar {
+      border-color: rgba(74, 120, 210, 0.28);
+      background:
+        repeating-radial-gradient(circle at 82% 18%, rgba(74, 120, 210, 0.16) 0 1px, transparent 1px 18px),
+        var(--card-bg);
+    }
+
+    .map-region-card.cell-style-radar .viz-frame {
+      background:
+        repeating-radial-gradient(circle at 50% 50%, rgba(74, 120, 210, 0.18) 0 1px, transparent 1px 28px),
+        #081722;
+      color: rgba(245, 248, 255, 0.86);
+    }

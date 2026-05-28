@@ -1,0 +1,45 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.key-value-card.key-value-style-priority-strip .key-value-title {
+      border-bottom-color: rgba(47, 143, 131, 0.18);
+      background:
+        linear-gradient(90deg, rgba(47, 143, 131, 0.16), rgba(255, 255, 255, 0.30)),
+        rgba(255, 255, 255, 0.46);
+    }
+
+    .key-value-card.key-value-style-priority-strip .key-value-cell {
+      border-radius: 22px;
+      border-color: rgba(47, 143, 131, 0.22);
+      background:
+        linear-gradient(90deg, rgba(47, 143, 131, 0.18), transparent 54px),
+        rgba(255, 255, 255, 0.52);
+    }
+
+    .key-value-card.key-value-style-priority-strip .key-value-row::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: var(--relationship-a);
+    }
+
+    .key-value-card.key-value-style-priority-strip .key-value-row:nth-child(even)::before {
+      background: var(--relationship-b);
+    }
+
+    .key-value-card.key-value-style-priority-strip .key-value-key {
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--relationship-a);
+    }
+
+    .key-value-card.key-value-card-enter.key-value-style-priority-strip .key-value-row::before {
+      animation: kv-strip-scan 620ms cubic-bezier(0.18, 0.86, 0.24, 1) both;
+      animation-delay: calc(160ms + var(--kv-row-index, 0) * 72ms);
+    }
+
+    :root[data-theme="dark"] .key-value-card.key-value-style-priority-strip .key-value-cell {
+      background:
+        linear-gradient(90deg, rgba(88, 193, 178, 0.11), transparent 48px),
+        rgba(255, 255, 255, 0.04);
+    }

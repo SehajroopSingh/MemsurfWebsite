@@ -1,0 +1,47 @@
+/* RecallPromptCell copies of shared renderer rules. The source rules intentionally remain in renderer.css. */
+
+.recall-question {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+@media (prefers-reduced-motion: reduce) {
+      .recall-answer-panel,
+.recall-cover {
+        animation: none;
+        opacity: 1;
+        filter: none;
+      }
+}
+@media (prefers-reduced-motion: reduce) {
+
+      .recall-answer-panel {
+        transform: none;
+      }
+}
+.cell-card.recall-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+.recall-peel {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+.cell-card.recall-card {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+.grid-shell .cell-card.recall-card {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+.recall-card .recall-cover,
+.recall-card .recall-answer-panel,
+.recall-card .recall-question,
+.recall-card .recall-answer-label,
+.recall-card .recall-answer-copy {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }

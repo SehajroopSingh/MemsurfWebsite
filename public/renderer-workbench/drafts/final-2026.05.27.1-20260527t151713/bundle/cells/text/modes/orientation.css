@@ -1,0 +1,605 @@
+/* TextCell styles copied from renderer.css for local workbench overrides. */
+
+.cell-card.text-mode-orientation {
+      justify-content: center;
+      padding: 16px 18px 14px;
+      border-color: rgba(74, 120, 210, 0.12);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(248, 251, 255, 0.32)),
+        var(--card-bg);
+      box-shadow:
+        0 10px 22px rgba(39, 76, 119, 0.055),
+        inset 0 -1px 0 rgba(74, 120, 210, 0.12);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-mode-orientation {
+      border-color: rgba(126, 161, 255, 0.14);
+      background:
+        linear-gradient(180deg, rgba(27, 38, 58, 0.74), rgba(15, 22, 37, 0.54)),
+        var(--card-bg);
+      box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.14),
+        inset 0 -1px 0 rgba(126, 161, 255, 0.14);
+    }
+
+    .cell-card.text-mode-orientation .orientation-copy-wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      max-width: 760px;
+    }
+
+    .cell-card.text-mode-orientation .orientation-copy {
+      color: var(--heading);
+      font-size: 18px;
+      line-height: 1.30;
+      font-weight: 780;
+      text-wrap: balance;
+      text-align: center;
+    }
+
+    .cell-card.text-mode-orientation .text-cell-orientation {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    .cell-card.text-style-glass-card.text-mode-orientation .text-cell-orientation {
+      padding: 10px 2px 12px;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      overflow: visible;
+    }
+
+    .cell-card.text-style-glass-card.text-mode-orientation .text-cell-orientation::after {
+      content: "";
+      display: block;
+      align-self: center;
+      width: min(280px, 70%);
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(184, 242, 230, 0.18) 0%, rgba(60, 201, 163, 0.58) 32%, rgba(212, 165, 255, 0.68) 58%, rgba(184, 242, 230, 0.18) 100%);
+      box-shadow:
+        0 0 12px rgba(60, 201, 163, 0.16),
+        0 0 18px rgba(212, 165, 255, 0.12),
+        0 2px 8px rgba(184, 242, 230, 0.10);
+    }
+
+    .cell-card.text-style-glass-card.text-mode-orientation .orientation-copy {
+      font-size: 21px;
+      line-height: 1.24;
+      font-weight: 760;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .cell-card.text-style-glass-card.text-mode-orientation .orientation-copy-wrap {
+      align-items: center;
+      max-width: 720px;
+    }
+
+    .cell-card.text-style-edge-note.text-mode-orientation .text-cell-orientation {
+      padding: 12px 4px;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      overflow: visible;
+    }
+
+    .cell-card.text-style-edge-note.text-mode-orientation .text-cell-orientation::before,
+.cell-card.text-style-edge-note.text-mode-orientation .text-cell-orientation::after {
+      content: "";
+      display: block;
+      align-self: center;
+      width: min(520px, 96%);
+      height: 22px;
+      background:
+        radial-gradient(circle at 5% 50%, rgba(60, 60, 67, 0.72) 0 3.5px, transparent 4px),
+        radial-gradient(circle at 95% 50%, rgba(60, 60, 67, 0.72) 0 3.5px, transparent 4px),
+        linear-gradient(45deg, transparent 42%, rgba(60, 201, 163, 0.98) 42% 58%, transparent 58%) center / 24px 24px no-repeat,
+        linear-gradient(-45deg, transparent 42%, rgba(60, 201, 163, 0.98) 42% 58%, transparent 58%) center / 24px 24px no-repeat,
+        linear-gradient(90deg, transparent 0 3%, rgba(60, 60, 67, 0.58) 3% 40%, transparent 40% 60%, rgba(60, 60, 67, 0.58) 60% 97%, transparent 97%) center 5px / 100% 3px no-repeat,
+        linear-gradient(90deg, transparent 0 10%, rgba(60, 60, 67, 0.38) 10% 43%, rgba(60, 201, 163, 0.90) 43% 57%, rgba(60, 60, 67, 0.38) 57% 90%, transparent 90%) center 14px / 100% 3px no-repeat;
+    }
+
+    .cell-card.text-style-edge-note.text-mode-orientation .orientation-copy {
+      color: var(--heading);
+      font-size: 19px;
+      line-height: 1.30;
+      font-weight: 720;
+      text-align: center;
+    }
+
+    .cell-card.text-style-edge-note.text-mode-orientation .orientation-copy-wrap {
+      align-items: center;
+      max-width: 720px;
+    }
+
+    .cell-card.text-style-frosted-panel.text-mode-orientation .text-cell-orientation {
+      padding: 18px 18px 20px;
+      border-radius: 22px;
+      border: 0;
+      background: transparent;
+      box-shadow:
+        0 8px 18px rgba(39, 76, 119, 0.030);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .cell-card.text-style-frosted-panel.text-mode-orientation .text-cell-orientation::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      border-radius: inherit;
+      background: linear-gradient(0deg, rgba(74, 120, 210, 0.13) 0%, rgba(74, 120, 210, 0.074) 32%, rgba(74, 120, 210, 0.020) 50%, rgba(74, 120, 210, 0) 64%);
+      pointer-events: none;
+    }
+
+    .cell-card.text-style-frosted-panel.text-mode-orientation .text-cell-orientation::after {
+      content: "";
+      display: block;
+      position: relative;
+      z-index: 1;
+      align-self: center;
+      width: min(286px, 76%);
+      height: 12px;
+      background:
+        radial-gradient(ellipse 23px 13px at left 50%, transparent 0 34%, rgba(74, 120, 210, 0.50) 36% 48%, transparent 51%) left center / 46px 100% no-repeat,
+        radial-gradient(ellipse 23px 13px at right 50%, transparent 0 34%, rgba(74, 120, 210, 0.50) 36% 48%, transparent 51%) right center / 46px 100% no-repeat,
+        radial-gradient(circle at 27px 50%, rgba(74, 120, 210, 0.40) 0 3px, transparent 4px) left center / 58px 100% no-repeat,
+        radial-gradient(circle at calc(100% - 27px) 50%, rgba(74, 120, 210, 0.40) 0 3px, transparent 4px) right center / 58px 100% no-repeat,
+        linear-gradient(90deg, rgba(74, 120, 210, 0.08), rgba(74, 120, 210, 0.66), rgba(74, 120, 210, 0.08)) center / calc(100% - 40px) 5px no-repeat,
+        linear-gradient(90deg, transparent, rgba(74, 120, 210, 0.22), transparent) center calc(50% + 4px) / calc(100% - 70px) 2px no-repeat;
+    }
+
+    .cell-card.text-style-frosted-panel.text-mode-orientation .orientation-copy {
+      font-size: 21px;
+      line-height: 1.24;
+      font-weight: 760;
+      text-align: center;
+    }
+
+    .cell-card.text-style-notification.text-mode-orientation .text-cell-orientation {
+      padding: 16px 2px 12px;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      gap: 10px;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .cell-card.text-style-notification.text-mode-orientation .text-cell-orientation::before {
+      content: "";
+      position: absolute;
+      inset: 5px 18px 18px;
+      z-index: 0;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.10)),
+        radial-gradient(ellipse at center, rgba(74, 120, 210, 0.16) 0%, rgba(74, 120, 210, 0.075) 48%, rgba(74, 120, 210, 0) 76%);
+      filter: blur(7px);
+      pointer-events: none;
+    }
+
+    .cell-card.text-style-notification.text-mode-orientation .text-cell-orientation::after {
+      content: "";
+      display: block;
+      position: relative;
+      z-index: 1;
+      align-self: center;
+      width: min(286px, 68%);
+      height: 18px;
+      margin-top: 2px;
+      border-radius: 999px;
+      background:
+        radial-gradient(ellipse 46px 16px at 78% 48%, rgba(255, 255, 255, 0.58), transparent 66%),
+        linear-gradient(115deg, transparent 0 74%, rgba(74, 120, 210, 0.22) 74% 82%, transparent 82%),
+        linear-gradient(180deg, rgba(74, 120, 210, 0.18), rgba(74, 120, 210, 0.055) 54%, rgba(74, 120, 210, 0)),
+        linear-gradient(90deg, rgba(74, 120, 210, 0), rgba(74, 120, 210, 0.28) 22%, rgba(74, 120, 210, 0.42) 52%, rgba(74, 120, 210, 0.20) 78%, rgba(74, 120, 210, 0));
+      filter: blur(0.1px);
+    }
+
+    .cell-card.text-style-notification.text-mode-orientation .orientation-copy {
+      text-align: center;
+    }
+
+    .cell-card.text-style-notification.text-mode-orientation .orientation-copy-wrap {
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cell-card.text-style-notification.text-mode-orientation .orientation-copy {
+      font-size: 20px;
+      line-height: 1.26;
+      font-weight: 730;
+    }
+
+    .cell-card.text-style-paper-note.text-mode-orientation .text-cell-orientation {
+      padding: 30px 24px 28px;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      text-align: left;
+      align-items: flex-start;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .cell-card.text-style-paper-note.text-mode-orientation .text-cell-orientation::before,
+.cell-card.text-style-paper-note.text-mode-orientation .text-cell-orientation::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .cell-card.text-style-paper-note.text-mode-orientation .text-cell-orientation::before {
+      inset: 0 6px;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse at center, rgba(255, 255, 255, 0.74) 0%, rgba(245, 247, 250, 0.42) 34%, rgba(235, 238, 244, 0.16) 58%, rgba(235, 238, 244, 0) 78%);
+      filter: blur(0.2px);
+    }
+
+    .cell-card.text-style-paper-note.text-mode-orientation .text-cell-orientation::after {
+      left: 50%;
+      bottom: 14px;
+      z-index: 1;
+      width: 34px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(60, 60, 67, 0.18);
+      transform: translateX(-50%);
+    }
+
+    .cell-card.text-style-paper-note.text-mode-orientation .orientation-copy {
+      text-align: left;
+    }
+
+    .cell-card.text-style-paper-note.text-mode-orientation .orientation-copy-wrap {
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 740px;
+      padding-left: 16px;
+    }
+
+    .cell-card.text-style-paper-note.text-mode-orientation .orientation-copy-wrap::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 4px;
+      height: calc(100% - 4px);
+      min-height: 28px;
+      max-height: 52px;
+      border-radius: 999px;
+      background: rgba(60, 60, 67, 0.20);
+      transform: translateY(-50%);
+    }
+
+    .cell-card.text-style-paper-note.text-mode-orientation .orientation-copy {
+      color: #2f302d;
+      font-size: 21px;
+      line-height: 1.32;
+      font-weight: 680;
+    }
+
+    .cell-card.text-style-corner-focus.text-mode-orientation .text-cell-orientation {
+      padding: 34px 28px;
+      background: transparent;
+      box-shadow: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cell-card.text-style-corner-focus.text-mode-orientation .text-cell-orientation::before,
+.cell-card.text-style-corner-focus.text-mode-orientation .text-cell-orientation::after {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      opacity: 0.88;
+      pointer-events: none;
+    }
+
+    .cell-card.text-style-corner-focus.text-mode-orientation .text-cell-orientation::before {
+      left: 8px;
+      top: 8px;
+      border-left: 8px solid rgba(60, 60, 67, 0.30);
+      border-top: 8px solid rgba(60, 60, 67, 0.30);
+      border-top-left-radius: 10px;
+    }
+
+    .cell-card.text-style-corner-focus.text-mode-orientation .text-cell-orientation::after {
+      right: 8px;
+      bottom: 8px;
+      border-right: 8px solid rgba(60, 60, 67, 0.28);
+      border-bottom: 8px solid rgba(60, 60, 67, 0.28);
+      border-bottom-right-radius: 10px;
+    }
+
+    .cell-card.text-style-corner-focus.text-mode-orientation .orientation-copy {
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.38;
+      font-weight: 620;
+      text-align: center;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-glass-card.text-mode-orientation .text-cell-orientation {
+      border-color: rgba(235, 235, 245, 0.18);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-glass-card.text-mode-orientation .text-cell-orientation::after {
+      background: linear-gradient(90deg, rgba(184, 242, 230, 0.14) 0%, rgba(60, 201, 163, 0.50) 34%, rgba(212, 165, 255, 0.62) 62%, rgba(184, 242, 230, 0.14) 100%);
+      box-shadow:
+        0 0 12px rgba(60, 201, 163, 0.18),
+        0 0 18px rgba(212, 165, 255, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.16);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-edge-note.text-mode-orientation .text-cell-orientation {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-edge-note.text-mode-orientation .text-cell-orientation::before,
+:root[data-theme="dark"] .cell-card.text-style-edge-note.text-mode-orientation .text-cell-orientation::after {
+      background:
+        radial-gradient(circle at 5% 50%, rgba(235, 235, 245, 0.62) 0 3.5px, transparent 4px),
+        radial-gradient(circle at 95% 50%, rgba(235, 235, 245, 0.62) 0 3.5px, transparent 4px),
+        linear-gradient(45deg, transparent 42%, rgba(184, 242, 230, 0.88) 42% 58%, transparent 58%) center / 24px 24px no-repeat,
+        linear-gradient(-45deg, transparent 42%, rgba(184, 242, 230, 0.88) 42% 58%, transparent 58%) center / 24px 24px no-repeat,
+        linear-gradient(90deg, transparent 0 3%, rgba(235, 235, 245, 0.44) 3% 40%, transparent 40% 60%, rgba(235, 235, 245, 0.44) 60% 97%, transparent 97%) center 5px / 100% 3px no-repeat,
+        linear-gradient(90deg, transparent 0 10%, rgba(235, 235, 245, 0.30) 10% 43%, rgba(60, 201, 163, 0.76) 43% 57%, rgba(235, 235, 245, 0.30) 57% 90%, transparent 90%) center 14px / 100% 3px no-repeat;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-frosted-panel.text-mode-orientation .text-cell-orientation {
+      background: transparent;
+      box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-frosted-panel.text-mode-orientation .text-cell-orientation::before {
+      background: linear-gradient(0deg, rgba(126, 161, 255, 0.15) 0%, rgba(126, 161, 255, 0.084) 32%, rgba(126, 161, 255, 0.024) 50%, rgba(126, 161, 255, 0) 64%);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-frosted-panel.text-mode-orientation .text-cell-orientation::after {
+      background:
+        radial-gradient(ellipse 23px 13px at left 50%, transparent 0 34%, rgba(235, 235, 245, 0.42) 36% 48%, transparent 51%) left center / 46px 100% no-repeat,
+        radial-gradient(ellipse 23px 13px at right 50%, transparent 0 34%, rgba(235, 235, 245, 0.42) 36% 48%, transparent 51%) right center / 46px 100% no-repeat,
+        radial-gradient(circle at 27px 50%, rgba(235, 235, 245, 0.34) 0 3px, transparent 4px) left center / 58px 100% no-repeat,
+        radial-gradient(circle at calc(100% - 27px) 50%, rgba(235, 235, 245, 0.34) 0 3px, transparent 4px) right center / 58px 100% no-repeat,
+        linear-gradient(90deg, rgba(235, 235, 245, 0.08), rgba(235, 235, 245, 0.50), rgba(235, 235, 245, 0.08)) center / calc(100% - 40px) 5px no-repeat,
+        linear-gradient(90deg, transparent, rgba(235, 235, 245, 0.18), transparent) center calc(50% + 4px) / calc(100% - 70px) 2px no-repeat;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-notification.text-mode-orientation .text-cell-orientation {
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-notification.text-mode-orientation .text-cell-orientation::before {
+      background:
+        linear-gradient(180deg, rgba(235, 235, 245, 0.10), rgba(235, 235, 245, 0.035)),
+        radial-gradient(ellipse at center, rgba(126, 161, 255, 0.18) 0%, rgba(126, 161, 255, 0.075) 48%, rgba(126, 161, 255, 0) 76%);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-notification.text-mode-orientation .text-cell-orientation::after {
+      background:
+        radial-gradient(ellipse 46px 16px at 78% 48%, rgba(255, 255, 255, 0.14), transparent 66%),
+        linear-gradient(115deg, transparent 0 74%, rgba(235, 235, 245, 0.16) 74% 82%, transparent 82%),
+        linear-gradient(180deg, rgba(126, 161, 255, 0.18), rgba(126, 161, 255, 0.06) 54%, rgba(126, 161, 255, 0)),
+        linear-gradient(90deg, rgba(235, 235, 245, 0), rgba(235, 235, 245, 0.18) 22%, rgba(235, 235, 245, 0.30) 52%, rgba(235, 235, 245, 0.14) 78%, rgba(235, 235, 245, 0));
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-paper-note.text-mode-orientation .text-cell-orientation {
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-paper-note.text-mode-orientation .text-cell-orientation::before {
+      background:
+        radial-gradient(ellipse at center, rgba(235, 235, 245, 0.16) 0%, rgba(126, 161, 255, 0.09) 36%, rgba(126, 161, 255, 0.035) 58%, rgba(126, 161, 255, 0) 78%);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-paper-note.text-mode-orientation .text-cell-orientation::after {
+      background: rgba(235, 235, 245, 0.22);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-paper-note.text-mode-orientation .orientation-copy-wrap::before {
+      background: rgba(235, 235, 245, 0.22);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-paper-note.text-mode-orientation .orientation-copy {
+      color: rgba(245, 245, 247, 0.92);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-corner-focus.text-mode-orientation .text-cell-orientation::before {
+      border-left-color: rgba(235, 235, 245, 0.30);
+      border-top-color: rgba(235, 235, 245, 0.30);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-corner-focus.text-mode-orientation .text-cell-orientation::after {
+      border-right-color: rgba(235, 235, 245, 0.28);
+      border-bottom-color: rgba(235, 235, 245, 0.28);
+    }
+
+    .cell-card.sequence-active.text-mode-orientation {
+      animation: orientation-surface-in 520ms cubic-bezier(0.18, 0.86, 0.2, 1) both;
+    }
+
+    .cell-card.sequence-active.text-mode-orientation .orientation-copy {
+      animation: orientation-copy-in 560ms cubic-bezier(0.18, 0.86, 0.2, 1) 80ms both;
+    }
+
+    .cell-card.sequence-active.text-style-corner-focus.text-mode-orientation .text-cell-orientation::before,
+.cell-card.sequence-active.text-style-corner-focus.text-mode-orientation .text-cell-orientation::after {
+      animation: orientation-corner-in 620ms cubic-bezier(0.18, 0.86, 0.2, 1) 120ms both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cell-card.sequence-active.text-mode-orientation,
+.cell-card.sequence-active.text-mode-orientation .orientation-copy,
+.cell-card.sequence-active.text-style-corner-focus.text-mode-orientation .text-cell-orientation::before,
+.cell-card.sequence-active.text-style-corner-focus.text-mode-orientation .text-cell-orientation::after,
+.cell-card.sequence-active.text-style-floating-label .warning-head,
+.cell-card.sequence-active.text-style-center-focus .warning-icon,
+.cell-card.sequence-active.text-style-quiet-rule .warning-ornament {
+        animation: none;
+        transform: none;
+        filter: none;
+      }
+}
+
+    .cell-card.text-mode-orientation .text-cell-orientation {
+      justify-content: center !important;
+    }
+
+    .cell-card.text-mode-orientation .orientation-copy-wrap {
+      max-width: none !important;
+      width: 100%;
+    }
+
+    .cell-card.text-mode-orientation.text-style-notification .text-cell-orientation,
+.cell-card.text-mode-orientation.text-style-paper-note .text-cell-orientation {
+      align-self: flex-start !important;
+      align-items: flex-start !important;
+      text-align: left !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-frosted-panel .text-cell-orientation,
+.cell-card.text-mode-orientation.text-style-corner-focus .text-cell-orientation {
+      align-items: center !important;
+      text-align: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-glass-card .text-cell-orientation {
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-edge-note .text-cell-orientation {
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-paper-note .orientation-copy-wrap {
+      align-items: flex-start !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-frosted-panel .orientation-copy-wrap,
+.cell-card.text-mode-orientation.text-style-corner-focus .orientation-copy-wrap {
+      align-items: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-glass-card .orientation-copy-wrap {
+      align-items: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-edge-note .orientation-copy-wrap {
+      align-items: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-paper-note .orientation-copy {
+      text-align: left !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-frosted-panel .orientation-copy,
+.cell-card.text-mode-orientation.text-style-corner-focus .orientation-copy {
+      text-align: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-glass-card .orientation-copy {
+      text-align: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-edge-note .orientation-copy {
+      text-align: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-notification .text-cell-orientation {
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-notification .orientation-copy-wrap {
+      align-items: center !important;
+    }
+
+    .cell-card.text-mode-orientation.text-style-notification .orientation-copy {
+      text-align: center !important;
+    }
+
+    @keyframes orientation-surface-in {
+      from {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        filter: none;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes orientation-copy-in {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes orientation-corner-in {
+      from {
+        opacity: 0;
+        transform: scale(0.88);
+      }
+      to {
+        opacity: 0.72;
+        transform: scale(1);
+      }
+    }

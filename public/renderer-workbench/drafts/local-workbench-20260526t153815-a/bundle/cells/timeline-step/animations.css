@@ -1,0 +1,168 @@
+/* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
+
+.cell-card.timeline-card.timeline-card-enter::before {
+      display: none;
+    }
+
+    .cell-card.timeline-card.timeline-card-enter > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .flow-connector-layer-enter {
+      opacity: 0;
+      animation: flowConnectorLayerEnter 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 240ms;
+    }
+
+    .flow-connector-layer-enter .timeline-flow-connector {
+      stroke-dasharray: var(--path-length, 420);
+      stroke-dashoffset: var(--path-length, 420);
+      animation: timeline-connector-enter var(--connector-duration, 1300ms) cubic-bezier(0.18, 0.72, 0.22, 1) both;
+      animation-delay: var(--connector-delay, 170ms);
+    }
+
+    .flow-connector-layer-enter .timeline-flow-connector-glow {
+      stroke-dasharray: var(--path-length, 420);
+      stroke-dashoffset: var(--path-length, 420);
+      animation: timeline-connector-glow-enter var(--connector-duration, 1300ms) cubic-bezier(0.18, 0.72, 0.22, 1) both;
+      animation-delay: var(--connector-delay, 170ms);
+    }
+
+    .timeline-card-enter .timeline-node-glow {
+      opacity: 0;
+      transform: scale(0.55);
+      animation: timeline-node-glow-enter 860ms ease-out both;
+      animation-delay: var(--timeline-point-delay, 120ms);
+    }
+
+    .timeline-card-enter .timeline-node {
+      transform: scale(0.44);
+      animation: timeline-node-enter 760ms cubic-bezier(0.22, 1.35, 0.28, 1) both;
+      animation-delay: var(--timeline-point-delay, 120ms);
+    }
+
+    .timeline-card-enter .timeline-date-chip {
+      opacity: 0;
+      transform: translateY(5px);
+      animation: timeline-date-enter 620ms cubic-bezier(0.2, 0.78, 0.26, 1) both;
+      animation-delay: var(--timeline-date-delay, 920ms);
+    }
+
+    .timeline-card-enter .timeline-event {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: timeline-text-enter 980ms cubic-bezier(0.18, 0.72, 0.22, 1) both;
+      animation-delay: var(--timeline-content-delay, 1410ms);
+    }
+
+    .timeline-card-enter .timeline-description {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: timeline-text-enter 940ms cubic-bezier(0.18, 0.72, 0.22, 1) both;
+      animation-delay: var(--timeline-note-delay, 1540ms);
+    }
+
+    .timeline-card-enter .timeline-note {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: timeline-text-enter 940ms cubic-bezier(0.18, 0.72, 0.22, 1) both;
+      animation-delay: var(--timeline-note-delay, 1620ms);
+    }
+
+    @keyframes timeline-node-enter {
+      0% {
+        opacity: 0;
+        transform: scale(0.44);
+      }
+      46% {
+        opacity: 1;
+        transform: scale(1.22);
+      }
+      64% {
+        opacity: 1;
+        transform: scale(0.92);
+      }
+      82% {
+        opacity: 1;
+        transform: scale(1.07);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes timeline-node-glow-enter {
+      0% {
+        opacity: 0;
+        transform: scale(0.55);
+      }
+      46% {
+        opacity: 0.90;
+        transform: scale(1.28);
+      }
+      100% {
+        opacity: 0.72;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes timeline-date-enter {
+      0% {
+        opacity: 0;
+        transform: translateY(6px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes timeline-text-enter {
+      0% {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes timeline-connector-enter {
+      0% {
+        opacity: 0;
+        stroke-dashoffset: var(--path-length, 420);
+      }
+      18% {
+        opacity: 0.62;
+      }
+      100% {
+        opacity: 0.62;
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes timeline-connector-glow-enter {
+      0% {
+        opacity: 0;
+        stroke-dashoffset: var(--path-length, 420);
+      }
+      18% {
+        opacity: 0.24;
+      }
+      100% {
+        opacity: 0.24;
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes flowConnectorLayerEnter {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }

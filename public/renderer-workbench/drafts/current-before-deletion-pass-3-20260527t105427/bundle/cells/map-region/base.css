@@ -1,0 +1,47 @@
+/* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.map-region-card .eyebrow {
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .cell-card.map-region-card[class*="cell-style-"] {
+      --cell-style-accent: var(--accent-0);
+      --cell-style-accent-2: var(--accent-1);
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .cell-card.map-region-card,
+.cell-card.map-region-card[class*="cell-style-"],
+:root[data-theme="dark"] .cell-card.map-region-card,
+:root[data-theme="dark"] .cell-card.map-region-card[class*="cell-style-"] {
+      border: 0 !important;
+      border-color: transparent !important;
+      outline: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .cell-card.map-region-card::before,
+.cell-card.map-region-card::after {
+      display: none !important;
+      background: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.map-region-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .grid-shell .cell-card.map-region-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }

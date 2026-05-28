@@ -1,0 +1,16 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+@media (max-width: 620px) {
+
+      .key-value-row {
+        grid-template-columns: 1fr;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .key-value-key {
+        border-right: 0;
+        border-bottom: 1px solid var(--surface-line);
+      }
+}

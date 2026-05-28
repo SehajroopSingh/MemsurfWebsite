@@ -1,0 +1,24 @@
+/* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.math-expression-card.cell-style-glass {
+      border-color: rgba(255,255,255,0.52);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.68), rgba(239,245,255,0.46)),
+        var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .math-expression-card.cell-style-glass {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .math-expression-card.cell-style-glass .formula-stage {
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.34),
+        0 12px 28px rgba(74, 120, 210, 0.10);
+    }

@@ -1,0 +1,218 @@
+/* RecallPromptCell base styles copied from renderer.css. The source rules intentionally remain in renderer.css. */
+
+.cell-card.recall-card {
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      outline: none;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.recall-card {
+      border: 0;
+      outline: none;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .recall-card .recall-peel {
+      position: relative;
+      display: grid;
+      width: 100%;
+      min-height: 148px;
+      border-radius: inherit;
+      overflow: hidden;
+      isolation: isolate;
+      perspective: 920px;
+      color: var(--text);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .support-card .recall-peel {
+      min-height: 138px;
+      border-radius: 18px;
+    }
+
+    .cell-card.recall-card .recall-peel {
+      min-height: 100%;
+      border-radius: 20px;
+    }
+
+    .recall-card .recall-peel[data-has-answer="false"] {
+      cursor: default;
+    }
+
+    .recall-card .recall-answer-panel,
+    .recall-card .recall-cover {
+      grid-area: 1 / 1;
+      min-height: 148px;
+      padding: 16px 18px;
+      border-radius: inherit;
+    }
+
+    .support-card .recall-answer-panel,
+    .support-card .recall-cover {
+      min-height: 138px;
+    }
+
+    .cell-card.recall-card .recall-answer-panel,
+    .cell-card.recall-card .recall-cover {
+      min-height: 100%;
+    }
+
+    .recall-card .recall-answer-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      padding-right: 64px;
+      border: 1px solid rgba(47, 143, 131, 0.22);
+      background:
+        radial-gradient(circle at 92% 18%, rgba(88, 193, 178, 0.20), transparent 48px),
+        linear-gradient(145deg, rgba(239, 255, 250, 0.84), rgba(239, 245, 255, 0.68)),
+        var(--card-bg);
+      opacity: 0.42;
+      transform: translateX(18px);
+      transition:
+        opacity 340ms ease,
+        transform 520ms cubic-bezier(0.2, 0.86, 0.22, 1);
+    }
+
+    :root[data-theme="dark"] .recall-card .recall-answer-panel {
+      border-color: rgba(88, 193, 178, 0.22);
+      background:
+        radial-gradient(circle at 92% 18%, rgba(88, 193, 178, 0.14), transparent 48px),
+        linear-gradient(145deg, rgba(18, 48, 43, 0.70), rgba(15, 22, 37, 0.74)),
+        var(--card-bg);
+    }
+
+    .recall-card .recall-peel.is-revealed .recall-answer-panel {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .recall-card .recall-cover {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid rgba(74, 120, 210, 0.20);
+      background:
+        radial-gradient(circle at 18px 18px, rgba(126, 161, 255, 0.22), transparent 42px),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(239, 245, 255, 0.82) 54%, rgba(245, 241, 255, 0.70)),
+        var(--card-bg-strong);
+      box-shadow:
+        0 18px 34px rgba(48, 79, 139, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+      transform: translateX(0) rotateY(0);
+      transform-origin: right center;
+      will-change: transform;
+      transition:
+        transform 560ms cubic-bezier(0.2, 0.86, 0.22, 1),
+        box-shadow 560ms cubic-bezier(0.2, 0.86, 0.22, 1);
+    }
+
+    :root[data-theme="dark"] .recall-card .recall-cover {
+      border-color: rgba(126, 161, 255, 0.20);
+      background:
+        radial-gradient(circle at 18px 18px, rgba(126, 161, 255, 0.15), transparent 42px),
+        linear-gradient(145deg, rgba(28, 39, 62, 0.88), rgba(15, 22, 37, 0.82) 56%, rgba(34, 27, 55, 0.68)),
+        var(--card-bg-strong);
+      box-shadow:
+        0 20px 38px rgba(2, 8, 20, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .recall-card .recall-peel.is-revealed .recall-cover {
+      transform: translateX(calc(100% - 44px)) rotateY(8deg);
+      box-shadow:
+        -22px 0 34px rgba(48, 79, 139, 0.18),
+        inset 1px 0 0 rgba(255, 255, 255, 0.34);
+    }
+
+    :root[data-theme="dark"] .recall-card .recall-peel.is-revealed .recall-cover {
+      box-shadow:
+        -22px 0 34px rgba(2, 8, 20, 0.38),
+        inset 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .recall-card .recall-peel-edge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 28px;
+      border-left: 1px solid rgba(74, 120, 210, 0.16);
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.42)),
+        linear-gradient(180deg, rgba(126, 161, 255, 0.16), rgba(88, 193, 178, 0.10));
+      box-shadow: -8px 0 18px rgba(48, 79, 139, 0.08);
+    }
+
+    :root[data-theme="dark"] .recall-card .recall-peel-edge {
+      border-left-color: rgba(126, 161, 255, 0.14);
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.10)),
+        linear-gradient(180deg, rgba(126, 161, 255, 0.14), rgba(88, 193, 178, 0.08));
+      box-shadow: -8px 0 18px rgba(2, 8, 20, 0.28);
+    }
+
+    .recall-card .recall-question {
+      font-weight: 690;
+    }
+
+    .recall-card .recall-reveal-hint {
+      align-self: flex-start;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(74, 120, 210, 0.11);
+      color: var(--accent-1);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 740;
+    }
+
+    .recall-card .recall-answer-label {
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--accent-0);
+    }
+
+    .recall-card .recall-answer-copy {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--text);
+      font-weight: 620;
+    }
+
+    .recall-card .recall-peel:focus-visible .recall-cover {
+      outline: 2px solid color-mix(in srgb, var(--accent-1) 58%, transparent);
+      outline-offset: -4px;
+    }
+
+    @media (hover: hover) {
+      .recall-card .recall-peel[data-has-answer="true"]:not(.is-revealed):hover .recall-cover {
+        transform: translateX(8px) rotateY(2deg);
+      }
+}
+
+    .cell-card.recall-card .recall-peel {
+      margin-left: 0 !important;
+      width: 100%;
+    }
+
+    .cell-card.recall-card .recall-cover,
+    .cell-card.recall-card .recall-answer-panel {
+      padding-left: 18px !important;
+    }

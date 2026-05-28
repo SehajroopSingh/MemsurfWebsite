@@ -1,0 +1,15 @@
+/* RecallPromptCell Peel style copied from renderer.css. The source rules intentionally remain in renderer.css. */
+
+.cell-card.recall-card.cell-style-peel {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.86), rgba(238, 255, 250, 0.52)),
+        var(--card-bg);
+      border-color: rgba(47, 143, 131, 0.20);
+    }
+        .recall-card.cell-style-peel .recall-peel-edge {
+      width: 46px;
+      height: 46px;
+    }
+        .recall-card.cell-style-peel .recall-peel.is-revealed .recall-cover {
+      transform: translateX(calc(100% - 44px));
+    }

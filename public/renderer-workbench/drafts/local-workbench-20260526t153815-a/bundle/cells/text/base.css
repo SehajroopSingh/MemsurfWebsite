@@ -1,0 +1,286 @@
+/* TextCell styles copied from renderer.css for local workbench overrides. */
+
+.text-cell {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .text-cell-orientation {
+      position: relative;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      text-align: center;
+      overflow: visible;
+    }
+
+    .text-cell-kicker {
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 760;
+    }
+
+    .text-cell-definition {
+      display: block;
+    }
+
+    .text-cell-quote {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 10px 12px;
+      align-items: start;
+      margin: 0;
+      min-width: 0;
+    }
+
+    .text-cell-rule {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .text-cell-example {
+      flex-direction: column;
+      gap: 11px;
+      position: relative;
+    }
+
+    .text-cell-warning {
+      flex-direction: column;
+      gap: 9px;
+      padding: 12px;
+      border-radius: 18px;
+      overflow: visible;
+    }
+
+    .text-cell-caption {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 8px 10px;
+      align-items: start;
+    }
+
+    .cell-card[class*="text-style-"] .text-cell {
+      isolation: isolate;
+    }
+
+    .cell-card.text-style-lexicon .text-cell-definition {
+      padding: 0;
+      border: 0;
+    }
+
+    .cell-card.text-style-specimen .text-cell-definition::before {
+      content: "";
+      position: absolute;
+      inset: -7px -7px auto auto;
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      border: 1px dashed rgba(123, 105, 239, 0.38);
+      transform: rotate(7deg);
+      opacity: 0.60;
+    }
+
+    .cell-card.text-style-specimen .text-cell-definition {
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px dashed rgba(123, 105, 239, 0.28);
+      background:
+        linear-gradient(90deg, rgba(123, 105, 239, 0.08) 0 1px, transparent 1px 22px),
+        linear-gradient(rgba(123, 105, 239, 0.08) 0 1px, transparent 1px 22px),
+        rgba(123, 105, 239, 0.045);
+      background-size: 22px 22px, 22px 22px, auto;
+    }
+
+    .cell-card.text-style-aperture .text-cell-quote::after {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: -12px;
+      width: 74px;
+      height: 74px;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 120, 210, 0.22);
+      clip-path: polygon(0 0, 100% 0, 100% 62%, 0 100%);
+      opacity: 0.68;
+      z-index: -1;
+    }
+
+    .cell-card.text-style-margin .text-cell-quote {
+      grid-template-columns: 12px minmax(0, 1fr);
+      border-left: 2px solid rgba(35, 82, 128, 0.24);
+      padding-left: 14px;
+    }
+
+    .cell-card.text-style-signal .text-cell-quote {
+      padding: 14px 14px 14px 16px;
+      border-radius: 18px;
+      background:
+        repeating-linear-gradient(135deg, rgba(74, 120, 210, 0.10) 0 1px, transparent 1px 9px),
+        rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(74, 120, 210, 0.18);
+    }
+
+    .cell-card.text-style-compass .text-cell-rule {
+      gap: 13px;
+      padding: 4px 0 4px 2px;
+      background: transparent;
+      border: 0;
+    }
+
+    .cell-card.text-style-circuit .text-cell-rule {
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 100%;
+      padding: 8px 10px;
+      text-align: center;
+    }
+
+    .cell-card.text-style-stamp .text-cell-rule {
+      position: relative;
+      gap: 0;
+      padding: 0;
+      overflow: visible;
+    }
+
+    .cell-card.text-style-floating-label .text-cell-warning {
+      padding: 18px 0 0;
+      gap: 0;
+      overflow: visible;
+    }
+
+    .cell-card.text-style-center-focus .text-cell-warning {
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px 18px;
+      text-align: center;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 216, 167, 0.36), transparent 78px),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(244, 246, 255, 0.46));
+      border: 1px solid rgba(221, 214, 255, 0.34);
+      box-shadow:
+        0 18px 40px rgba(123, 105, 239, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .cell-card.text-style-quiet-rule .text-cell-warning {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr);
+      gap: 8px 12px;
+      padding: 7px 0 7px 2px;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-center-focus .text-cell-warning {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 216, 167, 0.12), transparent 78px),
+        linear-gradient(145deg, rgba(24, 32, 48, 0.72), rgba(28, 26, 45, 0.54));
+      border-color: rgba(221, 214, 255, 0.16);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .cell-card.text-style-plate .text-cell-caption {
+      grid-template-columns: 1fr;
+      padding: 10px;
+      border-radius: 12px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(102, 118, 146, 0.18);
+      background: rgba(102, 118, 146, 0.050);
+    }
+
+    .cell-card.text-style-filmstrip .text-cell-caption {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 0;
+      border-top: 2px dotted rgba(102, 118, 146, 0.30);
+      border-bottom: 2px dotted rgba(102, 118, 146, 0.30);
+    }
+
+    .cell-card.text-style-whisper .text-cell-caption {
+      grid-template-columns: 8px minmax(0, 1fr);
+      padding: 2px 0;
+    }
+
+    .text-stage-icon {
+      --text-stage-delay: 70ms;
+    }
+
+    .text-stage-kicker {
+      --text-stage-delay: 180ms;
+    }
+
+    .text-stage-title {
+      --text-stage-delay: 240ms;
+    }
+
+    .text-stage-body {
+      --text-stage-delay: 310ms;
+    }
+
+    .text-stage-frame {
+      --text-stage-delay: 460ms;
+    }
+
+    .cell-card.sequence-active .text-stage {
+      animation: text-stage-enter 620ms cubic-bezier(0.18, 0.9, 0.18, 1) both;
+      animation-delay: var(--text-stage-delay, 0ms);
+    }
+
+    .cell-card.sequence-active.text-style-signal .text-cell-quote {
+      animation: text-scan-enter 900ms cubic-bezier(0.16, 0.86, 0.2, 1) 260ms both;
+    }
+
+    @media (max-width: 620px) {
+
+      .text-cell-warning {
+        grid-template-columns: 1fr;
+      }
+}
+
+    .cell-card[class*="text-mode-"] .text-cell {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .cell-card.text-style-margin .text-cell-quote {
+      padding-left: 14px !important;
+      border-left-width: 2px !important;
+    }
+
+    .cell-card.text-style-signal .text-cell-quote {
+      padding-left: 16px !important;
+    }
+
+    .cell-card.text-style-floating-label .text-cell-warning {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .cell-card.text-style-center-focus .text-cell-warning {
+      padding-left: 18px !important;
+      padding-right: 18px !important;
+    }
+
+    .cell-card.text-style-quiet-rule .text-cell-warning {
+      padding-left: 2px !important;
+      padding-right: 0 !important;
+    }
+
+    .cell-card.text-style-plate .text-cell-caption {
+      padding-left: 10px !important;
+    }

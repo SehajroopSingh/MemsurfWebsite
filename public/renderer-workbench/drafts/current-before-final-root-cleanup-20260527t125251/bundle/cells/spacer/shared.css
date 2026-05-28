@@ -1,0 +1,36 @@
+/* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.spacer-card .spacer-fill {
+      flex: 1 1 auto;
+      min-height: 20px;
+      border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
+    }
+
+    .spacer-card .spacer-fill-labeled {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 6px 10px;
+    }
+
+    .spacer-card .spacer-label {
+      font-size: 11px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .spacer-card .spacer-fill {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .spacer-card .spacer-fill,
+.spacer-card .spacer-label {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }

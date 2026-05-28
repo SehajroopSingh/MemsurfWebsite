@@ -1,0 +1,19 @@
+/* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.compare-card.cell-style-hinge {
+      --cell-style-accent: var(--accent-2);
+      background:
+        repeating-linear-gradient(135deg, rgba(123, 105, 239, 0.11) 0 1px, transparent 1px 11px),
+        linear-gradient(180deg, rgba(255,255,255,0.76), rgba(246,248,252,0.70)),
+        var(--card-bg);
+    }
+
+    .compare-card.cell-style-hinge .compare-axis span {
+      width: 11px;
+      height: 11px;
+      box-shadow: none;
+    }
+
+    .compare-card.cell-style-hinge .compare-vs-badge span {
+      border-radius: 7px;
+    }

@@ -1,0 +1,56 @@
+/* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.compare-card::before {
+      display: none !important;
+    }
+
+    .cell-card.compare-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .cell-card.compare-card .compare-title,
+.cell-card.compare-card .compare-table,
+.cell-card.compare-card .compare-takeaway {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .cell-card.compare-card .compare-cell,
+.cell-card.compare-card .compare-title,
+.cell-card.compare-card .compare-table,
+.cell-card.compare-card .compare-header,
+.cell-card.compare-card .compare-rows,
+.cell-card.compare-card .compare-row,
+.cell-card.compare-card .compare-aspect,
+.cell-card.compare-card .compare-label-left,
+.cell-card.compare-card .compare-value-left,
+.cell-card.compare-card .compare-takeaway {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.compare-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .cell-card.compare-card .compare-cell {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .cell-card.compare-card .compare-aspect,
+.cell-card.compare-card .compare-aspect-heading {
+      padding-left: 14px !important;
+    }
+
+    .cell-card.compare-card .compare-label,
+.cell-card.compare-card .compare-value {
+      padding-left: 15px !important;
+    }
+
+    .cell-card.compare-card .compare-takeaway {
+      padding-left: 2px !important;
+    }

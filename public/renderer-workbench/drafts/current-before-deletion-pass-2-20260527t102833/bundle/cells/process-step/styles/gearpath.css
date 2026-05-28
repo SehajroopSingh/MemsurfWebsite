@@ -1,0 +1,15 @@
+/* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.process-card.cell-style-gearpath {
+      border-color: rgba(47, 143, 131, 0.26);
+      background:
+        linear-gradient(180deg, rgba(7, 20, 35, 0.04), transparent),
+        repeating-linear-gradient(90deg, rgba(47, 143, 131, 0.10) 0 1px, transparent 1px 24px),
+        var(--card-bg);
+    }
+
+    .process-card.cell-style-gearpath .process-node {
+      border-radius: 999px;
+      outline: 2px dashed rgba(47, 143, 131, 0.32);
+      outline-offset: 4px;
+    }

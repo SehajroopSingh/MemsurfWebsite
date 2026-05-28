@@ -1,0 +1,25 @@
+/* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.spacer-card {
+      min-height: 36px;
+      padding: 8px;
+      border-style: dashed;
+      background: color-mix(in srgb, var(--card-bg) 74%, transparent);
+      box-shadow: none;
+    }
+
+    .cell-card.spacer-card[class*="cell-style-"] {
+      --cell-style-accent: var(--accent-0);
+      --cell-style-accent-2: var(--accent-1);
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .cell-card.spacer-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .grid-shell .cell-card.spacer-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }

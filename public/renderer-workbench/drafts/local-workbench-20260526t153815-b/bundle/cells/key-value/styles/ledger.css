@@ -1,0 +1,95 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card.cell-style-ledger {
+      --cell-style-accent: var(--accent-1);
+      border-left: 6px solid var(--cell-style-accent);
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.12), transparent 48%),
+        var(--card-bg);
+    }
+
+    .key-value-card.cell-style-ledger .key-value-row {
+      border-bottom: 1px solid rgba(82, 101, 135, 0.16);
+      padding-block: 8px;
+    }
+
+    .key-value-card.key-value-style-ledger .key-value-title,
+.key-value-card.cell-style-ledger .key-value-title {
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.12), rgba(255, 255, 255, 0.34)),
+        rgba(255, 255, 255, 0.52);
+    }
+
+    .key-value-card.key-value-style-ledger .key-value-cell {
+      counter-reset: kv-ledger;
+      border-radius: 9px;
+      border-color: rgba(82, 101, 135, 0.20);
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.10), transparent 42px),
+        repeating-linear-gradient(180deg, rgba(74, 120, 210, 0.075) 0 1px, transparent 1px 34px),
+        rgba(255, 255, 255, 0.56);
+      box-shadow: 0 16px 28px rgba(31, 42, 68, 0.10);
+    }
+
+    .key-value-card.key-value-style-ledger .key-value-row {
+      counter-increment: kv-ledger;
+      grid-template-columns: minmax(116px, 0.42fr) minmax(0, 1fr);
+      padding-left: 34px;
+      border-top: 1px solid rgba(82, 101, 135, 0.15);
+    }
+
+    .key-value-card.key-value-style-ledger .key-value-row::before {
+      content: counter(kv-ledger, decimal-leading-zero);
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(74, 120, 210, 0.58);
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .key-value-card.key-value-card-enter.key-value-style-ledger .key-value-row {
+      animation-name: kv-ledger-row;
+    }
+
+    :root[data-theme="dark"] .key-value-card.key-value-style-ledger .key-value-cell {
+      background:
+        linear-gradient(135deg, rgba(88, 193, 178, 0.065), rgba(126, 161, 255, 0.055)),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    :root[data-theme="dark"] .key-value-card.key-value-style-ledger .key-value-cell {
+      background:
+        linear-gradient(90deg, rgba(126, 161, 255, 0.10), transparent 42px),
+        repeating-linear-gradient(180deg, rgba(126, 161, 255, 0.08) 0 1px, transparent 1px 34px),
+        rgba(255, 255, 255, 0.04);
+    }
+
+    @media (max-width: 620px) {
+
+      .key-value-card.key-value-style-ledger .key-value-row {
+        grid-template-columns: 1fr;
+      }
+}
+
+    @media (max-width: 620px) {
+
+      .key-value-card.key-value-style-ledger .key-value-row {
+        padding-left: 32px;
+      }
+}
+
+    .key-value-card.cell-style-ledger {
+      border-left-width: 0 !important;
+    }
+
+    .key-value-card.key-value-style-ledger .key-value-row {
+      padding-left: 0 !important;
+    }
+
+    .key-value-card.key-value-style-ledger .key-value-row {
+      padding-left: 34px !important;
+    }

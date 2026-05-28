@@ -162,8 +162,120 @@ function normalizeAvailability(availability, version) {
   };
 }
 
+const preferredCellOrder = [
+  "heading",
+  "image",
+  "key-points",
+  "compare",
+  "text",
+  "recall-prompt",
+  "timeline-step",
+  "key-value",
+  "pair",
+  "triplet",
+  "function-plot",
+  "code-trace",
+  "mini-chart",
+  "math-expression",
+  "map-region",
+  "process-step",
+  "spacer",
+];
+
+const preferredCellCssOrder = [
+  "index.css",
+  "card.css",
+  "base.css",
+  "animations.css",
+  "shared.css",
+  "styles/shared.css",
+];
+
+function compareCellCssFiles(left, right) {
+  const [leftCell, ...leftParts] = left.split("/");
+  const [rightCell, ...rightParts] = right.split("/");
+  const leftCellRank = preferredCellOrder.indexOf(leftCell);
+  const rightCellRank = preferredCellOrder.indexOf(rightCell);
+  const normalizedLeftCellRank = leftCellRank === -1 ? Number.MAX_SAFE_INTEGER : leftCellRank;
+  const normalizedRightCellRank = rightCellRank === -1 ? Number.MAX_SAFE_INTEGER : rightCellRank;
+  if (normalizedLeftCellRank !== normalizedRightCellRank) {
+    return normalizedLeftCellRank - normalizedRightCellRank;
+  }
+  if (leftCell !== rightCell) {
+    return leftCell.localeCompare(rightCell);
+  }
+
+  const leftPath = leftParts.join("/");
+  const rightPath = rightParts.join("/");
+  const leftPathRank = preferredCellCssOrder.indexOf(leftPath);
+  const rightPathRank = preferredCellCssOrder.indexOf(rightPath);
+  const normalizedLeftPathRank = leftPathRank === -1 ? Number.MAX_SAFE_INTEGER : leftPathRank;
+  const normalizedRightPathRank = rightPathRank === -1 ? Number.MAX_SAFE_INTEGER : rightPathRank;
+  if (normalizedLeftPathRank !== normalizedRightPathRank) {
+    return normalizedLeftPathRank - normalizedRightPathRank;
+  }
+  return leftPath.localeCompare(rightPath);
+}
+
+async function listCellStylesheetFiles(workbenchDir) {
+  const cellsRoot = path.join(workbenchDir, "bundle", "cells");
+  if (!(await exists(cellsRoot))) {
+    return { extraStylesheetPaths: [], editableFiles: [] };
+  }
+
+  const files = [];
+  async function walk(directory, relativeDirectory = "") {
+    const entries = await readdir(directory, { withFileTypes: true });
+    for (const entry of entries) {
+      const entryPath = path.join(directory, entry.name);
+      const relativePath = relativeDirectory ? `${relativeDirectory}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        await walk(entryPath, relativePath);
+      } else if (entry.isFile() && entry.name.endsWith(".css")) {
+        files.push(relativePath);
+      }
+    }
+  }
+
+  await walk(cellsRoot);
+  files.sort(compareCellCssFiles);
+  return {
+    extraStylesheetPaths: files
+      .filter((file) => file.endsWith("/index.css"))
+      .map((file) => `/renderer-workbench/current/bundle/cells/${file}`),
+    editableFiles: files.map((file) => `public/renderer-workbench/current/bundle/cells/${file}`),
+  };
+}
+
+async function listSharedStylesheetFiles(workbenchDir) {
+  const sharedRoot = path.join(workbenchDir, "bundle", "shared");
+  if (!(await exists(sharedRoot))) {
+    return [];
+  }
+
+  const files = [];
+  async function walk(directory, relativeDirectory = "") {
+    const entries = await readdir(directory, { withFileTypes: true });
+    for (const entry of entries) {
+      const entryPath = path.join(directory, entry.name);
+      const relativePath = relativeDirectory ? `${relativeDirectory}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) {
+        await walk(entryPath, relativePath);
+      } else if (entry.isFile() && entry.name.endsWith(".css")) {
+        files.push(relativePath);
+      }
+    }
+  }
+
+  await walk(sharedRoot);
+  files.sort((left, right) => left.localeCompare(right));
+  return files.map((file) => `public/renderer-workbench/current/bundle/shared/${file}`);
+}
+
 async function writeWorkbenchManifest(workbenchDir, { version, catalogEntryCount = 0 }) {
   const capabilities = await readJson(path.join(workbenchDir, "bundle", "capabilities.json"));
+  const cellStylesheets = await listCellStylesheetFiles(workbenchDir);
+  const sharedStylesheets = await listSharedStylesheetFiles(workbenchDir);
   const manifest = {
     source: "local-workbench",
     renderer_id: "dynamic_gridcell",
@@ -173,9 +285,12 @@ async function writeWorkbenchManifest(workbenchDir, { version, catalogEntryCount
     bundle_base_path: "/renderer-workbench/current/bundle/",
     catalog_path: "/renderer-workbench/current/catalog.json",
     style_availability_path: "/renderer-workbench/current/bundle/renderer_style_availability.json",
+    extra_stylesheet_paths: cellStylesheets.extraStylesheetPaths,
     editable_files: [
       "public/renderer-workbench/current/bundle/renderer.js",
       "public/renderer-workbench/current/bundle/renderer.css",
+      ...sharedStylesheets,
+      ...cellStylesheets.editableFiles,
       "public/renderer-workbench/current/bundle/renderer_style_availability.json",
       "public/renderer-workbench/current/catalog.json",
     ],
@@ -217,6 +332,7 @@ async function refreshCurrentMetadata() {
 
   capabilities.version = version;
   capabilities.style_availability_path = "renderer_style_availability.json";
+  capabilities.style_availability = availability;
   await writeJson(availabilityPath, availability);
   await writeJson(catalogPath, catalog);
   await writeJson(capabilitiesPath, capabilities);
@@ -315,6 +431,31 @@ async function fetchJson(url) {
   return response.json();
 }
 
+async function proxyBackendGet(request, response, url) {
+  const endpoint = `${url.pathname.replace(/^\/django-proxy\/?/, "")}${url.search}`;
+  if (!endpoint || endpoint.startsWith("../")) {
+    textResponse(response, 400, "Invalid backend proxy path");
+    return;
+  }
+
+  const backendResponse = await fetch(apiUrl(endpoint), {
+    cache: "no-store",
+    headers: {
+      Accept: request.headers.accept || "*/*",
+    },
+  });
+  const body = Buffer.from(await backendResponse.arrayBuffer());
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Content-Type": backendResponse.headers.get("content-type") || "application/octet-stream",
+    "Cache-Control": backendResponse.headers.get("cache-control") || "no-store",
+  };
+  response.writeHead(backendResponse.status, headers);
+  response.end(body);
+}
+
 async function importBackendLatest() {
   const manifestUrl = apiUrl("user-interface/lesson-renderer/preview/manifest/");
   const manifest = await fetchJson(manifestUrl);
@@ -404,6 +545,10 @@ async function route(request, response) {
     }
     if (request.method === "GET" && url.pathname === "/bundles") {
       jsonResponse(response, 200, await listBundles());
+      return;
+    }
+    if (request.method === "GET" && url.pathname.startsWith("/django-proxy/")) {
+      await proxyBackendGet(request, response, url);
       return;
     }
     if (request.method === "POST" && url.pathname === "/copy-to-current") {

@@ -1,0 +1,125 @@
+/* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.function-plot-card .function-plot-frame {
+      position: relative;
+      touch-action: pan-y;
+      user-select: none;
+      overflow: hidden;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      outline: none;
+      --plot-active-color: var(--accent-0);
+    }
+
+    :root[data-theme="dark"] .function-plot-card .function-plot-frame {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .function-plot-card .function-plot-frame:focus-visible {
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--plot-active-color) 18%, transparent);
+    }
+
+    .function-plot-card .function-plot-stage {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(65, 88, 129, 0.14);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.50), rgba(255, 255, 255, 0.12)),
+        linear-gradient(135deg, rgba(47, 143, 131, 0.09), rgba(74, 120, 210, 0.04) 48%, rgba(240, 140, 71, 0.07));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.34),
+        inset 0 -18px 42px rgba(65, 88, 129, 0.06);
+    }
+
+    :root[data-theme="dark"] .function-plot-card .function-plot-stage {
+      border-color: rgba(162, 183, 217, 0.12);
+      background:
+        linear-gradient(180deg, rgba(18, 27, 45, 0.68), rgba(9, 15, 26, 0.46)),
+        linear-gradient(135deg, rgba(88, 193, 178, 0.12), rgba(126, 161, 255, 0.05) 52%, rgba(255, 176, 111, 0.09));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        inset 0 -20px 44px rgba(2, 8, 20, 0.18);
+    }
+
+    .function-plot-card .function-plot-svg {
+      position: relative;
+      z-index: 1;
+    }
+
+    .function-plot-card .function-curve,
+.function-plot-card .function-curve-glow {
+      fill: none;
+      stroke: var(--plot-color);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .function-plot-card .function-marker-ring {
+      fill: color-mix(in srgb, var(--plot-color) 18%, transparent);
+      stroke: color-mix(in srgb, var(--plot-color) 58%, white);
+      stroke-width: 1.4;
+    }
+
+    .function-plot-card .function-marker {
+      fill: var(--plot-color);
+      stroke: rgba(255, 255, 255, 0.9);
+      stroke-width: 1.8;
+    }
+
+    .function-plot-card .function-marker-label {
+      fill: var(--heading);
+      font-weight: 720;
+      paint-order: stroke;
+      stroke: color-mix(in srgb, var(--card-bg-strong) 86%, transparent);
+      stroke-width: 4;
+      stroke-linejoin: round;
+    }
+
+    .function-plot-card .function-plot-guide,
+.function-plot-card .function-plot-probe {
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .function-plot-card .function-plot-tooltip strong,
+.function-plot-card .function-plot-tooltip span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .function-plot-card .function-plot-tooltip strong {
+      grid-column: 1 / -1;
+      color: var(--heading);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 760;
+    }
+
+    .function-plot-card .function-plot-tooltip span {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.25;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .function-plot-card .function-plot-tooltip b {
+      color: var(--heading);
+      font-weight: 760;
+    }
+
+    .function-plot-card .function-plot-legend {
+      gap: 8px 12px;
+      font-size: 13px;
+      line-height: 1.35;
+    }

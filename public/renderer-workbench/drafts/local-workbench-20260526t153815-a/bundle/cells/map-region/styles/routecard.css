@@ -1,0 +1,14 @@
+/* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.map-region-card.cell-style-routecard {
+      border-color: rgba(47, 143, 131, 0.28);
+      background:
+        linear-gradient(90deg, rgba(47, 143, 131, 0.14), transparent 28%, rgba(74, 120, 210, 0.10)),
+        var(--card-bg);
+    }
+
+    .map-region-card.cell-style-routecard .viz-frame {
+      border-radius: 12px;
+      border: 1px dashed rgba(47, 143, 131, 0.28);
+      background: rgba(47, 143, 131, 0.055);
+    }

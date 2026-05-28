@@ -193,14 +193,7 @@ const blobs: BlobSpec[] = [
 
 function useBackgroundBounds() {
   const ref = React.useRef<HTMLDivElement>(null)
-  const [bounds, setBounds] = React.useState<BackgroundBounds | null>(() => {
-    if (typeof window === 'undefined') return null
-
-    return {
-      width: document.documentElement.clientWidth || window.innerWidth,
-      height: window.innerHeight,
-    }
-  })
+  const [bounds, setBounds] = React.useState<BackgroundBounds | null>(null)
 
   React.useEffect(() => {
     const updateBounds = () => {

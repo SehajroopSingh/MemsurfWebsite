@@ -1,0 +1,65 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card,
+.cell-card.key-value-card[class],
+:root[data-theme="dark"] .cell-card.key-value-card,
+:root[data-theme="dark"] .cell-card.key-value-card[class] {
+      padding: 0 !important;
+      border: 0 !important;
+      border-width: 0 !important;
+      border-style: none !important;
+      border-color: transparent !important;
+      outline: 0 !important;
+      outline-offset: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .cell-card.key-value-card::before,
+.cell-card.key-value-card::after {
+      content: none !important;
+      display: none !important;
+      border: 0 !important;
+      outline: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.key-value-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .key-value-cell {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .key-value-card .key-value-cell,
+.key-value-card .key-value-title,
+.key-value-card .key-value-row,
+.key-value-card .key-value-key,
+.key-value-card .key-value-value,
+.key-value-card .key-value-empty {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.key-value-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .key-value-card .key-value-title {
+      padding-left: 12px !important;
+    }
+
+    .key-value-card .key-value-key,
+.key-value-card .key-value-value {
+      padding-left: 13px !important;
+    }

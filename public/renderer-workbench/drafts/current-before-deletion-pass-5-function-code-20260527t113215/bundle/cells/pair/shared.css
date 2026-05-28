@@ -1,0 +1,831 @@
+/* PairCell local workbench copy. Source rules remain in renderer.css for safety. */
+
+.cell-card.pair-card.cell-style-bridge .pair-connector span {
+      box-shadow: 0 0 0 5px rgba(74, 120, 210, 0.10);
+    }
+
+    .cell-card.pair-card {
+      --relationship-a: var(--accent-0);
+      --relationship-b: var(--accent-1);
+      --relationship-c: var(--accent-2);
+      --relationship-wash-a: rgba(47, 143, 131, 0.10);
+      --relationship-wash-b: rgba(74, 120, 210, 0.09);
+      --relationship-line: rgba(47, 143, 131, 0.22);
+    }
+
+    .relationship-cell.pair-cell .relationship-sentence {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .pair-panel {
+      position: relative;
+      min-width: 0;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--surface-line);
+      background: rgba(255, 255, 255, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      overflow: hidden;
+    }
+
+    .pair-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      border-radius: 999px;
+      background: var(--relationship-a);
+    }
+
+    .pair-panel::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .pair-panel-right .relationship-role {
+      color: var(--relationship-b);
+      background: var(--relationship-wash-b);
+    }
+
+    .pair-connector {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      color: var(--muted);
+    }
+
+    .pair-connector::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b));
+      opacity: 0.28;
+      transform: translateY(-50%);
+    }
+
+    .pair-connector span {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      min-height: 24px;
+      max-width: 82px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--surface-line);
+      background: rgba(255, 255, 255, 0.54);
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.1;
+      font-weight: 760;
+      text-align: center;
+      text-transform: uppercase;
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      rotate: 0deg;
+      overflow-wrap: break-word;
+      word-break: normal;
+      white-space: normal;
+    }
+
+    .grid-shell.stacked .pair-cell {
+      grid-template-columns: 1fr;
+    }
+
+    .grid-shell.stacked .pair-style-shared-rail .pair-cell::before,
+.grid-shell.stacked .pair-style-transition-track .pair-cell::before,
+.grid-shell.stacked .pair-style-tension-line .pair-cell::before,
+.grid-shell.stacked .pair-style-argument-line .pair-cell::before {
+      top: 16px;
+      bottom: 16px;
+      left: 50%;
+      right: auto;
+      width: 2px;
+      height: auto;
+      background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b), var(--relationship-c));
+    }
+
+    .grid-shell.stacked .pair-connector {
+      position: relative;
+      min-width: 0;
+      min-height: 30px;
+      align-self: stretch;
+    }
+
+    .grid-shell.stacked .pair-connector::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      bottom: -8px;
+      left: 50%;
+      width: 2px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b), var(--relationship-c));
+      opacity: 0.22;
+      transform: translateX(-50%);
+    }
+
+    .grid-shell.stacked .pair-connector span {
+      position: relative;
+      z-index: 1;
+      max-width: min(220px, 76%);
+      min-height: 24px;
+      text-align: center;
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      rotate: 0deg;
+      white-space: normal;
+      transform: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.pair-card {
+      --relationship-wash-a: rgba(88, 193, 178, 0.08);
+      --relationship-wash-b: rgba(126, 161, 255, 0.07);
+      --relationship-line: rgba(126, 161, 255, 0.22);
+    }
+
+    :root[data-theme="dark"] .pair-panel,
+:root[data-theme="dark"] .pair-connector span {
+      background: rgba(255, 255, 255, 0.045);
+      border-color: var(--surface-line);
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .pair-style-duet .pair-panel,
+:root[data-theme="dark"] .pair-style-shared-rail .pair-panel,
+:root[data-theme="dark"] .pair-style-brief-proof .pair-panel {
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(126, 161, 255, 0.055)),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    :root[data-theme="dark"] .pair-style-versus-split .pair-panel-left,
+:root[data-theme="dark"] .pair-style-versus-split .pair-panel-right,
+:root[data-theme="dark"] .pair-style-wipe .pair-panel,
+:root[data-theme="dark"] .pair-style-repair-card .pair-panel {
+      background:
+        linear-gradient(135deg, rgba(88, 193, 178, 0.065), rgba(126, 161, 255, 0.055)),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    .relationship-cell.pair-cell {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: 11px;
+      isolation: isolate;
+    }
+
+    .relationship-cell.pair-cell .relationship-header {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .relationship-cell.pair-cell .relationship-diagram {
+      display: grid;
+      min-width: 0;
+      align-items: start;
+      gap: 8px;
+    }
+
+    .cell-card.pair-card .relationship-node,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-node {
+      min-height: 0;
+      padding: 10px 11px 10px 13px;
+      border-radius: 10px;
+      border: 1px solid rgba(82, 101, 135, 0.13);
+      background: rgba(255, 255, 255, 0.28);
+      box-shadow: none;
+      transform: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.pair-card .relationship-node {
+      background: rgba(255, 255, 255, 0.035);
+      border-color: rgba(126, 161, 255, 0.13);
+    }
+
+    .relationship-cell.pair-cell .relationship-node::before {
+      width: 3px;
+      opacity: 0.72;
+    }
+
+    .relationship-cell.pair-cell .relationship-node::after {
+      display: none;
+    }
+
+    .relationship-cell.pair-cell .relationship-node .relationship-role,
+:root[data-theme="dark"] .relationship-cell.pair-cell .relationship-node .relationship-role {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      margin: 0 0 4px;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      font-size: 10px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .relationship-cell.pair-cell .relationship-node .relationship-label {
+      margin: 0 0 4px;
+      color: var(--heading);
+      font-size: 13px;
+      line-height: 1.18;
+      font-weight: 830;
+      text-transform: none;
+    }
+
+    .relationship-cell.pair-cell .relationship-node .relationship-body {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.34;
+      font-weight: 540;
+    }
+
+    .relationship-cell.pair-cell .relationship-node .relationship-body p {
+      margin: 0;
+    }
+
+    .relationship-cell.pair-cell .relationship-bridge {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      min-height: 30px;
+      gap: 4px;
+      color: var(--muted);
+    }
+
+    .relationship-cell.pair-cell .relationship-bridge::before,
+.relationship-cell.pair-cell .relationship-bridge::after {
+      display: none;
+    }
+
+    .cell-card.pair-card .relationship-bridge .relationship-bridge-line {
+      display: block;
+      flex: 1 1 14px;
+      min-width: 10px;
+      min-height: 0;
+      height: 2px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b));
+      box-shadow: none;
+      opacity: 0.30;
+    }
+
+    .cell-card.pair-card .relationship-bridge .relationship-bridge-label {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      min-width: 0;
+      min-height: 0;
+      max-width: 118px;
+      padding: 0 3px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.12;
+      font-weight: 820;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow-wrap: normal;
+      word-break: keep-all;
+      hyphens: none;
+    }
+
+    .relationship-cell.pair-cell .relationship-arrow {
+      width: 0;
+      height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted));
+    }
+
+    .relationship-cell.pair-cell .relationship-support-marker {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      border: 2px solid color-mix(in srgb, var(--relationship-b) 60%, var(--muted));
+    }
+
+    .relationship-cell.pair-cell .bridge-no-arrow .relationship-arrow {
+      display: none;
+    }
+
+    .relationship-cell.pair-cell .bridge-no-arrow .relationship-bridge-line {
+      opacity: 0.18;
+    }
+
+    .relationship-cell.pair-cell.layout-divider-contrast .relationship-bridge-line,
+.relationship-cell.pair-cell.layout-classification .relationship-bridge-line,
+.relationship-cell.pair-cell.layout-mirror .relationship-bridge-line {
+      background: var(--surface-line);
+      opacity: 0.75;
+    }
+
+    .layout-support.pair-diagram {
+      gap: 7px;
+    }
+
+    .relationship-cell.pair-cell.layout-support .relationship-bridge,
+.relationship-cell.pair-cell.layout-reasoning-ladder .relationship-bridge {
+      color: var(--relationship-b);
+    }
+
+    .relationship-cell.pair-cell.layout-timeline-flow .relationship-bridge-line {
+      background: linear-gradient(90deg, rgba(82, 101, 135, 0.30), var(--relationship-b)) !important;
+    }
+
+    .relationship-cell.pair-cell.layout-support .relationship-bridge-line,
+.relationship-cell.pair-cell.layout-reasoning-ladder .relationship-bridge-line {
+      background: linear-gradient(180deg, var(--relationship-b), var(--relationship-c)) !important;
+      opacity: 0.24 !important;
+    }
+
+    .relationship-cell.pair-cell.layout-divider-contrast .relationship-arrow,
+.relationship-cell.pair-cell.layout-classification .relationship-arrow,
+.relationship-cell.pair-cell.layout-mirror .relationship-arrow {
+      display: none !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-diagram.orientation-vertical .relationship-bridge {
+      flex-direction: column;
+      align-self: stretch;
+      min-height: 38px;
+      gap: 3px;
+    }
+
+    .relationship-cell.pair-cell .relationship-diagram.orientation-vertical .relationship-bridge .relationship-bridge-line,
+.grid-shell.stacked .relationship-cell.pair-cell .relationship-bridge .relationship-bridge-line {
+      flex: 0 0 12px;
+      width: 2px;
+      min-width: 0;
+      height: 12px;
+      background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b));
+    }
+
+    .relationship-cell.pair-cell .relationship-diagram.orientation-vertical .relationship-arrow,
+.grid-shell.stacked .relationship-cell.pair-cell .relationship-arrow {
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted));
+      border-bottom: 0;
+    }
+
+    .relationship-cell.pair-cell .relationship-diagram.orientation-vertical .relationship-bridge .relationship-bridge-label,
+.grid-shell.stacked .relationship-cell.pair-cell .relationship-bridge .relationship-bridge-label {
+      max-width: min(230px, 86%);
+      padding: 0;
+      transform: none;
+    }
+
+    .grid-shell.stacked .pair-diagram.orientation-horizontal {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    @media (max-width: 680px) {
+      .pair-diagram.orientation-horizontal {
+        grid-template-columns: minmax(0, 1fr);
+      }
+}
+
+    @media (max-width: 680px) {
+
+      .pair-diagram.orientation-horizontal .relationship-bridge {
+        flex-direction: column;
+        align-self: stretch;
+        min-height: 38px;
+      }
+}
+
+    @media (max-width: 680px) {
+
+      .pair-diagram.orientation-horizontal .relationship-bridge .relationship-bridge-line {
+        flex: 0 0 12px;
+        width: 2px;
+        min-width: 0;
+        height: 12px;
+        background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b));
+      }
+}
+
+    @media (max-width: 680px) {
+
+      .pair-diagram.orientation-horizontal .relationship-arrow {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted));
+        border-bottom: 0;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+      .cell-card.pair-card.pair-card-enter,
+.cell-card.pair-card.pair-card-enter .pair-panel-left,
+.cell-card.pair-card.pair-card-enter .pair-panel-right,
+.cell-card.pair-card.pair-card-enter .pair-connector span,
+.pair-style-shared-rail.pair-card-enter .pair-cell::before,
+.pair-style-transition-track.pair-card-enter .pair-cell::before,
+.pair-style-tension-line.pair-card-enter .pair-cell::before,
+.pair-style-argument-line.pair-card-enter .pair-cell::before,
+.pair-style-wipe.pair-card-enter .pair-panel::after,
+.pair-style-ripple.pair-card-enter .pair-panel-left::after,
+.pair-style-ripple.pair-card-enter .pair-panel-right::after,
+.pair-style-tension-line.pair-card-enter .pair-connector::before,
+.pair-style-tension-line.pair-card-enter .pair-connector::after {
+        animation: none;
+        opacity: 1;
+        filter: none;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .cell-card.pair-card.pair-card-enter,
+.cell-card.pair-card.pair-card-enter .pair-panel-left,
+.cell-card.pair-card.pair-card-enter .pair-panel-right,
+.cell-card.pair-card.pair-card-enter .pair-connector span,
+.pair-style-shared-rail.pair-card-enter .pair-cell::before,
+.pair-style-transition-track.pair-card-enter .pair-cell::before,
+.pair-style-tension-line.pair-card-enter .pair-cell::before,
+.pair-style-argument-line.pair-card-enter .pair-cell::before,
+.pair-style-wipe.pair-card-enter .pair-panel::after,
+.pair-style-ripple.pair-card-enter .pair-panel-left::after,
+.pair-style-ripple.pair-card-enter .pair-panel-right::after,
+.pair-style-tension-line.pair-card-enter .pair-connector::before,
+.pair-style-tension-line.pair-card-enter .pair-connector::after {
+        transform: none;
+      }
+}
+
+    .cell-card.pair-card,
+.cell-card.pair-card[class],
+:root[data-theme="dark"] .cell-card.pair-card,
+:root[data-theme="dark"] .cell-card.pair-card[class] {
+      padding: 0 !important;
+      border: 0 !important;
+      border-width: 0 !important;
+      border-style: none !important;
+      border-color: transparent !important;
+      outline: 0 !important;
+      outline-offset: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .cell-card.pair-card::before,
+.cell-card.pair-card::after {
+      content: none !important;
+      display: none !important;
+      border: 0 !important;
+      outline: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.pair-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .pair-cell {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .pair-card .pair-cell,
+.pair-card .pair-panel,
+.pair-card .relationship-label,
+.pair-card .relationship-body {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.pair-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .cell-card.pair-card .relationship-diagram .relationship-node,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-node {
+      padding: 10px 11px 10px 13px !important;
+      border-left-width: 1px !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    .cell-card.pair-card .relationship-diagram .relationship-bridge,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-bridge {
+      min-width: 0 !important;
+      min-height: 30px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.pair-card .relationship-diagram .relationship-bridge-line,
+.cell-card.pair-card .relationship-diagram .relationship-bridge-label,
+.cell-card.pair-card .relationship-diagram .relationship-arrow,
+.cell-card.pair-card .relationship-diagram .relationship-support-marker,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-bridge-line,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-bridge-label,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-arrow,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-support-marker {
+      min-width: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.pair-card .relationship-diagram .relationship-bridge-line,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-bridge-line {
+      flex: 1 1 14px !important;
+      height: 2px !important;
+      border: 0 !important;
+      border-radius: 999px !important;
+      background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b)) !important;
+    }
+
+    .cell-card.pair-card .relationship-diagram .relationship-bridge-label,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-bridge-label {
+      max-width: 118px !important;
+      padding-inline: 3px !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      color: var(--muted) !important;
+    }
+
+    .cell-card.pair-card .relationship-diagram .relationship-arrow,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-arrow {
+      flex: 0 0 auto !important;
+      width: 0 !important;
+      height: 0 !important;
+      border-top: 4px solid transparent !important;
+      border-bottom: 4px solid transparent !important;
+      border-left: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted)) !important;
+      border-right: 0 !important;
+      border-radius: 0 !important;
+    }
+
+    .cell-card.pair-card .relationship-diagram .relationship-support-marker,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-diagram .relationship-support-marker {
+      flex: 0 0 auto !important;
+      width: 7px !important;
+      height: 7px !important;
+      border: 2px solid color-mix(in srgb, var(--relationship-b) 60%, var(--muted)) !important;
+      border-radius: 999px !important;
+    }
+
+    .relationship-cell.pair-cell {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+      min-width: 0 !important;
+      isolation: isolate !important;
+    }
+
+    .relationship-cell.pair-cell::before,
+.relationship-cell.pair-cell::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .relationship-cell.pair-cell .pair-panel,
+:root[data-theme="dark"] .relationship-cell.pair-cell .pair-panel {
+      min-height: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      outline: 0 !important;
+      transform: none !important;
+      overflow: visible !important;
+    }
+
+    .relationship-cell.pair-cell .pair-panel::before,
+.relationship-cell.pair-cell .pair-panel::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    @keyframes relationship-label-first-in {
+      from {
+        filter: opacity(0);
+        transform: translateY(3px);
+      }
+      to {
+        filter: opacity(1);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes relationship-bridge-label-in {
+      from {
+        filter: opacity(0);
+      }
+      to {
+        filter: opacity(1);
+      }
+    }
+
+    @keyframes relationship-bridge-line-draw-x {
+      from {
+        filter: opacity(0);
+        clip-path: inset(0 100% 0 0);
+      }
+      to {
+        filter: opacity(1);
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes relationship-bridge-line-draw-y {
+      from {
+        filter: opacity(0);
+        clip-path: inset(0 0 100% 0);
+      }
+      to {
+        filter: opacity(1);
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes relationship-role-after-label-in {
+      from {
+        filter: opacity(0);
+        transform: translateY(-2px);
+      }
+      to {
+        filter: opacity(1);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes relationship-body-after-role-in {
+      from {
+        filter: opacity(0);
+        transform: translateY(4px);
+      }
+      to {
+        filter: opacity(1);
+        transform: translateY(0);
+      }
+    }
+
+    .relationship-cell.pair-cell .relationship-label {
+      animation: relationship-label-first-in 320ms cubic-bezier(0.2, 0.75, 0.22, 1) 80ms both !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-bridge-label {
+      animation: relationship-bridge-label-in 360ms cubic-bezier(0.2, 0.75, 0.22, 1) 500ms both !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-bridge-line {
+      transform-origin: center;
+      animation: relationship-bridge-line-draw-x 520ms cubic-bezier(0.2, 0.75, 0.22, 1) 500ms both !important;
+    }
+
+    .relationship-cell.pair-cell .orientation-vertical .relationship-bridge-line {
+      animation-name: relationship-bridge-line-draw-y !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-arrow,
+.relationship-cell.pair-cell .relationship-support-marker {
+      animation: relationship-bridge-label-in 360ms cubic-bezier(0.2, 0.75, 0.22, 1) 500ms both !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-role {
+      animation: relationship-role-after-label-in 300ms cubic-bezier(0.2, 0.75, 0.22, 1) 980ms both !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-body {
+      animation: relationship-body-after-role-in 340ms cubic-bezier(0.2, 0.75, 0.22, 1) 1400ms both !important;
+    }
+
+    .relationship-cell.pair-cell .pair-supportline .relationship-body.has-body,
+.relationship-cell.pair-cell .pair-divider-bodies .relationship-body.has-body,
+:root[data-theme="dark"] .relationship-cell.pair-cell .pair-supportline .relationship-body.has-body,
+:root[data-theme="dark"] .relationship-cell.pair-cell .pair-divider-bodies .relationship-body.has-body {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 0.78 !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-body.has-body,
+:root[data-theme="dark"] .relationship-cell.pair-cell .relationship-body.has-body {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 0.78 !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .relationship-cell.pair-cell .relationship-label,
+.relationship-cell.pair-cell .relationship-bridge-label,
+.relationship-cell.pair-cell .relationship-bridge-line,
+.relationship-cell.pair-cell .relationship-arrow,
+.relationship-cell.pair-cell .relationship-support-marker,
+.relationship-cell.pair-cell .relationship-role,
+.relationship-cell.pair-cell .relationship-body {
+        animation: none !important;
+        filter: none !important;
+        clip-path: none !important;
+        transform: none !important;
+      }
+}
+
+    .relationship-cell.pair-cell .pair-connector,
+:root[data-theme="dark"] .relationship-cell.pair-cell .pair-connector {
+      min-width: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      color: var(--muted) !important;
+    }
+
+    .relationship-cell.pair-cell .pair-connector span,
+:root[data-theme="dark"] .relationship-cell.pair-cell .pair-connector span {
+      min-width: 0 !important;
+      min-height: 0 !important;
+      max-width: none !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      writing-mode: horizontal-tb !important;
+      text-orientation: mixed !important;
+      rotate: 0deg !important;
+      transform: none !important;
+    }
+
+    .cell-card.pair-card .relationship-cell .relationship-bridge-label,
+:root[data-theme="dark"] .cell-card.pair-card .relationship-cell .relationship-bridge-label {
+      width: auto !important;
+      min-width: max-content !important;
+      max-width: none !important;
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+      overflow-wrap: normal !important;
+      word-break: keep-all !important;
+      hyphens: none !important;
+    }
+
+    @media (max-width: 680px) {
+      .pair-flow-main,
+.pair-supportline,
+.pair-divider-main,
+.pair-divider-bodies {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+}
+
+    @media (max-width: 680px) {
+
+      .pair-supportline .left-body,
+.pair-supportline .right-body,
+.pair-divider-bodies .left-body,
+.pair-divider-bodies .right-body {
+        grid-column: 1 !important;
+      }
+}
+
+    @media (max-width: 680px) {
+
+	      .pair-flow-main .relationship-bridge {
+	        min-height: 26px !important;
+	      }
+}

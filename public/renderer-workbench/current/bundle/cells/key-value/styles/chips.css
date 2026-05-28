@@ -1,0 +1,39 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card.cell-style-chips {
+      border-color: rgba(123, 105, 239, 0.22);
+      background:
+        linear-gradient(135deg, rgba(123, 105, 239, 0.12), transparent 34%),
+        linear-gradient(315deg, rgba(47, 143, 131, 0.10), transparent 42%),
+        var(--card-bg);
+    }
+
+    .cell-card.key-value-card.cell-style-chips .key-value-row {
+      display: inline-grid;
+      margin: 0 6px 8px 0;
+      border-radius: 999px;
+      background: rgba(123, 105, 239, 0.10);
+      border: 1px solid rgba(123, 105, 239, 0.16);
+    }
+
+    .cell-card.key-value-card.cell-style-chips .key-value-cell {
+      display: block;
+      padding: 10px;
+    }
+
+    .cell-card.key-value-card.cell-style-chips .key-value-title {
+      display: inline-grid;
+      margin: 0 0 8px;
+      border: 1px solid rgba(123, 105, 239, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.cell-style-chips .key-value-title {
+      background: rgba(18, 27, 45, 0.62);
+      border-color: rgba(214, 221, 235, 0.13);
+    }
+
+    .cell-card.key-value-card.cell-style-chips .key-value-cell {
+      padding-left: 10px !important;
+    }

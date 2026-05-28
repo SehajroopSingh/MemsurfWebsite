@@ -1,0 +1,45 @@
+/* heading local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.heading-card .eyebrow {
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .cell-card.heading-card {
+      padding: 18px 20px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.90), rgba(239,244,255,0.72));
+    }
+
+    :root[data-theme="dark"] .cell-card.heading-card {
+      background: linear-gradient(135deg, rgba(25,34,52,0.86), rgba(17,24,39,0.80));
+    }
+
+    .cell-card.heading-card[class*="cell-style-"] {
+      --cell-style-accent: var(--accent-0);
+      --cell-style-accent-2: var(--accent-1);
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .cell-card.cell-style-terminal .heading-card .eyebrow,
+.cell-card.cell-style-debugger .heading-card .eyebrow {
+      color: rgba(245, 248, 255, 0.88);
+    }
+
+    .cell-card.cell-style-terminal .heading-card .eyebrow,
+.cell-card.cell-style-debugger .heading-card .eyebrow {
+      color: var(--muted) !important;
+    }
+
+    .cell-card.heading-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .grid-shell .cell-card.heading-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }

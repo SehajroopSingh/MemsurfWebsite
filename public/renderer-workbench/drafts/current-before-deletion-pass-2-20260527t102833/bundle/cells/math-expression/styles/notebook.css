@@ -1,0 +1,17 @@
+/* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.math-expression-card.cell-style-notebook .formula-stage {
+      border-color: rgba(82, 101, 135, 0.16);
+      background:
+        repeating-linear-gradient(180deg, rgba(74, 120, 210, 0.055) 0 1px, transparent 1px 28px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0.14));
+    }
+
+    .math-expression-card.cell-style-notebook .formula-rule {
+      transform-origin: left center;
+      background: linear-gradient(90deg, var(--accent-1), transparent);
+    }
+
+    .math-expression-card.cell-style-notebook .variable-symbol {
+      background: color-mix(in srgb, var(--accent-3) 14%, transparent);
+    }

@@ -1,0 +1,24 @@
+/* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.function-plot-card.cell-style-oscilloscope {
+      border-color: rgba(47, 143, 131, 0.26);
+      background:
+        linear-gradient(180deg, rgba(7, 20, 35, 0.04), transparent),
+        repeating-linear-gradient(90deg, rgba(47, 143, 131, 0.10) 0 1px, transparent 1px 24px),
+        var(--card-bg);
+    }
+        .function-plot-card.cell-style-oscilloscope .function-plot-frame {
+      background: transparent;
+      color: rgba(205, 255, 234, 0.86);
+      box-shadow: none;
+    }
+        .function-plot-card.cell-style-oscilloscope .function-plot-stage {
+      background:
+        linear-gradient(180deg, rgba(8, 42, 42, 0.88), rgba(4, 20, 24, 0.78)),
+        linear-gradient(135deg, rgba(36, 216, 167, 0.12), rgba(126, 161, 255, 0.05));
+      border-color: rgba(36, 216, 167, 0.18);
+    }
+        .function-plot-card.cell-style-oscilloscope .function-plot-axis-line,
+.function-plot-card.cell-style-oscilloscope .function-plot-tick-line {
+      stroke: rgba(120, 255, 220, 0.28);
+    }

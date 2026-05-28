@@ -1,0 +1,56 @@
+/* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.compare-card::before {
+      display: none !important;
+    }
+
+    .cell-card.compare-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .compare-title,
+.compare-table,
+.compare-takeaway {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .compare-card .compare-cell,
+.compare-card .compare-title,
+.compare-card .compare-table,
+.compare-card .compare-header,
+.compare-card .compare-rows,
+.compare-card .compare-row,
+.compare-card .compare-aspect,
+.compare-card .compare-label-left,
+.compare-card .compare-value-left,
+.compare-card .compare-takeaway {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.compare-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .compare-card .compare-cell {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .compare-card .compare-aspect,
+.compare-card .compare-aspect-heading {
+      padding-left: 14px !important;
+    }
+
+    .compare-card .compare-label,
+.compare-card .compare-value {
+      padding-left: 15px !important;
+    }
+
+    .compare-card .compare-takeaway {
+      padding-left: 2px !important;
+    }

@@ -1,0 +1,51 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card.key-value-style-sample-sheet .key-value-title-marker {
+      background: linear-gradient(180deg, var(--accent-3), var(--relationship-b));
+      box-shadow: 0 0 0 3px rgba(255, 191, 108, 0.11);
+    }
+
+    .cell-card.key-value-card.key-value-style-sample-sheet .key-value-cell {
+      gap: 8px;
+      padding: 7px;
+      border-radius: 18px;
+      border-color: rgba(74, 120, 210, 0.20);
+      background:
+        radial-gradient(circle at 16px 16px, rgba(74, 120, 210, 0.16), transparent 21px),
+        rgba(255, 255, 255, 0.38);
+    }
+
+    .cell-card.key-value-card.key-value-style-sample-sheet .key-value-row {
+      border: 1px solid var(--surface-line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.34);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34);
+      overflow: hidden;
+    }
+
+    .cell-card.key-value-card.key-value-style-sample-sheet .key-value-row::after {
+      content: "sample";
+      position: absolute;
+      right: 10px;
+      top: 7px;
+      color: rgba(74, 120, 210, 0.30);
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-sample-sheet .key-value-row {
+      animation-name: kv-sample-pop;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-sample-sheet .key-value-cell {
+      background:
+        radial-gradient(circle at 18px 16px, rgba(255, 191, 108, 0.18) 0 4px, transparent 5px),
+        linear-gradient(90deg, rgba(255, 191, 108, 0.11), transparent 8px),
+        rgba(255, 255, 255, 0.04);
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-sample-sheet .key-value-row {
+      background: rgba(255, 255, 255, 0.045);
+      border-color: rgba(126, 161, 255, 0.14);
+    }

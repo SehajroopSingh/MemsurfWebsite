@@ -1,0 +1,36 @@
+/* RecallPromptCell motion/reduced-motion styles copied from renderer.css. The source rules intentionally remain in renderer.css. */
+
+@media (prefers-reduced-motion: reduce) {
+      .recall-card.cell-style-flashcard .recall-peel.is-revealed .recall-cover,
+      .recall-card.cell-style-focus-lens .recall-focus-lens.is-revealed .recall-focus-question-layer {
+        transform: none;
+      }
+}
+@media (prefers-reduced-motion: reduce) {
+
+      .recall-card.cell-style-flashcard .recall-peel.is-revealed .recall-answer-panel,
+      .recall-card.cell-style-focus-lens .recall-focus-lens.is-revealed .recall-focus-answer,
+      .recall-card.cell-style-focus-lens .recall-focus-lens.is-revealed .recall-focus-answer-copy {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+}
+@media (prefers-reduced-motion: reduce) {
+
+      .recall-cover {
+        transition: none;
+      }
+}
+@media (prefers-reduced-motion: reduce) {
+
+      .recall-answer-panel {
+        transition: none;
+      }
+}
+@media (prefers-reduced-motion: reduce) {
+
+      .recall-peel.is-revealed .recall-cover {
+        transform: translateX(calc(100% - 44px));
+      }
+}

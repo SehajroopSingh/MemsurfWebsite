@@ -1,0 +1,112 @@
+/* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-cell {
+        padding: 10px 0;
+        gap: 8px;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-table {
+        border-radius: 13px;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-header {
+        grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr);
+        gap: 0;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-aspect-heading {
+        display: none;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-label {
+        min-height: 58px;
+        padding: 12px 10px;
+        border-radius: 0;
+        font-size: 14.5px;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-vs-badge span {
+        width: 28px;
+        height: 22px;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-row {
+        grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr);
+        gap: 0;
+        padding: 0;
+        border-radius: 0;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-aspect {
+        grid-column: 1 / -1;
+        min-height: 0;
+        align-items: center;
+        padding: 9px 10px;
+        border-right: 0;
+        border-bottom: 1px solid var(--compare-table-line);
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-aspect-index {
+        width: 21px;
+        height: 21px;
+        font-size: 9px;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-value-left {
+        grid-column: 1;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-axis {
+        grid-column: 2;
+        grid-row: 2;
+        min-height: 42px;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-value-right {
+        grid-column: 3;
+      }
+}
+
+@media (max-width: 620px) {
+
+      .cell-card.compare-card .compare-value {
+        min-height: 46px;
+        padding: 10px 11px;
+        font-size: 12.5px;
+      }
+}

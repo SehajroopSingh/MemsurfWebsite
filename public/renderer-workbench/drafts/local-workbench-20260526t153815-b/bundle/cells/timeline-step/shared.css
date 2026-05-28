@@ -1,0 +1,118 @@
+/* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
+
+.cell-card.timeline-card.has-incoming-connection::before,
+.cell-card.timeline-card.has-outgoing-connection::after {
+      display: none;
+    }
+
+    .timeline-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 760;
+      color: white;
+      background: var(--accent-1);
+      box-shadow: 0 8px 18px rgba(37, 60, 112, 0.18);
+    }
+
+    @media (max-width: 620px) {
+
+      .timeline-event {
+        font-size: 16px;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+      .cell-card.timeline-card,
+.timeline-node,
+.timeline-date-chip,
+.timeline-event,
+.timeline-description,
+.timeline-note,
+.timeline-flow-connector,
+.timeline-flow-connector-glow,
+.flow-connector-layer-enter {
+        animation: none;
+        opacity: 1;
+        filter: none;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .cell-card.timeline-card,
+.timeline-node,
+.timeline-date-chip,
+      .timeline-event,
+.timeline-description,
+.timeline-note,
+.timeline-flow-connector,
+.timeline-flow-connector-glow,
+.flow-connector-layer-enter {
+        transform: none;
+      }
+}
+
+    .cell-card.timeline-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .timeline-step-layout {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .timeline-rail-wrap {
+      justify-self: start !important;
+      justify-content: flex-start !important;
+    }
+
+    .timeline-step-layout {
+      width: 100%;
+    }
+
+    .cell-card.timeline-card {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .timeline-card.cell-style-rail .timeline-rail-wrap {
+      border-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .timeline-node {
+      margin-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.timeline-card {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .timeline-card.cell-style-rail {
+      border-left-width: 0 !important;
+    }
+
+    .timeline-card .chain-label,
+.timeline-card .timeline-step-layout,
+.timeline-card .timeline-content,
+.timeline-card .timeline-topline,
+.timeline-card .timeline-event,
+.timeline-card .timeline-description,
+.timeline-card .timeline-note {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .timeline-card.cell-style-ticker .timeline-content {
+      border-left-width: 0 !important;
+    }

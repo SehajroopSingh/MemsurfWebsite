@@ -1,0 +1,48 @@
+/* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.code-trace-card .eyebrow,
+.code-trace-card .trace-step-label {
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .cell-card.code-trace-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .code-trace-card .code-block,
+.code-trace-card .trace-list,
+.code-trace-card .trace-result {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .code-trace-card > .eyebrow,
+.code-trace-card .code-block,
+.code-trace-card .code-line,
+.code-trace-card .trace-list,
+.code-trace-card .trace-step,
+.code-trace-card .trace-result {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.code-trace-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .code-trace-card .code-line {
+      padding-left: 12px !important;
+    }
+
+    .code-trace-card .trace-step,
+.code-trace-card .trace-result {
+      padding-left: 14px !important;
+    }

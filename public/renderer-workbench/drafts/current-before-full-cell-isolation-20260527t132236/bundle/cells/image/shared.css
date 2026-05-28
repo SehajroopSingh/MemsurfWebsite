@@ -1,0 +1,45 @@
+/* image local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.image-card .image-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--surface-line);
+      background: rgba(255, 255, 255, 0.14);
+      min-height: 128px;
+    }
+
+    .image-card .image-cell-photo {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .image-card .image-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 128px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .image-card .image-caption {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .image-card .image-frame,
+.image-card .image-caption {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .image-card .image-caption {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }

@@ -1,0 +1,58 @@
+/* CodeTrace card shell copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.code-trace-card {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  backdrop-filter: var(--glass);
+  -webkit-backdrop-filter: var(--glass);
+  box-shadow: var(--card-shadow);
+  color: var(--text);
+}
+
+.cell-card.code-trace-card {
+  background: transparent !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.cell-card.code-trace-card::before {
+  display: none !important;
+  background: none !important;
+}
+
+.cell-card.code-trace-card.sequence-pending {
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(8px) saturate(0.94);
+  pointer-events: none;
+}
+
+.cell-card.code-trace-card.sequence-active,
+.cell-card.code-trace-card.sequence-complete {
+  visibility: visible;
+}
+
+.cell-card.code-trace-card.sequence-active[data-animation-profile="generic"] {
+  animation: gridCellGenericEnter var(--grid-cell-enter-duration, 760ms) cubic-bezier(0.2, 0.84, 0.22, 1) both;
+  pointer-events: auto;
+  will-change: opacity, transform, filter;
+}
+
+.cell-card.code-trace-card.sequence-complete {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  pointer-events: auto;
+}

@@ -1,0 +1,244 @@
+/* TextCell styles copied from renderer.css for local workbench overrides. */
+
+.cell-card.text-mode-body {
+      justify-content: center;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(244, 248, 255, 0.56)),
+        var(--card-bg);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-mode-body {
+      background:
+        linear-gradient(135deg, rgba(24, 34, 52, 0.74), rgba(15, 22, 37, 0.62)),
+        var(--card-bg);
+    }
+
+    .text-cell-body,
+    .text-prose {
+      flex-direction: column;
+    }
+
+    .text-cell-body {
+      gap: 10px;
+    }
+
+    .text-prose {
+      display: block;
+      column-count: var(--text-columns, 1);
+      column-gap: 24px;
+    }
+
+    .text-body-editorial {
+      font-size: 16px;
+      line-height: 1.66;
+    }
+
+    .has-dropcap .text-body-editorial:first-child::first-letter,
+    .cell-card.text-style-dropcap .text-body-editorial:first-child::first-letter {
+      float: left;
+      margin: 7px 11px 0 0;
+      color: var(--accent-1);
+      font-size: 58px;
+      line-height: 0.74;
+      font-weight: 860;
+      font-family: Georgia, "Times New Roman", serif;
+      text-shadow: 0 10px 20px rgba(74, 120, 210, 0.18);
+    }
+
+    .cell-card.text-style-editorial .text-body-editorial {
+      font-size: 17px;
+      line-height: 1.72;
+      color: var(--heading);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .cell-card.text-style-editorial .text-cell-body {
+      padding: 10px 2px 2px;
+      border-top: 2px solid rgba(74, 120, 210, 0.22);
+    }
+
+    .cell-card.text-style-editorial .text-cell-body::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: 54px;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(47, 143, 131, 0.52);
+      box-shadow: 12px 0 0 rgba(123, 105, 239, 0.34);
+    }
+
+    .cell-card.text-style-dropcap {
+      border-color: rgba(74, 120, 210, 0.24);
+      background:
+        radial-gradient(circle at 94% 0%, rgba(74, 120, 210, 0.14), transparent 72px),
+        linear-gradient(145deg, rgba(255,255,255,0.84), rgba(247, 250, 255, 0.62)),
+        var(--card-bg);
+    }
+
+    .cell-card.text-style-dropcap .text-cell-body {
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(74, 120, 210, 0.16);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.38);
+    }
+
+    .cell-card.text-style-dropcap .text-cell-body::before {
+      content: "";
+      display: block;
+      width: 58px;
+      height: 3px;
+      margin-bottom: 13px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-0));
+      box-shadow: 66px 0 0 rgba(123, 105, 239, 0.24);
+    }
+
+    .cell-card.text-style-dropcap .text-body-editorial {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 1.72;
+      color: var(--heading);
+    }
+
+    .cell-card.text-style-notebook {
+      background-image:
+        linear-gradient(rgba(74, 120, 210, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, transparent 0 31px, rgba(255, 118, 141, 0.14) 31px 33px, transparent 33px),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.80), rgba(244, 248, 255, 0.58));
+      background-size: 100% 28px, 100% 100%, auto;
+    }
+
+    .cell-card.text-style-notebook .text-cell-body {
+      position: relative;
+    }
+
+    .cell-card.text-style-notebook .text-cell-body::before {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 5px;
+      bottom: 5px;
+      width: 10px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle, rgba(74, 120, 210, 0.28) 0 2px, rgba(255, 255, 255, 0.72) 2.5px 4px, transparent 4.5px) center 6px / 10px 28px repeat-y;
+      opacity: 0.82;
+      pointer-events: none;
+    }
+
+    .cell-card.text-style-notebook .text-cell-body::after {
+      content: "";
+      position: absolute;
+      left: 23px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(74, 120, 210, 0.18) 0 8px,
+          transparent 8px 14px
+        );
+      box-shadow: 4px 0 0 rgba(255, 118, 141, 0.08);
+      pointer-events: none;
+    }
+
+    .cell-card.text-style-notebook .text-prose {
+      padding: 4px 0 4px 42px;
+      border-left: 0;
+      font-family: ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-notebook .text-cell-body::before {
+      background:
+        radial-gradient(circle, rgba(126, 161, 255, 0.34) 0 2px, rgba(15, 22, 37, 0.78) 2.5px 4px, transparent 4.5px) center 6px / 10px 28px repeat-y;
+      opacity: 0.78;
+    }
+
+    :root[data-theme="dark"] .cell-card.text-style-notebook .text-cell-body::after {
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(126, 161, 255, 0.20) 0 8px,
+          transparent 8px 14px
+        );
+      box-shadow: 4px 0 0 rgba(255, 118, 141, 0.10);
+    }
+
+    .cell-card.text-mode-body.text-style-briefing {
+      border-color: color-mix(in srgb, var(--accent-1) 22%, var(--surface-line));
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent-1) 12%, transparent), transparent 44%),
+        var(--card-bg);
+    }
+
+    .cell-card.text-mode-body.text-style-briefing .text-cell-body {
+      padding: 5px 0 5px 18px;
+    }
+
+    .cell-card.text-mode-body.text-style-briefing .text-cell-body::before {
+      content: "";
+      position: absolute;
+      inset: 5px auto 5px 0;
+      width: 4px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--accent-1), var(--accent-0));
+      opacity: 0.82;
+    }
+
+    .cell-card.text-mode-body.text-style-briefing .text-prose {
+      margin-left: 0;
+      padding: 12px 13px;
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--card-bg) 84%, var(--accent-1) 16%);
+      font-weight: 560;
+      color: var(--heading);
+      border: 1px solid color-mix(in srgb, var(--accent-1) 18%, var(--surface-line));
+    }
+
+    .cell-card.text-mode-body.text-style-briefing .text-prose::before {
+      content: "";
+      display: block;
+      width: 62px;
+      height: 3px;
+      margin-bottom: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-0));
+      opacity: 0.62;
+    }
+
+    .cell-card.text-mode-body.text-style-briefing .text-cell-body::after {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 5px;
+      bottom: 5px;
+      width: 1px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent-1) 20%, transparent);
+    }
+
+    @media (max-width: 620px) {
+
+      .text-prose {
+        column-count: 1;
+      }
+}
+
+    .cell-card.text-style-notebook .text-prose,
+    .cell-card.text-mode-body.text-style-briefing .text-prose {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .cell-card.text-style-notebook .text-prose {
+      padding-left: 42px !important;
+    }
+
+    .cell-card.text-mode-body.text-style-briefing .text-prose {
+      margin-left: 0 !important;
+      padding-left: 13px !important;
+    }

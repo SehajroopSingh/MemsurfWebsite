@@ -1,0 +1,16 @@
+/* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.spacer-card.cell-style-divider {
+      min-height: 28px;
+      border-style: solid;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .spacer-card.cell-style-divider .spacer-fill {
+      height: 1px;
+      min-height: 1px;
+      background: rgba(82, 101, 135, 0.26);
+    }

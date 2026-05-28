@@ -1,0 +1,1058 @@
+/* TripletCell copies of mixed/shared renderer rules. Source rules intentionally remain in renderer.css. */
+
+.cell-card.triplet-card.cell-style-cascade .triplet-connector span {
+      box-shadow: 0 0 0 5px rgba(74, 120, 210, 0.10);
+    }
+
+    .triplet-chain-label {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    .triplet-item {
+      position: relative;
+      min-width: 0;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--surface-line);
+      background: rgba(255, 255, 255, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      overflow: hidden;
+    }
+
+    .triplet-item::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      border-radius: 999px;
+      background: var(--relationship-a);
+    }
+
+    .triplet-item::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .triplet-item-3 .relationship-role {
+      color: var(--relationship-b);
+      background: var(--relationship-wash-b);
+    }
+
+    .triplet-connector {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      color: var(--muted);
+    }
+
+    .triplet-connector::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b));
+      opacity: 0.28;
+      transform: translateY(-50%);
+    }
+
+    .triplet-connector span {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      min-height: 24px;
+      max-width: 82px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--surface-line);
+      background: rgba(255, 255, 255, 0.54);
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.1;
+      font-weight: 760;
+      text-align: center;
+      text-transform: uppercase;
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      rotate: 0deg;
+      overflow-wrap: break-word;
+      word-break: normal;
+      white-space: normal;
+    }
+
+    .grid-shell.stacked .triplet-cell {
+      grid-template-columns: 1fr;
+    }
+
+    .grid-shell.stacked .triplet-style-evidence-rail .triplet-cell::before,
+.grid-shell.stacked .triplet-style-logic-ladder .triplet-cell::before,
+.grid-shell.stacked .triplet-style-inference-cascade .triplet-cell::before,
+.grid-shell.stacked .triplet-style-time-slice .triplet-cell::before,
+.grid-shell.stacked .triplet-style-change-bridge .triplet-cell::before {
+      top: 16px;
+      bottom: 16px;
+      left: 50%;
+      right: auto;
+      width: 2px;
+      height: auto;
+      background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b), var(--relationship-c));
+    }
+
+    .grid-shell.stacked .triplet-connector {
+      position: relative;
+      min-width: 0;
+      min-height: 30px;
+      align-self: stretch;
+    }
+
+    .grid-shell.stacked .triplet-connector::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      bottom: -8px;
+      left: 50%;
+      width: 2px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b), var(--relationship-c));
+      opacity: 0.22;
+      transform: translateX(-50%);
+    }
+
+    .grid-shell.stacked .triplet-connector span {
+      position: relative;
+      z-index: 1;
+      max-width: min(220px, 76%);
+      min-height: 24px;
+      text-align: center;
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      rotate: 0deg;
+      white-space: normal;
+      transform: none;
+    }
+
+    :root[data-theme="dark"] .triplet-item,
+:root[data-theme="dark"] .triplet-connector span {
+      background: rgba(255, 255, 255, 0.045);
+      border-color: var(--surface-line);
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .triplet-style-evidence-rail .triplet-item {
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(126, 161, 255, 0.055)),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    :root[data-theme="dark"] .triplet-style-machine-flow .triplet-item,
+:root[data-theme="dark"] .triplet-style-reaction-path .triplet-item {
+      background:
+        linear-gradient(135deg, rgba(88, 193, 178, 0.065), rgba(126, 161, 255, 0.055)),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    .relationship-cell.triplet-cell {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: 11px;
+      isolation: isolate;
+    }
+
+    .cell-card.triplet-card .relationship-node,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-node {
+      min-height: 0;
+      padding: 10px 11px 10px 13px;
+      border-radius: 10px;
+      border: 1px solid rgba(82, 101, 135, 0.13);
+      background: rgba(255, 255, 255, 0.28);
+      box-shadow: none;
+      transform: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.triplet-card .relationship-node {
+      background: rgba(255, 255, 255, 0.035);
+      border-color: rgba(126, 161, 255, 0.13);
+    }
+
+    .cell-card.triplet-card .relationship-bridge .relationship-bridge-line {
+      display: block;
+      flex: 1 1 14px;
+      min-width: 10px;
+      min-height: 0;
+      height: 2px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b));
+      box-shadow: none;
+      opacity: 0.30;
+    }
+
+    .cell-card.triplet-card .relationship-bridge .relationship-bridge-label {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      min-width: 0;
+      min-height: 0;
+      max-width: 118px;
+      padding: 0 3px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.12;
+      font-weight: 820;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow-wrap: normal;
+      word-break: keep-all;
+      hyphens: none;
+    }
+
+    .cell-card.triplet-card .relationship-cell.triplet-cell .layout-reasoning-ladder.triplet-rail {
+      gap: 7px;
+    }
+
+    .grid-shell.stacked .triplet-rail.orientation-horizontal {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    @media (max-width: 680px) {
+      .triplet-rail.orientation-horizontal {
+        grid-template-columns: minmax(0, 1fr);
+      }
+}
+
+    @media (max-width: 680px) {
+
+      .triplet-rail.orientation-horizontal .relationship-bridge {
+        flex-direction: column;
+        align-self: stretch;
+        min-height: 38px;
+      }
+}
+
+    @media (max-width: 680px) {
+
+      .triplet-rail.orientation-horizontal .relationship-bridge .relationship-bridge-line {
+        flex: 0 0 12px;
+        width: 2px;
+        min-width: 0;
+        height: 12px;
+        background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b));
+      }
+}
+
+    @media (max-width: 680px) {
+
+      .triplet-rail.orientation-horizontal .relationship-arrow {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted));
+        border-bottom: 0;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+      .cell-card.triplet-card.triplet-card-enter,
+.cell-card.triplet-card.triplet-card-enter .triplet-item,
+.cell-card.triplet-card.triplet-card-enter .triplet-connector span,
+.cell-card.triplet-card.triplet-card-enter .triplet-connector span::after,
+.cell-card.triplet-card.triplet-card-enter .triplet-cell::before,
+.cell-card.triplet-card.triplet-card-enter .triplet-index::after {
+        animation: none;
+        opacity: 1;
+        filter: none;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .cell-card.triplet-card.triplet-card-enter,
+.cell-card.triplet-card.triplet-card-enter .triplet-item,
+.cell-card.triplet-card.triplet-card-enter .triplet-connector span,
+.cell-card.triplet-card.triplet-card-enter .triplet-connector span::after,
+.cell-card.triplet-card.triplet-card-enter .triplet-cell::before,
+.cell-card.triplet-card.triplet-card-enter .triplet-index::after {
+        transform: none;
+      }
+}
+
+    .cell-card.triplet-card,
+.cell-card.triplet-card[class],
+:root[data-theme="dark"] .cell-card.triplet-card,
+:root[data-theme="dark"] .cell-card.triplet-card[class] {
+      padding: 0 !important;
+      border: 0 !important;
+      border-width: 0 !important;
+      border-style: none !important;
+      border-color: transparent !important;
+      outline: 0 !important;
+      outline-offset: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .cell-card.triplet-card::before,
+.cell-card.triplet-card::after {
+      content: none !important;
+      display: none !important;
+      border: 0 !important;
+      outline: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.triplet-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .triplet-cell {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .triplet-card .triplet-cell,
+.triplet-card .triplet-item,
+.triplet-card .relationship-label,
+.triplet-card .relationship-body {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .triplet-card.cell-style-cascade .triplet-item {
+      border-left-width: 0 !important;
+    }
+
+    .triplet-card.cell-style-cascade .triplet-item {
+      margin-left: 0 !important;
+    }
+
+    .grid-shell .cell-card.triplet-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .cell-card.triplet-card .relationship-diagram .relationship-node,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-node {
+      padding: 10px 11px 10px 13px !important;
+      border-left-width: 1px !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    .cell-card.triplet-card .relationship-diagram .relationship-bridge,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-bridge {
+      min-width: 0 !important;
+      min-height: 30px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.triplet-card .relationship-diagram .relationship-bridge-line,
+.cell-card.triplet-card .relationship-diagram .relationship-bridge-label,
+.cell-card.triplet-card .relationship-diagram .relationship-arrow,
+.cell-card.triplet-card .relationship-diagram .relationship-support-marker,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-bridge-line,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-bridge-label,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-arrow,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-support-marker {
+      min-width: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.triplet-card .relationship-diagram .relationship-bridge-line,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-bridge-line {
+      flex: 1 1 14px !important;
+      height: 2px !important;
+      border: 0 !important;
+      border-radius: 999px !important;
+      background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b)) !important;
+    }
+
+    .cell-card.triplet-card .relationship-diagram .relationship-bridge-label,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-bridge-label {
+      max-width: 118px !important;
+      padding-inline: 3px !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      color: var(--muted) !important;
+    }
+
+    .cell-card.triplet-card .relationship-diagram .relationship-arrow,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-arrow {
+      flex: 0 0 auto !important;
+      width: 0 !important;
+      height: 0 !important;
+      border-top: 4px solid transparent !important;
+      border-bottom: 4px solid transparent !important;
+      border-left: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted)) !important;
+      border-right: 0 !important;
+      border-radius: 0 !important;
+    }
+
+    .cell-card.triplet-card .relationship-diagram .relationship-support-marker,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-diagram .relationship-support-marker {
+      flex: 0 0 auto !important;
+      width: 7px !important;
+      height: 7px !important;
+      border: 2px solid color-mix(in srgb, var(--relationship-b) 60%, var(--muted)) !important;
+      border-radius: 999px !important;
+    }
+
+    .relationship-cell.triplet-cell {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+      min-width: 0 !important;
+      isolation: isolate !important;
+    }
+
+    .relationship-cell.triplet-cell::before,
+.relationship-cell.triplet-cell::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .relationship-cell.triplet-cell .triplet-item,
+:root[data-theme="dark"] .relationship-cell.triplet-cell .triplet-item {
+      min-height: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      outline: 0 !important;
+      transform: none !important;
+      overflow: visible !important;
+    }
+
+    .relationship-cell.triplet-cell .triplet-item::before,
+.relationship-cell.triplet-cell .triplet-item::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .relationship-cell.triplet-cell .relationship-label {
+      animation: relationship-label-first-in 320ms cubic-bezier(0.2, 0.75, 0.22, 1) 80ms both !important;
+    }
+
+    .relationship-cell.triplet-cell .relationship-bridge-label {
+      animation: relationship-bridge-label-in 360ms cubic-bezier(0.2, 0.75, 0.22, 1) 500ms both !important;
+    }
+
+    .relationship-cell.triplet-cell .relationship-bridge-line {
+      transform-origin: center;
+      animation: relationship-bridge-line-draw-x 520ms cubic-bezier(0.2, 0.75, 0.22, 1) 500ms both !important;
+    }
+
+    .relationship-cell.triplet-cell .orientation-vertical .relationship-bridge-line,
+.relationship-cell.triplet-cell .triplet-vertical-rail .relationship-bridge-line,
+.relationship-cell.triplet-cell .triplet-ladder .relationship-bridge-line {
+      animation-name: relationship-bridge-line-draw-y !important;
+    }
+
+    .relationship-cell.triplet-cell .relationship-arrow,
+.relationship-cell.triplet-cell .relationship-support-marker {
+      animation: relationship-bridge-label-in 360ms cubic-bezier(0.2, 0.75, 0.22, 1) 500ms both !important;
+    }
+
+    .relationship-cell.triplet-cell .relationship-role {
+      animation: relationship-role-after-label-in 300ms cubic-bezier(0.2, 0.75, 0.22, 1) 980ms both !important;
+    }
+
+    .relationship-cell.triplet-cell .relationship-body {
+      animation: relationship-body-after-role-in 340ms cubic-bezier(0.2, 0.75, 0.22, 1) 1400ms both !important;
+    }
+
+    .relationship-cell.triplet-cell .triplet-body-row .relationship-body.has-body,
+.relationship-cell.triplet-cell .triplet-detail-stack .relationship-body.has-body,
+:root[data-theme="dark"] .relationship-cell.triplet-cell .triplet-body-row .relationship-body.has-body,
+:root[data-theme="dark"] .relationship-cell.triplet-cell .triplet-detail-stack .relationship-body.has-body {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 0.78 !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .relationship-cell.triplet-cell .relationship-label,
+.relationship-cell.triplet-cell .relationship-bridge-label,
+.relationship-cell.triplet-cell .relationship-bridge-line,
+.relationship-cell.triplet-cell .relationship-arrow,
+.relationship-cell.triplet-cell .relationship-support-marker,
+.relationship-cell.triplet-cell .relationship-role,
+.relationship-cell.triplet-cell .relationship-body {
+        animation: none !important;
+        filter: none !important;
+        clip-path: none !important;
+        transform: none !important;
+      }
+}
+
+    .relationship-cell.triplet-cell .triplet-connector,
+:root[data-theme="dark"] .relationship-cell.triplet-cell .triplet-connector {
+      min-width: 0 !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      color: var(--muted) !important;
+    }
+
+    .relationship-cell.triplet-cell .triplet-connector span,
+:root[data-theme="dark"] .relationship-cell.triplet-cell .triplet-connector span {
+      min-width: 0 !important;
+      min-height: 0 !important;
+      max-width: none !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      writing-mode: horizontal-tb !important;
+      text-orientation: mixed !important;
+      rotate: 0deg !important;
+      transform: none !important;
+    }
+
+    .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge-label,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge-label {
+      width: auto !important;
+      min-width: max-content !important;
+      max-width: none !important;
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+      overflow-wrap: normal !important;
+      word-break: keep-all !important;
+      hyphens: none !important;
+    }
+
+    @media (max-width: 680px) {
+      .triplet-chain-main,
+.triplet-body-row {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+}
+
+    @media (max-width: 680px) {
+
+      .triplet-body-1,
+.triplet-body-2,
+.triplet-body-3 {
+        grid-column: 1 !important;
+      }
+}
+
+    @media (max-width: 680px) {
+
+	      .triplet-chain-main .relationship-bridge {
+	        min-height: 26px !important;
+	      }
+	}
+
+/* Triplet self-contained relationship primitives.
+   These duplicate shared renderer rules with Triplet scope so this folder can stand alone later. */
+
+@layer triplet-cell-primitives {
+
+.cell-card.triplet-card,
+.cell-card.triplet-card *,
+.cell-card.triplet-card *::before,
+.cell-card.triplet-card *::after {
+  box-sizing: border-box;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  gap: 11px;
+  isolation: isolate;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell::before,
+.cell-card.triplet-card .relationship-cell.triplet-cell::after {
+  content: none;
+  display: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-header {
+  display: grid;
+  gap: 5px;
+  width: 100%;
+  min-width: 0;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-sentence,
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-chain-label {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-sentence {
+  color: var(--heading);
+  font-size: 13px;
+  line-height: 1.42;
+  font-weight: 650;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-sentence p {
+  margin: 0;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-chain-label {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 820;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-chain-label::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b), var(--relationship-c));
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-diagram {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  align-items: start;
+  gap: 8px;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-rail.orientation-horizontal {
+  grid-template-columns: minmax(0, 1fr) minmax(58px, 0.22fr) minmax(0, 1fr) minmax(58px, 0.22fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-rail.orientation-vertical {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--surface-line);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--relationship-a);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item-2::before {
+  background: var(--relationship-b);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item-3::before {
+  background: var(--relationship-c);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item-2 .relationship-role,
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item-3 .relationship-role {
+  color: var(--relationship-b);
+  background: var(--relationship-wash-b);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-label {
+  position: relative;
+  margin-bottom: 7px;
+  color: var(--heading);
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 820;
+  overflow-wrap: anywhere;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-role {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 6px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: var(--relationship-a);
+  background: var(--relationship-wash-a);
+  font-size: 10px;
+  line-height: 1.1;
+  font-weight: 820;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-body {
+  position: relative;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 560;
+  overflow-wrap: anywhere;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-empty {
+  padding: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-connector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  color: var(--muted);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-connector::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b));
+  opacity: 0.28;
+  transform: translateY(-50%);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-connector span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 24px;
+  max-width: 82px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--surface-line);
+  background: rgba(255, 255, 255, 0.54);
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.1;
+  font-weight: 760;
+  text-align: center;
+  text-transform: uppercase;
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  rotate: 0deg;
+  overflow-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node {
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  padding: 10px 11px 10px 13px;
+  border-radius: 10px;
+  border: 1px solid rgba(82, 101, 135, 0.13);
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: none;
+  transform: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node::before {
+  width: 3px;
+  opacity: 0.72;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node::after {
+  display: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node .relationship-role,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node .relationship-role {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  margin: 0 0 4px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 10px;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node .relationship-label {
+  margin: 0 0 4px;
+  color: var(--heading);
+  font-size: 13px;
+  line-height: 1.18;
+  font-weight: 830;
+  text-transform: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node .relationship-body {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.34;
+  font-weight: 540;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node .relationship-body p {
+  margin: 0;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 30px;
+  gap: 4px;
+  color: var(--muted);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge::before,
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge::after {
+  display: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge .relationship-bridge-line,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge .relationship-bridge-line {
+  display: block;
+  flex: 1 1 14px;
+  min-width: 10px;
+  min-height: 0;
+  height: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b));
+  box-shadow: none;
+  opacity: 0.30;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge .relationship-bridge-label,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge .relationship-bridge-label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  min-width: 0;
+  min-height: 0;
+  max-width: 118px;
+  padding: 0 3px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.12;
+  font-weight: 820;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-arrow {
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted));
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-support-marker {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--relationship-b) 60%, var(--muted));
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .bridge-no-arrow .relationship-arrow {
+  display: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .bridge-no-arrow .relationship-bridge-line {
+  opacity: 0.18;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .layout-reasoning-ladder.triplet-rail {
+  gap: 7px;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-divider-contrast .relationship-bridge-line,
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-classification .relationship-bridge-line,
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-mirror .relationship-bridge-line {
+  background: var(--surface-line);
+  opacity: 0.75;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-support .relationship-bridge,
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-reasoning-ladder .relationship-bridge {
+  color: var(--relationship-b);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-support .relationship-bridge-line,
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-reasoning-ladder .relationship-bridge-line {
+  background: linear-gradient(180deg, var(--relationship-b), var(--relationship-c));
+  opacity: 0.24;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-divider-contrast .relationship-arrow,
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-classification .relationship-arrow,
+.cell-card.triplet-card .relationship-cell.triplet-cell.layout-mirror .relationship-arrow {
+  display: none;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-diagram.orientation-vertical .relationship-bridge {
+  flex-direction: column;
+  align-self: stretch;
+  min-height: 38px;
+  gap: 3px;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-diagram.orientation-vertical .relationship-bridge .relationship-bridge-line,
+.grid-shell.stacked .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge .relationship-bridge-line,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-diagram.orientation-vertical .relationship-bridge .relationship-bridge-line,
+:root[data-theme="dark"] .grid-shell.stacked .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge .relationship-bridge-line {
+  flex: 0 0 12px;
+  width: 2px;
+  min-width: 0;
+  height: 12px;
+  background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b));
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-diagram.orientation-vertical .relationship-arrow,
+.grid-shell.stacked .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-arrow,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-diagram.orientation-vertical .relationship-arrow,
+:root[data-theme="dark"] .grid-shell.stacked .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-arrow {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted));
+  border-bottom: 0;
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .relationship-diagram.orientation-vertical .relationship-bridge .relationship-bridge-label,
+.grid-shell.stacked .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-bridge .relationship-bridge-label {
+  max-width: min(230px, 86%);
+  padding: 0;
+  transform: none;
+}
+
+.grid-shell.stacked .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-diagram,
+.grid-shell.stacked .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-rail.orientation-horizontal {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item,
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-connector span {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: var(--surface-line);
+  box-shadow: none;
+}
+
+:root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-node {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(126, 161, 255, 0.13);
+}
+
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-chain-main,
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-main-flow,
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-chain-node,
+.cell-card.triplet-card .relationship-cell.triplet-cell .triplet-rail-node,
+.cell-card.triplet-card .relationship-cell.triplet-cell .ladder-step {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 680px) {
+  .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-rail.orientation-horizontal {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-rail.orientation-horizontal .relationship-bridge {
+    flex-direction: column;
+    align-self: stretch;
+    min-height: 38px;
+  }
+
+  .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-rail.orientation-horizontal .relationship-bridge .relationship-bridge-line {
+    flex: 0 0 12px;
+    width: 2px;
+    min-width: 0;
+    height: 12px;
+    background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b));
+  }
+
+  .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-rail.orientation-horizontal .relationship-arrow {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid color-mix(in srgb, var(--relationship-b) 70%, var(--muted));
+    border-bottom: 0;
+  }
+}
+
+}

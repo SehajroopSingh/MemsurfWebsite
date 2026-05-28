@@ -1,0 +1,57 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card.key-value-style-index-card .key-value-title {
+      margin: 9px 10px 0;
+      border: 1px solid rgba(255, 191, 108, 0.22);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(255, 191, 108, 0.20), rgba(255, 255, 255, 0.36)),
+        rgba(255, 255, 255, 0.50);
+    }
+
+    .cell-card.key-value-card.key-value-style-index-card .key-value-title-marker {
+      background: linear-gradient(180deg, var(--accent-3), var(--relationship-b));
+      box-shadow: 0 0 0 3px rgba(255, 191, 108, 0.11);
+    }
+
+    .cell-card.key-value-card.key-value-style-index-card .key-value-cell {
+      border-radius: 18px 18px 14px 14px;
+      border-color: rgba(255, 191, 108, 0.28);
+      background:
+        radial-gradient(circle at 18px 16px, rgba(255, 191, 108, 0.40) 0 4px, transparent 5px),
+        linear-gradient(90deg, rgba(255, 191, 108, 0.24), transparent 7px),
+        repeating-linear-gradient(180deg, rgba(74, 120, 210, 0.08) 0 1px, transparent 1px 31px),
+        rgba(255, 255, 255, 0.62);
+      box-shadow:
+        0 18px 34px rgba(31, 42, 68, 0.12),
+        0 5px 0 rgba(255, 191, 108, 0.10);
+      transform-origin: 18px 0;
+    }
+
+    .cell-card.key-value-card.key-value-style-index-card .key-value-cell::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 24px;
+      width: 88px;
+      height: 9px;
+      border-radius: 0 0 9px 9px;
+      background: rgba(255, 191, 108, 0.42);
+    }
+
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-index-card .key-value-cell {
+      animation-name: kv-index-card-in;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-index-card .key-value-cell {
+      background:
+        linear-gradient(135deg, rgba(88, 193, 178, 0.065), rgba(126, 161, 255, 0.055)),
+        rgba(255, 255, 255, 0.035);
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-index-card .key-value-cell {
+      background:
+        radial-gradient(circle at 18px 16px, rgba(255, 191, 108, 0.18) 0 4px, transparent 5px),
+        linear-gradient(90deg, rgba(255, 191, 108, 0.11), transparent 8px),
+        rgba(255, 255, 255, 0.04);
+    }

@@ -90,9 +90,10 @@ export default function Home() {
   ])
 
   useEffect(() => {
+    if (loadTimedOut && !logoReady) handleLogoReady()
     if (loadTimedOut && !phoneReady) setPhoneReady(true)
     if (loadTimedOut && !collageReady) setCollageReady(true)
-  }, [collageReady, loadTimedOut, phoneReady])
+  }, [collageReady, handleLogoReady, loadTimedOut, logoReady, phoneReady])
 
   useEffect(() => {
     const html = document.documentElement

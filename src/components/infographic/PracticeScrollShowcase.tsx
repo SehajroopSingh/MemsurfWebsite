@@ -114,7 +114,7 @@ export default function PracticeScrollShowcase() {
             >
                 <div className="relative flex h-fit w-full items-center justify-center py-6 sm:py-8 lg:sticky lg:top-0 lg:h-screen lg:py-0">
                     <motion.div
-                        className="relative z-30 mt-0 flex h-fit w-full min-w-0 max-w-[1800px] flex-col items-center justify-center gap-4 overflow-visible px-4 sm:gap-6 sm:px-6 md:mt-24 lg:mt-0"
+                        className="relative z-30 mt-0 flex h-fit w-full min-w-0 max-w-7xl flex-col items-center justify-center gap-4 overflow-visible px-4 sm:gap-6 sm:px-6 md:mt-24 lg:mt-0 lg:px-8"
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
@@ -124,7 +124,7 @@ export default function PracticeScrollShowcase() {
                             Daily Reinforcement
                         </h2>
 
-                        <div className="relative mx-auto grid h-fit w-full max-w-[680px] grid-cols-1 items-center gap-12 md:max-w-none md:grid-cols-[minmax(0,1fr)_280px] md:gap-4">
+                        <div className="relative mx-auto grid h-fit w-full max-w-[680px] grid-cols-1 items-center gap-12 md:max-w-6xl md:grid-cols-[minmax(0,1fr)_280px] md:gap-8 lg:gap-10 xl:max-w-7xl">
 
                             {/* Text Content (Left) */}
                             <div className="relative z-10 row-start-1 h-fit w-full min-w-0 md:col-start-1 md:col-end-2">

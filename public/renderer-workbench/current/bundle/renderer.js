@@ -14,8 +14,12 @@
 
       const theme = documentPayload.theme === "dark" ? "dark" : "light";
       const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const previewStylePolicy = "preview";
+      const randomizedStableUnlockedStylePolicy = "randomized-stable-unlocked";
+      const legacyFirstOnlyStylePolicy = "first-only";
       const requestedStylePolicy = documentPayload.stylePolicy || documentPayload.style_policy;
-      const stylePolicy = requestedStylePolicy === "preview" ? "preview" : "first-only";
+      const stylePolicy = requestedStylePolicy === previewStylePolicy ? previewStylePolicy : randomizedStableUnlockedStylePolicy;
+      const isRandomizedStableUnlockedPolicy = stylePolicy === randomizedStableUnlockedStylePolicy || requestedStylePolicy === legacyFirstOnlyStylePolicy;
       const gridcellRenderStyles = {
         TextCell: {
           orientation: ["glass-card", "edge-note", "frosted-panel", "notification", "paper-note", "corner-focus"],
@@ -284,7 +288,7 @@
       }
 
       function selectedKeypointStyle(scenarioStyleKey, requestedStyle, occurrenceOrdinal) {
-        const sectionStableOccurrence = stylePolicy === "first-only" ? 0 : occurrenceOrdinal;
+        const sectionStableOccurrence = isRandomizedStableUnlockedPolicy ? 0 : occurrenceOrdinal;
         return selectedCellStyle("KeyPointsCell", scenarioStyleKey, "default", undefined, requestedStyle, sectionStableOccurrence);
       }
 
@@ -390,7 +394,7 @@
         if (!styles.length) {
           return "plain";
         }
-        if (stylePolicy === "first-only") {
+        if (isRandomizedStableUnlockedPolicy) {
           return selectedUnlockedCellStyle(cellType, subtype, styles, scenarioStyleKey, occurrenceOrdinal);
         }
         const previewStyle = requestedStyleForCell(cellType, subtype, requestedStyle);
@@ -498,6 +502,66 @@
         return unlockedStylesForGroup(relationshipStyleAvailabilityGroup("TripletCell", choice.relation), styles).length > 0;
       }
 
+      function relationshipSignatureForSlot(slot, content) {
+        const slotObject = slot && typeof slot === "object" ? slot : {};
+        return JSON.stringify({
+          slot_id: safeText(slotObject.slot_id),
+          cell_type: safeText(slotObject.cell_type || slotObject.type),
+          r: numeric(slotObject.r, 0),
+          c: numeric(slotObject.c, 0),
+          rowspan: numeric(slotObject.rowspan, 1),
+          colspan: numeric(slotObject.colspan, 1),
+          content: content || {}
+        });
+      }
+
+      function relationshipModeChoicesForCell(cellType) {
+        const kind = relationshipCellKind(cellType);
+        const styleGroup = relationshipRenderStyles[kind] || {};
+        return Object.keys(styleGroup).filter(function (mode) {
+          return Array.isArray(styleGroup[mode]) && styleGroup[mode].length > 0;
+        });
+      }
+
+      function relationshipModeIsUnlocked(cellType, mode) {
+        const kind = relationshipCellKind(cellType);
+        const styles = ((relationshipRenderStyles[kind] || {})[mode] || []);
+        return unlockedStylesForGroup(relationshipStyleAvailabilityGroup(cellType, mode), styles).length > 0;
+      }
+
+      function relationshipRenderModeForAssignment(cellType, mode) {
+        const kind = relationshipCellKind(cellType);
+        if (kind === "pair") {
+          return pairRenderMode(mode);
+        }
+        return mode;
+      }
+
+      function relationshipRenderAssignmentForSlot(cellType, slot, content, scenarioStyleKey, occurrenceOrdinal) {
+        if (cellType === "TripletCell") {
+          return tripletRenderAssignmentForSlot(slot, content, scenarioStyleKey, occurrenceOrdinal);
+        }
+        const modeChoices = relationshipModeChoicesForCell(cellType);
+        const unlockedModeChoices = modeChoices.filter(function (mode) {
+          return relationshipModeIsUnlocked(cellType, mode);
+        });
+        const assignmentChoices = unlockedModeChoices.length ? unlockedModeChoices : modeChoices;
+        if (!assignmentChoices.length) {
+          return null;
+        }
+        const signature = relationshipSignatureForSlot(slot, content);
+        const seed = relationshipStyleSeed();
+        const ordinal = styleOccurrenceOffset(occurrenceOrdinal);
+        const mode = assignmentChoices[
+          (stableHash(seed + "|" + safeText(scenarioStyleKey) + "|" + signature + "|relationship-render-assignment|" + safeText(cellType)) + ordinal) % assignmentChoices.length
+        ] || assignmentChoices[0];
+        return {
+          relation: mode,
+          renderMode: relationshipRenderModeForAssignment(cellType, mode),
+          style: selectedRelationshipCellStyle(cellType, mode, scenarioStyleKey, undefined, undefined, occurrenceOrdinal)
+        };
+      }
+
       function selectedRelationshipCellStyle(cellType, mode, scenarioStyleKey, explicitStyle, ordinalValue, occurrenceOrdinal) {
         const kind = relationshipCellKind(cellType);
         const styleGroup = relationshipRenderStyles[kind] || {};
@@ -505,7 +569,7 @@
         if (!styles.length) {
           return "";
         }
-        if (stylePolicy === "first-only") {
+        if (isRandomizedStableUnlockedPolicy) {
           return selectedUnlockedRelationshipStyle(cellType, mode, styles, scenarioStyleKey, occurrenceOrdinal);
         }
         const requestedStyle = relationshipClassToken(explicitStyle);
@@ -519,16 +583,7 @@
       }
 
       function tripletRenderAssignmentForSlot(slot, content, scenarioStyleKey, occurrenceOrdinal) {
-        const slotObject = slot && typeof slot === "object" ? slot : {};
-        const signature = JSON.stringify({
-          slot_id: safeText(slotObject.slot_id),
-          cell_type: safeText(slotObject.cell_type || slotObject.type),
-          r: numeric(slotObject.r, 0),
-          c: numeric(slotObject.c, 0),
-          rowspan: numeric(slotObject.rowspan, 1),
-          colspan: numeric(slotObject.colspan, 1),
-          content: content || {}
-        });
+        const signature = relationshipSignatureForSlot(slot, content);
         const seed = relationshipStyleSeed();
         const ordinal = styleOccurrenceOffset(occurrenceOrdinal);
         const unlockedAssignments = tripletRenderAssignments.filter(isTripletRenderAssignmentUnlocked);
@@ -1026,28 +1081,22 @@
           const relationshipStyleOccurrence = relationshipKind
             ? nextStyleOccurrence(relationshipStyleOccurrences, cellType)
             : 0;
-          const tripletRenderAssignment = cellType === "TripletCell" && stylePolicy === "first-only"
-            ? tripletRenderAssignmentForSlot(slot, content, scenarioScope, relationshipStyleOccurrence)
+          const relationshipAssignment = relationshipKind && isRandomizedStableUnlockedPolicy
+            ? relationshipRenderAssignmentForSlot(cellType, slot, content, scenarioScope, relationshipStyleOccurrence)
             : null;
           const relationshipStyleMode = relationshipKind
-            ? cellType === "TripletCell"
-              ? tripletRenderAssignment
-                ? tripletRenderAssignment.relation
-                : relationshipStyleModeForCell(cellType, props)
+            ? relationshipAssignment
+              ? relationshipAssignment.relation
               : relationshipStyleModeForCell(cellType, props)
             : "";
           const relationshipRenderMode = relationshipKind
-            ? cellType === "TripletCell"
-              ? tripletRenderAssignment
-                ? tripletRenderAssignment.renderMode
-                : relationshipRenderModeForCell(cellType, props)
+            ? relationshipAssignment
+              ? relationshipAssignment.renderMode
               : relationshipRenderModeForCell(cellType, props)
             : "";
           const relationshipStyle = relationshipKind
-            ? cellType === "TripletCell"
-              ? tripletRenderAssignment
-                ? tripletRenderAssignment.style
-                : selectedRelationshipCellStyle(cellType, relationshipStyleMode, scenarioScope, slot.preview_relationship_style, undefined, relationshipStyleOccurrence)
+            ? relationshipAssignment
+              ? relationshipAssignment.style
               : selectedRelationshipCellStyle(cellType, relationshipStyleMode, scenarioScope, slot.preview_relationship_style, undefined, relationshipStyleOccurrence)
             : "";
           const cellStyleSubtype = styleSubtypeForCell(cellType, props, content);
@@ -1112,7 +1161,7 @@
             card.style.gridRow = String(rowStart) + " / span " + String(rowSpan);
           }
 
-          card.innerHTML = renderCell(slot, hasIncomingConnection, !!hasOutgoingConnection, relationshipStyle, cellStyle, tripletRenderAssignment);
+          card.innerHTML = renderCell(slot, hasIncomingConnection, !!hasOutgoingConnection, relationshipStyle, cellStyle, relationshipAssignment);
           shell.appendChild(card);
         });
 
@@ -1158,7 +1207,7 @@
         }
       }
 
-      function renderCell(slot, hasIncomingConnection, hasOutgoingConnection, relationshipStyle, cellStyle, tripletRenderAssignment) {
+      function renderCell(slot, hasIncomingConnection, hasOutgoingConnection, relationshipStyle, cellStyle, relationshipAssignment) {
         const cellType = safeText(slot.cell_type || slot.type);
         const content = slot.content || {};
         const props = slot.props || {};
@@ -1171,11 +1220,11 @@
           case "CompareCell":
             return renderCompareCell(content);
           case "PairCell":
-            return renderPairCell(content, props, slot, relationshipStyle);
+            return renderPairCell(content, props, slot, relationshipStyle, relationshipAssignment);
           case "KeyValueCell":
-            return renderKeyValueCell(content, props);
+            return renderKeyValueCell(content, props, relationshipAssignment);
           case "TripletCell":
-            return renderTripletCell(content, props, slot, relationshipStyle, tripletRenderAssignment);
+            return renderTripletCell(content, props, slot, relationshipStyle, relationshipAssignment);
           case "ImageCell":
             return renderImageCell(content);
           case "KeyPointsCell":
@@ -2623,19 +2672,22 @@
         );
       }
 
-      function renderPairCell(content, props, slot, relationshipStyle) {
+      function renderPairCell(content, props, slot, relationshipStyle, relationshipAssignment) {
         const left = content.left && typeof content.left === "object" ? content.left : {};
         const right = content.right && typeof content.right === "object" ? content.right : {};
-        const relation = relationshipClassToken(firstNonEmpty([props.relation, "contrast"]));
+        const assignment = relationshipAssignment || null;
+        const relation = relationshipClassToken(firstNonEmpty([assignment && assignment.relation, props.relation, "contrast"]));
         const tone = relationshipClassToken(firstNonEmpty([props.tone, "neutral"]));
         const roleExamples = relationshipRoleExamples("pair", relation);
-        const leftRole = firstNonEmpty([left.role, roleExamples[0]]);
-        const rightRole = firstNonEmpty([right.role, roleExamples[1]]);
+        const leftRole = assignment ? firstNonEmpty([roleExamples[0], left.role]) : firstNonEmpty([left.role, roleExamples[0]]);
+        const rightRole = assignment ? firstNonEmpty([roleExamples[1], right.role]) : firstNonEmpty([right.role, roleExamples[1]]);
         const leftLabel = firstNonEmpty([left.label, "First"]);
         const rightLabel = firstNonEmpty([right.label, "Second"]);
         const leftBody = relationshipDetailText(left);
         const rightBody = relationshipDetailText(right);
-        const connectorLabel = firstNonEmpty([content.connector_label, pairConnectorFallbacks[relation]]);
+        const connectorLabel = assignment
+          ? firstNonEmpty([pairConnectorFallbacks[relation], content.connector_label])
+          : firstNonEmpty([content.connector_label, pairConnectorFallbacks[relation]]);
         const relationshipSentence = firstNonEmpty([content.relationship_sentence, content.relationship_summary, content.summary]);
         const headerHTML = relationshipHeaderHTML("", relationshipSentence);
         const layoutMode = pairLayoutMode(relation);
@@ -2656,12 +2708,13 @@
         );
       }
 
-      function renderKeyValueCell(content, props) {
+      function renderKeyValueCell(content, props, relationshipAssignment) {
         const items = (Array.isArray(content.items) ? content.items : []).filter(function (item) {
           return item && typeof item === "object";
         }).slice(0, 6);
+        const assignment = relationshipAssignment || null;
         const density = relationshipClassToken(firstNonEmpty([props.density, "normal"]));
-        const tone = relationshipClassToken(firstNonEmpty([props.tone, "neutral"]));
+        const tone = relationshipClassToken(firstNonEmpty([assignment && assignment.relation, props.tone, "neutral"]));
         const title = firstNonEmpty([content.title, content.heading, content.label]);
         const titleHTML = title
           ? '<div class="key-value-title">' +
@@ -2689,12 +2742,16 @@
         );
       }
 
-      function tripletNodeData(rawItems, roleExamples, connectorLabels, fallbackConnectors, emphasisIndex) {
+      function tripletNodeData(rawItems, roleExamples, connectorLabels, fallbackConnectors, emphasisIndex, preferRelationshipDefaults) {
         return rawItems.map(function (item, index) {
-          const role = firstNonEmpty([item.role, roleExamples[index]]);
+          const role = preferRelationshipDefaults
+            ? firstNonEmpty([roleExamples[index], item.role])
+            : firstNonEmpty([item.role, roleExamples[index]]);
           const label = firstNonEmpty([item.label, role, "Part " + String(index + 1)]);
           const body = relationshipDetailText(item);
-          const connectorLabel = firstNonEmpty([connectorLabels[index], fallbackConnectors[index], "then"]);
+          const connectorLabel = preferRelationshipDefaults
+            ? firstNonEmpty([fallbackConnectors[index], connectorLabels[index], "then"])
+            : firstNonEmpty([connectorLabels[index], fallbackConnectors[index], "then"]);
           return {
             item: item,
             role: role,
@@ -2829,7 +2886,7 @@
           : firstNonEmpty([requestedRenderMode, tripletRenderMode(relation, orientation)]);
         const bridgeKind = relationshipBridgeKind("triplet", relation);
         const fallbackConnectors = tripletConnectorFallbacks[relation] || ["then", "then"];
-        const nodes = tripletNodeData(items, roleExamples, connectorLabels, fallbackConnectors, emphasisIndex);
+        const nodes = tripletNodeData(items, roleExamples, connectorLabels, fallbackConnectors, emphasisIndex, !!assignment);
         const diagramHTML = nodes.length
           ? renderMode === "ladder"
             ? renderTripletLadder(nodes, bridgeKind, layoutMode, orientation)

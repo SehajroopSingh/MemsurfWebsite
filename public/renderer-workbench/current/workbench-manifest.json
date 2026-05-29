@@ -1,11 +1,12 @@
 {
   "source": "local-workbench",
   "renderer_id": "dynamic_gridcell",
-  "version": "2026.05.27.2",
+  "version": "2026.05.29.2",
   "schema_version": "three_step_gridcell_v1",
   "entrypoint": "index.html",
   "bundle_base_path": "/renderer-workbench/current/bundle/",
   "catalog_path": "/renderer-workbench/current/catalog.json",
+  "cell_definitions_path": "/renderer-workbench/current/cell-definitions/",
   "style_availability_path": "/renderer-workbench/current/bundle/renderer_style_availability.json",
   "extra_stylesheet_paths": [
     "/renderer-workbench/current/bundle/cells/heading/index.css",
@@ -182,6 +183,7 @@
     "public/renderer-workbench/current/catalog.json"
   ],
   "catalog_entry_count": 179,
+  "cell_definition_count": 0,
   "capabilities": {
     "accepts_unknown_cell_types": true,
     "entrypoint": "index.html",
@@ -1742,7 +1744,7 @@
       "schema_version": "renderer_style_availability_v1",
       "style_count": 139,
       "style_policy": "backend-owned",
-      "version": "2026.05.27.2"
+      "version": "2026.05.29.2"
     },
     "style_availability_path": "renderer_style_availability.json",
     "supported_cell_types": [
@@ -1764,6 +1766,6 @@
       "CodeTraceCell",
       "MapRegionCell"
     ],
-    "version": "2026.05.27.2"
+    "version": "2026.05.29.2"
   }
 }

@@ -1,9 +1,9 @@
 {
   "renderer_id": "dynamic_gridcell",
-  "version": "2026.05.27.2",
+  "version": "2026.05.29.2",
   "schema_version": "three_step_gridcell_v1",
-  "stylePolicy": "first-only",
-  "style_policy": "first-only",
+  "stylePolicy": "randomized-stable-unlocked",
+  "style_policy": "randomized-stable-unlocked",
   "style_availability_path": "renderer_style_availability.json",
   "style_availability": {
     "default_lock_policy": "deterministic-unlocked-rotation",
@@ -1552,7 +1552,7 @@
     "schema_version": "renderer_style_availability_v1",
     "style_count": 139,
     "style_policy": "backend-owned",
-    "version": "2026.05.27.2"
+    "version": "2026.05.29.2"
   },
   "entry_count": 179,
   "entries": [
@@ -1566,8 +1566,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1612,8 +1612,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1657,8 +1657,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1703,8 +1703,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1749,8 +1749,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1795,8 +1795,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1841,8 +1841,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1887,8 +1887,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1933,8 +1933,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -1974,8 +1974,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2016,8 +2016,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2077,8 +2077,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2101,7 +2101,7 @@
                 "props": {},
                 "content": {
                   "points": [
-                    "Use first-only style policy.",
+                    "Use randomized-stable-unlocked style policy.",
                     "Preview mobile density.",
                     "Edit payloads locally."
                   ]
@@ -2122,8 +2122,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2145,7 +2145,7 @@
                 "colspan": 1,
                 "props": {},
                 "content": {
-                  "question": "What does first-only style policy do?",
+                  "question": "What does randomized-stable-unlocked style policy do?",
                   "answer": "It chooses the first registered renderer style."
                 }
               }
@@ -2164,8 +2164,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2210,8 +2210,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2256,8 +2256,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2308,8 +2308,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2373,8 +2373,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2439,8 +2439,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2545,8 +2545,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2586,8 +2586,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2639,8 +2639,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2692,8 +2692,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2745,8 +2745,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2798,8 +2798,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2851,8 +2851,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2904,8 +2904,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -2957,8 +2957,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3015,8 +3015,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3073,8 +3073,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3131,8 +3131,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3189,8 +3189,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3252,8 +3252,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3315,8 +3315,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3378,8 +3378,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3441,8 +3441,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3504,8 +3504,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3567,8 +3567,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3639,8 +3639,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [
@@ -3711,8 +3711,8 @@
         "renderer_id": "dynamic_gridcell",
         "schema_version": "three_step_gridcell_v1",
         "version": "2026.05.26.4",
-        "stylePolicy": "first-only",
-        "style_policy": "first-only",
+        "stylePolicy": "randomized-stable-unlocked",
+        "style_policy": "randomized-stable-unlocked",
         "theme": "light",
         "showScenarioTitles": true,
         "scenarios": [

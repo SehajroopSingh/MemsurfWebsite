@@ -11,6 +11,7 @@ import {
   Lock,
   MonitorSmartphone,
   Moon,
+  Plus,
   RefreshCw,
   RotateCcw,
   Save,
@@ -18,14 +19,19 @@ import {
   Sun,
   Unlock,
   WifiOff,
+  X,
 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Device = "iphone" | "android";
 type Theme = "light" | "dark";
 type RendererSource = "local" | "backend";
 type BundleKind = "current" | "library" | "draft";
 type LabMode = "catalog" | "real-lessons";
+type StylePolicy = "randomized-stable-unlocked" | "first-only" | "preview";
+
+const REAL_LESSON_STYLE_POLICY = "randomized-stable-unlocked" as const;
+const PREVIEW_STYLE_POLICY = "preview" as const;
 
 type RendererManifest = {
   source?: string;
@@ -35,6 +41,7 @@ type RendererManifest = {
   bundle_endpoint?: string;
   bundle_base_path?: string;
   catalog_path?: string;
+  cell_definitions_path?: string;
   style_availability_path?: string;
   extra_stylesheet_paths?: string[];
   bundle_sha256?: string;
@@ -45,8 +52,8 @@ type RendererPayload = {
   renderer_id: string;
   schema_version: string;
   version?: string;
-  stylePolicy: "first-only" | "preview";
-  style_policy?: "first-only" | "preview";
+  stylePolicy: StylePolicy;
+  style_policy?: StylePolicy;
   theme: Theme;
   showScenarioTitles?: boolean;
   scenarios: Array<Record<string, unknown>>;
@@ -86,8 +93,10 @@ type StyleAvailabilityGroup = {
   layout_label: string;
   layout_kind: string;
   style_key: string;
+  relationship_kind?: string;
   relationship_mode?: string;
   render_mode?: string;
+  orientation?: string;
   is_locked: boolean;
   default_style_id: string;
   styles: StyleAvailabilityStyle[];
@@ -104,8 +113,8 @@ type RendererCatalog = {
   renderer_id: string;
   version: string;
   schema_version: string;
-  stylePolicy: "first-only" | "preview";
-  style_policy?: "first-only" | "preview";
+  stylePolicy: StylePolicy;
+  style_policy?: StylePolicy;
   style_availability_path?: string;
   style_availability?: RendererStyleAvailability;
   entry_count: number;
@@ -192,6 +201,45 @@ type WorkbenchBundleList = {
   drafts: WorkbenchBundleItem[];
 };
 
+type StyleGroupOption = {
+  groupId: string;
+  label: string;
+  group: StyleAvailabilityGroup;
+};
+
+type PendingStyleSelection = {
+  entryId?: string;
+  groupId?: string;
+  styleId?: string;
+};
+
+type PendingCellSelection = {
+  entryId?: string;
+  cellType?: string;
+};
+
+type CellDefinition = {
+  schema_version: "cell_definition_v1";
+  cell_type: string;
+  cell_slug: string;
+  display_name: string;
+  status: "draft" | "ready_for_backend";
+  when_to_use?: string;
+  when_not_to_use?: string;
+  llm_instruction?: string;
+  content_budget?: number;
+  mobile_support?: {
+    web_renderer_only?: boolean;
+    requires_ios_native_type?: boolean;
+    requires_android_native_type?: boolean;
+  };
+  security?: {
+    allows_html?: boolean;
+    allows_remote_images?: boolean;
+  };
+  updated_at?: string;
+};
+
 const API_BASE_URL = (
   process.env.NEXT_PUBLIC_RENDERER_API_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
@@ -234,6 +282,38 @@ const DEVICE_FRAMES: Record<Device, { label: string; width: number; height: numb
   android: { label: "Android", width: 412, height: 915, icon: MonitorSmartphone },
 };
 
+const CARD_CLASS_BY_CELL_TYPE: Record<string, string> = {
+  HeadingCell: "heading-card",
+  ImageCell: "image-card",
+  KeyPointsCell: "keypoint-card",
+  CompareCell: "compare-card",
+  RecallPromptCell: "recall-card",
+  TimelineStepCell: "timeline-card",
+  KeyValueCell: "key-value-card",
+  PairCell: "pair-card",
+  TripletCell: "triplet-card",
+  FunctionPlotCell: "function-plot-card",
+  CodeTraceCell: "code-trace-card",
+  MiniChartCell: "mini-chart-card",
+  MathExpressionCell: "math-expression-card",
+  MapRegionCell: "map-region-card",
+  ProcessStepCell: "process-card",
+  SpacerCell: "spacer-card",
+};
+
+function clientCellSlugFromType(cellType: string) {
+  return clientStyleSlug(
+    cellType
+      .replace(/Cell$/, "")
+      .replace(/([A-Z]+)([A-Z][a-z])/g, "$1-$2")
+      .replace(/([a-z0-9])([A-Z])/g, "$1-$2"),
+  );
+}
+
+function clientCardClassForType(cellType: string) {
+  return CARD_CLASS_BY_CELL_TYPE[cellType] || `${clientCellSlugFromType(cellType)}-card`;
+}
+
 function apiUrl(path: string) {
   const normalizedPath = path.replace(/^\//, "");
   const explicitlyProxy = process.env.NEXT_PUBLIC_RENDERER_API_PROXY === "1";
@@ -252,6 +332,185 @@ function apiUrl(path: string) {
 
 function labApiUrl(path: string) {
   return `${RENDERER_LAB_API_URL}/${path.replace(/^\//, "")}`;
+}
+
+function clientStyleSlug(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function clientCellType(value: string) {
+  const words = value
+    .replace(/Cell$/, "")
+    .split(/[^a-zA-Z0-9]+/)
+    .filter(Boolean);
+  const pascal = words
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("");
+  return pascal ? `${pascal}Cell` : "";
+}
+
+function commaSeparatedList(value: string) {
+  return value
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function defaultContentSchemaJson(displayName: string) {
+  const label = displayName || "Draft cell";
+  return JSON.stringify(
+    {
+      type: "object",
+      additionalProperties: false,
+      required: ["title", "body"],
+      properties: {
+        title: {
+          type: "string",
+          description: `${label} headline.`,
+        },
+        body: {
+          type: "string",
+          description: `${label} explanatory body text.`,
+        },
+        items: {
+          type: "array",
+          items: { type: "string" },
+          description: "Optional supporting bullets.",
+        },
+      },
+    },
+    null,
+    2,
+  );
+}
+
+function defaultPropsSchemaJson() {
+  return JSON.stringify(
+    {
+      type: "object",
+      additionalProperties: true,
+      properties: {},
+    },
+    null,
+    2,
+  );
+}
+
+function defaultSamplePayloadJson(displayName: string) {
+  const label = displayName || "Draft cell";
+  return JSON.stringify(
+    {
+      title: `${label} preview`,
+      body: "Use this sample to tune the draft renderer before backend promotion.",
+      items: ["Define the LLM data shape", "Style the scaffold", "Promote deliberately later"],
+    },
+    null,
+    2,
+  );
+}
+
+function cssEscapedLabel(value: string) {
+  return value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
+
+function styleGroupLabel(group: StyleAvailabilityGroup) {
+  if (group.layout_kind === "text_render_mode") {
+    return `${group.cell_type} - ${group.layout_label || group.render_mode || group.layout_id}`;
+  }
+  if (group.layout_kind === "relationship_mode") {
+    const relationship = (group.relationship_mode || group.layout_id || "").replace(/_/g, " ");
+    return `${group.cell_type} - ${relationship || group.layout_label}`;
+  }
+  if (group.layout_kind === "triplet_layout") {
+    return `${group.cell_type} - ${group.layout_label || group.render_mode || group.layout_id}`;
+  }
+  return `${group.cell_type} - ${group.layout_label || "Default mode"}`;
+}
+
+function styleCssScaffold(group: StyleAvailabilityGroup | undefined, styleId: string, styleName: string) {
+  const safeStyleId = styleId || "new-style";
+  const label = cssEscapedLabel(styleName || "New Style");
+  if (!group) {
+    return `.cell-card.cell-style-${safeStyleId} {
+  border-color: rgba(47, 143, 131, 0.24);
+}`;
+  }
+  if (group.layout_kind === "text_render_mode") {
+    const renderMode = group.render_mode || group.layout_id || "body";
+    return `.cell-card.text-mode-${renderMode}.text-style-${safeStyleId} {
+  border-color: rgba(47, 143, 131, 0.24);
+  background:
+    linear-gradient(135deg, rgba(47, 143, 131, 0.10), rgba(123, 105, 239, 0.08)),
+    var(--card-bg);
+}
+
+.cell-card.text-mode-${renderMode}.text-style-${safeStyleId} .text-cell::before {
+  content: "${label}";
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: rgba(47, 143, 131, 0.12);
+  padding: 4px 9px;
+  color: var(--accent-1);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}`;
+  }
+  if (group.relationship_kind === "pair") {
+    return `.cell-card.pair-card.pair-style-${safeStyleId} .pair-panel {
+  border-color: rgba(47, 143, 131, 0.22);
+  background:
+    linear-gradient(135deg, rgba(47, 143, 131, 0.12), rgba(123, 105, 239, 0.08)),
+    rgba(255, 255, 255, 0.42);
+}
+
+.cell-card.pair-card.pair-style-${safeStyleId} .pair-connector span {
+  border-color: var(--relationship-line);
+  color: var(--relationship-a);
+  box-shadow: 0 0 0 7px rgba(47, 143, 131, 0.07);
+}`;
+  }
+  if (group.relationship_kind === "triplet") {
+    return `.cell-card.triplet-card.triplet-style-${safeStyleId} .triplet-item {
+  border-color: rgba(47, 143, 131, 0.22);
+  background:
+    linear-gradient(135deg, rgba(47, 143, 131, 0.11), rgba(123, 105, 239, 0.07)),
+    rgba(255, 255, 255, 0.44);
+}
+
+.cell-card.triplet-card.triplet-style-${safeStyleId} .triplet-connector span {
+  border-color: var(--relationship-line);
+  color: var(--relationship-a);
+}`;
+  }
+  if (group.relationship_kind === "keyValue") {
+    return `.cell-card.key-value-card.key-value-style-${safeStyleId} .key-value-title {
+  border-bottom-color: rgba(47, 143, 131, 0.18);
+  background: rgba(47, 143, 131, 0.10);
+}
+
+.cell-card.key-value-card.key-value-style-${safeStyleId} .key-value-cell {
+  border-color: rgba(47, 143, 131, 0.22);
+  background:
+    linear-gradient(135deg, rgba(47, 143, 131, 0.11), rgba(123, 105, 239, 0.07)),
+    rgba(255, 255, 255, 0.48);
+}`;
+  }
+  const cardClass = clientCardClassForType(group.cell_type);
+  return `.cell-card.${cardClass}.cell-style-${safeStyleId} {
+  --cell-style-accent: var(--accent-1);
+  border-color: rgba(47, 143, 131, 0.24);
+  background:
+    linear-gradient(135deg, rgba(47, 143, 131, 0.11), rgba(123, 105, 239, 0.08)),
+    var(--card-bg);
+}`;
 }
 
 function layoutExpansionKey(group: string, layoutId: string) {
@@ -446,7 +705,10 @@ async function loadWorkbenchBundle(manifest: RendererManifest, cacheToken: numbe
 }
 
 function payloadWithTheme(payload: RendererPayload, theme: Theme): RendererPayload {
-  const stylePolicy = payload.stylePolicy === "preview" || payload.style_policy === "preview" ? "preview" : "first-only";
+  const stylePolicy =
+    payload.stylePolicy === PREVIEW_STYLE_POLICY || payload.style_policy === PREVIEW_STYLE_POLICY
+      ? PREVIEW_STYLE_POLICY
+      : REAL_LESSON_STYLE_POLICY;
   return {
     ...payload,
     theme,
@@ -457,9 +719,9 @@ function payloadWithTheme(payload: RendererPayload, theme: Theme): RendererPaylo
 
 function combinedPayload(entries: CatalogEntry[], theme: Theme): RendererPayload {
   const first = entries[0]?.payload;
-  const stylePolicy = entries.some((entry) => entry.payload.stylePolicy === "preview" || entry.payload.style_policy === "preview")
-    ? "preview"
-    : "first-only";
+  const stylePolicy = entries.some((entry) => entry.payload.stylePolicy === PREVIEW_STYLE_POLICY || entry.payload.style_policy === PREVIEW_STYLE_POLICY)
+    ? PREVIEW_STYLE_POLICY
+    : REAL_LESSON_STYLE_POLICY;
   return {
     renderer_id: first?.renderer_id || "dynamic_gridcell",
     schema_version: first?.schema_version || "three_step_gridcell_v1",
@@ -677,8 +939,8 @@ function realLessonRendererPayload(
     renderer_id: manifest?.renderer_id || sampleLessons?.renderer_id || "dynamic_gridcell",
     schema_version: manifest?.schema_version || sampleLessons?.schema_version || "three_step_gridcell_v1",
     version: manifest?.version || sampleLessons?.version,
-    stylePolicy: "first-only",
-    style_policy: "first-only",
+    stylePolicy: REAL_LESSON_STYLE_POLICY,
+    style_policy: REAL_LESSON_STYLE_POLICY,
     theme,
     showScenarioTitles: false,
     scenarios: [option.scenario],
@@ -1023,6 +1285,11 @@ function RealLessonsPanel({
 }
 
 export default function RendererLabPage() {
+  const pendingStyleSelectionRef = useRef<PendingStyleSelection | null>(null);
+  const pendingCellSelectionRef = useRef<PendingCellSelection | null>(null);
+  const styleCssScaffoldRef = useRef("");
+  const cellContentSchemaRef = useRef("");
+  const cellSamplePayloadRef = useRef("");
   const [labMode, setLabMode] = useState<LabMode>("catalog");
   const [source, setSource] = useState<RendererSource>(() => {
     if (typeof window === "undefined") return "local";
@@ -1044,6 +1311,7 @@ export default function RendererLabPage() {
   const [reloadToken, setReloadToken] = useState(0);
   const [workbenchApiAvailable, setWorkbenchApiAvailable] = useState(false);
   const [workbenchBundles, setWorkbenchBundles] = useState<WorkbenchBundleList | null>(null);
+  const [workbenchCells, setWorkbenchCells] = useState<CellDefinition[]>([]);
   const [selectedWorkbenchKey, setSelectedWorkbenchKey] = useState("current:current");
   const [draftName, setDraftName] = useState("");
   const [workbenchMessage, setWorkbenchMessage] = useState("");
@@ -1055,6 +1323,36 @@ export default function RendererLabPage() {
   const [sampleLessonsError, setSampleLessonsError] = useState("");
   const [selectedSampleId, setSelectedSampleId] = useState<number | null>(null);
   const [selectedRealLessonScreenKey, setSelectedRealLessonScreenKey] = useState("");
+  const [isAddStyleOpen, setIsAddStyleOpen] = useState(false);
+  const [styleDraftGroupId, setStyleDraftGroupId] = useState("");
+  const [styleDraftName, setStyleDraftName] = useState("");
+  const [styleDraftId, setStyleDraftId] = useState("");
+  const [styleDraftLocked, setStyleDraftLocked] = useState(true);
+  const [styleDraftOverwrite, setStyleDraftOverwrite] = useState(false);
+  const [styleDraftCss, setStyleDraftCss] = useState("");
+  const [styleDraftIdEdited, setStyleDraftIdEdited] = useState(false);
+  const [styleDraftCssEdited, setStyleDraftCssEdited] = useState(false);
+  const [styleSaveError, setStyleSaveError] = useState("");
+  const [isAddCellOpen, setIsAddCellOpen] = useState(false);
+  const [cellDraftDisplayName, setCellDraftDisplayName] = useState("");
+  const [cellDraftType, setCellDraftType] = useState("");
+  const [cellDraftTypeEdited, setCellDraftTypeEdited] = useState(false);
+  const [cellDraftStatus, setCellDraftStatus] = useState<"draft" | "ready_for_backend">("draft");
+  const [cellDraftWhenToUse, setCellDraftWhenToUse] = useState("");
+  const [cellDraftWhenNotToUse, setCellDraftWhenNotToUse] = useState("");
+  const [cellDraftLlmInstruction, setCellDraftLlmInstruction] = useState("");
+  const [cellDraftContentSchema, setCellDraftContentSchema] = useState(defaultContentSchemaJson(""));
+  const [cellDraftPropsSchema, setCellDraftPropsSchema] = useState(defaultPropsSchemaJson());
+  const [cellDraftSamplePayload, setCellDraftSamplePayload] = useState(defaultSamplePayloadJson(""));
+  const [cellDraftContentSchemaEdited, setCellDraftContentSchemaEdited] = useState(false);
+  const [cellDraftSamplePayloadEdited, setCellDraftSamplePayloadEdited] = useState(false);
+  const [cellDraftRequiredFields, setCellDraftRequiredFields] = useState("title, body");
+  const [cellDraftOptionalFields, setCellDraftOptionalFields] = useState("items");
+  const [cellDraftContentBudget, setCellDraftContentBudget] = useState("45");
+  const [cellDraftAllowsHtml, setCellDraftAllowsHtml] = useState(false);
+  const [cellDraftAllowsRemoteImages, setCellDraftAllowsRemoteImages] = useState(false);
+  const [cellDraftOverwrite, setCellDraftOverwrite] = useState(false);
+  const [cellSaveError, setCellSaveError] = useState("");
 
   const catalogEntries = useMemo(
     () => catalogEntriesWithRenderModeStyles(catalog?.entries || []),
@@ -1093,6 +1391,29 @@ export default function RendererLabPage() {
     ];
   }, [workbenchBundles]);
 
+  const styleAvailability = bundle?.styleAvailability || catalog?.style_availability;
+
+  const styleGroupOptions = useMemo<StyleGroupOption[]>(() => {
+    if (!styleAvailability?.groups?.length) return [];
+    const visibleStyleGroupIds = new Set(
+      catalogEntries
+        .map((entry) => entry.style_group_id)
+        .filter((groupId): groupId is string => Boolean(groupId)),
+    );
+    return styleAvailability.groups
+      .filter((group) => visibleStyleGroupIds.has(group.group_id))
+      .map((group) => ({
+        groupId: group.group_id,
+        label: styleGroupLabel(group),
+        group,
+      }));
+  }, [catalogEntries, styleAvailability]);
+
+  const selectedStyleGroupOption = useMemo(
+    () => styleGroupOptions.find((option) => option.groupId === styleDraftGroupId) || styleGroupOptions[0],
+    [styleDraftGroupId, styleGroupOptions],
+  );
+
   const groupedEntries = useMemo(() => {
     const groups = new Map<string, Map<string, { label: string; entries: CatalogEntry[] }>>();
     for (const entry of catalogEntries) {
@@ -1130,6 +1451,45 @@ export default function RendererLabPage() {
     });
   }, [selectedEntry]);
 
+  useEffect(() => {
+    if (!styleGroupOptions.length) return;
+    const selectedEntryGroup = selectedEntry?.style_group_id;
+    const preferredGroup = selectedEntryGroup && styleGroupOptions.some((option) => option.groupId === selectedEntryGroup)
+      ? selectedEntryGroup
+      : styleGroupOptions[0].groupId;
+    if (!styleDraftGroupId || !styleGroupOptions.some((option) => option.groupId === styleDraftGroupId)) {
+      setStyleDraftGroupId(preferredGroup);
+    }
+  }, [selectedEntry, styleDraftGroupId, styleGroupOptions]);
+
+  useEffect(() => {
+    const nextScaffold = styleCssScaffold(selectedStyleGroupOption?.group, styleDraftId, styleDraftName);
+    if (!styleDraftCssEdited || styleDraftCss === styleCssScaffoldRef.current) {
+      setStyleDraftCss(nextScaffold);
+    }
+    styleCssScaffoldRef.current = nextScaffold;
+  }, [selectedStyleGroupOption, styleDraftCss, styleDraftCssEdited, styleDraftId, styleDraftName]);
+
+  useEffect(() => {
+    const nextSchema = defaultContentSchemaJson(cellDraftDisplayName);
+    if (!cellDraftContentSchemaEdited || cellDraftContentSchema === cellContentSchemaRef.current) {
+      setCellDraftContentSchema(nextSchema);
+    }
+    cellContentSchemaRef.current = nextSchema;
+
+    const nextSample = defaultSamplePayloadJson(cellDraftDisplayName);
+    if (!cellDraftSamplePayloadEdited || cellDraftSamplePayload === cellSamplePayloadRef.current) {
+      setCellDraftSamplePayload(nextSample);
+    }
+    cellSamplePayloadRef.current = nextSample;
+  }, [
+    cellDraftContentSchema,
+    cellDraftContentSchemaEdited,
+    cellDraftDisplayName,
+    cellDraftSamplePayload,
+    cellDraftSamplePayloadEdited,
+  ]);
+
   const setPayloadDraft = useCallback((payload: RendererPayload) => {
     setAppliedPayload(payload);
     setDraftJson(prettyJson(payload));
@@ -1138,18 +1498,22 @@ export default function RendererLabPage() {
 
   const refreshWorkbenchApi = useCallback(async () => {
     try {
-      const [healthResponse, bundlesResponse] = await Promise.all([
+      const [healthResponse, bundlesResponse, cellsResponse] = await Promise.all([
         fetch(labApiUrl("health"), { cache: "no-store" }),
         fetch(labApiUrl("bundles"), { cache: "no-store" }),
+        fetch(labApiUrl("cells"), { cache: "no-store" }),
       ]);
-      if (!healthResponse.ok || !bundlesResponse.ok) {
+      if (!healthResponse.ok || !bundlesResponse.ok || !cellsResponse.ok) {
         throw new Error("Renderer lab API unavailable.");
       }
+      const cellsPayload = (await cellsResponse.json()) as { cells?: CellDefinition[] };
       setWorkbenchApiAvailable(true);
       setWorkbenchBundles((await bundlesResponse.json()) as WorkbenchBundleList);
+      setWorkbenchCells(cellsPayload.cells || []);
     } catch {
       setWorkbenchApiAvailable(false);
       setWorkbenchBundles(null);
+      setWorkbenchCells([]);
     }
   }, []);
 
@@ -1219,7 +1583,25 @@ export default function RendererLabPage() {
 
         if (cancelled) return;
 
-        const firstEntry = nextCatalog.entries[0];
+        const visibleEntries = catalogEntriesWithRenderModeStyles(nextCatalog.entries);
+        const pendingCellSelection = pendingCellSelectionRef.current;
+        const pendingSelection = pendingStyleSelectionRef.current;
+        const firstEntry =
+          pendingCellSelection
+            ? visibleEntries.find((entry) => entry.id === pendingCellSelection.entryId) ||
+              visibleEntries.find((entry) => entry.cell_type === pendingCellSelection.cellType) ||
+              visibleEntries[0]
+            : pendingSelection
+            ? visibleEntries.find((entry) => entry.id === pendingSelection.entryId) ||
+              visibleEntries.find(
+                (entry) =>
+                  entry.style_group_id === pendingSelection.groupId &&
+                  entry.style_id === pendingSelection.styleId,
+              ) ||
+              visibleEntries[0]
+            : visibleEntries[0];
+        pendingCellSelectionRef.current = null;
+        pendingStyleSelectionRef.current = null;
         setManifest(nextManifest);
         setCatalog(nextCatalog);
         setBundle(nextBundle);
@@ -1381,7 +1763,11 @@ export default function RendererLabPage() {
     }
   };
 
-  const runWorkbenchAction = async (action: () => Promise<void>, successMessage: string) => {
+  const runWorkbenchAction = async (
+    action: () => Promise<void>,
+    successMessage: string,
+    onError?: (message: string) => void,
+  ) => {
     setWorkbenchMessage("");
     setIsWorkbenchMutating(true);
     try {
@@ -1391,7 +1777,9 @@ export default function RendererLabPage() {
       setReloadToken((value) => value + 1);
       setWorkbenchMessage(successMessage);
     } catch (actionError) {
-      setWorkbenchMessage(actionError instanceof Error ? actionError.message : "Workbench action failed.");
+      const message = actionError instanceof Error ? actionError.message : "Workbench action failed.";
+      setWorkbenchMessage(message);
+      onError?.(message);
     } finally {
       setIsWorkbenchMutating(false);
     }
@@ -1442,6 +1830,184 @@ export default function RendererLabPage() {
     );
   };
 
+  const handleOpenAddStyle = () => {
+    const preferredGroup = selectedEntry?.style_group_id &&
+      styleGroupOptions.some((option) => option.groupId === selectedEntry.style_group_id)
+      ? selectedEntry.style_group_id
+      : styleGroupOptions[0]?.groupId || "";
+    const initialName = "";
+    const initialId = "";
+    setStyleDraftGroupId(preferredGroup);
+    setStyleDraftName(initialName);
+    setStyleDraftId(initialId);
+    setStyleDraftLocked(true);
+    setStyleDraftOverwrite(false);
+    setStyleDraftIdEdited(false);
+    setStyleDraftCssEdited(false);
+    setStyleSaveError("");
+    const group = styleGroupOptions.find((option) => option.groupId === preferredGroup)?.group;
+    const scaffold = styleCssScaffold(group, initialId, initialName);
+    styleCssScaffoldRef.current = scaffold;
+    setStyleDraftCss(scaffold);
+    setIsAddCellOpen(false);
+    setIsAddStyleOpen(true);
+  };
+
+  const handleStyleNameChange = (value: string) => {
+    setStyleDraftName(value);
+    if (!styleDraftIdEdited) {
+      setStyleDraftId(clientStyleSlug(value));
+    }
+  };
+
+  const handleStyleIdChange = (value: string) => {
+    setStyleDraftId(clientStyleSlug(value));
+    setStyleDraftIdEdited(true);
+  };
+
+  const handleStyleGroupChange = (groupId: string) => {
+    setStyleDraftGroupId(groupId);
+    setStyleSaveError("");
+  };
+
+  const handleResetStyleCss = () => {
+    const scaffold = styleCssScaffold(selectedStyleGroupOption?.group, styleDraftId, styleDraftName);
+    styleCssScaffoldRef.current = scaffold;
+    setStyleDraftCss(scaffold);
+    setStyleDraftCssEdited(false);
+  };
+
+  const handleSaveStyle = () => {
+    if (!selectedStyleGroupOption) {
+      setStyleSaveError("Choose a style group first.");
+      return;
+    }
+    if (!styleDraftId) {
+      setStyleSaveError("Enter a style name or slug.");
+      return;
+    }
+    setStyleSaveError("");
+    const styleLabel = styleDraftName.trim() || styleDraftId.replace(/-/g, " ");
+    runWorkbenchAction(
+      async () => {
+        const result = await postWorkbenchAction("styles", {
+          groupId: selectedStyleGroupOption.groupId,
+          styleName: styleDraftName.trim() || styleLabel,
+          styleId: styleDraftId,
+          css: styleDraftCss,
+          locked: styleDraftLocked,
+          overwrite: styleDraftOverwrite,
+        });
+        const savedStyle = result?.style || {};
+        pendingStyleSelectionRef.current = {
+          entryId: typeof savedStyle.entryId === "string" ? savedStyle.entryId : undefined,
+          groupId: typeof savedStyle.groupId === "string" ? savedStyle.groupId : selectedStyleGroupOption.groupId,
+          styleId: typeof savedStyle.styleId === "string" ? savedStyle.styleId : styleDraftId,
+        };
+        setIsAddStyleOpen(false);
+      },
+      `Saved style ${styleLabel}.`,
+      setStyleSaveError,
+    );
+  };
+
+  const handleOpenAddCell = () => {
+    const displayName = "";
+    const contentSchema = defaultContentSchemaJson(displayName);
+    const samplePayload = defaultSamplePayloadJson(displayName);
+    setCellDraftDisplayName(displayName);
+    setCellDraftType("");
+    setCellDraftTypeEdited(false);
+    setCellDraftStatus("draft");
+    setCellDraftWhenToUse("");
+    setCellDraftWhenNotToUse("");
+    setCellDraftLlmInstruction("");
+    setCellDraftContentSchema(contentSchema);
+    setCellDraftPropsSchema(defaultPropsSchemaJson());
+    setCellDraftSamplePayload(samplePayload);
+    setCellDraftContentSchemaEdited(false);
+    setCellDraftSamplePayloadEdited(false);
+    setCellDraftRequiredFields("title, body");
+    setCellDraftOptionalFields("items");
+    setCellDraftContentBudget("45");
+    setCellDraftAllowsHtml(false);
+    setCellDraftAllowsRemoteImages(false);
+    setCellDraftOverwrite(false);
+    setCellSaveError("");
+    cellContentSchemaRef.current = contentSchema;
+    cellSamplePayloadRef.current = samplePayload;
+    setIsAddStyleOpen(false);
+    setIsAddCellOpen(true);
+  };
+
+  const handleCellDisplayNameChange = (value: string) => {
+    setCellDraftDisplayName(value);
+    if (!cellDraftTypeEdited) {
+      setCellDraftType(clientCellType(value));
+    }
+  };
+
+  const handleCellTypeChange = (value: string) => {
+    const cleaned = value.replace(/[^a-zA-Z0-9]/g, "");
+    setCellDraftType(cleaned.endsWith("Cell") || cleaned === "" ? cleaned : `${cleaned}Cell`);
+    setCellDraftTypeEdited(true);
+  };
+
+  const handleResetCellJson = () => {
+    const nextSchema = defaultContentSchemaJson(cellDraftDisplayName);
+    const nextSample = defaultSamplePayloadJson(cellDraftDisplayName);
+    setCellDraftContentSchema(nextSchema);
+    setCellDraftSamplePayload(nextSample);
+    setCellDraftPropsSchema(defaultPropsSchemaJson());
+    setCellDraftContentSchemaEdited(false);
+    setCellDraftSamplePayloadEdited(false);
+    cellContentSchemaRef.current = nextSchema;
+    cellSamplePayloadRef.current = nextSample;
+  };
+
+  const handleSaveCell = () => {
+    if (!cellDraftType) {
+      setCellSaveError("Enter a cell type.");
+      return;
+    }
+    if (!/^[A-Z][A-Za-z0-9]*Cell$/.test(cellDraftType)) {
+      setCellSaveError("Cell type must be PascalCase and end with Cell.");
+      return;
+    }
+    setCellSaveError("");
+    const displayName = cellDraftDisplayName.trim() || cellDraftType.replace(/Cell$/, "");
+    runWorkbenchAction(
+      async () => {
+        const result = await postWorkbenchAction("cells", {
+          cellType: cellDraftType,
+          displayName,
+          status: cellDraftStatus,
+          whenToUse: cellDraftWhenToUse,
+          whenNotToUse: cellDraftWhenNotToUse,
+          llmInstruction: cellDraftLlmInstruction,
+          contentSchema: cellDraftContentSchema,
+          propsSchema: cellDraftPropsSchema,
+          samplePayload: cellDraftSamplePayload,
+          requiredFields: commaSeparatedList(cellDraftRequiredFields),
+          optionalFields: commaSeparatedList(cellDraftOptionalFields),
+          contentBudget: Number(cellDraftContentBudget),
+          allowsHtml: cellDraftAllowsHtml,
+          allowsRemoteImages: cellDraftAllowsRemoteImages,
+          webRendererOnly: true,
+          overwrite: cellDraftOverwrite,
+        });
+        const savedCell = result?.cell || {};
+        pendingCellSelectionRef.current = {
+          entryId: typeof savedCell.entryId === "string" ? savedCell.entryId : undefined,
+          cellType: typeof savedCell.cellType === "string" ? savedCell.cellType : cellDraftType,
+        };
+        setIsAddCellOpen(false);
+      },
+      `Saved draft cell ${displayName}.`,
+      setCellSaveError,
+    );
+  };
+
   const handleSelectLabMode = (nextLabMode: LabMode) => {
     setLabMode(nextLabMode);
     setJsonError("");
@@ -1480,7 +2046,7 @@ export default function RendererLabPage() {
   const previewSubtitle =
     labMode === "real-lessons"
       ? selectedRealLessonScreen?.subtitle || "Reserved sample lesson screen"
-      : `stylePolicy: ${activePayload?.stylePolicy || "first-only"}`;
+      : `stylePolicy: ${activePayload?.stylePolicy || REAL_LESSON_STYLE_POLICY}`;
 
   return (
     <main className="min-h-screen bg-[#f4f7f9] text-[#17212b]">
@@ -1633,6 +2199,353 @@ export default function RendererLabPage() {
                   Save
                 </button>
               </div>
+              {source === "local" && labMode === "catalog" ? (
+                <div className="mt-3 border-t border-[#e1e8ee] pt-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={isAddStyleOpen ? () => setIsAddStyleOpen(false) : handleOpenAddStyle}
+                      disabled={!canEditWorkbench || styleGroupOptions.length === 0}
+                      className="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-[#c7d2dc] bg-white px-3 text-xs font-semibold text-[#253440] disabled:opacity-50"
+                    >
+                      {isAddStyleOpen ? <X className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                      {isAddStyleOpen ? "Close style" : "Add style"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={isAddCellOpen ? () => setIsAddCellOpen(false) : handleOpenAddCell}
+                      disabled={!canEditWorkbench}
+                      className="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-[#c7d2dc] bg-white px-3 text-xs font-semibold text-[#253440] disabled:opacity-50"
+                    >
+                      {isAddCellOpen ? <X className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                      {isAddCellOpen ? "Close cell" : "Add cell"}
+                    </button>
+                  </div>
+                  {isAddStyleOpen ? (
+                    <div className="mt-3 max-h-[58vh] space-y-2 overflow-y-auto rounded-md border border-[#d4dde5] bg-[#fbfcfd] p-3">
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        Style group
+                        <select
+                          value={selectedStyleGroupOption?.groupId || ""}
+                          onChange={(event) => handleStyleGroupChange(event.target.value)}
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 text-sm font-medium normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        >
+                          {styleGroupOptions.map((option) => (
+                            <option key={option.groupId} value={option.groupId}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        Style name
+                        <input
+                          value={styleDraftName}
+                          onChange={(event) => handleStyleNameChange(event.target.value)}
+                          placeholder="Soft Pulse"
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 text-sm font-medium normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        Style slug
+                        <input
+                          value={styleDraftId}
+                          onChange={(event) => handleStyleIdChange(event.target.value)}
+                          placeholder="soft-pulse"
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 font-mono text-xs normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        CSS
+                        <textarea
+                          value={styleDraftCss}
+                          onChange={(event) => {
+                            setStyleDraftCss(event.target.value);
+                            setStyleDraftCssEdited(true);
+                          }}
+                          spellCheck={false}
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-40 w-full resize-none rounded-md border border-[#c7d2dc] bg-white px-2 py-2 font-mono text-[11px] leading-4 normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <label className="inline-flex min-h-9 items-center gap-2 rounded-md border border-[#d4dde5] bg-white px-2 text-xs font-semibold text-[#425463]">
+                          <input
+                            type="checkbox"
+                            checked={styleDraftLocked}
+                            onChange={(event) => setStyleDraftLocked(event.target.checked)}
+                            disabled={!canEditWorkbench}
+                            className="h-4 w-4"
+                          />
+                          Locked
+                        </label>
+                        <label className="inline-flex min-h-9 items-center gap-2 rounded-md border border-[#d4dde5] bg-white px-2 text-xs font-semibold text-[#425463]">
+                          <input
+                            type="checkbox"
+                            checked={styleDraftOverwrite}
+                            onChange={(event) => setStyleDraftOverwrite(event.target.checked)}
+                            disabled={!canEditWorkbench}
+                            className="h-4 w-4"
+                          />
+                          Overwrite
+                        </label>
+                      </div>
+                      {styleSaveError ? (
+                        <div className="rounded-md border border-[#f0c6c6] bg-[#fff6f6] px-3 py-2 text-xs text-[#9a2a2a]">
+                          {styleSaveError}
+                        </div>
+                      ) : null}
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={handleResetStyleCss}
+                          disabled={!canEditWorkbench}
+                          className="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-[#c7d2dc] bg-white px-2 text-xs font-semibold text-[#425463] disabled:opacity-50"
+                        >
+                          <RotateCcw className="h-3.5 w-3.5" />
+                          Reset CSS
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleSaveStyle}
+                          disabled={!canEditWorkbench || !styleDraftId}
+                          className="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-[#17212b] px-2 text-xs font-semibold text-white disabled:opacity-50"
+                        >
+                          <Save className="h-3.5 w-3.5" />
+                          Save style
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
+                  {isAddCellOpen ? (
+                    <div className="mt-3 max-h-[58vh] space-y-2 overflow-y-auto rounded-md border border-[#d4dde5] bg-[#fbfcfd] p-3">
+                      <div className="grid grid-cols-2 gap-2">
+                        <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                          Display name
+                          <input
+                            value={cellDraftDisplayName}
+                            onChange={(event) => handleCellDisplayNameChange(event.target.value)}
+                            placeholder="Concept Map"
+                            disabled={!canEditWorkbench}
+                            className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 text-sm font-medium normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                          />
+                        </label>
+                        <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                          Cell type
+                          <input
+                            value={cellDraftType}
+                            onChange={(event) => handleCellTypeChange(event.target.value)}
+                            placeholder="ConceptMapCell"
+                            disabled={!canEditWorkbench}
+                            className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 font-mono text-xs normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                          />
+                        </label>
+                      </div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        Status
+                        <select
+                          value={cellDraftStatus}
+                          onChange={(event) => setCellDraftStatus(event.target.value as "draft" | "ready_for_backend")}
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 text-sm font-medium normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        >
+                          <option value="draft">Draft</option>
+                          <option value="ready_for_backend">Ready for backend</option>
+                        </select>
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        When to use
+                        <textarea
+                          value={cellDraftWhenToUse}
+                          onChange={(event) => setCellDraftWhenToUse(event.target.value)}
+                          placeholder="Use when the lesson needs..."
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-16 w-full resize-none rounded-md border border-[#c7d2dc] bg-white px-2 py-2 text-xs leading-4 normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        When not to use
+                        <textarea
+                          value={cellDraftWhenNotToUse}
+                          onChange={(event) => setCellDraftWhenNotToUse(event.target.value)}
+                          placeholder="Avoid when..."
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-14 w-full resize-none rounded-md border border-[#c7d2dc] bg-white px-2 py-2 text-xs leading-4 normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        LLM instruction
+                        <textarea
+                          value={cellDraftLlmInstruction}
+                          onChange={(event) => setCellDraftLlmInstruction(event.target.value)}
+                          placeholder="Produce concise content with..."
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-20 w-full resize-none rounded-md border border-[#c7d2dc] bg-white px-2 py-2 text-xs leading-4 normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                          Required fields
+                          <input
+                            value={cellDraftRequiredFields}
+                            onChange={(event) => setCellDraftRequiredFields(event.target.value)}
+                            disabled={!canEditWorkbench}
+                            className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 text-xs normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                          />
+                        </label>
+                        <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                          Content budget
+                          <input
+                            value={cellDraftContentBudget}
+                            onChange={(event) => setCellDraftContentBudget(event.target.value.replace(/[^0-9]/g, ""))}
+                            disabled={!canEditWorkbench}
+                            className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 text-xs normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                          />
+                        </label>
+                      </div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        Optional fields
+                        <input
+                          value={cellDraftOptionalFields}
+                          onChange={(event) => setCellDraftOptionalFields(event.target.value)}
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-9 w-full rounded-md border border-[#c7d2dc] bg-white px-2 text-xs normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        Sample payload JSON
+                        <textarea
+                          value={cellDraftSamplePayload}
+                          onChange={(event) => {
+                            setCellDraftSamplePayload(event.target.value);
+                            setCellDraftSamplePayloadEdited(true);
+                          }}
+                          spellCheck={false}
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-36 w-full resize-none rounded-md border border-[#c7d2dc] bg-white px-2 py-2 font-mono text-[11px] leading-4 normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        Content schema JSON
+                        <textarea
+                          value={cellDraftContentSchema}
+                          onChange={(event) => {
+                            setCellDraftContentSchema(event.target.value);
+                            setCellDraftContentSchemaEdited(true);
+                          }}
+                          spellCheck={false}
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-36 w-full resize-none rounded-md border border-[#c7d2dc] bg-white px-2 py-2 font-mono text-[11px] leading-4 normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <label className="block text-[11px] font-semibold uppercase tracking-[0.10em] text-[#728390]">
+                        Props schema JSON
+                        <textarea
+                          value={cellDraftPropsSchema}
+                          onChange={(event) => setCellDraftPropsSchema(event.target.value)}
+                          spellCheck={false}
+                          disabled={!canEditWorkbench}
+                          className="mt-1 h-24 w-full resize-none rounded-md border border-[#c7d2dc] bg-white px-2 py-2 font-mono text-[11px] leading-4 normal-case tracking-normal text-[#17212b] disabled:opacity-50"
+                        />
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <label className="inline-flex min-h-9 items-center gap-2 rounded-md border border-[#d4dde5] bg-white px-2 text-xs font-semibold text-[#425463]">
+                          <input
+                            type="checkbox"
+                            checked={cellDraftAllowsHtml}
+                            onChange={(event) => setCellDraftAllowsHtml(event.target.checked)}
+                            disabled={!canEditWorkbench}
+                            className="h-4 w-4"
+                          />
+                          Allows HTML
+                        </label>
+                        <label className="inline-flex min-h-9 items-center gap-2 rounded-md border border-[#d4dde5] bg-white px-2 text-xs font-semibold text-[#425463]">
+                          <input
+                            type="checkbox"
+                            checked={cellDraftAllowsRemoteImages}
+                            onChange={(event) => setCellDraftAllowsRemoteImages(event.target.checked)}
+                            disabled={!canEditWorkbench}
+                            className="h-4 w-4"
+                          />
+                          Remote images
+                        </label>
+                        <label className="inline-flex min-h-9 items-center gap-2 rounded-md border border-[#d4dde5] bg-white px-2 text-xs font-semibold text-[#425463]">
+                          <input type="checkbox" checked readOnly className="h-4 w-4" />
+                          Web only
+                        </label>
+                        <label className="inline-flex min-h-9 items-center gap-2 rounded-md border border-[#d4dde5] bg-white px-2 text-xs font-semibold text-[#425463]">
+                          <input
+                            type="checkbox"
+                            checked={cellDraftOverwrite}
+                            onChange={(event) => setCellDraftOverwrite(event.target.checked)}
+                            disabled={!canEditWorkbench}
+                            className="h-4 w-4"
+                          />
+                          Overwrite
+                        </label>
+                      </div>
+                      {cellSaveError ? (
+                        <div className="rounded-md border border-[#f0c6c6] bg-[#fff6f6] px-3 py-2 text-xs text-[#9a2a2a]">
+                          {cellSaveError}
+                        </div>
+                      ) : null}
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={handleResetCellJson}
+                          disabled={!canEditWorkbench}
+                          className="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-[#c7d2dc] bg-white px-2 text-xs font-semibold text-[#425463] disabled:opacity-50"
+                        >
+                          <RotateCcw className="h-3.5 w-3.5" />
+                          Reset JSON
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleSaveCell}
+                          disabled={!canEditWorkbench || !cellDraftType}
+                          className="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-[#17212b] px-2 text-xs font-semibold text-white disabled:opacity-50"
+                        >
+                          <Save className="h-3.5 w-3.5" />
+                          Save cell
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
+                  <div className="mt-3 rounded-md border border-[#d4dde5] bg-[#fbfcfd] p-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <h3 className="text-xs font-semibold text-[#253440]">Draft cells</h3>
+                        <p className="text-[11px] text-[#718390]">{workbenchCells.length ? `${workbenchCells.length} local definitions` : "No local draft cells yet"}</p>
+                      </div>
+                    </div>
+                    {workbenchCells.length ? (
+                      <div className="mt-2 space-y-2">
+                        {workbenchCells.map((cell) => (
+                          <div key={cell.cell_type} className="rounded-md border border-[#e1e8ee] bg-white px-3 py-2">
+                            <div className="flex items-center justify-between gap-2">
+                              <div className="min-w-0">
+                                <div className="truncate text-xs font-semibold text-[#253440]">{cell.display_name}</div>
+                                <div className="truncate font-mono text-[10px] text-[#718390]">{cell.cell_type}</div>
+                              </div>
+                              <span className="shrink-0 rounded-full bg-[#eef3f6] px-2 py-0.5 text-[10px] font-semibold text-[#5c6e7b]">
+                                {cell.status === "ready_for_backend" ? "Ready" : "Draft"}
+                              </span>
+                            </div>
+                            <div className="mt-2 grid gap-1 text-[10px] text-[#6c7d89]">
+                              <span>1. Copy approved bundle into a new Django renderer version.</span>
+                              <span>2. Add backend catalog and validation support.</span>
+                              <span>3. Update mobile support only if needed outside web renderer.</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              ) : null}
               {workbenchMessage ? (
                 <div className="mt-3 rounded-md bg-[#f4f7f9] px-3 py-2 text-xs text-[#516575]">{workbenchMessage}</div>
               ) : null}
@@ -1858,7 +2771,7 @@ export default function RendererLabPage() {
                 <div>
                   <h2 className="text-sm font-semibold text-[#17212b]">Payload JSON</h2>
                   <p className="text-xs text-[#6c7d89]">
-                    {labMode === "real-lessons" ? "Real lesson first-only payload" : "Local preview only"}
+                    {labMode === "real-lessons" ? "Real lesson randomized-stable-unlocked payload" : "Local preview only"}
                   </p>
                 </div>
                 <div className="flex gap-2">

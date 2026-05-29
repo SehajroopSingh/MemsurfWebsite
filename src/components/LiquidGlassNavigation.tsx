@@ -220,54 +220,6 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
               'inset 10px 0 22px rgba(255, 255, 255, 0.08), inset -10px 0 22px rgba(255, 255, 255, 0.08)',
           }}
         />
-        {useSafariGlassFallback ? (
-          <>
-            <div
-              aria-hidden="true"
-              className="absolute left-[4%] right-[4%] top-0 h-[42%] rounded-t-full"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(255,255,255,0.20), rgba(255,255,255,0.07) 48%, rgba(255,255,255,0) 100%)',
-                backdropFilter: 'blur(1.2px) brightness(1.18) contrast(1.14)',
-                WebkitBackdropFilter: 'blur(1.2px) brightness(1.18) contrast(1.14)',
-                mixBlendMode: 'screen',
-              }}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute bottom-0 left-[6%] right-[6%] h-[36%] rounded-b-full"
-              style={{
-                background:
-                  'linear-gradient(0deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05) 52%, rgba(255,255,255,0) 100%)',
-                backdropFilter: 'blur(1.4px) brightness(1.13) contrast(1.14)',
-                WebkitBackdropFilter: 'blur(1.4px) brightness(1.13) contrast(1.14)',
-                mixBlendMode: 'screen',
-              }}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute bottom-[12%] left-0 top-[12%] w-[9%] rounded-l-full"
-              style={{
-                background:
-                  'linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05) 55%, rgba(255,255,255,0))',
-                backdropFilter: 'blur(1.5px) brightness(1.15) contrast(1.15)',
-                WebkitBackdropFilter: 'blur(1.5px) brightness(1.15) contrast(1.15)',
-                mixBlendMode: 'screen',
-              }}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute bottom-[12%] right-0 top-[12%] w-[9%] rounded-r-full"
-              style={{
-                background:
-                  'linear-gradient(270deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05) 55%, rgba(255,255,255,0))',
-                backdropFilter: 'blur(1.5px) brightness(1.15) contrast(1.15)',
-                WebkitBackdropFilter: 'blur(1.5px) brightness(1.15) contrast(1.15)',
-                mixBlendMode: 'screen',
-              }}
-            />
-          </>
-        ) : null}
       </div>
       <div
         className="pointer-events-none fixed left-3 right-3 top-3 z-[52] flex items-center justify-center"

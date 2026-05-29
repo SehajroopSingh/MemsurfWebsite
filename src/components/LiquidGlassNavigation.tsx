@@ -23,6 +23,19 @@ function texture(x: number, y: number) {
   return { x, y }
 }
 
+function isSafariBrowser() {
+  if (typeof navigator === 'undefined') return false
+
+  const userAgent = navigator.userAgent
+  const vendor = navigator.vendor
+
+  return (
+    /Safari/i.test(userAgent) &&
+    /Apple/i.test(vendor) &&
+    !/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|DuckDuckGo|Android/i.test(userAgent)
+  )
+}
+
 type LiquidGlassNavigationProps = {}
 
 export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
@@ -33,9 +46,14 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
   const [viewportWidth, setViewportWidth] = useState(0)
   const [viewportHeight, setViewportHeight] = useState(0)
   const [isOpen, setIsOpen] = useState(false)
+  const [useSafariGlassFallback, setUseSafariGlassFallback] = useState(false)
   const horizontalInset = 24
   const navHeight = Math.max(Math.min(Math.round(viewportHeight * 0.1), 88), 56)
   const glassHeight = Math.max(navHeight, 1)
+
+  useEffect(() => {
+    setUseSafariGlassFallback(isSafariBrowser())
+  }, [])
 
   useEffect(() => {
     const updateViewportWidth = () => {
@@ -164,8 +182,12 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
           height: `${navHeight}px`,
           background:
             'linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(2, 8, 24, 0.12) 52%, rgba(255, 255, 255, 0.035))',
-          backdropFilter: `url(#${id}_filter) blur(3.4px) contrast(1.26) brightness(1.06) saturate(1.2)`,
-          WebkitBackdropFilter: `url(#${id}_filter) blur(3.4px) contrast(1.26) brightness(1.06) saturate(1.2)`,
+          backdropFilter: useSafariGlassFallback
+            ? 'blur(3.4px) contrast(1.26) brightness(1.06) saturate(1.2)'
+            : `url(#${id}_filter) blur(3.4px) contrast(1.26) brightness(1.06) saturate(1.2)`,
+          WebkitBackdropFilter: useSafariGlassFallback
+            ? 'blur(3.4px) contrast(1.26) brightness(1.06) saturate(1.2)'
+            : `url(#${id}_filter) blur(3.4px) contrast(1.26) brightness(1.06) saturate(1.2)`,
           border: '1px solid rgba(255, 255, 255, 0.18)',
           boxShadow:
             '0 12px 32px rgba(0, 0, 0, 0.28), 0 -14px 32px inset rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 -1px 0 rgba(255, 255, 255, 0.16)',
@@ -198,6 +220,54 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
               'inset 10px 0 22px rgba(255, 255, 255, 0.08), inset -10px 0 22px rgba(255, 255, 255, 0.08)',
           }}
         />
+        {useSafariGlassFallback ? (
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute left-[4%] right-[4%] top-0 h-[42%] rounded-t-full"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(255,255,255,0.20), rgba(255,255,255,0.07) 48%, rgba(255,255,255,0) 100%)',
+                backdropFilter: 'blur(1.2px) brightness(1.18) contrast(1.14)',
+                WebkitBackdropFilter: 'blur(1.2px) brightness(1.18) contrast(1.14)',
+                mixBlendMode: 'screen',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute bottom-0 left-[6%] right-[6%] h-[36%] rounded-b-full"
+              style={{
+                background:
+                  'linear-gradient(0deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05) 52%, rgba(255,255,255,0) 100%)',
+                backdropFilter: 'blur(1.4px) brightness(1.13) contrast(1.14)',
+                WebkitBackdropFilter: 'blur(1.4px) brightness(1.13) contrast(1.14)',
+                mixBlendMode: 'screen',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute bottom-[12%] left-0 top-[12%] w-[9%] rounded-l-full"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05) 55%, rgba(255,255,255,0))',
+                backdropFilter: 'blur(1.5px) brightness(1.15) contrast(1.15)',
+                WebkitBackdropFilter: 'blur(1.5px) brightness(1.15) contrast(1.15)',
+                mixBlendMode: 'screen',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute bottom-[12%] right-0 top-[12%] w-[9%] rounded-r-full"
+              style={{
+                background:
+                  'linear-gradient(270deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05) 55%, rgba(255,255,255,0))',
+                backdropFilter: 'blur(1.5px) brightness(1.15) contrast(1.15)',
+                WebkitBackdropFilter: 'blur(1.5px) brightness(1.15) contrast(1.15)',
+                mixBlendMode: 'screen',
+              }}
+            />
+          </>
+        ) : null}
       </div>
       <div
         className="pointer-events-none fixed left-3 right-3 top-3 z-[52] flex items-center justify-center"

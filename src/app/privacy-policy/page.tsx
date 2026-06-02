@@ -71,8 +71,10 @@ const dataTypes = [
         subscription flows, and diagnose errors. We use Google Mobile Ads to show ads or manage ad-related functionality.
         Advertising partners may process device identifiers, usage data, approximate location derived from network or
         device signals, and ad interaction data depending on your consent, device settings, and applicable law. We may
-        also collect diagnostic information such as API errors, performance events, crash-related information, logs, and
-        device or app configuration details.
+        show optional rewarded ads. If you choose to watch a rewarded ad, we may grant additional in-app AI usage or
+        other in-app benefits after the ad is completed. Rewarded ad benefits have no cash value, are non-transferable,
+        and can only be used inside MemSurf. We may also collect diagnostic information such as API errors, performance
+        events, crash-related information, logs, and device or app configuration details.
       </>
     ),
   },
@@ -99,6 +101,7 @@ const uses = [
   'Send service messages, push notifications, support responses, and product communications.',
   'Analyze app performance, usage, reliability, and feature adoption.',
   'Show, deliver, or measure ads where applicable.',
+  'Provide and verify optional rewarded ad benefits, such as additional in-app AI usage.',
   'Detect, prevent, and respond to fraud, abuse, security incidents, and technical issues.',
   'Comply with legal obligations and enforce our terms.',
 ]

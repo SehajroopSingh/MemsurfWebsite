@@ -19,9 +19,9 @@ const footerLinks = {
 }
 
 const socialLinks = [
-  { icon: Github, href: '#', label: 'GitHub' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
+  { icon: Github, href: 'https://github.com/memsurf', label: 'GitHub' },
+  { icon: Twitter, href: 'https://x.com/memsurf', label: 'Twitter' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/memsurf', label: 'LinkedIn' },
   { icon: Mail, href: 'mailto:contact@memsurf.com', label: 'Email' },
 ]
 
@@ -69,7 +69,7 @@ export default function Footer() {
               </Link>
               {/* Copyright */}
               <p className="text-app-textMuted/80 text-sm">
-                © 2025 MemSurf. All rights reserved.
+                © 2026 MemSurf. All rights reserved.
               </p>
             </div>
 

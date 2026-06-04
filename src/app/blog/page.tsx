@@ -5,22 +5,50 @@ import BlogCard from '@/components/BlogCard'
 import ResourcesSection from '@/components/ResourcesSection'
 import { getAllBlogPosts } from '@/lib/blogPosts'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.com'
+
 export const metadata: Metadata = {
   title: 'Blog | MemSurf – Learning Tips, Study Techniques, and Memory Science',
   description: 'Explore articles about spaced repetition, learning techniques, memory science, and effective study methods. Learn how to make knowledge stick with MemSurf.',
   keywords: ['learning blog', 'study tips', 'spaced repetition', 'memory techniques', 'education', 'learning strategies'],
+  alternates: {
+    canonical: `${siteUrl}/blog`,
+  },
   openGraph: {
     title: 'Blog | MemSurf',
     description: 'Explore articles about spaced repetition, learning techniques, and memory science.',
     type: 'website',
+    url: `${siteUrl}/blog`,
   },
 }
 
 export default function BlogPage() {
   const posts = getAllBlogPosts()
+  const pageUrl = `${siteUrl}/blog`
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'MemSurf Blog – Learning Tips, Study Techniques, and Memory Science',
+    description: 'Explore articles about spaced repetition, learning techniques, memory science, and effective study methods.',
+    url: pageUrl,
+    isPartOf: { '@id': `${siteUrl}/#website` },
+    blogPost: posts.map((post) => ({
+      '@type': 'BlogPosting',
+      headline: post.title,
+      url: `${siteUrl}/blog/${post.slug}`,
+      datePublished: post.date,
+      description: post.metaDescription || post.excerpt,
+    })),
+  }
 
   return (
-    <main className="min-h-screen flex flex-col bg-transparent">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="min-h-screen flex flex-col bg-transparent">
       <Navigation />
       <section className="flex-1 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,8 +84,9 @@ export default function BlogPage() {
           <ResourcesSection />
         </div>
       </section>
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+    </>
   )
 }
 

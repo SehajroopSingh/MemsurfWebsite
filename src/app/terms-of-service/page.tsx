@@ -1,9 +1,38 @@
+import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
+export const metadata: Metadata = {
+  title: 'Terms of Service – MemSurf',
+  description: 'MemSurf terms of service and conditions of use. Effective March 25, 2026.',
+  alternates: {
+    canonical: 'https://memsurf.com/terms-of-service',
+  },
+  openGraph: {
+    title: 'Terms of Service – MemSurf',
+    description: 'MemSurf terms of service and conditions of use.',
+    url: 'https://memsurf.com/terms-of-service',
+  },
+}
+
 export default function TermsOfServicePage() {
+  const pageUrl = 'https://memsurf.com/terms-of-service'
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Terms of Service – MemSurf',
+    description: 'MemSurf terms of service and conditions of use. Effective March 25, 2026.',
+    url: pageUrl,
+    isPartOf: { '@id': 'https://memsurf.com/#website' },
+  }
+
   return (
-    <main className="min-h-screen flex flex-col">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="min-h-screen flex flex-col">
       <Navigation />
       <section className="flex-1 pt-24 pb-16 bg-transparent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -128,6 +157,7 @@ export default function TermsOfServicePage() {
       </section>
       <Footer />
     </main>
+    </>
   )
 }
 

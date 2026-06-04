@@ -16,6 +16,43 @@ const MIN_SPLASH_DURATION_MS = 1400
 const MAX_SPLASH_DURATION_MS = 5000
 const BLOB_SETTLE_DURATION_MS = 1600
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.com'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: 'MemSurf',
+      url: siteUrl,
+      logo: `${siteUrl}/logos/memsurf-logo.png`,
+      description: 'Transform any content into interactive quizzes. Master knowledge with spaced repetition and adaptive learning.',
+      sameAs: [
+        'mailto:contact@memsurf.com',
+      ],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        email: 'contact@memsurf.com',
+        contactType: 'customer support',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      name: 'MemSurf',
+      url: siteUrl,
+      description: 'AI-powered learning platform that turns content into interactive quizzes with spaced repetition.',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteUrl}/search?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
+  ],
+}
+
 export default function Home() {
   const shouldReduceMotion = useReducedMotion()
   const { setBackgroundMode } = useBlobbyBackground()
@@ -114,6 +151,10 @@ export default function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <main
         className={`min-h-screen transition-opacity duration-500 ${
           isRevealed ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -165,18 +206,22 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Email Subscription Section */}
-              <div id="waitlist-section" className="w-full max-w-xl space-y-4 -mt-4">
-                <p className="text-center text-lg text-gray-300 mb-4">
-                  and/or sign up for our email list for updates
-                </p>
-                <WaitlistForm source="homepage_waitlist" />
-              </div>
+          {/* Email Subscription Section */}
+          <div id="waitlist-section" className="w-full max-w-xl space-y-4 -mt-4">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
+              Stay in the Loop
+            </h2>
+            <p className="text-center text-lg text-gray-300 mb-4">
+              and/or sign up for our email list for updates
+            </p>
+            <WaitlistForm source="homepage_waitlist" />
+          </div>
 
-              {/* Social Icons - Full width on mobile */}
-              <div id="social-section" className="flex flex-wrap align-bottom w-fit pt-6 -mx-4 sm:mx-0">
-                <SocialGlassButtons />
-              </div>
+          {/* Social Icons - Full width on mobile */}
+          <div id="social-section" className="flex flex-wrap align-bottom w-fit pt-6 -mx-4 sm:mx-0">
+            <h2 className="sr-only">Follow MemSurf on Social Media</h2>
+            <SocialGlassButtons />
+          </div>
 
             </div>
           </div>

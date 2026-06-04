@@ -285,19 +285,43 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
                       }}
                     />
                     <Link
-                      href="/#how-it-works"
+                      href="/#hero-section"
                       className="relative block rounded-2xl px-4 py-2.5 text-sm font-medium text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none"
                     >
                       How it works
                     </Link>
+                    <Link
+                      href="/method"
+                      className="relative block rounded-2xl px-4 py-2.5 text-sm font-medium text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none"
+                    >
+                      The Method
+                    </Link>
+                    <Link
+                      href="/research"
+                      className="relative block rounded-2xl px-4 py-2.5 text-sm font-medium text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none"
+                    >
+                      Research
+                    </Link>
+                    <Link
+                      href="/use-cases"
+                      className="relative block rounded-2xl px-4 py-2.5 text-sm font-medium text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none"
+                    >
+                      Use Cases
+                    </Link>
                   </div>
                 </div>
               </div>
+              <Link href="/about" className="text-app-textMuted hover:text-app-text transition-colors py-2 text-sm font-medium">
+                About
+              </Link>
               <Link href="/team" className="text-app-textMuted hover:text-app-text transition-colors py-2 text-sm font-medium">
                 Meet the Team
               </Link>
               <Link href="/blog" className="text-app-textMuted hover:text-app-text transition-colors py-2 text-sm font-medium">
                 Blog
+              </Link>
+              <Link href="/careers" className="text-app-textMuted hover:text-app-text transition-colors py-2 text-sm font-medium">
+                Careers
               </Link>
             </div>
 
@@ -316,14 +340,32 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
           {isOpen ? (
             <div className="md:hidden mt-3 rounded-3xl border border-white/15 bg-app-surface/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(2,8,24,0.35)] px-4 pt-2 pb-4 space-y-2">
               <div className="px-3 pt-2 pb-1 text-xs font-semibold text-app-textMuted/80 uppercase tracking-wider">Product</div>
-              <Link href="/#how-it-works" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
+              <Link href="/#hero-section" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
                 How it works
+              </Link>
+              <Link href="/method" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
+                The Method
+              </Link>
+              <Link href="/research" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
+                Research
+              </Link>
+              <Link href="/use-cases" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
+                Use Cases
+              </Link>
+              <Link href="/about" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
+                About
               </Link>
               <Link href="/team" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
                 Meet the Team
               </Link>
               <Link href="/blog" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
                 Blog
+              </Link>
+              <Link href="/careers" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
+                Careers
+              </Link>
+              <Link href="/contact" className="block rounded-2xl px-3 py-2 text-app-textMuted transition-all duration-200 hover:bg-white/20 hover:text-app-text hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] hover:backdrop-blur-xl focus-visible:bg-white/20 focus-visible:text-app-text focus-visible:shadow-[inset_0_1px_0_rgba(255,255,255,0.30),inset_0_-1px_0_rgba(255,255,255,0.12),0_10px_24px_rgba(2,8,24,0.22)] focus-visible:backdrop-blur-xl focus-visible:outline-none">
+                Contact
               </Link>
             </div>
           ) : null}

@@ -1,9 +1,38 @@
+import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
+export const metadata: Metadata = {
+  title: 'Cookie Policy – MemSurf',
+  description: 'Learn how MemSurf uses cookies and similar technologies on our website and application to provide, protect, and improve the Service.',
+  alternates: {
+    canonical: 'https://memsurf.com/cookie-policy',
+  },
+  openGraph: {
+    title: 'Cookie Policy – MemSurf',
+    description: 'Learn how MemSurf uses cookies and similar technologies.',
+    url: 'https://memsurf.com/cookie-policy',
+  },
+}
+
 export default function CookiePolicyPage() {
+  const pageUrl = 'https://memsurf.com/cookie-policy'
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Cookie Policy – MemSurf',
+    description: 'Learn how MemSurf uses cookies and similar technologies on our website and application to provide, protect, and improve the Service.',
+    url: pageUrl,
+    isPartOf: { '@id': 'https://memsurf.com/#website' },
+  }
+
   return (
-    <main className="min-h-screen flex flex-col bg-transparent">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="min-h-screen flex flex-col bg-transparent">
       <Navigation />
 
       <section className="flex-1 pt-32 pb-24">
@@ -165,5 +194,6 @@ export default function CookiePolicyPage() {
 
       <Footer />
     </main>
+    </>
   )
 }

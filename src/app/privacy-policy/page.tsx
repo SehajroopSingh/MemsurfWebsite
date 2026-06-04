@@ -1,5 +1,19 @@
+import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy – MemSurf',
+  description: 'MemSurf privacy policy. Learn what information we collect, how we use it, and the choices available to you.',
+  alternates: {
+    canonical: 'https://memsurf.com/privacy-policy',
+  },
+  openGraph: {
+    title: 'Privacy Policy – MemSurf',
+    description: 'Learn what information we collect, how we use it, and the choices available to you.',
+    url: 'https://memsurf.com/privacy-policy',
+  },
+}
 
 const contactEmail = 'contact@memsurf.com'
 
@@ -134,8 +148,23 @@ const legalBases = [
 ]
 
 export default function PrivacyPolicyPage() {
+  const pageUrl = 'https://memsurf.com/privacy-policy'
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Privacy Policy – MemSurf',
+    description: 'MemSurf privacy policy. Learn what information we collect, how we use it, and the choices available to you.',
+    url: pageUrl,
+    isPartOf: { '@id': 'https://memsurf.com/#website' },
+  }
+
   return (
-    <main className="min-h-screen flex flex-col font-sans">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="min-h-screen flex flex-col font-sans">
       <Navigation />
       <section className="flex-1 pt-32 pb-16 bg-transparent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-app-textMuted">
@@ -343,5 +372,6 @@ export default function PrivacyPolicyPage() {
       </section>
       <Footer />
     </main>
+    </>
   )
 }

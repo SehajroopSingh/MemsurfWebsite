@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.app'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.com'
   const imageUrl = `${siteUrl}${post.image}`
   const postUrl = `${siteUrl}/blog/${post.slug}`
 
@@ -69,7 +69,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     notFound()
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.app'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.com'
   const postUrl = `${siteUrl}/blog/${post.slug}`
   const imageUrl = `${siteUrl}${post.image}`
 

@@ -10,7 +10,7 @@ export default function MethodPage() {
             <div className="absolute top-0 left-0 right-0 z-50">
                 <Navigation />
             </div>
-
+            <h1 className="sr-only">How MemSurf Works – The Method</h1>
             <ParticleScene />
         </main>
     )

@@ -1,0 +1,11 @@
+# https://memsurf.com/robots.txt
+User-agent: *
+Allow: /
+
+# Disallow internal / test routes
+Disallow: /labs/
+Disallow: /homepage-tests/
+Disallow: /coming-soon/
+Disallow: /app-store-screenshots/
+
+Sitemap: https://memsurf.com/sitemap.xml

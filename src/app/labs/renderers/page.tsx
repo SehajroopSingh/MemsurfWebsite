@@ -328,6 +328,17 @@ function clientCardClassForType(cellType: string) {
 
 function apiUrl(path: string) {
   const normalizedPath = path.replace(/^\//, "");
+  const explicitlyProxy = process.env.NEXT_PUBLIC_RENDERER_API_PROXY === "1";
+  const explicitlyDirect = process.env.NEXT_PUBLIC_RENDERER_API_PROXY === "0";
+  const isLocalLab =
+    typeof window !== "undefined" &&
+    ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+  const shouldProxy =
+    !explicitlyDirect &&
+    (explicitlyProxy || (isLocalLab && API_BASE_URL === "https://api.memsurf.com/api"));
+  if (shouldProxy) {
+    return `${RENDERER_LAB_API_URL}/django-proxy/${normalizedPath}`;
+  }
   return `${API_BASE_URL}/${normalizedPath}`;
 }
 

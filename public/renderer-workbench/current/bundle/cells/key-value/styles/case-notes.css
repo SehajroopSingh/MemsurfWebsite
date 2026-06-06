@@ -1,83 +1,108 @@
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
-.cell-card.key-value-card.key-value-style-case-notes .key-value-title {
-      margin-bottom: 8px;
-      border: 1px solid rgba(82, 101, 135, 0.14);
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.44);
-      box-shadow: 0 10px 22px rgba(31, 42, 68, 0.06);
+.cell-card.key-value-card.key-value-style-case-notes {
+      --cell-style-accent: var(--accent-1);
+      border-left: 6px solid var(--cell-style-accent);
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.12), transparent 48%),
+        var(--card-bg);
     }
 
     .cell-card.key-value-card.key-value-style-case-notes .key-value-title {
+      justify-content: center;
       background:
-        linear-gradient(135deg, rgba(47, 143, 131, 0.10), rgba(255, 191, 108, 0.12)),
-        rgba(255, 255, 255, 0.46);
+        linear-gradient(90deg, rgba(74, 120, 210, 0.12), rgba(255, 255, 255, 0.34)),
+        rgba(255, 255, 255, 0.52);
     }
 
-    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-title {
-      background: rgba(18, 27, 45, 0.62);
-      border-color: rgba(214, 221, 235, 0.13);
-    }
-
-    .cell-card.key-value-card.key-value-style-case-notes .key-value-row::before {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 5px;
-      background: var(--relationship-a);
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-title-marker {
+      visibility: hidden;
     }
 
     .cell-card.key-value-card.key-value-style-case-notes .key-value-cell {
-      gap: 9px;
-      overflow: visible;
-      border: 0;
-      background: transparent;
-      box-shadow: none;
+      border-radius: 9px;
+      border-color: rgba(82, 101, 135, 0.20);
+      background: rgba(255, 255, 255, 0.56);
+      box-shadow: 0 16px 28px rgba(31, 42, 68, 0.10);
     }
 
     .cell-card.key-value-card.key-value-style-case-notes .key-value-row {
-      border: 1px solid rgba(47, 143, 131, 0.15);
-      border-radius: 18px;
-      background:
-        linear-gradient(135deg, rgba(47, 143, 131, 0.09), rgba(255, 191, 108, 0.11)),
-        rgba(255, 255, 255, 0.44);
-      box-shadow: 0 14px 25px rgba(31, 42, 68, 0.08);
-      overflow: hidden;
-    }
-
-    .cell-card.key-value-card.key-value-style-case-notes .key-value-row:nth-child(odd) {
-      transform: rotate(-0.35deg);
-    }
-
-    .cell-card.key-value-card.key-value-style-case-notes .key-value-row:nth-child(even) {
-      transform: rotate(0.28deg);
-    }
-
-    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row {
-      animation-name: kv-note-drop;
-    }
-
-    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row:nth-child(odd) {
-      animation-name: kv-note-drop-left;
-    }
-
-    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row:nth-child(even) {
-      animation-name: kv-note-drop-right;
-    }
-
-    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-cell {
-      background:
-        linear-gradient(135deg, rgba(88, 193, 178, 0.065), rgba(126, 161, 255, 0.055)),
-        rgba(255, 255, 255, 0.035);
-    }
-
-    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-cell {
+      display: grid;
+      grid-template-columns: minmax(90px, auto) 1fr;
+      padding: 0;
+      border-top: 0 !important;
+      border-radius: 0;
+      border-inline: 0;
+      border-bottom: 0;
       background: transparent;
-      border-color: transparent;
       box-shadow: none;
+      overflow: visible;
+      transform: none;
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-row::before {
+      content: none;
+      display: none;
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-key {
+      background: rgba(74, 120, 210, 0.07);
+      border-right: 1px solid rgba(74, 120, 210, 0.14);
+      padding: 11px 13px !important;
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center;
+      white-space: nowrap;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-1);
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-value {
+      padding: 11px 13px !important;
+      margin: 0 !important;
+      border: 0;
+      background: transparent;
+    }
+
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row,
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row:nth-child(odd),
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row:nth-child(even) {
+      animation-name: kv-ledger-row;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-key {
+      background: rgba(126, 161, 255, 0.09);
+      border-right-color: rgba(126, 161, 255, 0.16);
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-cell {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(82, 101, 135, 0.20);
+      box-shadow: 0 16px 28px rgba(31, 42, 68, 0.10);
     }
 
     :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-row {
-      background: rgba(255, 255, 255, 0.045);
-      border-color: rgba(126, 161, 255, 0.14);
+      background: transparent;
+      border-color: transparent;
+    }
+
+    @media (max-width: 620px) {
+
+      .cell-card.key-value-card.key-value-style-case-notes .key-value-row {
+        grid-template-columns: minmax(90px, auto) 1fr;
+      }
+
+      .cell-card.key-value-card.key-value-style-case-notes .key-value-key {
+        border-right: 1px solid rgba(74, 120, 210, 0.14) !important;
+        border-bottom: 0 !important;
+      }
+
+      :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-key {
+        border-right-color: rgba(126, 161, 255, 0.16) !important;
+      }
+}
+
+    .cell-card.key-value-card.key-value-style-case-notes {
+      border-left-width: 0 !important;
     }

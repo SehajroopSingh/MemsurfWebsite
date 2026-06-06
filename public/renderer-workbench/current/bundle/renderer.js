@@ -1017,22 +1017,22 @@
         const shell = document.createElement("section");
         shell.className = "scenario-shell" + (showScenarioTitles ? " with-meta" : "");
 
-        if (showScenarioTitles) {
-          const title = nonEmptyString(scenario.title);
-          const subtitle = nonEmptyString(scenario.subtitle);
-          const header = document.createElement("header");
-          header.className = "scenario-meta";
-          header.innerHTML =
-            '<div class="scenario-overline">Web Grid Preview</div>' +
-            '<h2 class="scenario-title">' + escapeHTML(title || "Untitled Scenario") + '</h2>' +
-            (subtitle ? '<p class="scenario-subtitle">' + escapeHTML(subtitle) + "</p>" : "");
-          shell.appendChild(header);
-        }
+        // if (showScenarioTitles) {
+        //   const title = nonEmptyString(scenario.title);
+        //   const subtitle = nonEmptyString(scenario.subtitle);
+        //   const header = document.createElement("header");
+        //   header.className = "scenario-meta";
+        //   header.innerHTML =
+        //     '<div class="scenario-overline">Web Grid Preview</div>' +
+        //     '<h2 class="scenario-title">' + escapeHTML(title || "Untitled Scenario") + '</h2>' +
+        //     (subtitle ? '<p class="scenario-subtitle">' + escapeHTML(subtitle) + "</p>" : "");
+        //   shell.appendChild(header);
+        // }
 
-        const screenExplanation = nonEmptyString(scenario.screenExplanation);
-        if (screenExplanation) {
-          shell.appendChild(renderScreenExplanation(screenExplanation));
-        }
+        // const screenExplanation = nonEmptyString(scenario.screenExplanation);
+        // if (screenExplanation) {
+        //   shell.appendChild(renderScreenExplanation(screenExplanation));
+        // }
 
         shell.appendChild(renderGridShell(scenario, isNarrow, scenarioIndex));
 
@@ -1106,7 +1106,7 @@
             : cellType === "TimelineStepCell"
               ? sharedTimelineStepStyle
               : cellType === "KeyValueCell"
-                ? ""
+                ? selectedCellStyle(cellType, scenarioScope, cellStyleSubtype, undefined, previewCellStyle, cellStyleOccurrence)
                 : selectedCellStyle(cellType, scenarioScope, cellStyleSubtype, undefined, previewCellStyle, cellStyleOccurrence);
           const textStyle = cellType === "TextCell"
             ? cellStyle
@@ -2237,22 +2237,22 @@
       }
 
       const pairRelationshipRoleExamples = {
-        contrast: ["Side A", "Side B"],
-        before_after: ["Before", "After"],
-        problem_solution: ["Problem", "Solution"],
-        cause_effect: ["Cause", "Effect"],
-        example_nonexample: ["Example", "Non-example"],
-        claim_evidence: ["Claim", "Evidence"],
-        parallel_examples: ["Example A", "Example B"]
+        contrast: ["", ""],
+        before_after: ["", ""],
+        problem_solution: ["", ""],
+        cause_effect: ["", ""],
+        example_nonexample: ["", ""],
+        claim_evidence: ["", ""],
+        parallel_examples: ["", ""]
       };
 
       const tripletRelationshipRoleExamples = {
-        cause_mechanism_effect: ["Cause", "Mechanism", "Effect"],
-        input_process_output: ["Input", "Process", "Output"],
-        problem_method_result: ["Problem", "Method", "Result"],
-        claim_evidence_implication: ["Claim", "Evidence", "Implication"],
-        trigger_response_outcome: ["Trigger", "Response", "Outcome"],
-        before_change_after: ["Before", "Change", "After"]
+        cause_mechanism_effect: ["", "", ""],
+        input_process_output: ["", "", ""],
+        problem_method_result: ["", "", ""],
+        claim_evidence_implication: ["", "", ""],
+        trigger_response_outcome: ["", "", ""],
+        before_change_after: ["", "", ""]
       };
 
       function relationshipRoleExamples(kind, relation) {

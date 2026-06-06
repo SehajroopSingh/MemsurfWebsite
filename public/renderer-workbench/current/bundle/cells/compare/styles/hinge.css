@@ -17,3 +17,23 @@
     .cell-card.compare-card.cell-style-hinge .compare-vs-badge span {
       border-radius: 7px;
     }
+
+    .cell-card.compare-card.cell-style-hinge .compare-table {
+      overflow: visible;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .cell-card.compare-card.cell-style-hinge .compare-header,
+    .cell-card.compare-card.cell-style-hinge .compare-row {
+      margin-bottom: 8px;
+      border: 1px solid color-mix(in srgb, var(--accent-2) 22%, var(--surface-line));
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--card-bg) 88%, var(--accent-2) 12%);
+      box-shadow: 0 8px 18px color-mix(in srgb, var(--accent-2) 10%, transparent);
+    }
+
+    .cell-card.compare-card.cell-style-hinge .compare-axis {
+      background: color-mix(in srgb, var(--accent-2) 14%, transparent);
+    }

@@ -29,9 +29,16 @@ type RendererSource = "local" | "backend";
 type BundleKind = "current" | "library" | "draft";
 type LabMode = "catalog" | "real-lessons";
 type StylePolicy = "randomized-stable-unlocked" | "first-only" | "preview";
+type TextVariant = "small" | "medium" | "large";
 
 const REAL_LESSON_STYLE_POLICY = "randomized-stable-unlocked" as const;
 const PREVIEW_STYLE_POLICY = "preview" as const;
+const TEXT_VARIANTS: TextVariant[] = ["small", "medium", "large"];
+const TEXT_VARIANT_LABELS: Record<TextVariant, string> = {
+  small: "Small",
+  medium: "Medium",
+  large: "Large",
+};
 
 type RendererManifest = {
   source?: string;
@@ -77,7 +84,10 @@ type CatalogEntry = {
   relationship_mode?: string;
   render_mode_token?: string;
   payload: RendererPayload;
+  text_variants?: Partial<Record<TextVariant, RendererPayload>>;
 };
+
+const HIDDEN_CATALOG_CELL_TYPES = new Set(["HeadingCell", "ImageCell", "MapRegionCell", "SpacerCell"]);
 
 type StyleAvailabilityStyle = {
   style_id: string;
@@ -300,6 +310,8 @@ const CARD_CLASS_BY_CELL_TYPE: Record<string, string> = {
   ProcessStepCell: "process-card",
   SpacerCell: "spacer-card",
 };
+const REPEATED_PREVIEW_CELL_TYPES = new Set(["KeyPointsCell", "TimelineStepCell", "ProcessStepCell"]);
+const REPEATED_PREVIEW_COUNT = 3;
 
 function clientCellSlugFromType(cellType: string) {
   return clientStyleSlug(
@@ -316,17 +328,6 @@ function clientCardClassForType(cellType: string) {
 
 function apiUrl(path: string) {
   const normalizedPath = path.replace(/^\//, "");
-  const explicitlyProxy = process.env.NEXT_PUBLIC_RENDERER_API_PROXY === "1";
-  const explicitlyDirect = process.env.NEXT_PUBLIC_RENDERER_API_PROXY === "0";
-  const isLocalLab =
-    typeof window !== "undefined" &&
-    ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
-  const shouldProxy =
-    !explicitlyDirect &&
-    (explicitlyProxy || (isLocalLab && API_BASE_URL === "https://api.memsurf.com/api"));
-  if (shouldProxy) {
-    return `${RENDERER_LAB_API_URL}/django-proxy/${normalizedPath}`;
-  }
   return `${API_BASE_URL}/${normalizedPath}`;
 }
 
@@ -717,9 +718,35 @@ function payloadWithTheme(payload: RendererPayload, theme: Theme): RendererPaylo
   };
 }
 
+function payloadForEntryVariant(entry: CatalogEntry, variant: TextVariant): RendererPayload {
+  return entry.text_variants?.[variant] || entry.text_variants?.medium || entry.payload;
+}
+
+function catalogEntryWithMappedPayloads(
+  entry: CatalogEntry,
+  mapPayload: (payload: RendererPayload) => RendererPayload,
+): CatalogEntry {
+  const mappedEntry: CatalogEntry = {
+    ...entry,
+    payload: mapPayload(entry.payload),
+  };
+  if (entry.text_variants) {
+    mappedEntry.text_variants = Object.fromEntries(
+      TEXT_VARIANTS
+        .map((variant) => {
+          const payload = entry.text_variants?.[variant];
+          return payload ? [variant, mapPayload(payload)] : null;
+        })
+        .filter((item): item is [TextVariant, RendererPayload] => Boolean(item)),
+    );
+  }
+  return mappedEntry;
+}
+
 function combinedPayload(entries: CatalogEntry[], theme: Theme): RendererPayload {
-  const first = entries[0]?.payload;
-  const stylePolicy = entries.some((entry) => entry.payload.stylePolicy === PREVIEW_STYLE_POLICY || entry.payload.style_policy === PREVIEW_STYLE_POLICY)
+  const mediumPayloads = entries.map((entry) => payloadForEntryVariant(entry, "medium"));
+  const first = mediumPayloads[0];
+  const stylePolicy = mediumPayloads.some((payload) => payload.stylePolicy === PREVIEW_STYLE_POLICY || payload.style_policy === PREVIEW_STYLE_POLICY)
     ? PREVIEW_STYLE_POLICY
     : REAL_LESSON_STYLE_POLICY;
   return {
@@ -731,7 +758,7 @@ function combinedPayload(entries: CatalogEntry[], theme: Theme): RendererPayload
     theme,
     showScenarioTitles: true,
     scenarios: entries.flatMap((entry) =>
-      entry.payload.scenarios.map((scenario) => ({
+      payloadForEntryVariant(entry, "medium").scenarios.map((scenario) => ({
         ...scenario,
         title: `${entry.cell_type}: ${entry.label}`,
         subtitle: entry.render_mode || entry.group,
@@ -788,6 +815,89 @@ function recordValue(value: unknown): Record<string, unknown> | null {
 
 function arrayRecords(value: unknown): Record<string, unknown>[] {
   return Array.isArray(value) ? value.filter(isRecord) : [];
+}
+
+function repeatedPreviewContent(cellType: string, content: Record<string, unknown>, index: number) {
+  const stepNumber = index + 1;
+  if (cellType === "KeyPointsCell") {
+    const labels = ["Setup", "Check", "Apply"];
+    return {
+      ...content,
+      points: [
+        `${labels[index]} the main idea in context.`,
+        "Keep the supporting detail compact.",
+        "Connect it to the next visible card.",
+      ],
+    };
+  }
+  if (cellType === "TimelineStepCell") {
+    const titles = ["Preview endpoint ships", "Style pass lands", "Mobile review starts"];
+    const descriptions = [
+      "The lab loads the renderer bundle in the phone frame.",
+      "Each visual style is checked against the same sequence.",
+      "The connector and reveal timing are reviewed together.",
+    ];
+    return {
+      ...content,
+      chain_label: stepNumber === 1 ? content.chain_label || "Renderer rollout" : "",
+      time_label: `Step ${stepNumber}`,
+      event_title: titles[index],
+      description: descriptions[index],
+    };
+  }
+  if (cellType === "ProcessStepCell") {
+    const actions = ["Adjust payload or CSS", "Reload the renderer", "Review connected output"];
+    const outputs = ["Preview state changes", "Phone frame updates", "Ready for visual approval"];
+    return {
+      ...content,
+      chain_label: stepNumber === 1 ? content.chain_label || "Lab workflow" : "",
+      action: actions[index],
+      output: outputs[index],
+      note: index === 0 ? content.note || "Changes stay local to the workbench." : "The run should read as one connected flow.",
+    };
+  }
+  return content;
+}
+
+function repeatedPreviewSlot(baseSlot: Record<string, unknown>, index: number) {
+  const cellType = typeof baseSlot.cell_type === "string" ? baseSlot.cell_type : "";
+  const props = recordValue(baseSlot.props) || {};
+  const content = recordValue(baseSlot.content) || {};
+  return {
+    ...baseSlot,
+    slot_id: `slot_${index + 1}`,
+    r: index,
+    c: 0,
+    rowspan: 1,
+    colspan: 1,
+    props: {
+      ...props,
+      sequence_index: index + 1,
+    },
+    content: repeatedPreviewContent(cellType, content, index),
+  };
+}
+
+function payloadWithRepeatedPreviewCells(basePayload: RendererPayload): RendererPayload {
+  const payload = JSON.parse(JSON.stringify(basePayload)) as RendererPayload;
+  payload.scenarios = payload.scenarios.map((scenario) => {
+    const slots = arrayRecords(scenario.slots);
+    if (slots.length !== 1) return scenario;
+
+    const cellType = typeof slots[0]?.cell_type === "string" ? slots[0].cell_type : "";
+    if (!REPEATED_PREVIEW_CELL_TYPES.has(cellType)) return scenario;
+
+    return {
+      ...scenario,
+      grid: {
+        ...(recordValue(scenario.grid) || {}),
+        rows: REPEATED_PREVIEW_COUNT,
+        cols: 1,
+      },
+      slots: Array.from({ length: REPEATED_PREVIEW_COUNT }, (_value, index) => repeatedPreviewSlot(slots[0], index)),
+    };
+  });
+  return payload;
 }
 
 function stringValue(value: unknown, fallback = "") {
@@ -973,36 +1083,45 @@ function pairVisualCatalogEntries(entries: CatalogEntry[]): CatalogEntry[] {
 
     if (baseEntry) {
       const label = mode.label.replace(/ mode$/, "");
-      modeEntries.push({
-        ...baseEntry,
-        id: `pair-${mode.id}`,
-        label,
-        render_mode: mode.id,
-        layout_id: mode.id,
-        layout_label: mode.label,
-        layout_kind: "pair_visual_mode",
-        payload: payloadWithScenarioMetadata(baseEntry.payload, `PairCell: ${label}`, "Pair visual render mode"),
-      });
+      modeEntries.push(
+        catalogEntryWithMappedPayloads(
+          {
+            ...baseEntry,
+            id: `pair-${mode.id}`,
+            label,
+            render_mode: mode.id,
+            layout_id: mode.id,
+            layout_label: mode.label,
+            layout_kind: "pair_visual_mode",
+          },
+          (payload) => payloadWithScenarioMetadata(payload, `PairCell: ${label}`, "Pair visual render mode"),
+        ),
+      );
     }
 
     for (const relation of mode.relations) {
       const styleEntries = styleEntriesByRelation.get(relation) || [];
       for (const entry of styleEntries) {
         const styleLabel = entry.style_label || entry.label;
-        modeEntries.push({
-          ...entry,
-          id: `${entry.id}-${mode.id}`,
-          render_mode: mode.id,
-          layout_id: mode.id,
-          layout_label: mode.label,
-          layout_kind: "pair_visual_mode",
-          render_mode_token: mode.id,
-          payload: payloadWithScenarioMetadata(
-            entry.payload,
-            `PairCell: ${mode.label} - ${styleLabel}`,
-            "Backend-owned visual render mode preview",
+        modeEntries.push(
+          catalogEntryWithMappedPayloads(
+            {
+              ...entry,
+              id: `${entry.id}-${mode.id}`,
+              render_mode: mode.id,
+              layout_id: mode.id,
+              layout_label: mode.label,
+              layout_kind: "pair_visual_mode",
+              render_mode_token: mode.id,
+            },
+            (payload) =>
+              payloadWithScenarioMetadata(
+                payload,
+                `PairCell: ${mode.label} - ${styleLabel}`,
+                "Backend-owned visual render mode preview",
+              ),
           ),
-        });
+        );
       }
     }
 
@@ -1039,7 +1158,7 @@ function catalogEntriesWithRenderModeStyles(entries: CatalogEntry[]): CatalogEnt
     }
   }
 
-  return visibleEntries.flatMap((entry) => {
+  const entriesWithRenderModeStyles = visibleEntries.flatMap((entry) => {
     if (!entry.style_id || entry.layout_kind !== "cell_style" || cellsWithSpecificStyleGroups.has(entry.cell_type)) {
       return [entry];
     }
@@ -1056,23 +1175,32 @@ function catalogEntriesWithRenderModeStyles(entries: CatalogEntry[]): CatalogEnt
       const styleKey = entry.style_key || "preview_cell_style";
       const styleLabel = entry.style_label || entry.label;
       const layoutLabel = baseEntry.render_mode || baseEntry.label || entry.layout_label || "Default mode";
-      return {
-        ...entry,
-        id: `${entry.id}-${renderMode}`.replace(/[^a-zA-Z0-9_-]/g, "-"),
-        render_mode: renderMode,
-        layout_id: renderMode,
-        layout_label: layoutLabel,
-        render_mode_token: renderMode,
-        payload: payloadWithForcedStyle(
-          baseEntry.payload,
-          styleKey,
-          styleId,
-          `${entry.cell_type}: ${layoutLabel} - ${styleLabel}`,
-          "Backend-owned style availability preview",
-        ),
-      };
+      return catalogEntryWithMappedPayloads(
+        {
+          ...entry,
+          id: `${entry.id}-${renderMode}`.replace(/[^a-zA-Z0-9_-]/g, "-"),
+          render_mode: renderMode,
+          layout_id: renderMode,
+          layout_label: layoutLabel,
+          render_mode_token: renderMode,
+          payload: baseEntry.payload,
+          text_variants: baseEntry.text_variants,
+        },
+        (payload) =>
+          payloadWithForcedStyle(
+            payload,
+            styleKey,
+            styleId,
+            `${entry.cell_type}: ${layoutLabel} - ${styleLabel}`,
+            "Backend-owned style availability preview",
+          ),
+      );
     });
   });
+
+  return entriesWithRenderModeStyles.map((entry) =>
+    catalogEntryWithMappedPayloads(entry, payloadWithRepeatedPreviewCells),
+  );
 }
 
 function prettyJson(payload: RendererPayload) {
@@ -1099,13 +1227,138 @@ function buildIframeDocument(bundle: RendererBundle, payload: RendererPayload, c
   ${rendererExtraStylesheets}
   <style>
     html, body { min-height: 100%; margin: 0; }
-    body { background: ${payload.theme === "dark" ? "#06111d" : "#eef5fb"}; }
-    #grid-layout-root { max-width: var(--page-max-width); margin: 0 auto; padding: 0 var(--gridcell-root-edge); }
+    body {
+      background: ${payload.theme === "dark" ? "#08131d" : "#eef5fb"};
+      overflow-x: hidden;
+    }
+    #grid-layout-root {
+      max-width: var(--page-max-width);
+      margin: 0 auto;
+      padding: 15vh var(--gridcell-root-edge) 0;
+      position: relative;
+      z-index: 1;
+    }
     .scenario-shell { padding-left: 0; padding-right: 0; }
+
+    /* Blobby Background styles */
+    .blobby-bg {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      mix-blend-mode: normal;
+      will-change: transform;
+    }
+    .blob-1 {
+      width: 250px;
+      height: 250px;
+      left: -40px;
+      top: -20px;
+      background: #4f9e95;
+      opacity: ${payload.theme === "dark" ? 0.34 : 0.22};
+      filter: blur(40px);
+      animation: float-blob-1 14s ease-in-out infinite;
+    }
+    .blob-2 {
+      width: 200px;
+      height: 200px;
+      right: -30px;
+      top: 10%;
+      background: #8c65c6;
+      opacity: ${payload.theme === "dark" ? 0.30 : 0.20};
+      filter: blur(35px);
+      animation: float-blob-2 16s ease-in-out infinite;
+    }
+    .blob-3 {
+      width: 180px;
+      height: 180px;
+      right: -20px;
+      top: 45%;
+      background: #5376ab;
+      opacity: ${payload.theme === "dark" ? 0.32 : 0.22};
+      filter: blur(35px);
+      animation: float-blob-3 12s ease-in-out infinite;
+    }
+    .blob-4 {
+      width: 220px;
+      height: 220px;
+      left: -50px;
+      bottom: 10%;
+      background: #6b57a8;
+      opacity: ${payload.theme === "dark" ? 0.28 : 0.18};
+      filter: blur(45px);
+      animation: float-blob-4 18s ease-in-out infinite;
+    }
+    .blob-5 {
+      width: 150px;
+      height: 150px;
+      left: 20%;
+      top: 40%;
+      background: #77c2b7;
+      opacity: ${payload.theme === "dark" ? 0.26 : 0.16};
+      filter: blur(30px);
+      animation: float-blob-5 15s ease-in-out infinite;
+    }
+    .blob-6 {
+      width: 170px;
+      height: 170px;
+      right: 10%;
+      bottom: -20px;
+      background: #a580da;
+      opacity: ${payload.theme === "dark" ? 0.28 : 0.18};
+      filter: blur(35px);
+      animation: float-blob-6 13s ease-in-out infinite;
+    }
+
+    @keyframes float-blob-1 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, 20px) scale(1.1); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes float-blob-2 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-30px, 40px) scale(0.9); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes float-blob-3 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-40px, -20px) scale(1.15); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes float-blob-4 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(25px, -30px) scale(0.95); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes float-blob-5 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -25px) scale(1.1); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes float-blob-6 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-20px, 30px) scale(0.9); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
     ${styleSafe(cssOverride)}
   </style>
 </head>
 <body>
+  <div class="blobby-bg">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+    <div class="bg-blob blob-4"></div>
+    <div class="bg-blob blob-5"></div>
+    <div class="bg-blob blob-6"></div>
+  </div>
   <div id="grid-layout-root"></div>
   <script id="grid-layout-data" type="application/json">${jsonForScript(payload)}</script>
   <script id="renderer-style-availability-data" type="application/json">${jsonForScript(bundle.styleAvailability || {})}</script>
@@ -1299,9 +1552,11 @@ export default function RendererLabPage() {
   const [catalog, setCatalog] = useState<RendererCatalog | null>(null);
   const [bundle, setBundle] = useState<RendererBundle | null>(null);
   const [selectedId, setSelectedId] = useState<string>("");
+  const [selectedTextVariant, setSelectedTextVariant] = useState<TextVariant>("medium");
   const [device, setDevice] = useState<Device>("iphone");
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [showAll, setShowAll] = useState(false);
+
   const [draftJson, setDraftJson] = useState("");
   const [appliedPayload, setAppliedPayload] = useState<RendererPayload | null>(null);
   const [cssOverride, setCssOverride] = useState("");
@@ -1354,8 +1609,78 @@ export default function RendererLabPage() {
   const [cellDraftOverwrite, setCellDraftOverwrite] = useState(false);
   const [cellSaveError, setCellSaveError] = useState("");
 
+  // Restore persistent settings on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedDevice = localStorage.getItem("renderlab_device") as Device | null;
+      if (savedDevice === "iphone" || savedDevice === "android") {
+        setDevice(savedDevice);
+      }
+      const savedTheme = localStorage.getItem("renderlab_theme") as Theme | null;
+      if (savedTheme === "light" || savedTheme === "dark") {
+        setTheme(savedTheme);
+      }
+      const savedLabMode = localStorage.getItem("renderlab_labMode") as LabMode | null;
+      if (savedLabMode === "catalog" || savedLabMode === "real-lessons") {
+        setLabMode(savedLabMode);
+      }
+    }
+  }, []);
+
+  // Save persistent settings when they change
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("renderlab_device", device);
+    }
+  }, [device]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("renderlab_theme", theme);
+    }
+  }, [theme]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("renderlab_labMode", labMode);
+    }
+  }, [labMode]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !isLoading) {
+      localStorage.setItem("renderlab_selectedId", selectedId);
+    }
+  }, [selectedId, isLoading]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !isLoading) {
+      localStorage.setItem("renderlab_selectedTextVariant", selectedTextVariant);
+    }
+  }, [selectedTextVariant, isLoading]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !isLoading) {
+      localStorage.setItem("renderlab_showAll", String(showAll));
+    }
+  }, [showAll, isLoading]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && selectedSampleId !== null) {
+      localStorage.setItem("renderlab_selectedSampleId", String(selectedSampleId));
+    }
+  }, [selectedSampleId]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && selectedRealLessonScreenKey !== "") {
+      localStorage.setItem("renderlab_selectedRealLessonScreenKey", selectedRealLessonScreenKey);
+    }
+  }, [selectedRealLessonScreenKey]);
+
   const catalogEntries = useMemo(
-    () => catalogEntriesWithRenderModeStyles(catalog?.entries || []),
+    () =>
+      catalogEntriesWithRenderModeStyles(catalog?.entries || []).filter(
+        (entry) => !HIDDEN_CATALOG_CELL_TYPES.has(entry.cell_type),
+      ),
     [catalog],
   );
 
@@ -1583,32 +1908,64 @@ export default function RendererLabPage() {
 
         if (cancelled) return;
 
-        const visibleEntries = catalogEntriesWithRenderModeStyles(nextCatalog.entries);
+        const visibleEntries = catalogEntriesWithRenderModeStyles(nextCatalog.entries).filter(
+          (entry) => !HIDDEN_CATALOG_CELL_TYPES.has(entry.cell_type),
+        );
         const pendingCellSelection = pendingCellSelectionRef.current;
         const pendingSelection = pendingStyleSelectionRef.current;
-        const firstEntry =
-          pendingCellSelection
-            ? visibleEntries.find((entry) => entry.id === pendingCellSelection.entryId) ||
-              visibleEntries.find((entry) => entry.cell_type === pendingCellSelection.cellType) ||
-              visibleEntries[0]
-            : pendingSelection
-            ? visibleEntries.find((entry) => entry.id === pendingSelection.entryId) ||
-              visibleEntries.find(
-                (entry) =>
-                  entry.style_group_id === pendingSelection.groupId &&
-                  entry.style_id === pendingSelection.styleId,
-              ) ||
-              visibleEntries[0]
-            : visibleEntries[0];
+
+        const savedShowAll = typeof window !== "undefined" ? localStorage.getItem("renderlab_showAll") === "true" : false;
+        const savedSelectedId = typeof window !== "undefined" ? localStorage.getItem("renderlab_selectedId") : null;
+        const savedTextVariant = typeof window !== "undefined" ? localStorage.getItem("renderlab_selectedTextVariant") : null;
+        const activeTextVariant: TextVariant =
+          savedTextVariant === "small" || savedTextVariant === "medium" || savedTextVariant === "large"
+            ? savedTextVariant
+            : "medium";
+
+        let firstEntry = null;
+        let shouldShowAll = false;
+
+        if (pendingCellSelection) {
+          firstEntry =
+            visibleEntries.find((entry) => entry.id === pendingCellSelection.entryId) ||
+            visibleEntries.find((entry) => entry.cell_type === pendingCellSelection.cellType) ||
+            visibleEntries[0];
+        } else if (pendingSelection) {
+          firstEntry =
+            visibleEntries.find((entry) => entry.id === pendingSelection.entryId) ||
+            visibleEntries.find(
+              (entry) =>
+                entry.style_group_id === pendingSelection.groupId &&
+                entry.style_id === pendingSelection.styleId,
+            ) ||
+            visibleEntries[0];
+        } else if (savedShowAll && !pendingCellSelection && !pendingSelection) {
+          shouldShowAll = true;
+        } else {
+          firstEntry = (savedSelectedId && visibleEntries.find((entry) => entry.id === savedSelectedId)) || visibleEntries[0];
+        }
+
         pendingCellSelectionRef.current = null;
         pendingStyleSelectionRef.current = null;
         setManifest(nextManifest);
         setCatalog(nextCatalog);
         setBundle(nextBundle);
-        setSelectedId(firstEntry?.id || "");
-        setShowAll(false);
-        if (firstEntry) {
-          setPayloadDraft(payloadWithTheme(firstEntry.payload, "light"));
+
+        const savedTheme = (typeof window !== "undefined" ? localStorage.getItem("renderlab_theme") : null) as Theme | null;
+        const activeTheme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : theme;
+
+        if (shouldShowAll) {
+          setSelectedId("");
+          setSelectedTextVariant("medium");
+          setShowAll(true);
+          setPayloadDraft(combinedPayload(visibleEntries, activeTheme));
+        } else {
+          setSelectedId(firstEntry?.id || "");
+          setSelectedTextVariant(activeTextVariant);
+          setShowAll(false);
+          if (firstEntry) {
+            setPayloadDraft(payloadWithTheme(payloadForEntryVariant(firstEntry, activeTextVariant), activeTheme));
+          }
         }
       } catch (loadError) {
         if (!cancelled) {
@@ -1665,8 +2022,16 @@ export default function RendererLabPage() {
 
   useEffect(() => {
     if (!sampleLessons?.samples.length) return;
-    const hasSelectedSample = sampleLessons.samples.some((sample) => sample.quick_capture_id === selectedSampleId);
-    if (!hasSelectedSample) {
+    const savedSampleIdText = typeof window !== "undefined" ? localStorage.getItem("renderlab_selectedSampleId") : null;
+    const savedSampleId = savedSampleIdText ? Number(savedSampleIdText) : null;
+    const activeSampleId = savedSampleId !== null ? savedSampleId : selectedSampleId;
+
+    const hasSelectedSample = sampleLessons.samples.some((sample) => sample.quick_capture_id === activeSampleId);
+    if (hasSelectedSample) {
+      if (selectedSampleId !== activeSampleId) {
+        setSelectedSampleId(activeSampleId);
+      }
+    } else {
       setSelectedSampleId(sampleLessons.samples[0].quick_capture_id);
     }
   }, [sampleLessons, selectedSampleId]);
@@ -1676,8 +2041,15 @@ export default function RendererLabPage() {
       setSelectedRealLessonScreenKey("");
       return;
     }
-    const hasSelectedScreen = selectedRealLessonScreenOptions.some((option) => option.key === selectedRealLessonScreenKey);
-    if (!hasSelectedScreen) {
+    const savedScreenKey = typeof window !== "undefined" ? localStorage.getItem("renderlab_selectedRealLessonScreenKey") : null;
+    const activeScreenKey = savedScreenKey || selectedRealLessonScreenKey;
+
+    const hasSelectedScreen = selectedRealLessonScreenOptions.some((option) => option.key === activeScreenKey);
+    if (hasSelectedScreen) {
+      if (selectedRealLessonScreenKey !== activeScreenKey) {
+        setSelectedRealLessonScreenKey(activeScreenKey);
+      }
+    } else {
       setSelectedRealLessonScreenKey(selectedRealLessonScreenOptions[0].key);
     }
   }, [selectedRealLessonScreenKey, selectedRealLessonScreenOptions]);
@@ -1704,11 +2076,12 @@ export default function RendererLabPage() {
     return buildIframeDocument(bundle, activePayload, cssOverride);
   }, [activePayload, bundle, cssOverride]);
 
-  const handleSelectEntry = (entry: CatalogEntry) => {
+  const handleSelectEntry = (entry: CatalogEntry, variant: TextVariant = "medium") => {
     setLabMode("catalog");
     setSelectedId(entry.id);
+    setSelectedTextVariant(variant);
     setShowAll(false);
-    setPayloadDraft(payloadWithTheme(entry.payload, theme));
+    setPayloadDraft(payloadWithTheme(payloadForEntryVariant(entry, variant), theme));
   };
 
   const handleShowAll = () => {
@@ -1716,6 +2089,7 @@ export default function RendererLabPage() {
     setLabMode("catalog");
     setShowAll(true);
     setSelectedId("");
+    setSelectedTextVariant("medium");
     setPayloadDraft(combinedPayload(catalogEntries, theme));
   };
 
@@ -1759,7 +2133,7 @@ export default function RendererLabPage() {
       return;
     }
     if (selectedEntry) {
-      setPayloadDraft(payloadWithTheme(selectedEntry.payload, theme));
+      setPayloadDraft(payloadWithTheme(payloadForEntryVariant(selectedEntry, selectedTextVariant), theme));
     }
   };
 
@@ -2015,7 +2389,7 @@ export default function RendererLabPage() {
       if (showAll && catalogEntries.length) {
         setPayloadDraft(combinedPayload(catalogEntries, theme));
       } else if (selectedEntry) {
-        setPayloadDraft(payloadWithTheme(selectedEntry.payload, theme));
+        setPayloadDraft(payloadWithTheme(payloadForEntryVariant(selectedEntry, selectedTextVariant), theme));
       }
     } else {
       setShowAll(false);
@@ -2041,12 +2415,14 @@ export default function RendererLabPage() {
       : showAll
         ? "All catalog samples"
         : selectedEntry
-          ? `${selectedEntry.cell_type}: ${selectedEntry.label}`
+          ? `${selectedEntry.cell_type}: ${selectedEntry.label} (${TEXT_VARIANT_LABELS[selectedTextVariant]})`
           : "Preview";
   const previewSubtitle =
     labMode === "real-lessons"
       ? selectedRealLessonScreen?.subtitle || "Reserved sample lesson screen"
-      : `stylePolicy: ${activePayload?.stylePolicy || REAL_LESSON_STYLE_POLICY}`;
+      : showAll
+        ? `stylePolicy: ${activePayload?.stylePolicy || REAL_LESSON_STYLE_POLICY}; text: Medium`
+        : `stylePolicy: ${activePayload?.stylePolicy || REAL_LESSON_STYLE_POLICY}; text: ${TEXT_VARIANT_LABELS[selectedTextVariant]}`;
 
   return (
     <main className="min-h-screen bg-[#f4f7f9] text-[#17212b]">
@@ -2637,25 +3013,43 @@ export default function RendererLabPage() {
                                       >
                                         <span className="flex min-w-0 items-center justify-between gap-2">
                                           <span className="truncate font-medium">{entry.style_label || entry.label}</span>
-                                          {hasLockState ? (
-                                            <span
-                                              className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                                                isSelected
-                                                  ? "bg-white/15 text-white"
-                                                  : entry.is_locked
-                                                    ? "bg-[#eef2f5] text-[#667785]"
-                                                    : "bg-[#e8f6ef] text-[#24724f]"
-                                              }`}
-                                            >
-                                              <LockIcon className="h-3 w-3" />
-                                              {entry.is_locked ? "Locked" : "Unlocked"}
-                                            </span>
-                                          ) : null}
                                         </span>
                                         <span className={`block text-xs ${isSelected ? "text-[#d2dbe3]" : "text-[#718390]"}`}>
                                           {entry.style_id || entry.render_mode || entry.cell_type}
                                         </span>
                                       </button>
+                                      <div
+                                        className={`my-1 flex shrink-0 items-center rounded border p-0.5 ${
+                                          isSelected ? "border-white/20 bg-white/10" : "border-[#d4dde5] bg-white"
+                                        }`}
+                                      >
+                                        {TEXT_VARIANTS.map((variant) => {
+                                          const isActiveVariant = isSelected && selectedTextVariant === variant;
+                                          return (
+                                            <button
+                                              key={variant}
+                                              type="button"
+                                              title={`${TEXT_VARIANT_LABELS[variant]} text sample`}
+                                              aria-label={`${TEXT_VARIANT_LABELS[variant]} text sample`}
+                                              onClick={(event) => {
+                                                event.stopPropagation();
+                                                handleSelectEntry(entry, variant);
+                                              }}
+                                              className={`h-7 w-7 rounded text-[11px] font-bold transition ${
+                                                isActiveVariant
+                                                  ? isSelected
+                                                    ? "bg-white text-[#17212b]"
+                                                    : "bg-[#17212b] text-white"
+                                                  : isSelected
+                                                    ? "text-[#d2dbe3] hover:bg-white/15 hover:text-white"
+                                                    : "text-[#58707f] hover:bg-[#edf3f7] hover:text-[#17212b]"
+                                              }`}
+                                            >
+                                              {variant.charAt(0).toUpperCase()}
+                                            </button>
+                                          );
+                                        })}
+                                      </div>
                                       {hasLockState ? (
                                         <button
                                           type="button"
@@ -2664,8 +3058,12 @@ export default function RendererLabPage() {
                                           disabled={!canToggle}
                                           className={`m-1 inline-flex w-8 shrink-0 items-center justify-center rounded border text-xs ${
                                             isSelected
-                                              ? "border-white/20 bg-white/10 text-white"
-                                              : "border-[#d4dde5] bg-white text-[#425463]"
+                                              ? entry.is_locked
+                                                ? "border-red-200/40 bg-red-500/20 text-red-100"
+                                                : "border-emerald-200/40 bg-emerald-500/20 text-emerald-100"
+                                              : entry.is_locked
+                                                ? "border-red-200 bg-red-50 text-red-700 hover:bg-red-100"
+                                                : "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                                           } disabled:opacity-35`}
                                         >
                                           <LockIcon className="h-3.5 w-3.5" />
@@ -2745,7 +3143,7 @@ export default function RendererLabPage() {
                 >
                   {iframeDocument ? (
                     <iframe
-                      key={`${labMode}-${device}-${theme}-${showAll ? "all" : selectedId}-${selectedRealLessonScreenKey}-${manifest?.version || "unknown"}-${reloadToken}`}
+                      key={`${labMode}-${device}-${theme}-${showAll ? "all" : selectedId}-${selectedTextVariant}-${selectedRealLessonScreenKey}-${manifest?.version || "unknown"}-${reloadToken}`}
                       title="Renderer mobile preview"
                       sandbox="allow-scripts"
                       srcDoc={iframeDocument}

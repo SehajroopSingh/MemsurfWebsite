@@ -12,9 +12,9 @@
 @import "./cells/text/index.css";
 @import "./cells/recall-prompt/index.css";
 @import "./cells/timeline-step/index.css";
-@import "./cells/key-value/index.css";
-@import "./cells/pair/index.css";
-@import "./cells/triplet/index.css";
+@import "./cells/key-value/index.css?v=3";
+@import "./cells/pair/index.css?v=46";
+@import "./cells/triplet/index.css?v=2";
 @import "./cells/function-plot/index.css";
 @import "./cells/code-trace/index.css";
 @import "./cells/mini-chart/index.css";
@@ -22,3 +22,6 @@
 @import "./cells/map-region/index.css";
 @import "./cells/process-step/index.css";
 @import "./cells/spacer/index.css";
+
+/* Remove this import to undo the universal cell-edge experiment. */
+@import "./shared/universal-cell-edges.css";

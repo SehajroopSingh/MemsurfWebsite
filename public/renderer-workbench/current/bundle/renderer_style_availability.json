@@ -23,9 +23,9 @@
           "style_id": "glass-card"
         },
         {
-          "is_locked": false,
+          "is_locked": true,
           "label": "Edge Note",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "edge-note"
         },
         {
@@ -35,15 +35,15 @@
           "style_id": "frosted-panel"
         },
         {
-          "is_locked": false,
+          "is_locked": true,
           "label": "Notification",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "notification"
         },
         {
-          "is_locked": false,
+          "is_locked": true,
           "label": "Paper Note",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "paper-note"
         },
         {
@@ -130,7 +130,7 @@
     },
     {
       "cell_type": "TextCell",
-      "default_style_id": "aperture",
+      "default_style_id": "margin",
       "group_id": "text:quote",
       "is_locked": false,
       "layout_id": "quote",
@@ -143,15 +143,15 @@
       "style_key": "preview_cell_style",
       "styles": [
         {
-          "is_locked": false,
+          "is_locked": true,
           "label": "Aperture",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "aperture"
         },
         {
-          "is_locked": true,
+          "is_locked": false,
           "label": "Margin",
-          "real_lesson_enabled": false,
+          "real_lesson_enabled": true,
           "style_id": "margin"
         },
         {
@@ -164,7 +164,7 @@
     },
     {
       "cell_type": "TextCell",
-      "default_style_id": "compass",
+      "default_style_id": "circuit",
       "group_id": "text:rule",
       "is_locked": false,
       "layout_id": "rule",
@@ -177,15 +177,15 @@
       "style_key": "preview_cell_style",
       "styles": [
         {
-          "is_locked": false,
+          "is_locked": true,
           "label": "Compass",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "compass"
         },
         {
-          "is_locked": true,
+          "is_locked": false,
           "label": "Circuit",
-          "real_lesson_enabled": false,
+          "real_lesson_enabled": true,
           "style_id": "circuit"
         },
         {
@@ -266,7 +266,7 @@
     },
     {
       "cell_type": "TextCell",
-      "default_style_id": "plate",
+      "default_style_id": "filmstrip",
       "group_id": "text:caption",
       "is_locked": false,
       "layout_id": "caption",
@@ -279,15 +279,15 @@
       "style_key": "preview_cell_style",
       "styles": [
         {
-          "is_locked": false,
+          "is_locked": true,
           "label": "Plate",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "plate"
         },
         {
-          "is_locked": true,
+          "is_locked": false,
           "label": "Filmstrip",
-          "real_lesson_enabled": false,
+          "real_lesson_enabled": true,
           "style_id": "filmstrip"
         },
         {
@@ -504,7 +504,7 @@
     },
     {
       "cell_type": "RecallPromptCell",
-      "default_style_id": "peel",
+      "default_style_id": "focus-lens",
       "group_id": "cell:RecallPromptCell",
       "is_locked": false,
       "layout_id": "default",
@@ -517,9 +517,9 @@
       "style_key": "preview_cell_style",
       "styles": [
         {
-          "is_locked": false,
+          "is_locked": true,
           "label": "Peel",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "peel"
         },
         {
@@ -529,9 +529,9 @@
           "style_id": "flashcard"
         },
         {
-          "is_locked": true,
+          "is_locked": false,
           "label": "Focus Lens",
-          "real_lesson_enabled": false,
+          "real_lesson_enabled": true,
           "style_id": "focus-lens"
         }
       ]
@@ -745,15 +745,15 @@
           "style_id": "dashboard"
         },
         {
-          "is_locked": true,
+          "is_locked": false,
           "label": "Spark",
-          "real_lesson_enabled": false,
+          "real_lesson_enabled": true,
           "style_id": "spark"
         },
         {
-          "is_locked": true,
+          "is_locked": false,
           "label": "Instrument",
-          "real_lesson_enabled": false,
+          "real_lesson_enabled": true,
           "style_id": "instrument"
         }
       ]

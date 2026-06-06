@@ -4,11 +4,7 @@
   }
 
   #grid-layout-root {
-    padding: 0 2px;
-  }
-
-  .scenario-shell.with-meta {
-    padding: 14px;
+    padding: 0 16px;
   }
 
   .cell-card {

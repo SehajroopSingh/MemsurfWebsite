@@ -18,5 +18,5 @@ body {
 #grid-layout-root {
   max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: 0 var(--gridcell-root-edge);
+  padding: 15vh var(--gridcell-root-edge) 0;
 }

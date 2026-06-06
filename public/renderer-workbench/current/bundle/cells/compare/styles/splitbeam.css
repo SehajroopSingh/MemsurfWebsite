@@ -1,11 +1,24 @@
 /* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
-.cell-card.compare-card.cell-style-splitbeam {
+    .cell-card.compare-card.cell-style-splitbeam {
       --cell-style-accent: var(--accent-0);
       border-top: 4px solid var(--cell-style-accent);
       background:
         linear-gradient(90deg, rgba(47, 143, 131, 0.12), transparent 49%, rgba(74, 120, 210, 0.12)),
         var(--card-bg);
+    }
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-table {
+      border-radius: 8px;
+    }
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-axis {
+      background: color-mix(in srgb, var(--accent-0) 10%, transparent);
+    }
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-row {
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--accent-0) 8%, transparent), transparent 46%, color-mix(in srgb, var(--accent-1) 8%, transparent));
     }
         .cell-card.compare-card.cell-style-splitbeam .compare-header {
       background: rgba(250, 252, 255, 0.88);

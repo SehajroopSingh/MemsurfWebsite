@@ -138,8 +138,20 @@
     }
 
     .triplet-style-evidence-rail .triplet-item {
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.55);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(51, 69, 104, 0.14);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    :root[data-theme="dark"] .triplet-style-evidence-rail .triplet-item {
+      background: rgba(17, 24, 39, 0.35);
+      border: 1px solid rgba(166, 188, 222, 0.14);
+      box-shadow: 0 22px 44px rgba(2, 8, 20, 0.32);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .triplet-style-logic-ladder .triplet-item-1 {
@@ -482,9 +494,12 @@
     }
 
     .triplet-style-evidence-rail .triplet-item {
-      border-radius: 8px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.48));
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(51, 69, 104, 0.14);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .triplet-style-evidence-rail .triplet-index {
@@ -697,7 +712,6 @@
     }
 
     :root[data-theme="dark"] .triplet-style-domino-flow .triplet-item,
-    :root[data-theme="dark"] .triplet-style-evidence-rail .triplet-item,
     :root[data-theme="dark"] .triplet-style-inference-cascade .triplet-item {
       background:
         linear-gradient(145deg, rgba(126, 161, 255, 0.08), rgba(255, 255, 255, 0.025)),
@@ -1247,13 +1261,20 @@
       transform: translateX(-50%) !important;
     }
 
-    .cell-card.triplet-card.triplet-style-evidence-rail .relationship-cell.triplet-cell.triplet-mode-ladder .ladder-step,
+    .cell-card.triplet-card.triplet-style-evidence-rail .relationship-cell.triplet-cell.triplet-mode-ladder .ladder-step {
+      border-color: rgba(51, 69, 104, 0.14) !important;
+      background: rgba(255, 255, 255, 0.35) !important;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08) !important;
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
+    }
+
     :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-evidence-rail .relationship-cell.triplet-cell.triplet-mode-ladder .ladder-step {
-      border-color: transparent !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
+      border-color: rgba(166, 188, 222, 0.14) !important;
+      background: rgba(17, 24, 39, 0.35) !important;
+      box-shadow: 0 22px 44px rgba(2, 8, 20, 0.32) !important;
+      backdrop-filter: blur(18px) !important;
+      -webkit-backdrop-filter: blur(18px) !important;
     }
 
     .cell-card.triplet-card.triplet-style-solve-path .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-header {
@@ -1600,7 +1621,6 @@
     .cell-card.triplet-card.triplet-style-mechanism-bridge .relationship-cell.triplet-cell.triplet-mode-vertical-rail,
     .cell-card.triplet-card.triplet-style-ripple-chain .relationship-cell.triplet-cell.triplet-mode-vertical-rail,
     .cell-card.triplet-card.triplet-style-pipeline .relationship-cell.triplet-cell.triplet-mode-vertical-rail,
-    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail,
     .cell-card.triplet-card.triplet-style-transformer .relationship-cell.triplet-cell.triplet-mode-vertical-rail {
       --triplet-vrail-family: process-mechanism;
       --triplet-vrail-surface: rgba(248, 252, 255, 0.66);
@@ -1614,7 +1634,6 @@
     .cell-card.triplet-card.triplet-card-enter.triplet-style-mechanism-bridge .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node,
     .cell-card.triplet-card.triplet-card-enter.triplet-style-ripple-chain .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node,
     .cell-card.triplet-card.triplet-card-enter.triplet-style-pipeline .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node,
-    .cell-card.triplet-card.triplet-card-enter.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node,
     .cell-card.triplet-card.triplet-card-enter.triplet-style-transformer .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node {
       animation-name: triplet-vrail-process-node !important;
     }
@@ -1640,12 +1659,63 @@
       border-radius: 999px !important;
     }
 
-    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node,
     .cell-card.triplet-card.triplet-style-mechanism-bridge .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-item-2 {
       background:
         linear-gradient(90deg, color-mix(in srgb, var(--relationship-a) 12%, transparent), transparent 5px),
         repeating-linear-gradient(135deg, rgba(102, 118, 146, 0.08) 0 1px, transparent 1px 10px),
         linear-gradient(180deg, var(--triplet-vrail-surface-strong), var(--triplet-vrail-surface)) !important;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .relationship-header,
+    :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .relationship-header {
+      display: grid !important;
+      justify-items: center !important;
+      gap: 10px !important;
+      width: 100% !important;
+      margin-top: 12px !important;
+      margin-bottom: 22px !important;
+      padding: 0 !important;
+      text-align: center !important;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-chain-label,
+    :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-chain-label {
+      display: block !important;
+      width: 100% !important;
+      max-width: none !important;
+      justify-content: center !important;
+      justify-self: stretch !important;
+      margin: 0 auto !important;
+      color: var(--heading) !important;
+      font-size: 22px !important;
+      line-height: 1.14 !important;
+      font-weight: 820 !important;
+      text-align: center !important;
+      text-transform: none !important;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-chain-label::before,
+    :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-chain-label::before {
+      content: none !important;
+      display: none !important;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail {
+      --triplet-vrail-family: solution-path;
+      --triplet-vrail-surface: rgba(255, 255, 255, 0.70);
+      --triplet-vrail-surface-strong: rgba(255, 255, 255, 0.92);
+      --triplet-vrail-border: color-mix(in srgb, var(--relationship-b) 16%, rgba(82, 101, 135, 0.12));
+      --triplet-vrail-line: color-mix(in srgb, var(--relationship-b) 62%, #007aff);
+      --triplet-vrail-node-radius: 24px;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-item-2 {
+      --triplet-final-transform: translateY(-3px) scale(1.012);
+      border-color: color-mix(in srgb, var(--relationship-b) 30%, var(--triplet-vrail-border)) !important;
+      box-shadow:
+        0 24px 52px rgba(74, 120, 210, 0.13),
+        0 0 0 7px color-mix(in srgb, var(--relationship-b) 8%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.78) !important;
     }
 
     .cell-card.triplet-card.triplet-style-transformer .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-item-2 {

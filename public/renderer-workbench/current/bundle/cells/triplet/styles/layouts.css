@@ -837,3 +837,72 @@
         0 9px 20px rgba(0, 0, 0, 0.22),
         inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
     }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-vertical-rail {
+      --triplet-vrail-family: solution-path;
+      --triplet-vrail-surface: rgba(255, 255, 255, 0.70);
+      --triplet-vrail-surface-strong: rgba(255, 255, 255, 0.92);
+      --triplet-vrail-border: color-mix(in srgb, var(--relationship-b) 16%, rgba(82, 101, 135, 0.12));
+      --triplet-vrail-line: color-mix(in srgb, var(--relationship-b) 62%, #007aff);
+      --triplet-vrail-label: color-mix(in srgb, var(--relationship-b) 70%, var(--heading));
+      --triplet-vrail-shadow: 0 18px 42px rgba(15, 23, 42, 0.10);
+      --triplet-vrail-node-radius: 24px;
+      --triplet-vrail-node-max: 640px;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node {
+      width: min(100%, var(--triplet-vrail-node-max)) !important;
+      padding: 16px 17px !important;
+      border: 1px solid var(--triplet-vrail-border) !important;
+      border-radius: var(--triplet-vrail-node-radius) !important;
+      background:
+        linear-gradient(180deg, var(--triplet-vrail-surface-strong), var(--triplet-vrail-surface)),
+        radial-gradient(circle at 16% 0%, var(--triplet-style-soft-a), transparent 46%) !important;
+      box-shadow:
+        var(--triplet-vrail-shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
+      backdrop-filter: blur(18px) saturate(1.15) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(1.15) !important;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node::before {
+      content: "" !important;
+      display: block !important;
+      inset: 0 0 auto 0 !important;
+      width: auto !important;
+      height: 3px !important;
+      border-radius: 999px !important;
+      background: linear-gradient(90deg, var(--item-accent), transparent) !important;
+      opacity: 0.72 !important;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node::after {
+      content: "" !important;
+      position: absolute !important;
+      pointer-events: none !important;
+    }
+
+    .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-item-2 {
+      --triplet-final-transform: translateY(-3px) scale(1.012);
+      border-color: color-mix(in srgb, var(--relationship-b) 30%, var(--triplet-vrail-border)) !important;
+      box-shadow:
+        0 24px 52px rgba(74, 120, 210, 0.13),
+        0 0 0 7px color-mix(in srgb, var(--relationship-b) 8%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.78) !important;
+    }
+
+    :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-vertical-rail {
+      --triplet-vrail-surface: rgba(22, 30, 45, 0.70);
+      --triplet-vrail-surface-strong: rgba(29, 39, 58, 0.84);
+      --triplet-vrail-border: rgba(166, 188, 222, 0.13);
+      --triplet-vrail-shadow: 0 22px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node {
+      background:
+        linear-gradient(180deg, var(--triplet-vrail-surface-strong), var(--triplet-vrail-surface)),
+        radial-gradient(circle at 16% 0%, rgba(126, 161, 255, 0.08), transparent 46%) !important;
+      box-shadow:
+        var(--triplet-vrail-shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    }

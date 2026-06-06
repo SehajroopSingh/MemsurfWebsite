@@ -90,21 +90,50 @@
     }
 
     .cell-card.text-style-margin .quote-mark {
-      grid-column: 1 / -1;
-      width: auto;
-      height: auto;
-      justify-content: flex-start;
-      background: none;
-      border: 0;
-      box-shadow: none;
-      font-size: 44px;
-      margin-bottom: -14px;
+      display: none;
     }
 
     .cell-card.text-style-margin .quote-body,
-.cell-card.text-style-margin .quote-attribution,
-.cell-card.text-style-margin .quote-context {
-      grid-column: 2;
+    .cell-card.text-style-margin .quote-attribution,
+    .cell-card.text-style-margin .quote-context {
+      grid-column: 1 / -1;
+    }
+
+    .cell-card.text-style-margin .quote-copy:first-of-type::before {
+      content: "“";
+      display: block;
+      text-align: left;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 40px;
+      line-height: 0.8;
+      margin-bottom: -10px;
+      margin-right: 0;
+      color: var(--accent-1);
+      font-weight: 700;
+    }
+
+    .cell-card.text-style-margin .quote-copy:last-of-type::after {
+      content: "”";
+      display: block;
+      text-align: right;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 40px;
+      line-height: 0.8;
+      margin-top: -10px;
+      margin-left: 0;
+      color: var(--accent-1);
+      font-weight: 700;
+    }
+
+    .cell-card.text-style-margin .quote-copy {
+      text-align: center;
+      text-wrap: pretty !important;
+      margin: 0 !important;
+    }
+
+    .cell-card.text-style-margin .quote-attribution,
+    .cell-card.text-style-margin .quote-context {
+      text-align: right;
     }
 
     .cell-card.sequence-active .quote-attribution,

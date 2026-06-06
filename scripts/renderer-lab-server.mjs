@@ -99,6 +99,248 @@ async function writeJson(filePath, payload) {
   await writeFile(filePath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 }
 
+function deepClone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+const catalogTextVariants = ["small", "medium", "large"];
+
+function largeText(value, detail) {
+  const base = String(value || detail || "Preview text").trim();
+  return `${base} This larger sample adds detail for checking wrapping, vertical spacing, and card rhythm in the phone preview.`;
+}
+
+function recordOrEmpty(value) {
+  return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+}
+
+function textCellContentVariant(content, variant, label) {
+  const title = content.title || label || "Text sample";
+  if (variant === "small") {
+    return {
+      ...content,
+      title,
+      orientation: "Short note.",
+      body: "Short note.",
+      definition: "A compact definition.",
+      quote: "A compact quote.",
+      rule: "Use the rule.",
+      example: "One quick example.",
+      warning: "Check the exception.",
+      caption: "Compact caption.",
+    };
+  }
+  return {
+    ...content,
+    title,
+    orientation: largeText(content.orientation || content.body, "A clear orientation sentence"),
+    body: largeText(content.body, "A clear body sentence"),
+    definition: largeText(content.definition, "A definition"),
+    quote: largeText(content.quote, "A quote"),
+    rule: largeText(content.rule, "A rule"),
+    example: largeText(content.example, "An example"),
+    warning: largeText(content.warning, "A warning"),
+    caption: largeText(content.caption, "A caption"),
+  };
+}
+
+function contentForTextVariant(cellType, content, variant, label) {
+  if (variant === "medium") return deepClone(content);
+
+  if (cellType === "TextCell") return textCellContentVariant(content, variant, label);
+  if (cellType === "HeadingCell") {
+    return { ...content, heading: variant === "small" ? "Renderer Lab" : largeText(content.heading, "Renderer Lab") };
+  }
+  if (cellType === "ImageCell" || cellType === "MapRegionCell" || cellType === "FunctionPlotCell" || cellType === "MiniChartCell") {
+    return {
+      ...content,
+      caption: variant === "small" ? "Compact visual caption." : largeText(content.caption, "Visual caption"),
+    };
+  }
+  if (cellType === "CompareCell") {
+    const rows = Array.isArray(content.rows) ? content.rows.map(recordOrEmpty) : [];
+    return {
+      ...content,
+      title: variant === "small" ? "Quick contrast" : largeText(content.title, "Study method contrast"),
+      left_title: variant === "small" ? "Passive" : largeText(content.left_title, "Passive review"),
+      right_title: variant === "small" ? "Active" : largeText(content.right_title, "Active recall"),
+      rows: variant === "small"
+        ? rows.slice(0, 2).map((row) => ({ ...row, left: "Short", right: "Clear" }))
+        : [
+            ...rows.map((row) => ({
+              ...row,
+              left: largeText(row.left, "Left comparison"),
+              right: largeText(row.right, "Right comparison"),
+            })),
+            { aspect: "Transfer", left: "Often fragile without retrieval practice.", right: "Stronger because the cue and answer are separated." },
+          ],
+      takeaway: variant === "small" ? "Choose active recall." : largeText(content.takeaway, "Active recall wins"),
+    };
+  }
+  if (cellType === "KeyPointsCell") {
+    return {
+      ...content,
+      points: variant === "small"
+        ? ["Preview density.", "Check spacing."]
+        : [
+            "Use randomized-stable-unlocked style policy while checking the current catalog sample.",
+            "Preview enough mobile text to catch wrapping, rhythm, and edge spacing issues.",
+            "Keep the payload local to the renderer workbench until production promotion is requested.",
+            "Compare the same structure across light and dark themes before approving the style.",
+          ],
+    };
+  }
+  if (cellType === "RecallPromptCell") {
+    return {
+      ...content,
+      question: variant === "small" ? "What changes?" : largeText(content.question, "What should you remember from this card?"),
+      answer: variant === "small" ? "The key distinction." : largeText(content.answer, "The answer explains the key distinction"),
+    };
+  }
+  if (cellType === "TimelineStepCell") {
+    return {
+      ...content,
+      chain_label: content.chain_label || "Renderer rollout",
+      time_label: variant === "small" ? "Step" : largeText(content.time_label, "Step label"),
+      event_title: variant === "small" ? "Preview ships" : largeText(content.event_title, "Preview endpoint ships"),
+      description: variant === "small" ? "Check the phone frame." : largeText(content.description, "The lab loads the renderer bundle in the phone frame"),
+    };
+  }
+  if (cellType === "ProcessStepCell") {
+    return {
+      ...content,
+      chain_label: content.chain_label || "Lab workflow",
+      action: variant === "small" ? "Adjust payload." : largeText(content.action, "Adjust payload or CSS"),
+      output: variant === "small" ? "Preview updates." : largeText(content.output, "The phone frame updates"),
+      note: variant === "small" ? "Local only." : largeText(content.note, "Changes stay local to the workbench"),
+    };
+  }
+  if (cellType === "MathExpressionCell") {
+    return {
+      ...content,
+      explanation: variant === "small" ? "Use the expression to compare terms." : largeText(content.explanation, "The expression explains how each variable contributes"),
+    };
+  }
+  if (cellType === "CodeTraceCell") {
+    return {
+      ...content,
+      trace_steps: variant === "small"
+        ? ["Initialize.", "Return result."]
+        : [
+            "Initialize the input state before the function starts.",
+            "Apply the first branch and record the intermediate value.",
+            "Finish the loop and compare the final value with the expected result.",
+          ],
+      result: variant === "small" ? "Result is stable." : largeText(content.result, "The result is stable"),
+    };
+  }
+  if (cellType === "PairCell") {
+    return {
+      ...content,
+      left: variant === "small" ? "Cue" : largeText(content.left, "Left idea"),
+      right: variant === "small" ? "Answer" : largeText(content.right, "Right idea"),
+      connector_label: variant === "small" ? "links to" : content.connector_label || "connects to",
+      relationship_sentence: variant === "small" ? "Cue links to answer." : largeText(content.relationship_sentence, "A paired explanation completes the relationship"),
+    };
+  }
+  if (cellType === "KeyValueCell") {
+    const items = Array.isArray(content.items) ? content.items.map(recordOrEmpty) : [];
+    return {
+      ...content,
+      title: variant === "small" ? "Quick facts" : largeText(content.title, "Renderer facts"),
+      items: variant === "small"
+        ? items.slice(0, 2).map((item) => ({ ...item, value: "Compact value" }))
+        : [
+            ...items.map((item) => ({ ...item, value: largeText(item.value, "Detailed value") })),
+            { key: "Review", value: "Use this larger row to verify label wrapping and vertical spacing." },
+          ],
+    };
+  }
+  if (cellType === "TripletCell") {
+    const items = Array.isArray(content.items) ? content.items.map(recordOrEmpty) : [];
+    return {
+      ...content,
+      chain_label: content.chain_label || "Connected flow",
+      connector_labels: variant === "small" ? ["then", "then"] : content.connector_labels || ["leads to", "results in"],
+      items: variant === "small"
+        ? items.map((item, index) => ({ ...item, title: `Step ${index + 1}`, body: "Compact detail." }))
+        : items.map((item, index) => ({
+            ...item,
+            title: largeText(item.title, `Step ${index + 1}`),
+            body: largeText(item.body || item.description, "Detailed step explanation"),
+          })),
+      relationship_sentence: variant === "small" ? "Each step leads to the next." : largeText(content.relationship_sentence, "The three-part relationship explains the full path"),
+    };
+  }
+  if (cellType === "SpacerCell") {
+    return { ...content, label: variant === "small" ? "Space" : largeText(content.label, "Spacer") };
+  }
+  return {
+    ...content,
+    title: content.title && (variant === "small" ? String(content.title).slice(0, 24) : largeText(content.title, "Title")),
+    body: content.body && (variant === "small" ? "Compact body." : largeText(content.body, "Body")),
+  };
+}
+
+function payloadForTextVariant(basePayload, variant, entry = {}) {
+  const payload = deepClone(basePayload || {});
+  payload.scenarios = Array.isArray(payload.scenarios)
+    ? payload.scenarios.map((scenario) => {
+        const nextScenario = { ...scenario };
+        nextScenario.slots = Array.isArray(scenario.slots)
+          ? scenario.slots.map((slot) => {
+              if (!slot || typeof slot !== "object") return slot;
+              const cellType = typeof slot.cell_type === "string" ? slot.cell_type : entry.cell_type;
+              const content = slot.content && typeof slot.content === "object" && !Array.isArray(slot.content)
+                ? slot.content
+                : {};
+              return {
+                ...slot,
+                content: contentForTextVariant(cellType, content, variant, entry.label || entry.cell_type),
+              };
+            })
+          : scenario.slots;
+        return nextScenario;
+      })
+    : payload.scenarios;
+  return payload;
+}
+
+function rebuildCatalogEntryTextVariants(entry) {
+  if (!entry || !entry.payload) return entry;
+  entry.text_variants = {
+    small: payloadForTextVariant(entry.payload, "small", entry),
+    medium: deepClone(entry.payload),
+    large: payloadForTextVariant(entry.payload, "large", entry),
+  };
+  return entry;
+}
+
+function normalizeCatalogEntryTextVariants(entry) {
+  if (!entry || !entry.payload) return entry;
+  const existing = entry.text_variants && typeof entry.text_variants === "object" ? entry.text_variants : {};
+  entry.text_variants = {
+    small: existing.small || payloadForTextVariant(entry.payload, "small", entry),
+    medium: deepClone(entry.payload),
+    large: existing.large || payloadForTextVariant(entry.payload, "large", entry),
+  };
+  return entry;
+}
+
+function mapCatalogEntryPayloads(entry, mapPayload) {
+  if (entry.payload) {
+    entry.payload = mapPayload(entry.payload);
+  }
+  if (entry.text_variants && typeof entry.text_variants === "object") {
+    for (const variant of catalogTextVariants) {
+      if (entry.text_variants[variant]) {
+        entry.text_variants[variant] = mapPayload(entry.text_variants[variant]);
+      }
+    }
+  }
+  return entry;
+}
+
 async function exists(filePath) {
   try {
     await stat(filePath);
@@ -463,6 +705,11 @@ async function refreshCurrentMetadata() {
   if (Array.isArray(catalog.entries)) {
     const groupsById = new Map(availability.groups.map((group) => [group.group_id, group]));
     for (const entry of catalog.entries) {
+      normalizeCatalogEntryTextVariants(entry);
+      mapCatalogEntryPayloads(entry, (payload) => ({
+        ...payload,
+        version,
+      }));
       const group = groupsById.get(entry.style_group_id);
       if (!group || !entry.style_id) continue;
       const style = group.styles.find((candidate) => candidate.style_id === entry.style_id);
@@ -1038,6 +1285,7 @@ function catalogEntryForStyle(catalog, group, styleId, label, locked, version) {
     updateSlotForStyle(slot, group, styleId, label);
   }
   entry.payload = payload;
+  rebuildCatalogEntryTextVariants(entry);
   return entry;
 }
 
@@ -1612,7 +1860,7 @@ function catalogEntryForCellDefinition(definition) {
     scenario.title = `${definition.cell_type}: ${definition.display_name}`;
     scenario.subtitle = "Local draft cell preview";
   }
-  return {
+  const entry = {
     id: `draft-cell-${definition.cell_slug}`,
     group: definition.display_name,
     label: "Default preview",
@@ -1629,6 +1877,7 @@ function catalogEntryForCellDefinition(definition) {
     style_key: "preview_cell_style",
     payload,
   };
+  return rebuildCatalogEntryTextVariants(entry);
 }
 
 async function saveCellDefinition(payload) {

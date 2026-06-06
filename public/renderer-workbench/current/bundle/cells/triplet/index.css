@@ -1,5 +1,5 @@
-@import "./base.css";
-@import "./styles/variants.css";
-@import "./styles/layouts.css";
-@import "./animations.css";
-@import "./shared.css";
+@import "./base.css?v=2";
+@import "./styles/variants.css?v=2";
+@import "./styles/layouts.css?v=2";
+@import "./animations.css?v=2";
+@import "./shared.css?v=2";

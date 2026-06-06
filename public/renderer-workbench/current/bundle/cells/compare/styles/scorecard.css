@@ -20,3 +20,19 @@
     .cell-card.compare-card.cell-style-scorecard .compare-label-text {
       font-weight: 860;
     }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-table {
+      border-radius: 4px;
+      border-width: 2px;
+      box-shadow: 4px 4px 0 color-mix(in srgb, var(--accent-1) 20%, transparent);
+    }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-header,
+    .cell-card.compare-card.cell-style-scorecard .compare-row {
+      border-radius: 0;
+    }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-label {
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }

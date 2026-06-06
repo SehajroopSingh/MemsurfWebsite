@@ -1,12 +1,5 @@
 /* PairCell local workbench styles. */
 
-.cell-card.pair-card.cell-style-duet {
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.86), rgba(238, 255, 250, 0.52)),
-        var(--card-bg);
-      border-color: rgba(47, 143, 131, 0.20);
-    }
-
     .cell-card.pair-card.cell-style-bridge {
       border-color: rgba(47, 143, 131, 0.28);
       background:
@@ -22,9 +15,11 @@
         var(--card-bg);
     }
 
-.pair-card.cell-style-duet .pair-panel {
+.pair-card.pair-style-duet .pair-panel {
       border-radius: 18px;
-      background: linear-gradient(145deg, rgba(47, 143, 131, 0.10), rgba(255,255,255,0.12));
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
     }
 
     .pair-card.cell-style-mirror .pair-panel {

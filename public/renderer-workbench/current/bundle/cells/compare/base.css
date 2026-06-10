@@ -1,6 +1,8 @@
 /* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
 .cell-card.compare-card {
+      --compare-title-color: color-mix(in srgb, var(--muted) 88%, var(--heading) 12%);
+      --compare-takeaway-color: color-mix(in srgb, var(--heading) 92%, #000 8%);
       --compare-table-bg: rgba(255, 255, 255, 0.68);
       --compare-table-line: rgba(63, 78, 105, 0.14);
       --compare-table-line-strong: rgba(45, 58, 82, 0.20);
@@ -31,6 +33,8 @@
     }
 
     :root[data-theme="dark"] .cell-card.compare-card {
+      --compare-title-color: color-mix(in srgb, var(--muted) 92%, var(--heading) 8%);
+      --compare-takeaway-color: color-mix(in srgb, var(--text) 86%, #000 14%);
       --compare-table-bg: rgba(15, 22, 34, 0.72);
       --compare-table-line: rgba(170, 188, 217, 0.13);
       --compare-table-line-strong: rgba(201, 214, 234, 0.20);
@@ -69,7 +73,7 @@
 
     .cell-card.compare-card .compare-title {
       margin: 0;
-      color: var(--muted);
+      color: var(--compare-title-color);
       font-size: 12px;
       line-height: 1.25;
       font-weight: 820;
@@ -360,11 +364,11 @@
 
     .cell-card.compare-card .compare-takeaway {
       position: relative;
-      margin: 0 2px;
-      padding: 11px 2px 0;
+      margin: 0;
+      padding: 13px 18px 2px;
       border-top: 1px solid var(--compare-table-line);
       background: transparent;
-      color: var(--heading);
+      color: var(--compare-takeaway-color);
       font-size: 13px;
       line-height: 1.42;
       font-weight: 680;

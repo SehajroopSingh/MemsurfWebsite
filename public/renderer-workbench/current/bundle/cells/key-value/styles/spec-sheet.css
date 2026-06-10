@@ -21,7 +21,7 @@
     }
 
     .cell-card.key-value-card.key-value-style-spec-sheet .key-value-row {
-      grid-template-columns: minmax(88px, 0.34fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, var(--kv-key-column, 14ch)) minmax(0, 1fr);
     }
 
     .cell-card.key-value-card.key-value-style-spec-sheet .key-value-key {
@@ -51,7 +51,7 @@
     @media (max-width: 620px) {
 
       .cell-card.key-value-card.key-value-style-spec-sheet .key-value-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, var(--kv-key-column, 14ch)) minmax(0, 1fr);
       }
 }
 

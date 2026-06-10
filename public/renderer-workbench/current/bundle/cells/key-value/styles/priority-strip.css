@@ -15,6 +15,10 @@
         rgba(255, 255, 255, 0.52);
     }
 
+    .cell-card.key-value-card.key-value-style-priority-strip .key-value-row {
+      grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
+    }
+
     .cell-card.key-value-card.key-value-style-priority-strip .key-value-row::before {
       content: "";
       position: absolute;

@@ -2653,7 +2653,7 @@
       function renderPairSupport(left, right, leftRole, rightRole, leftLabel, rightLabel, leftBody, rightBody, connectorLabel, bridgeKind, orientation, layoutMode, relationshipStyle) {
         switch (relationshipClassToken(relationshipStyle)) {
           case "brief-proof":
-            return renderPairSupportBriefProof(leftRole, rightRole, leftLabel, rightLabel, leftBody, rightBody, connectorLabel, bridgeKind, layoutMode);
+            return renderPairFlowline(left, right, leftRole, rightRole, leftLabel, rightLabel, leftBody, rightBody, connectorLabel, bridgeKind, orientation, layoutMode);
           case "citation-stack":
             return renderPairSupportCitationStack(leftRole, rightRole, leftLabel, rightLabel, leftBody, rightBody, connectorLabel, bridgeKind, layoutMode);
           case "argument-line":
@@ -2681,8 +2681,8 @@
         const roleExamples = relationshipRoleExamples("pair", relation);
         const leftRole = assignment ? firstNonEmpty([roleExamples[0], left.role]) : firstNonEmpty([left.role, roleExamples[0]]);
         const rightRole = assignment ? firstNonEmpty([roleExamples[1], right.role]) : firstNonEmpty([right.role, roleExamples[1]]);
-        const leftLabel = firstNonEmpty([left.label, "First"]);
-        const rightLabel = firstNonEmpty([right.label, "Second"]);
+        const leftLabel = firstNonEmpty([left.label]);
+        const rightLabel = firstNonEmpty([right.label]);
         const leftBody = relationshipDetailText(left);
         const rightBody = relationshipDetailText(right);
         const connectorLabel = assignment
@@ -2723,9 +2723,20 @@
             "</div>"
           : "";
 
-        const rowHTML = items.map(function (item, index) {
+        const rows = items.map(function (item) {
           const key = firstNonEmpty([item.key, item.label, "Fact"]);
           const value = firstNonEmpty([item.value, item.body, item.text]);
+          return { key: key, value: value };
+        });
+        const longestKeyLength = rows.reduce(function (longest, row) {
+          return Math.max(longest, Array.from(safeText(row.key)).length);
+        }, 0);
+        const keyColumnCh = Math.min(Math.max(longestKeyLength + 2, 9), 22);
+        const keyColumnStyle = "--kv-key-column: clamp(96px, " + keyColumnCh + "ch, 46%);";
+
+        const rowHTML = rows.map(function (row, index) {
+          const key = row.key;
+          const value = row.value;
           return (
             '<div class="key-value-row" style="--kv-row-index: ' + index + ';">' +
               '<div class="key-value-key">' + escapeHTML(key) + "</div>" +
@@ -2735,7 +2746,7 @@
         }).join("");
 
         return (
-          '<div class="key-value-cell density-' + density + ' tone-' + tone + '" role="list">' +
+          '<div class="key-value-cell density-' + density + ' tone-' + tone + '" style="' + keyColumnStyle + '" role="list">' +
             titleHTML +
             (rowHTML || '<div class="key-value-empty">Fact rows unavailable.</div>') +
           "</div>"
@@ -2829,8 +2840,10 @@
             ? relationshipBridgeHTML("triplet", node.connectorLabel, bridgeKind, "triplet-connector-" + String(index + 1) + " triplet-rail-connector")
             : "";
           return (
+            '<div style="--triplet-index: ' + index + '; --triplet-connector-index: ' + index + ';">' +
             relationshipInlineNodeHTML("triplet", node.role, node.label, "triplet-item triplet-item-" + node.ordinal + " triplet-rail-node" + node.emphasisClass, "", node.body) +
-            connector
+            connector +
+            "</div>"
           );
         }).join("");
 

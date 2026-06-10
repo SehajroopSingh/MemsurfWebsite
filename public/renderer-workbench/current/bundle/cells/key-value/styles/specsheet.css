@@ -29,6 +29,10 @@
       background-size: 18px 18px;
     }
 
+    .cell-card.key-value-card.cell-style-specsheet .key-value-row {
+      grid-template-columns: minmax(0, var(--kv-key-column, 14ch)) minmax(0, 1fr);
+    }
+
     .cell-card.key-value-card.cell-style-specsheet .key-value-cell {
       padding-left: 10px !important;
     }

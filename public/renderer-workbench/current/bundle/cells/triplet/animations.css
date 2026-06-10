@@ -493,6 +493,23 @@
       }
     }
 
+    @keyframes triplet-vrail-m3-pop {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.90);
+        filter: blur(8px);
+      }
+      65% {
+        opacity: 1;
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: none;
+      }
+    }
+
     @keyframes triplet-vrail-process-node {
       from {
         opacity: 0;
@@ -522,22 +539,22 @@
     @keyframes triplet-vrail-connector-draw {
       from {
         opacity: 0;
-        clip-path: inset(0 0 100% 0);
+        transform: scaleY(0);
       }
       to {
         opacity: 0.72;
-        clip-path: inset(0 0 0 0);
+        transform: scaleY(1);
       }
     }
 
     @keyframes triplet-vrail-bridge-pop {
       from {
         opacity: 0;
-        transform: translateY(-3px) scale(0.96);
+        transform: scale(0.8);
       }
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1);
       }
     }
 

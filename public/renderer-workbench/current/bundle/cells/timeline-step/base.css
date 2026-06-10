@@ -127,30 +127,27 @@
 
     .timeline-card .timeline-node-glow {
       position: absolute;
-      top: 2px;
-      width: 30px;
-      height: 30px;
+      top: -3px;
+      width: 46px;
+      height: 46px;
       border-radius: 999px;
-      background: radial-gradient(circle, rgba(132, 170, 225, 0.34), rgba(165, 142, 255, 0.14) 56%, transparent 74%);
-      filter: blur(6px);
-      opacity: 0.72;
+      background: rgba(26, 115, 232, 0.16);
+      filter: none;
+      opacity: 1;
       z-index: -1;
     }
 
     .timeline-card .timeline-node {
       position: relative;
-      width: 24px;
-      height: 24px;
-      margin-top: 5px;
+      width: 42px;
+      height: 42px;
+      margin-top: 0;
       border-radius: 999px;
-      background:
-        radial-gradient(circle at 36% 32%, rgba(255, 255, 255, 0.92) 0 15%, transparent 16%),
-        linear-gradient(135deg, rgba(132, 170, 225, 0.95), rgba(165, 142, 255, 0.78));
-      border: 1px solid rgba(255, 255, 255, 0.55);
+      background: #1a73e8;
+      border: 0;
       box-shadow:
-        0 0 0 7px rgba(132, 170, 225, 0.11),
-        0 10px 22px rgba(47, 74, 148, 0.14),
-        inset 0 1px 0 rgba(255, 255, 255, 0.46);
+        0 1px 2px rgba(60, 64, 67, 0.30),
+        0 2px 6px rgba(60, 64, 67, 0.15);
     }
 
     .timeline-card .timeline-content {
@@ -225,13 +222,14 @@
     }
 
     :root[data-theme="dark"] .timeline-card .timeline-node {
-      background:
-        radial-gradient(circle at 36% 32%, rgba(255, 255, 255, 0.84) 0 14%, transparent 15%),
-        linear-gradient(135deg, rgba(126, 161, 255, 0.92), rgba(165, 142, 255, 0.72));
+      background: #8ab4f8;
       box-shadow:
-        0 0 0 7px rgba(126, 161, 255, 0.11),
-        0 12px 24px rgba(2, 8, 20, 0.32),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        0 1px 2px rgba(0, 0, 0, 0.36),
+        0 2px 6px rgba(0, 0, 0, 0.24);
+    }
+
+    :root[data-theme="dark"] .timeline-card .timeline-node-glow {
+      background: rgba(138, 180, 248, 0.18);
     }
 
     @media (max-width: 620px) {

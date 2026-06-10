@@ -1,0 +1,161 @@
+/* TextCell styles copied from renderer.css for local workbench overrides. */
+
+.cell-card.text-mode-quote .mode-badge {
+      background: rgba(35, 82, 128, 0.13);
+      color: var(--accent-1);
+    }
+
+    .cell-card.text-mode-quote {
+      border-color: rgba(35, 82, 128, 0.20);
+    }
+
+    .cell-card.text-mode-quote {
+      border-color: rgba(35, 82, 128, 0.22);
+      background:
+        radial-gradient(circle at 88% 12%, rgba(74, 120, 210, 0.18), transparent 58px),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.80), rgba(239, 247, 255, 0.58) 54%, rgba(242, 250, 247, 0.40)),
+        var(--card-bg);
+      box-shadow:
+        0 18px 42px rgba(39, 76, 119, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.48);
+    }
+
+    :root[data-theme="dark"] .cell-card.text-mode-quote {
+      border-color: rgba(126, 161, 255, 0.22);
+      background:
+        radial-gradient(circle at 88% 12%, rgba(126, 161, 255, 0.13), transparent 58px),
+        linear-gradient(145deg, rgba(22, 33, 54, 0.80), rgba(15, 22, 37, 0.70) 56%, rgba(17, 38, 42, 0.50)),
+        var(--card-bg);
+    }
+
+    .cell-card.text-mode-quote .quote-mark {
+      grid-row: 1 / span 3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      color: var(--accent-1);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.74), rgba(74, 120, 210, 0.16)),
+        rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(74, 120, 210, 0.20);
+      box-shadow: 0 12px 22px rgba(39, 76, 119, 0.12);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .cell-card.text-mode-quote .quote-body {
+      min-width: 0;
+      margin: 0;
+    }
+
+    .cell-card.text-mode-quote .quote-copy {
+      color: var(--heading);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.5;
+      font-weight: 650;
+      text-wrap: balance;
+    }
+
+    .cell-card.text-mode-quote .quote-attribution {
+      color: var(--accent-1);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .cell-card.text-mode-quote .quote-attribution::before {
+      content: "- ";
+    }
+
+    .cell-card.text-mode-quote .quote-context {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.42;
+      font-weight: 560;
+    }
+
+    .cell-card.text-style-aperture .quote-mark {
+      border-radius: 999px;
+      box-shadow:
+        0 0 0 7px rgba(74, 120, 210, 0.10),
+        0 16px 28px rgba(39, 76, 119, 0.14);
+    }
+
+    .cell-card.text-style-margin .quote-mark {
+      display: none;
+    }
+
+    .cell-card.text-style-margin .quote-body,
+    .cell-card.text-style-margin .quote-attribution,
+    .cell-card.text-style-margin .quote-context {
+      grid-column: 1 / -1;
+    }
+
+    .cell-card.text-style-margin .quote-copy:first-of-type::before {
+      content: "“";
+      display: block;
+      text-align: left;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 40px;
+      line-height: 0.8;
+      margin-bottom: -10px;
+      margin-right: 0;
+      color: var(--accent-1);
+      font-weight: 700;
+    }
+
+    .cell-card.text-style-margin .quote-copy:last-of-type::after {
+      content: "”";
+      display: block;
+      text-align: right;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 40px;
+      line-height: 0.8;
+      margin-top: -10px;
+      margin-left: 0;
+      color: var(--accent-1);
+      font-weight: 700;
+    }
+
+    .cell-card.text-style-margin .quote-copy {
+      text-align: center;
+      text-wrap: pretty !important;
+      margin: 0 !important;
+    }
+
+    .cell-card.text-style-margin .quote-attribution,
+    .cell-card.text-style-margin .quote-context {
+      text-align: right;
+    }
+
+    .cell-card.sequence-active .quote-attribution,
+.cell-card.sequence-active .quote-context {
+      animation: text-detail-enter 520ms cubic-bezier(0.2, 0.84, 0.22, 1) 220ms both;
+    }
+
+    .cell-card[class*="text-mode-"] .quote-body,
+.cell-card[class*="text-mode-"] .quote-attribution,
+.cell-card[class*="text-mode-"] .quote-context,
+.cell-card[class*="text-mode-"] .rule-header,
+.cell-card[class*="text-mode-"] .rule-statement,
+.cell-card[class*="text-mode-"] .example-topline,
+.cell-card[class*="text-mode-"] .caption-label,
+.cell-card[class*="text-mode-"] .caption-copy,
+.cell-card[class*="text-mode-"] .warning-head,
+.cell-card[class*="text-mode-"] .warning-copy,
+.cell-card.text-mode-example.text-style-side-note .example-stage,
+.cell-card.text-style-signal .text-cell-quote,
+.cell-card.text-style-center-focus .warning-content,
+.cell-card.text-style-quiet-rule .warning-content,
+.cell-card.text-style-plate .text-cell-caption {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }

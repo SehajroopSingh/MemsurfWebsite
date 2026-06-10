@@ -45,11 +45,12 @@
       backdrop-filter: var(--glass);
       -webkit-backdrop-filter: var(--glass);
       border-radius: 28px;
-      padding: 22px 22px 18px;
+      padding: 8px 20px 14px !important;
     }
 
     .cell-card.text-style-glass-card.text-mode-orientation .text-cell-orientation {
-      padding: 10px 4px 14px;
+      box-sizing: border-box !important;
+      padding: 12px 20px 20px !important;
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: linear-gradient(160deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08));
@@ -81,9 +82,9 @@
     }
 
     .cell-card.text-style-glass-card.text-mode-orientation .orientation-copy {
-      font-size: 21px;
-      line-height: 1.24;
-      font-weight: 760;
+      font-size: 17px;
+      line-height: 1.32;
+      font-weight: 500;
       letter-spacing: 0;
       text-align: center;
     }

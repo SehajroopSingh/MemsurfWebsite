@@ -1,0 +1,52 @@
+/* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
+
+.keypoint-card.cell-style-halo .grid-keypoint-dot {
+      background: transparent;
+      border: 2px solid rgba(123, 105, 239, 0.50);
+      box-shadow: 0 0 0 7px rgba(123, 105, 239, 0.08);
+    }
+
+    .keypoint-card.keypoint-style-halo .grid-keypoint-row,
+    .cell-card.keypoint-card.cell-style-halo .grid-keypoint-row {
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 16px;
+      min-height: 62px;
+      align-items: center;
+    }
+
+    .keypoint-card.keypoint-style-halo .grid-keypoint-dot,
+    .cell-card.keypoint-card.cell-style-halo .grid-keypoint-dot {
+      width: 42px;
+      height: 42px;
+      background:
+        radial-gradient(circle at center, rgba(88, 193, 178, 0.16) 0 35%, transparent 37%),
+        linear-gradient(var(--page-bg), var(--page-bg)) padding-box,
+        linear-gradient(135deg, var(--accent-0), var(--accent-1) 52%, var(--accent-2)) border-box;
+      border: 4px solid transparent;
+      box-shadow:
+        0 0 0 10px rgba(88, 193, 178, 0.09),
+        0 18px 34px rgba(47, 143, 131, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    }
+
+    .keypoint-card.keypoint-style-halo .grid-keypoint-dot::after,
+    .cell-card.keypoint-card.cell-style-halo .grid-keypoint-dot::after {
+      inset: 13px;
+      border: 0;
+      background: linear-gradient(135deg, var(--accent-0), var(--accent-1));
+      box-shadow:
+        0 0 0 5px rgba(88, 193, 178, 0.13),
+        0 0 18px rgba(88, 193, 178, 0.42);
+    }
+
+    :root[data-theme="dark"] .keypoint-card.keypoint-style-halo .grid-keypoint-dot,
+    :root[data-theme="dark"] .cell-card.keypoint-card.cell-style-halo .grid-keypoint-dot {
+      background:
+        radial-gradient(circle at center, rgba(88, 193, 178, 0.18) 0 35%, transparent 37%),
+        linear-gradient(rgba(15, 22, 37, 0.95), rgba(15, 22, 37, 0.95)) padding-box,
+        linear-gradient(135deg, var(--accent-0), var(--accent-1) 52%, var(--accent-2)) border-box;
+      box-shadow:
+        0 0 0 10px rgba(88, 193, 178, 0.13),
+        0 16px 30px rgba(2, 8, 20, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    }

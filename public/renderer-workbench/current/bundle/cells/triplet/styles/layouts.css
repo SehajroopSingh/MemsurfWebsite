@@ -574,6 +574,35 @@
       animation-delay: calc(var(--triplet-card-delay, 0ms) + 370ms) !important;
     }
 
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .triplet-chain-route::before {
+      opacity: 0.46 !important;
+      transform: translateY(-50%) scaleX(1) !important;
+      animation: none !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-bridge,
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-bridge-line,
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-arrow,
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-support-marker,
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-bridge-label {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      animation: none !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-bridge-line {
+      opacity: 0.62 !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-arrow {
+      opacity: 0.82 !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-support-marker {
+      opacity: 0.78 !important;
+    }
+
     :root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-chain-strip {
       --triplet-chain-surface: rgba(20, 28, 43, 0.70);
       --triplet-chain-surface-strong: rgba(26, 36, 54, 0.84);
@@ -662,18 +691,18 @@
 	    }
 
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-vertical-rail {
-      --triplet-vrail-surface: rgba(255, 255, 255, 0.68);
-      --triplet-vrail-surface-strong: rgba(255, 255, 255, 0.86);
-      --triplet-vrail-border: rgba(82, 101, 135, 0.14);
+      --triplet-vrail-surface: #f8fafd;
+      --triplet-vrail-surface-strong: #edf2f8;
+      --triplet-vrail-border: rgba(26, 27, 31, 0.08);
       --triplet-vrail-line: color-mix(in srgb, var(--relationship-b) 58%, rgba(82, 101, 135, 0.26));
       --triplet-vrail-label: color-mix(in srgb, var(--relationship-b) 70%, var(--heading));
-      --triplet-vrail-shadow: 0 18px 42px rgba(15, 23, 42, 0.10);
-      --triplet-vrail-node-radius: 22px;
+      --triplet-vrail-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px 1px rgba(0, 0, 0, 0.10);
+      --triplet-vrail-node-radius: 24px;
       --triplet-vrail-node-max: 640px;
       position: relative !important;
       row-gap: 0 !important;
       padding: 2px 0 !important;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", sans-serif !important;
+      font-family: "Google Sans", "Google Sans Text", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif !important;
     }
 
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-main-flow {
@@ -711,29 +740,18 @@
       border: 1px solid var(--triplet-vrail-border) !important;
       border-radius: var(--triplet-vrail-node-radius) !important;
       background:
-        linear-gradient(180deg, var(--triplet-vrail-surface-strong), var(--triplet-vrail-surface)),
-        radial-gradient(circle at 16% 0%, var(--triplet-style-soft-a), transparent 46%) !important;
+        linear-gradient(180deg, var(--triplet-vrail-surface-strong), var(--triplet-vrail-surface)) !important;
       box-shadow:
-        var(--triplet-vrail-shadow),
-        inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
-      backdrop-filter: blur(18px) saturate(1.15) !important;
-      -webkit-backdrop-filter: blur(18px) saturate(1.15) !important;
+        var(--triplet-vrail-shadow) !important;
       transform: var(--triplet-final-transform, translateY(0) scale(1)) !important;
     }
 
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node::before {
-      inset: 0 0 auto 0 !important;
-      width: auto !important;
-      height: 3px !important;
-      border-radius: 999px !important;
-      background: linear-gradient(90deg, var(--item-accent), transparent) !important;
-      opacity: 0.72 !important;
+      display: none !important;
     }
 
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node::after {
-      content: "" !important;
-      position: absolute !important;
-      pointer-events: none !important;
+      display: none !important;
     }
 
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector,
@@ -757,6 +775,7 @@
       border-radius: 999px !important;
       background: currentColor !important;
       opacity: 0.72 !important;
+      transform-origin: top center;
       box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 9%, transparent) !important;
     }
 
@@ -797,35 +816,57 @@
     }
 
     .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node {
-      animation: triplet-vrail-solution-node 680ms cubic-bezier(0.2, 0.78, 0.18, 1) both !important;
-      animation-delay: calc(var(--triplet-card-delay, 0ms) + 90ms + (var(--triplet-index, 0) * 140ms)) !important;
+      animation: triplet-vrail-m3-pop 560ms cubic-bezier(0.17, 0.89, 0.32, 1.28) both !important;
+      animation-delay: calc(var(--triplet-card-delay, 0ms) + 120ms + (var(--triplet-index, 0) * 520ms)) !important;
     }
 
     .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-bridge-line {
-      animation: triplet-vrail-connector-draw 480ms cubic-bezier(0.2, 0.78, 0.18, 1) both !important;
-      animation-delay: calc(var(--triplet-card-delay, 0ms) + 330ms + (var(--triplet-connector-index, 0) * 150ms)) !important;
+      transform: scaleY(0);
+      animation: triplet-vrail-connector-draw 560ms cubic-bezier(0.2, 0.0, 0.0, 1.0) forwards !important;
+      animation-delay: calc(var(--triplet-card-delay, 0ms) + 320ms + (var(--triplet-connector-index, 0) * 520ms)) !important;
     }
 
     .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-bridge-label,
     .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-arrow {
-      animation: triplet-vrail-bridge-pop 420ms cubic-bezier(0.2, 0.78, 0.18, 1) both !important;
-      animation-delay: calc(var(--triplet-card-delay, 0ms) + 500ms + (var(--triplet-connector-index, 0) * 150ms)) !important;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: triplet-vrail-bridge-pop 440ms cubic-bezier(0.17, 0.89, 0.32, 1.28) forwards !important;
+      animation-delay: calc(var(--triplet-card-delay, 0ms) + 580ms + (var(--triplet-connector-index, 0) * 520ms)) !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-main-flow::before {
+      opacity: 0.42 !important;
+      transform: translateX(-50%) scaleY(1) !important;
+      animation: none !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-bridge-line {
+      opacity: 0.72 !important;
+      transform: scaleY(1) !important;
+      filter: none !important;
+      animation: none !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-bridge-label,
+    .cell-card.triplet-card.sequence-complete .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-arrow {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      animation: none !important;
     }
 
     :root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-vertical-rail {
-      --triplet-vrail-surface: rgba(22, 30, 45, 0.70);
-      --triplet-vrail-surface-strong: rgba(29, 39, 58, 0.84);
-      --triplet-vrail-border: rgba(166, 188, 222, 0.13);
-      --triplet-vrail-shadow: 0 22px 50px rgba(0, 0, 0, 0.25);
+      --triplet-vrail-surface: #1b1e25;
+      --triplet-vrail-surface-strong: #23272f;
+      --triplet-vrail-border: rgba(166, 188, 222, 0.10);
+      --triplet-vrail-shadow: 0 1px 2px rgba(0, 0, 0, 0.18), 0 1px 3px 1px rgba(0, 0, 0, 0.24);
     }
 
     :root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node {
       background:
-        linear-gradient(180deg, var(--triplet-vrail-surface-strong), var(--triplet-vrail-surface)),
-        radial-gradient(circle at 16% 0%, rgba(126, 161, 255, 0.08), transparent 46%) !important;
+        linear-gradient(180deg, var(--triplet-vrail-surface-strong), var(--triplet-vrail-surface)) !important;
       box-shadow:
-        var(--triplet-vrail-shadow),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+        var(--triplet-vrail-shadow) !important;
     }
 
     :root[data-theme="dark"] .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-vertical-rail .relationship-bridge-label {
@@ -866,14 +907,7 @@
     }
 
     .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node::before {
-      content: "" !important;
-      display: block !important;
-      inset: 0 0 auto 0 !important;
-      width: auto !important;
-      height: 3px !important;
-      border-radius: 999px !important;
-      background: linear-gradient(90deg, var(--item-accent), transparent) !important;
-      opacity: 0.72 !important;
+      display: none !important;
     }
 
     .cell-card.triplet-card.triplet-style-machine-flow .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-node::after {

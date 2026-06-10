@@ -10,6 +10,7 @@
 
     .cell-card.key-value-card.cell-style-chips .key-value-row {
       display: inline-grid;
+      grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) auto;
       margin: 0 6px 8px 0;
       border-radius: 999px;
       background: rgba(123, 105, 239, 0.10);

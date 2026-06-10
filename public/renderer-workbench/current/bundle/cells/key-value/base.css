@@ -13,10 +13,8 @@
       font-weight: 840;
       letter-spacing: 0;
       line-height: 1.24;
-      border-bottom: 1px solid rgba(82, 101, 135, 0.14);
-      background:
-        linear-gradient(90deg, rgba(255, 255, 255, 0.54), rgba(255, 255, 255, 0.22)),
-        linear-gradient(90deg, rgba(47, 143, 131, 0.10), rgba(74, 120, 210, 0.08));
+      border-bottom: 1px solid rgba(82, 101, 135, 0.12);
+      background: rgba(245, 247, 250, 0.72);
     }
 
     .cell-card.key-value-card .key-value-title-marker {
@@ -40,9 +38,7 @@
 
     :root[data-theme="dark"] .cell-card.key-value-card .key-value-title {
       border-bottom-color: rgba(214, 221, 235, 0.13);
-      background:
-        linear-gradient(90deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04)),
-        linear-gradient(90deg, rgba(47, 143, 131, 0.17), rgba(74, 120, 210, 0.12));
+      background: rgba(28, 36, 48, 0.72);
     }
 
     .cell-card.key-value-card {
@@ -117,6 +113,9 @@
     .cell-card.key-value-card .key-value-key {
       display: flex;
       align-items: center;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: normal;
       color: var(--muted);
       background: rgba(255, 255, 255, 0.26);
       border-right: 1px solid var(--surface-line);

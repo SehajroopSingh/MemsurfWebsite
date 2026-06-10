@@ -401,10 +401,15 @@ code {
       justify-content: center !important;
       justify-items: center !important;
       text-align: center !important;
+      margin: 0 !important;
       padding: 10px 12px !important;
+      border: 0 !important;
+      border-bottom: 1px solid rgba(82, 101, 135, 0.12) !important;
+      border-radius: 0 !important;
       background:
-        linear-gradient(90deg, rgba(74, 120, 210, 0.12), rgba(255, 255, 255, 0.34)),
-        rgba(255, 255, 255, 0.52) !important;
+        linear-gradient(90deg, rgba(74, 120, 210, 0.035), rgba(255, 255, 255, 0.10)),
+        rgba(255, 255, 255, 0.12) !important;
+      box-shadow: none !important;
     }
 
     .cell-card.key-value-card.cell-style-ledger .key-value-title-marker,
@@ -421,16 +426,16 @@ code {
 
     .cell-card.key-value-card.cell-style-ledger .key-value-cell,
     .cell-card.key-value-card.key-value-style-ledger .key-value-cell {
-      border-radius: 9px !important;
+      border-radius: 0 !important;
       border-color: rgba(82, 101, 135, 0.20) !important;
       background: rgba(255, 255, 255, 0.56) !important;
-      box-shadow: 0 16px 28px rgba(31, 42, 68, 0.10) !important;
+      box-shadow: none !important;
     }
 
     .cell-card.key-value-card.cell-style-ledger .key-value-row,
     .cell-card.key-value-card.key-value-style-ledger .key-value-row {
       display: grid !important;
-      grid-template-columns: minmax(90px, auto) 1fr !important;
+      grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr) !important;
       padding: 0 !important;
       border-top: 0 !important;
     }
@@ -442,8 +447,10 @@ code {
       padding: 11px 13px !important;
       margin: 0 !important;
       display: flex !important;
-      align-items: center !important;
-      white-space: nowrap !important;
+      align-items: flex-start !important;
+      white-space: normal !important;
+      overflow-wrap: anywhere !important;
+      word-break: normal !important;
       font-weight: 700 !important;
       font-variant-numeric: tabular-nums !important;
       color: var(--accent-1) !important;

@@ -1214,6 +1214,27 @@
       animation-delay: calc(var(--triplet-card-delay, 0ms) + 330ms) !important;
     }
 
+    .cell-card.triplet-card.sequence-complete.triplet-style-evidence-rail .relationship-cell.triplet-cell.triplet-mode-ladder .triplet-main-flow::before {
+      opacity: 0.78 !important;
+      transform: scaleY(1) !important;
+      filter: none !important;
+      animation: none !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete.triplet-style-logic-ladder .relationship-cell.triplet-cell.triplet-mode-ladder .ladder-link .relationship-bridge-line {
+      opacity: 0.72 !important;
+      transform: scaleY(1) !important;
+      filter: none !important;
+      animation: none !important;
+    }
+
+    .cell-card.triplet-card.sequence-complete.triplet-style-inference-cascade .relationship-cell.triplet-cell.triplet-mode-ladder .ladder-link .relationship-bridge-label {
+      opacity: 1 !important;
+      transform: scale(1) !important;
+      filter: none !important;
+      animation: none !important;
+    }
+
     :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-evidence-rail .relationship-cell.triplet-cell.triplet-mode-ladder .ladder-step,
     :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-logic-ladder .relationship-cell.triplet-cell.triplet-mode-ladder .ladder-step,
     :root[data-theme="dark"] .cell-card.triplet-card.triplet-style-inference-cascade .relationship-cell.triplet-cell.triplet-mode-ladder .ladder-step {

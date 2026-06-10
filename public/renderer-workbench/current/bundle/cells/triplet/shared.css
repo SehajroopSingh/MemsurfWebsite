@@ -820,6 +820,53 @@ code {
       animation: relationship-body-after-role-in 340ms cubic-bezier(0.2, 0.75, 0.22, 1) 1400ms both !important;
     }
 
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-bridge-line,
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-arrow,
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-support-marker {
+      opacity: 0;
+      transform: scaleX(0.36);
+      filter: none !important;
+      clip-path: none !important;
+      animation: triplet-chain-connector-center-in 560ms cubic-bezier(0.2, 0.78, 0.18, 1) both !important;
+    }
+
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .triplet-connector-1 .relationship-bridge-line,
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .triplet-connector-1 .relationship-arrow,
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .triplet-connector-1 .relationship-support-marker {
+      animation-delay: calc(var(--triplet-card-delay, 0ms) + 250ms) !important;
+    }
+
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .triplet-connector-2 .relationship-bridge-line,
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .triplet-connector-2 .relationship-arrow,
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .triplet-connector-2 .relationship-support-marker {
+      animation-delay: calc(var(--triplet-card-delay, 0ms) + 370ms) !important;
+    }
+
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-bridge-label {
+      opacity: 0;
+      transform: translateY(4px) scale(0.96);
+      filter: none !important;
+      animation: triplet-chain-label-in 420ms cubic-bezier(0.2, 0.78, 0.18, 1) calc(var(--triplet-card-delay, 0ms) + 440ms) both !important;
+    }
+
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-bridge-line {
+      opacity: 0;
+      transform: scaleY(0);
+      filter: none !important;
+      clip-path: none !important;
+      animation: triplet-vrail-connector-draw 560ms cubic-bezier(0.2, 0, 0, 1) forwards !important;
+      animation-delay: calc(var(--triplet-card-delay, 0ms) + 320ms + (var(--triplet-connector-index, 0) * 520ms)) !important;
+    }
+
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-bridge-label,
+    .cell-card.triplet-card.triplet-card-enter .relationship-cell.triplet-cell.triplet-mode-vertical-rail .triplet-rail-connector .relationship-arrow {
+      opacity: 0;
+      transform: scale(0.8);
+      filter: none !important;
+      animation: triplet-vrail-bridge-pop 440ms cubic-bezier(0.17, 0.89, 0.32, 1.28) forwards !important;
+      animation-delay: calc(var(--triplet-card-delay, 0ms) + 580ms + (var(--triplet-connector-index, 0) * 520ms)) !important;
+    }
+
     .relationship-cell.triplet-cell .triplet-body-row .relationship-body.has-body,
 .relationship-cell.triplet-cell .triplet-detail-stack .relationship-body.has-body,
 :root[data-theme="dark"] .relationship-cell.triplet-cell .triplet-body-row .relationship-body.has-body,

@@ -144,6 +144,48 @@ function textCellContentVariant(content, variant, label) {
   };
 }
 
+function pairPanelVariant(panel, variant, fallbackLabel, fallbackBody) {
+  const basePanel = recordOrEmpty(panel);
+  if (variant === "small") {
+    return {
+      ...basePanel,
+      label: basePanel.label || fallbackLabel,
+      body: fallbackBody,
+    };
+  }
+  return {
+    ...basePanel,
+    label: basePanel.label || fallbackLabel,
+    body: largeText(basePanel.body || basePanel.detail || basePanel.description, fallbackBody),
+  };
+}
+
+function keyValueContentVariant(content, variant) {
+  const items = Array.isArray(content.items) ? content.items.map(recordOrEmpty) : [];
+  return {
+    ...content,
+    title: content.title || content.heading || content.label || "Renderer facts",
+    items: items.map((item) => {
+      const key = String(item.key || item.label || "").trim().toLowerCase();
+      if (key === "mode" || key === "style") {
+        return item;
+      }
+      return {
+        ...item,
+        value: variant === "small"
+          ? key === "cue"
+            ? "Prompt"
+            : key === "action"
+              ? "Recall first"
+              : key === "result"
+                ? "Stronger recall"
+                : String(item.value || item.body || item.text || "Value").split(/[.!?]/)[0].slice(0, 28) || "Value"
+          : largeText(item.value || item.body || item.text, "Detailed value"),
+      };
+    }),
+  };
+}
+
 function contentForTextVariant(cellType, content, variant, label) {
   if (variant === "medium") return deepClone(content);
 
@@ -201,18 +243,39 @@ function contentForTextVariant(cellType, content, variant, label) {
     return {
       ...content,
       chain_label: content.chain_label || "Renderer rollout",
-      time_label: variant === "small" ? "Step" : largeText(content.time_label, "Step label"),
-      event_title: variant === "small" ? "Preview ships" : largeText(content.event_title, "Preview endpoint ships"),
-      description: variant === "small" ? "Check the phone frame." : largeText(content.description, "The lab loads the renderer bundle in the phone frame"),
+      time_label: variant === "small" ? "Step" : content.time_label || "Step 1",
+      event_title: variant === "small" ? "Preview ships" : content.event_title || "Preview endpoint ships",
+      description: variant === "small"
+        ? "Check spacing."
+        : variant === "large"
+          ? "The website loads the current renderer bundle into the phone preview, then checks whether the timeline rail keeps long event copy readable without crowding the date chip or outer card padding."
+          : content.description || "The lab loads the renderer bundle in the phone frame.",
+      note: variant === "small"
+        ? content.note || ""
+        : variant === "large"
+          ? content.note || "Use this longer note to verify the bottom spacing and rail alignment after the event copy wraps onto multiple lines."
+          : content.note,
     };
   }
   if (cellType === "ProcessStepCell") {
     return {
       ...content,
       chain_label: content.chain_label || "Lab workflow",
-      action: variant === "small" ? "Adjust payload." : largeText(content.action, "Adjust payload or CSS"),
-      output: variant === "small" ? "Preview updates." : largeText(content.output, "The phone frame updates"),
-      note: variant === "small" ? "Local only." : largeText(content.note, "Changes stay local to the workbench"),
+      action: variant === "small"
+        ? "Adjust payload."
+        : variant === "large"
+          ? "Adjust the payload, style tokens, and spacing rules while keeping the step layout stable inside the phone preview."
+          : content.action || "Adjust payload or CSS",
+      output: variant === "small"
+        ? "Preview updates."
+        : variant === "large"
+          ? "The phone frame refreshes with enough wrapped output text to test the result pill, arrow hint, and card rhythm."
+          : content.output || "The phone frame updates",
+      note: variant === "small"
+        ? "Local only."
+        : variant === "large"
+          ? "Use this longer note to confirm the node, connector, output block, and bottom padding still feel balanced."
+          : content.note || "Changes stay local to the workbench",
     };
   }
   if (cellType === "MathExpressionCell") {
@@ -237,24 +300,14 @@ function contentForTextVariant(cellType, content, variant, label) {
   if (cellType === "PairCell") {
     return {
       ...content,
-      left: variant === "small" ? "Cue" : largeText(content.left, "Left idea"),
-      right: variant === "small" ? "Answer" : largeText(content.right, "Right idea"),
+      left: pairPanelVariant(content.left, variant, "Cue", "Compact cue."),
+      right: pairPanelVariant(content.right, variant, "Answer", "Compact answer."),
       connector_label: variant === "small" ? "links to" : content.connector_label || "connects to",
       relationship_sentence: variant === "small" ? "Cue links to answer." : largeText(content.relationship_sentence, "A paired explanation completes the relationship"),
     };
   }
   if (cellType === "KeyValueCell") {
-    const items = Array.isArray(content.items) ? content.items.map(recordOrEmpty) : [];
-    return {
-      ...content,
-      title: variant === "small" ? "Quick facts" : largeText(content.title, "Renderer facts"),
-      items: variant === "small"
-        ? items.slice(0, 2).map((item) => ({ ...item, value: "Compact value" }))
-        : [
-            ...items.map((item) => ({ ...item, value: largeText(item.value, "Detailed value") })),
-            { key: "Review", value: "Use this larger row to verify label wrapping and vertical spacing." },
-          ],
-    };
+    return keyValueContentVariant(content, variant);
   }
   if (cellType === "TripletCell") {
     const items = Array.isArray(content.items) ? content.items.map(recordOrEmpty) : [];
@@ -1226,6 +1279,9 @@ function updateSlotForStyle(slot, group, styleId, label) {
   }
   if (group.relationship_kind === "keyValue") {
     slot.props.tone = group.relationship_mode;
+  }
+  if (group.cell_type === "KeyValueCell" && group.layout_kind === "cell_style") {
+    slot.preview_relationship_style = "ledger";
   }
   if (group.relationship_kind === "triplet") {
     slot.props.relation = group.relationship_mode;

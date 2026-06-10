@@ -381,5 +381,6 @@ code {
     }
 
     .cell-card.compare-card .compare-takeaway {
-      padding-left: 2px !important;
+      padding-left: 18px !important;
+      padding-right: 18px !important;
     }

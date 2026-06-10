@@ -39,6 +39,10 @@
       background: rgba(255, 191, 108, 0.42);
     }
 
+    .cell-card.key-value-card.key-value-style-index-card .key-value-row {
+      grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
+    }
+
     .cell-card.key-value-card.key-value-card-enter.key-value-style-index-card .key-value-cell {
       animation-name: kv-index-card-in;
     }

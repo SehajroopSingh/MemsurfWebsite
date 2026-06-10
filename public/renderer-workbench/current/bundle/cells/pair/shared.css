@@ -892,21 +892,25 @@ code {
       padding-right: var(--cell-content-edge) !important;
     }
 
-    .grid-shell .cell-card.pair-card.pair-style-brief-proof {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
-
     .grid-shell .cell-card.pair-card.pair-style-ripple {
       padding: 24px 16px !important;
     }
 
+    .grid-shell .cell-card.pair-card.pair-style-brief-proof {
+      padding: 18px 14px !important;
+    }
+
+    .cell-card.pair-card.pair-style-brief-proof .relationship-cell.pair-cell .relationship-sentence,
     .cell-card.pair-card.pair-style-ripple .relationship-cell.pair-cell .relationship-sentence {
       margin-bottom: 0 !important;
     }
 
     .cell-card.pair-card.pair-style-ripple .pair-flowline {
       padding-top: 18px !important;
+    }
+
+    .cell-card.pair-card.pair-style-brief-proof .pair-flowline {
+      padding-top: 6px !important;
     }
 
     .cell-card.pair-card .relationship-diagram .relationship-node,
@@ -1288,8 +1292,17 @@ code {
       padding-bottom: 6px !important;
     }
 
+    .cell-card.pair-card.pair-style-brief-proof .relationship-cell.pair-cell {
+      padding-top: 8px !important;
+      padding-bottom: 4px !important;
+    }
+
     .cell-card.pair-card.pair-style-ripple .relationship-cell.pair-cell .pair-panel {
       padding-top: 10px !important;
+    }
+
+    .cell-card.pair-card.pair-style-brief-proof .relationship-cell.pair-cell .pair-panel {
+      padding-top: 6px !important;
     }
 
     .relationship-cell.pair-cell .pair-panel::before,

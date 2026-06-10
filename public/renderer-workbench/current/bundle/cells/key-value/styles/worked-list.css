@@ -29,7 +29,7 @@
 
     .cell-card.key-value-card.key-value-style-worked-list .key-value-row {
       counter-increment: kv-worked;
-      grid-template-columns: minmax(106px, 0.40fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, var(--kv-key-column, 14ch)) minmax(0, 1fr);
       padding-left: 38px;
     }
 
@@ -71,7 +71,7 @@
     @media (max-width: 620px) {
 
       .cell-card.key-value-card.key-value-style-worked-list .key-value-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, var(--kv-key-column, 14ch)) minmax(0, 1fr);
       }
 }
 

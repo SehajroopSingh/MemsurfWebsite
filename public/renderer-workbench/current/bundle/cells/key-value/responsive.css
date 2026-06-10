@@ -5,6 +5,24 @@
       .cell-card.key-value-card .key-value-row {
         grid-template-columns: 1fr;
       }
+
+      .cell-card.key-value-card.cell-style-ledger .key-value-row,
+      .cell-card.key-value-card.key-value-style-ledger .key-value-row,
+      .cell-card.key-value-card.key-value-style-index-card .key-value-row,
+      .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-row,
+      .cell-card.key-value-card.key-value-style-priority-strip .key-value-row,
+      .cell-card.key-value-card.key-value-style-anchor-list .key-value-row,
+      .cell-card.key-value-card.key-value-style-highlight-sheet .key-value-row,
+      .cell-card.key-value-card.key-value-style-lexicon .key-value-row,
+      .cell-card.key-value-card.key-value-style-spec-sheet .key-value-row,
+      .cell-card.key-value-card.key-value-style-term-table .key-value-row,
+      .cell-card.key-value-card.key-value-style-case-notes .key-value-row,
+      .cell-card.key-value-card.key-value-style-sample-sheet .key-value-row,
+      .cell-card.key-value-card.key-value-style-worked-list .key-value-row,
+      .cell-card.key-value-card.cell-style-chips .key-value-row,
+      .cell-card.key-value-card.cell-style-specsheet .key-value-row {
+        grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
+      }
 }
 
 @media (max-width: 620px) {
@@ -12,5 +30,24 @@
       .cell-card.key-value-card .key-value-key {
         border-right: 0;
         border-bottom: 1px solid var(--surface-line);
+      }
+
+      .cell-card.key-value-card.cell-style-ledger .key-value-key,
+      .cell-card.key-value-card.key-value-style-ledger .key-value-key,
+      .cell-card.key-value-card.key-value-style-index-card .key-value-key,
+      .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-key,
+      .cell-card.key-value-card.key-value-style-priority-strip .key-value-key,
+      .cell-card.key-value-card.key-value-style-anchor-list .key-value-key,
+      .cell-card.key-value-card.key-value-style-highlight-sheet .key-value-key,
+      .cell-card.key-value-card.key-value-style-lexicon .key-value-key,
+      .cell-card.key-value-card.key-value-style-spec-sheet .key-value-key,
+      .cell-card.key-value-card.key-value-style-term-table .key-value-key,
+      .cell-card.key-value-card.key-value-style-case-notes .key-value-key,
+      .cell-card.key-value-card.key-value-style-sample-sheet .key-value-key,
+      .cell-card.key-value-card.key-value-style-worked-list .key-value-key,
+      .cell-card.key-value-card.cell-style-chips .key-value-key,
+      .cell-card.key-value-card.cell-style-specsheet .key-value-key {
+        border-right: 1px solid var(--surface-line);
+        border-bottom: 0;
       }
 }

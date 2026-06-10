@@ -50,12 +50,14 @@
       line-height: 1.22;
       font-weight: 820;
       text-wrap: balance;
+      padding-right: 8px;
     }
 
     .cell-card.text-mode-definition .definition-copy {
       font-size: 16px;
       line-height: 1.58;
       font-weight: 560;
+      padding-right: 8px;
     }
 
     .cell-card.text-style-lexicon .definition-term {

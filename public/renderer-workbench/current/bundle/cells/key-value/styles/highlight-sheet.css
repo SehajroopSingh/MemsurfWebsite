@@ -20,6 +20,10 @@
         rgba(255, 191, 108, 0.08);
     }
 
+    .cell-card.key-value-card.key-value-style-highlight-sheet .key-value-row {
+      grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
+    }
+
     .cell-card.key-value-card.key-value-style-highlight-sheet .key-value-row:nth-child(odd) {
       background: rgba(255, 191, 108, 0.10);
     }

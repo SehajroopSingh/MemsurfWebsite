@@ -32,6 +32,8 @@
   animation-duration: var(--grid-sequence-animation-duration, 960ms) !important;
 }
 
+
+
 @keyframes gridCellGenericEnter {
   0% {
     opacity: 0;

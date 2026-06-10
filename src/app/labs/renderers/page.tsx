@@ -816,6 +816,22 @@ function payloadWithScenarioMetadata(basePayload: RendererPayload, title: string
   return payload;
 }
 
+function payloadWithPreviewCellStyle(basePayload: RendererPayload, styleId: string): RendererPayload {
+  const payload = JSON.parse(JSON.stringify(basePayload)) as RendererPayload;
+  payload.scenarios = payload.scenarios.map((scenario) => {
+    const slots = arrayRecords(scenario.slots);
+    if (!slots.length) return scenario;
+    return {
+      ...scenario,
+      slots: slots.map((slot) => ({
+        ...slot,
+        preview_cell_style: styleId,
+      })),
+    };
+  });
+  return payload;
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -831,6 +847,45 @@ function arrayRecords(value: unknown): Record<string, unknown>[] {
 function repeatedPreviewContent(cellType: string, content: Record<string, unknown>, index: number) {
   const stepNumber = index + 1;
   if (cellType === "KeyPointsCell") {
+    const existingPoints = Array.isArray(content.points) ? content.points.filter((point) => typeof point === "string") : [];
+    const pointTextLength = existingPoints.join(" ").length;
+    if (existingPoints.length <= 2 && pointTextLength < 80) {
+      const shortPoints = [
+        ["Preview density.", "Check spacing."],
+        ["Compare styles.", "Keep it tight."],
+        ["Reload once.", "Review mobile."],
+      ];
+      return {
+        ...content,
+        points: shortPoints[index],
+      };
+    }
+    if (existingPoints.length >= 4 || pointTextLength > 240) {
+      const longPoints = [
+        [
+          "Use randomized-stable-unlocked style policy while checking this catalog sample in the phone frame.",
+          "Review the same card in light and dark themes so text wrapping and contrast both stay visible.",
+          "Keep the workbench payload local until a later production promotion is explicitly requested.",
+          "Confirm the card spacing still reads cleanly when the bullet list grows beyond the medium sample.",
+        ],
+        [
+          "Compare each available visual style against the same longer text so density changes are easy to spot.",
+          "Watch for labels, bullets, and rounded containers competing for vertical space on smaller devices.",
+          "Use the expanded list to catch awkward line breaks that a short sample would hide.",
+          "Make sure repeated preview cells still feel like one connected flow rather than separate mockups.",
+        ],
+        [
+          "Reload the renderer after local edits and verify the catalog row still selects the intended size variant.",
+          "Check that the larger example keeps enough bottom padding inside the material wrapper.",
+          "Scan the phone preview for clipped bullets, compressed line height, or accidental overlap with controls.",
+          "Leave backend, iOS, and Android promotion untouched until this local renderer workbench version is approved.",
+        ],
+      ];
+      return {
+        ...content,
+        points: longPoints[index],
+      };
+    }
     const labels = ["Setup", "Check", "Apply"];
     return {
       ...content,
@@ -1209,9 +1264,26 @@ function catalogEntriesWithRenderModeStyles(entries: CatalogEntry[]): CatalogEnt
     });
   });
 
-  return entriesWithRenderModeStyles.map((entry) =>
+  const repeatedEntries = entriesWithRenderModeStyles.map((entry) =>
     catalogEntryWithMappedPayloads(entry, payloadWithRepeatedPreviewCells),
   );
+  const stableCellShellEntries = repeatedEntries.map((entry) => {
+    if (entry.cell_type !== "KeyValueCell" || entry.layout_kind !== "relationship_mode") {
+      return entry;
+    }
+    return catalogEntryWithMappedPayloads(entry, (payload) => payloadWithPreviewCellStyle(payload, "ledger"));
+  });
+  const styledLayoutKeys = new Set(
+    stableCellShellEntries
+      .filter((entry) => entry.style_id)
+      .map((entry) => `${entry.cell_type}:${entry.layout_id || entry.render_mode || "samples"}`),
+  );
+
+  return stableCellShellEntries.filter((entry) => {
+    if (entry.style_id) return true;
+    const layoutKey = `${entry.cell_type}:${entry.layout_id || entry.render_mode || "samples"}`;
+    return !styledLayoutKeys.has(layoutKey);
+  });
 }
 
 function prettyJson(payload: RendererPayload) {

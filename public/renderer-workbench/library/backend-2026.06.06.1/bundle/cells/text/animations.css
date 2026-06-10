@@ -1,0 +1,62 @@
+/* TextCell styles copied from renderer.css for local workbench overrides. */
+
+@keyframes gridCellGenericEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.985);
+        filter: blur(8px) saturate(0.94);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0) saturate(1);
+      }
+    }
+
+@keyframes text-stage-enter {
+      from {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(10px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        filter: none;
+        transform: none;
+      }
+    }
+
+    @keyframes text-detail-enter {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes text-piece-enter {
+      from {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(10px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        filter: none;
+        transform: none;
+      }
+    }
+
+    @keyframes text-scan-enter {
+      from {
+        opacity: 0.35;
+        background-position: -80px 0, 0 0;
+      }
+      to {
+        opacity: 1;
+        background-position: 0 0, 0 0;
+      }
+    }

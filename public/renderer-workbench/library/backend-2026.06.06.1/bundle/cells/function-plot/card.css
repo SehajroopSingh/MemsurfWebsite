@@ -1,0 +1,66 @@
+/* FunctionPlot card shell copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.function-plot-card {
+  --grid-line: rgba(91, 111, 148, 0.14);
+  --axis-line: rgba(66, 83, 111, 0.36);
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  backdrop-filter: var(--glass);
+  -webkit-backdrop-filter: var(--glass);
+  box-shadow: var(--card-shadow);
+  color: var(--text);
+}
+
+:root[data-theme="dark"] .cell-card.function-plot-card {
+  --grid-line: rgba(140, 163, 196, 0.14);
+  --axis-line: rgba(188, 204, 230, 0.28);
+}
+
+.cell-card.function-plot-card {
+  background: transparent !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.cell-card.function-plot-card::before {
+  display: none !important;
+  background: none !important;
+}
+
+.cell-card.function-plot-card.sequence-pending {
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(8px) saturate(0.94);
+  pointer-events: none;
+}
+
+.cell-card.function-plot-card.sequence-active,
+.cell-card.function-plot-card.sequence-complete {
+  visibility: visible;
+}
+
+.cell-card.function-plot-card.sequence-active[data-animation-profile="generic"],
+.cell-card.function-plot-card.sequence-active[data-animation-profile="function-plot"] {
+  animation: gridCellGenericEnter var(--grid-cell-enter-duration, 760ms) cubic-bezier(0.2, 0.84, 0.22, 1) both;
+  pointer-events: auto;
+  will-change: opacity, transform, filter;
+}
+
+.cell-card.function-plot-card.sequence-complete {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  pointer-events: auto;
+}

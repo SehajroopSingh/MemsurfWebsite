@@ -1324,6 +1324,288 @@
       display: none !important;
     }
 
+    .pair-style-brief-proof .pair-flowline {
+      --apple-flow-line: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--relationship-a) 64%, #007aff),
+        color-mix(in srgb, var(--relationship-b) 72%, #5e5ce6)
+      );
+      --apple-flow-panel: rgba(255, 255, 255, 0.34);
+      --apple-flow-border: rgba(255, 255, 255, 0.58);
+      --apple-flow-shadow: 0 14px 34px rgba(15, 23, 42, 0.10);
+    }
+
+    .cell-card.pair-card.pair-style-brief-proof {
+      padding: 18px 14px !important;
+      border: 1px solid color-mix(in srgb, var(--relationship-b) 18%, rgba(51, 69, 104, 0.12)) !important;
+      border-radius: 28px !important;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.42)),
+        color-mix(in srgb, var(--relationship-b) 6%, #ffffff) !important;
+      box-shadow:
+        0 18px 44px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.64) !important;
+      backdrop-filter: blur(18px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+      overflow: visible !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline {
+      position: relative !important;
+      z-index: 1 !important;
+      padding-top: 6px !important;
+    }
+
+    .cell-card.pair-card.pair-style-brief-proof .relationship-cell.pair-cell .relationship-sentence {
+      margin-bottom: 0 !important;
+    }
+
+    .pair-style-brief-proof .pair-flow-main {
+      grid-template-columns: minmax(0, 1fr) minmax(48px, 0.18fr) minmax(0, 1fr) !important;
+      column-gap: 12px !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .pair-panel {
+      padding: 12px 14px 14px !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      overflow: visible !important;
+      text-align: center !important;
+      transform: translateZ(0) !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .pair-panel::before,
+    .pair-style-brief-proof .pair-flowline .pair-panel-right::before,
+    .pair-style-brief-proof .pair-flowline .pair-panel::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .relationship-role {
+      position: relative !important;
+      z-index: 1 !important;
+      margin-bottom: 8px !important;
+      text-align: center !important;
+      color: color-mix(in srgb, var(--muted) 82%, var(--relationship-b)) !important;
+      font-size: 11px !important;
+      line-height: 1.1 !important;
+      font-weight: 590 !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .relationship-label {
+      position: relative !important;
+      z-index: 1 !important;
+      display: block !important;
+      max-width: 9ch !important;
+      margin: 0 auto !important;
+      text-align: center !important;
+      color: var(--heading) !important;
+      font-size: 18px !important;
+      line-height: 1.08 !important;
+      font-weight: 680 !important;
+      letter-spacing: 0 !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .relationship-body {
+      position: relative !important;
+      z-index: 1 !important;
+      display: inline-block !important;
+      width: fit-content !important;
+      max-width: min(100%, 34ch) !important;
+      margin: 7px auto 0 !important;
+      padding: 6px 10px !important;
+      border: 1px solid rgba(255, 255, 255, 0.44) !important;
+      border-radius: 999px !important;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.28)),
+        rgba(255, 255, 255, 0.22) !important;
+      box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.68) !important;
+      backdrop-filter: blur(18px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+      color: color-mix(in srgb, var(--text) 78%, var(--muted)) !important;
+      font-size: 13.5px !important;
+      line-height: 1.35 !important;
+      font-weight: 450 !important;
+      text-align: center !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .relationship-bridge {
+      gap: 6px !important;
+      color: color-mix(in srgb, var(--relationship-b) 68%, var(--accent-1)) !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .relationship-bridge > * {
+      position: relative !important;
+      z-index: 1 !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .relationship-bridge-line {
+      height: 22px !important;
+      min-width: 18px !important;
+      border-radius: 999px !important;
+      background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b), var(--relationship-a)) !important;
+      background-size: 200% auto !important;
+      opacity: 0.85 !important;
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.12) !important,
+        inset 0 1px 3px rgba(255, 255, 255, 0.2) !important;
+      animation: rippleFlowConduit 3s linear infinite !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .relationship-bridge-label {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 8px 20px !important;
+      border-radius: 999px !important;
+      font-size: 12px !important;
+      font-weight: 900 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      white-space: nowrap !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      box-shadow: 0 8px 24px color-mix(in srgb, var(--relationship-b) 20%, rgba(0, 0, 0, 0.15)) !important;
+      background: rgba(255, 255, 255, 0.88) !important;
+      border: 2px solid color-mix(in srgb, var(--relationship-b) 40%, var(--relationship-a) 40%) !important;
+      color: color-mix(in srgb, var(--heading) 90%, var(--relationship-b)) !important;
+      z-index: 10 !important;
+      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+      animation: rippleFlowFloat 3.5s ease-in-out infinite !important;
+    }
+
+    .pair-style-brief-proof .pair-flowline .relationship-arrow,
+    .pair-style-brief-proof .pair-vertical-flow .relationship-arrow {
+      display: none !important;
+    }
+
+    .pair-style-brief-proof .pair-vertical-flow .relationship-bridge-line {
+      width: 20px !important;
+      height: 44px !important;
+      flex: 0 0 44px !important;
+      background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b), var(--relationship-a)) !important;
+      background-size: auto 200% !important;
+    }
+
+    .pair-style-brief-proof .pair-vertical-flow .pair-flow-main {
+      grid-template-columns: minmax(0, 1fr) !important;
+      row-gap: 6px !important;
+    }
+
+    .pair-style-brief-proof .pair-vertical-flow .relationship-bridge {
+      position: relative !important;
+      align-items: center !important;
+      gap: 5px !important;
+      padding: 2px 0 !important;
+      min-height: 44px !important;
+      justify-content: center !important;
+      justify-self: stretch !important;
+      width: 100% !important;
+    }
+
+    .pair-style-brief-proof .pair-vertical-flow .relationship-bridge::before {
+      content: "" !important;
+      display: block !important;
+      position: absolute !important;
+      left: 50% !important;
+      top: 0 !important;
+      bottom: 7px !important;
+      width: 4px !important;
+      border-radius: 999px !important;
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--relationship-a) 76%, #007aff),
+        color-mix(in srgb, var(--relationship-b) 86%, #5e5ce6)
+      ) !important;
+      opacity: 0.52 !important;
+      box-shadow: 0 0 16px color-mix(in srgb, var(--relationship-b) 30%, transparent) !important;
+      pointer-events: none !important;
+      transform: translateX(-50%) scaleY(0) !important;
+      transform-origin: top center !important;
+      animation: relationship-bridge-line-draw-y 680ms cubic-bezier(0.2, 0.75, 0.22, 1) 520ms both !important;
+    }
+
+    .pair-style-brief-proof .pair-vertical-flow .relationship-bridge-label {
+      margin-left: 0 !important;
+    }
+
+    .pair-style-brief-proof .pair-vertical-flow .relationship-bridge-line {
+      flex: 0 0 12px !important;
+      width: 4px !important;
+      height: 12px !important;
+      min-width: 0 !important;
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--relationship-a) 64%, #007aff),
+        color-mix(in srgb, var(--relationship-b) 72%, #5e5ce6)
+      ) !important;
+      opacity: 0.88 !important;
+      transform-origin: top center !important;
+    }
+
+    :root[data-theme="dark"] .pair-style-brief-proof .pair-flowline {
+      --apple-flow-panel: rgba(84, 84, 88, 0.34);
+      --apple-flow-border: rgba(235, 235, 245, 0.18);
+      --apple-flow-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
+    }
+
+    :root[data-theme="dark"] .cell-card.pair-card.pair-style-brief-proof {
+      border-color: color-mix(in srgb, var(--relationship-b) 24%, rgba(235, 235, 245, 0.12)) !important;
+      background:
+        linear-gradient(180deg, rgba(31, 41, 55, 0.78), rgba(17, 24, 39, 0.62)),
+        color-mix(in srgb, var(--relationship-b) 8%, var(--card-bg-strong)) !important;
+      box-shadow:
+        0 22px 48px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+      backdrop-filter: blur(18px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+    }
+
+    :root[data-theme="dark"] .pair-style-brief-proof .pair-flowline .relationship-bridge-label {
+      border-color: rgba(235, 235, 245, 0.14) !important;
+      background:
+        linear-gradient(180deg, rgba(118, 118, 128, 0.38), rgba(44, 44, 46, 0.24)),
+        rgba(84, 84, 88, 0.26) !important;
+      box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+      color: color-mix(in srgb, var(--relationship-b) 76%, #f5f5f7) !important;
+    }
+
+    :root[data-theme="dark"] .pair-style-brief-proof .pair-vertical-flow .relationship-bridge::before {
+      opacity: 0.46 !important;
+    }
+
+    :root[data-theme="dark"] .pair-style-brief-proof .pair-flowline .pair-panel {
+      background-color: transparent !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    :root[data-theme="dark"] .pair-style-brief-proof .pair-flowline .relationship-body {
+      border-color: rgba(235, 235, 245, 0.14) !important;
+      background:
+        linear-gradient(180deg, rgba(118, 118, 128, 0.34), rgba(44, 44, 46, 0.22)),
+        rgba(84, 84, 88, 0.22) !important;
+      box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+    }
+
+    :root[data-theme="dark"] .pair-style-brief-proof .pair-flowline .pair-panel::before {
+      content: none !important;
+      display: none !important;
+    }
+
     .pair-style-versus-split .pair-divider .pair-panel::after,
     .pair-style-brief-proof .pair-support .pair-panel::after {
       content: "" !important;
@@ -2722,7 +3004,7 @@
       background: transparent !important;
       box-shadow: none !important;
       overflow: visible !important;
-      transform: none !important;
+      transform: none;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
     }
@@ -2896,9 +3178,7 @@
     .cell-card.pair-card.pair-style-versus-split *::after {
       animation: none !important;
       transition: none !important;
-      opacity: 1 !important;
       filter: none !important;
-      transform: none !important;
       clip-path: none !important;
     }
 
@@ -3334,6 +3614,108 @@
 	        filter: none !important;
 	      }
 
+    .cell-card.pair-card.pair-style-versus-split.pair-card-enter .pair-divider {
+      animation: versusSplitShellEnter 440ms cubic-bezier(0.2, 0, 0, 1) both !important;
+      transform-origin: 50% 44% !important;
+      will-change: opacity, transform !important;
+    }
+
+    .cell-card.pair-card.pair-style-versus-split.pair-card-enter .pair-divider .pair-panel-left {
+      animation: versusSplitPanelLeftEnter 540ms cubic-bezier(0.2, 0, 0, 1) 220ms both !important;
+      will-change: opacity, transform !important;
+    }
+
+    .cell-card.pair-card.pair-style-versus-split.pair-card-enter .pair-divider .pair-panel-right {
+      animation: versusSplitPanelRightEnter 540ms cubic-bezier(0.2, 0, 0, 1) 280ms both !important;
+      will-change: opacity, transform !important;
+    }
+
+    .cell-card.pair-card.pair-style-versus-split.pair-card-enter .pair-divider-center .divider-line {
+      animation: versusSplitDividerLineEnter 520ms cubic-bezier(0.2, 0, 0, 1) 620ms both !important;
+      transform-origin: 50% 50% !important;
+      will-change: opacity, transform !important;
+    }
+
+    .cell-card.pair-card.pair-style-versus-split.pair-card-enter .pair-divider.orientation-vertical .pair-divider-center .divider-line {
+      animation-name: versusSplitDividerLineEnterHorizontal !important;
+    }
+
+    .cell-card.pair-card.pair-style-versus-split.pair-card-enter .pair-divider-center .relationship-bridge-label {
+      animation: versusSplitCenterLabelEnter 460ms cubic-bezier(0.2, 0, 0, 1) 620ms both !important;
+      transform-origin: 50% 50% !important;
+      will-change: opacity, transform !important;
+    }
+
+    @keyframes versusSplitShellEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.965);
+      }
+      58% {
+        opacity: 1;
+        transform: translateY(0) scale(1.014);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes versusSplitPanelLeftEnter {
+      0% {
+        opacity: 0;
+        transform: translate3d(-10px, 12px, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes versusSplitPanelRightEnter {
+      0% {
+        opacity: 0;
+        transform: translate3d(10px, 12px, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes versusSplitDividerLineEnter {
+      0% {
+        opacity: 0;
+        transform: scaleY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+    }
+
+    @keyframes versusSplitDividerLineEnterHorizontal {
+      0% {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes versusSplitCenterLabelEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(3px) scale(0.94);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
     /* Duet header center alignment overrides */
     .cell-card.pair-card.pair-style-duet .relationship-header {
       text-align: center !important;
@@ -3527,17 +3909,110 @@
       font-weight: 480 !important;
     }
 
-    /* Disable all animations, transitions, and opacity/filter fades for duet style */
+    /* Disable inherited PairCell animations; duet divider owns its entrance sequence below. */
     .cell-card.pair-card.pair-style-duet,
     .cell-card.pair-card.pair-style-duet *,
     .cell-card.pair-card.pair-style-duet *::before,
     .cell-card.pair-card.pair-style-duet *::after {
       animation: none !important;
       transition: none !important;
-      opacity: 1 !important;
       filter: none !important;
-      transform: none !important;
       clip-path: none !important;
+    }
+
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider {
+      transform-origin: center !important;
+      animation: duetDividerCardEnter 440ms cubic-bezier(0.2, 0, 0, 1) both !important;
+      animation-delay: var(--pair-enter-delay, 0ms) !important;
+      will-change: opacity, transform, box-shadow !important;
+    }
+
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider .relationship-role,
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider .relationship-label,
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider .relationship-body {
+      animation: duetDividerTextEnter 520ms cubic-bezier(0.18, 0.72, 0.22, 1) both !important;
+      animation-delay: calc(var(--pair-enter-delay, 0ms) + 300ms) !important;
+      will-change: opacity, transform !important;
+    }
+
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider .pair-panel-right .relationship-role,
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider .pair-panel-right .relationship-label,
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider .pair-panel-right .relationship-body {
+      animation-delay: calc(var(--pair-enter-delay, 0ms) + 360ms) !important;
+    }
+
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider-center .divider-line {
+      animation: duetDividerLineEnter 560ms cubic-bezier(0.18, 0.72, 0.22, 1) both !important;
+      animation-delay: calc(var(--pair-enter-delay, 0ms) + 610ms) !important;
+      will-change: transform, opacity !important;
+    }
+
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider-center .divider-line-start {
+      transform-origin: right center !important;
+    }
+
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider-center .divider-line-end {
+      transform-origin: left center !important;
+    }
+
+    .cell-card.pair-card.pair-style-duet.pair-card-enter .pair-divider-center .relationship-bridge-label {
+      animation: duetDividerLabelEnter 460ms cubic-bezier(0.18, 0.72, 0.22, 1) both !important;
+      animation-delay: calc(var(--pair-enter-delay, 0ms) + 610ms) !important;
+      will-change: opacity, transform !important;
+    }
+
+    @keyframes duetDividerCardEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.92);
+        box-shadow: 0 0 0 rgba(15, 23, 42, 0);
+      }
+      58% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.035);
+        box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+    }
+
+    @keyframes duetDividerTextEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(9px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes duetDividerLineEnter {
+      0% {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes duetDividerLabelEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(3px) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     /* Check Cross independent copy of Check Cross visual treatment */
@@ -3648,6 +4123,12 @@
 
     .cell-card.pair-card.pair-style-check-cross .pair-divider-center {
       position: relative !important;
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+      grid-template-rows: none !important;
+      column-gap: 14px !important;
+      align-items: center !important;
+      justify-items: stretch !important;
       min-width: 76px !important;
       z-index: 3 !important;
       color: var(--relationship-b) !important;
@@ -3655,6 +4136,7 @@
 
     .cell-card.pair-card.pair-style-check-cross .pair-divider-center .relationship-bridge {
       position: relative !important;
+      grid-column: 2 !important;
       z-index: 2 !important;
       display: grid !important;
       place-items: center !important;
@@ -3665,6 +4147,7 @@
 
     .cell-card.pair-card.pair-style-check-cross .pair-divider-center .relationship-bridge-label {
       position: relative !important;
+      z-index: 3 !important;
       display: inline-grid !important;
       place-items: center !important;
       white-space: nowrap !important;
@@ -3673,15 +4156,36 @@
       font-size: 19px !important;
       font-weight: 800 !important;
       color: var(--relationship-b) !important;
-      background: transparent !important;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.72)),
+        var(--card-bg) !important;
       border: none !important;
+      border-radius: 999px !important;
       box-shadow: none !important;
-      padding: 0 16px !important;
+      padding: 0 18px !important;
+    }
+
+    :root[data-theme="dark"] .cell-card.pair-card.pair-style-check-cross .pair-divider-center .relationship-bridge-label {
+      background:
+        linear-gradient(180deg, rgba(17, 24, 39, 0.92), rgba(17, 24, 39, 0.78)),
+        var(--card-bg) !important;
     }
 
     .cell-card.pair-card.pair-style-check-cross .pair-divider-center .divider-line {
       background: linear-gradient(90deg, var(--relationship-a), var(--relationship-b)) !important;
       opacity: 1 !important;
+      position: relative !important;
+      z-index: 1 !important;
+      width: 100% !important;
+      min-width: 0 !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross .pair-divider-center .divider-line-start {
+      grid-column: 1 !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross .pair-divider-center .divider-line-end {
+      grid-column: 3 !important;
     }
 
     /* Dark theme check-cross divider support */
@@ -3733,17 +4237,110 @@
       font-weight: 480 !important;
     }
 
-    /* Disable all animations, transitions, and opacity/filter fades for check-cross style */
+    /* Disable inherited PairCell animations; Check Cross divider owns its entrance sequence below. */
     .cell-card.pair-card.pair-style-check-cross,
     .cell-card.pair-card.pair-style-check-cross *,
     .cell-card.pair-card.pair-style-check-cross *::before,
     .cell-card.pair-card.pair-style-check-cross *::after {
       animation: none !important;
       transition: none !important;
-      opacity: 1 !important;
       filter: none !important;
-      transform: none !important;
       clip-path: none !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider {
+      transform-origin: center !important;
+      animation: checkCrossDividerCardEnter 440ms cubic-bezier(0.2, 0, 0, 1) both !important;
+      animation-delay: var(--pair-enter-delay, 0ms) !important;
+      will-change: opacity, transform, box-shadow !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider .relationship-role,
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider .relationship-label,
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider .relationship-body {
+      animation: checkCrossDividerTextEnter 520ms cubic-bezier(0.18, 0.72, 0.22, 1) both !important;
+      animation-delay: calc(var(--pair-enter-delay, 0ms) + 300ms) !important;
+      will-change: opacity, transform !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider .pair-panel-right .relationship-role,
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider .pair-panel-right .relationship-label,
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider .pair-panel-right .relationship-body {
+      animation-delay: calc(var(--pair-enter-delay, 0ms) + 360ms) !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider-center .divider-line {
+      animation: checkCrossDividerLineEnter 560ms cubic-bezier(0.18, 0.72, 0.22, 1) both !important;
+      animation-delay: calc(var(--pair-enter-delay, 0ms) + 610ms) !important;
+      will-change: transform, opacity !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider-center .divider-line-start {
+      transform-origin: right center !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider-center .divider-line-end {
+      transform-origin: left center !important;
+    }
+
+    .cell-card.pair-card.pair-style-check-cross.pair-card-enter .pair-divider-center .relationship-bridge-label {
+      animation: checkCrossDividerLabelEnter 460ms cubic-bezier(0.18, 0.72, 0.22, 1) both !important;
+      animation-delay: calc(var(--pair-enter-delay, 0ms) + 610ms) !important;
+      will-change: opacity, transform !important;
+    }
+
+    @keyframes checkCrossDividerCardEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.92);
+        box-shadow: 0 0 0 rgba(15, 23, 42, 0);
+      }
+      58% {
+        opacity: 1;
+        transform: translateY(-2px) scale(1.035);
+        box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+    }
+
+    @keyframes checkCrossDividerTextEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(9px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes checkCrossDividerLineEnter {
+      0% {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes checkCrossDividerLabelEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(3px) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     /* Remove the original Check Cross symbols so this copy matches Duet exactly. */

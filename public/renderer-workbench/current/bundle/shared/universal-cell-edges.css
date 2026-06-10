@@ -16,7 +16,6 @@
  * TextCell modes use nested panels and copy wrappers that otherwise stack
  * additional right padding on top of the universal card edge.
  */
-#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell,
 #grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-body,
 #grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-definition,
 #grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-quote,

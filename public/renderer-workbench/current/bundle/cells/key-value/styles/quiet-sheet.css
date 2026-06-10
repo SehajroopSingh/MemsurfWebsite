@@ -22,6 +22,7 @@
     }
 
     .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-row {
+      grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
       border: 1px solid rgba(102, 118, 146, 0.15);
       border-radius: 15px;
       background: rgba(255, 255, 255, 0.38);

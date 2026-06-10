@@ -397,6 +397,10 @@ code {
       padding-left: 0 !important;
     }
 
+    .process-card.cell-style-pipeline .process-result {
+      padding-left: 16px !important;
+    }
+
     .process-card .process-note {
       border-left-width: 0 !important;
     }

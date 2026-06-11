@@ -30,6 +30,7 @@ It handles:
 - Light and dark theme toggle.
 - Catalog browsing.
 - Real lesson preview mode.
+- Production iOS parity preview mode.
 - Payload JSON editor.
 - CSS override editor.
 - Local style creation UI.

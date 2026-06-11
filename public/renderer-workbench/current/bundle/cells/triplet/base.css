@@ -128,11 +128,8 @@
     }
 
     .cell-card.triplet-card .triplet-item::before {
-      inset: 0 0 auto 0;
-      width: auto;
-      height: 3px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--item-accent), transparent);
+      content: none;
+      display: none;
     }
 
     .cell-card.triplet-card .triplet-index {

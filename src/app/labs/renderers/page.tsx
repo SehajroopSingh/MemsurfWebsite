@@ -27,7 +27,7 @@ type Device = "iphone" | "android";
 type Theme = "light" | "dark";
 type RendererSource = "local" | "backend";
 type BundleKind = "current" | "library" | "draft";
-type LabMode = "catalog" | "real-lessons";
+type LabMode = "catalog" | "real-lessons" | "production-ios";
 type StylePolicy = "randomized-stable-unlocked" | "first-only" | "preview";
 type TextVariant = "small" | "medium" | "large";
 
@@ -39,6 +39,10 @@ const TEXT_VARIANT_LABELS: Record<TextVariant, string> = {
   medium: "Medium",
   large: "Large",
 };
+
+function usesRealLessonSamples(labMode: LabMode) {
+  return labMode === "real-lessons" || labMode === "production-ios";
+}
 
 type RendererManifest = {
   source?: string;
@@ -1290,16 +1294,41 @@ function prettyJson(payload: RendererPayload) {
   return JSON.stringify(payload, null, 2);
 }
 
-function buildIframeDocument(bundle: RendererBundle, payload: RendererPayload, cssOverride: string) {
+type IframeDocumentOptions = {
+  productionParity?: boolean;
+};
+
+function buildIframeDocument(
+  bundle: RendererBundle,
+  payload: RendererPayload,
+  cssOverride: string,
+  options: IframeDocumentOptions = {},
+) {
+  const productionParity = options.productionParity === true;
   const katexStylesheet = bundle.katexCssHref
     ? `<link rel="stylesheet" href="${attrSafe(bundle.katexCssHref)}" />`
     : `<style>${styleSafe(bundle.katexCss)}</style>`;
   const rendererStylesheet = bundle.rendererCssHref
     ? `<link rel="stylesheet" href="${attrSafe(bundle.rendererCssHref)}" />`
     : `<style>${styleSafe(bundle.rendererCss)}</style>`;
-  const rendererExtraStylesheets = (bundle.rendererCssExtraHrefs || [])
-    .map((href) => `<link rel="stylesheet" href="${attrSafe(href)}" />`)
-    .join("\n  ");
+  const rendererExtraStylesheets = productionParity
+    ? ""
+    : (bundle.rendererCssExtraHrefs || [])
+        .map((href) => `<link rel="stylesheet" href="${attrSafe(href)}" />`)
+        .join("\n  ");
+  const effectiveCssOverride = productionParity ? "" : cssOverride;
+  const bodyBackground = productionParity ? "transparent" : payload.theme === "dark" ? "#08131d" : "#eef5fb";
+  const blobbyBackground = productionParity
+    ? ""
+    : `  <div class="blobby-bg">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+    <div class="bg-blob blob-4"></div>
+    <div class="bg-blob blob-5"></div>
+    <div class="bg-blob blob-6"></div>
+  </div>
+`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -1308,10 +1337,10 @@ function buildIframeDocument(bundle: RendererBundle, payload: RendererPayload, c
   ${katexStylesheet}
   ${rendererStylesheet}
   ${rendererExtraStylesheets}
-  <style>
+  ${productionParity ? "" : `<style>
     html, body { min-height: 100%; margin: 0; }
     body {
-      background: ${payload.theme === "dark" ? "#08131d" : "#eef5fb"};
+      background: ${bodyBackground};
       overflow-x: hidden;
     }
     #grid-layout-root {
@@ -1430,18 +1459,11 @@ function buildIframeDocument(bundle: RendererBundle, payload: RendererPayload, c
       50% { transform: translate(-20px, 30px) scale(0.9); }
       100% { transform: translate(0, 0) scale(1); }
     }
-    ${styleSafe(cssOverride)}
-  </style>
+    ${styleSafe(effectiveCssOverride)}
+  </style>`}
 </head>
 <body>
-  <div class="blobby-bg">
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-    <div class="bg-blob blob-3"></div>
-    <div class="bg-blob blob-4"></div>
-    <div class="bg-blob blob-5"></div>
-    <div class="bg-blob blob-6"></div>
-  </div>
+${blobbyBackground}
   <div id="grid-layout-root"></div>
   <script id="grid-layout-data" type="application/json">${jsonForScript(payload)}</script>
   <script id="renderer-style-availability-data" type="application/json">${jsonForScript(bundle.styleAvailability || {})}</script>
@@ -1472,6 +1494,9 @@ type RealLessonsPanelProps = {
   selectedScreenKey: string;
   onSelectSample: (sampleId: number) => void;
   onSelectScreen: (screenKey: string) => void;
+  title?: string;
+  subtitle?: string;
+  icon?: "book" | "phone";
 };
 
 function RealLessonsPanel({
@@ -1482,23 +1507,27 @@ function RealLessonsPanel({
   selectedScreenKey,
   onSelectSample,
   onSelectScreen,
+  title = "Real Lessons",
+  subtitle,
+  icon = "book",
 }: RealLessonsPanelProps) {
   const samples = sampleLessons?.samples || [];
   const selectedSample = samples.find((sample) => sample.quick_capture_id === selectedSampleId) || samples[0] || null;
   const selectedStats = selectedSample ? realLessonSampleStats(selectedSample) : null;
   const selectedOptions = selectedSample ? realLessonScreenOptions(selectedSample) : [];
   const modules = selectedSample?.lesson_plan?.modules || [];
+  const PanelIcon = icon === "phone" ? MonitorSmartphone : BookOpen;
 
   return (
     <>
       <div className="flex items-center justify-between border-b border-[#e1e8ee] px-4 py-3">
         <div>
-          <h2 className="text-sm font-semibold text-[#17212b]">Real Lessons</h2>
+          <h2 className="text-sm font-semibold text-[#17212b]">{title}</h2>
           <p className="text-xs text-[#6c7d89]">
-            {sampleLessons ? `${sampleLessons.sample_count} reserved samples` : "Loading example captures"}
+            {subtitle || (sampleLessons ? `${sampleLessons.sample_count} reserved samples` : "Loading example captures")}
           </p>
         </div>
-        <BookOpen className="h-4 w-4 text-[#6c7d89]" />
+        <PanelIcon className="h-4 w-4 text-[#6c7d89]" />
       </div>
       <div className="max-h-[calc(100vh-315px)] overflow-y-auto px-3 py-3">
         {isLoading ? <div className="px-1 py-3 text-sm text-[#6c7d89]">Loading sample lessons...</div> : null}
@@ -1631,6 +1660,8 @@ export default function RendererLabPage() {
     if (typeof window === "undefined") return "local";
     return new URLSearchParams(window.location.search).get("source") === "backend" ? "backend" : "local";
   });
+  const isProductionIosMode = labMode === "production-ios";
+  const effectiveSource: RendererSource = isProductionIosMode ? "backend" : source;
   const [manifest, setManifest] = useState<RendererManifest | null>(null);
   const [catalog, setCatalog] = useState<RendererCatalog | null>(null);
   const [bundle, setBundle] = useState<RendererBundle | null>(null);
@@ -1704,7 +1735,7 @@ export default function RendererLabPage() {
         setTheme(savedTheme);
       }
       const savedLabMode = localStorage.getItem("renderlab_labMode") as LabMode | null;
-      if (savedLabMode === "catalog" || savedLabMode === "real-lessons") {
+      if (savedLabMode === "catalog" || savedLabMode === "real-lessons" || savedLabMode === "production-ios") {
         setLabMode(savedLabMode);
       }
     }
@@ -1758,6 +1789,16 @@ export default function RendererLabPage() {
       localStorage.setItem("renderlab_selectedRealLessonScreenKey", selectedRealLessonScreenKey);
     }
   }, [selectedRealLessonScreenKey]);
+
+  useEffect(() => {
+    if (!isProductionIosMode) return;
+    if (source !== "backend") {
+      setSource("backend");
+    }
+    if (device !== "iphone") {
+      setDevice("iphone");
+    }
+  }, [device, isProductionIosMode, source]);
 
   const catalogEntries = useMemo(
     () =>
@@ -1940,7 +1981,7 @@ export default function RendererLabPage() {
         let nextBundle: RendererBundle;
         let nextCatalog: RendererCatalog;
 
-        if (source === "local") {
+        if (effectiveSource === "local") {
           const manifestResponse = await fetch(
             withCacheBust(assetUrl(`${WORKBENCH_BASE_PATH}/workbench-manifest.json`), reloadToken),
             { cache: "no-store" },
@@ -2066,10 +2107,10 @@ export default function RendererLabPage() {
     return () => {
       cancelled = true;
     };
-  }, [reloadToken, setPayloadDraft, source]);
+  }, [effectiveSource, reloadToken, setPayloadDraft]);
 
   useEffect(() => {
-    if (labMode !== "real-lessons") return;
+    if (!usesRealLessonSamples(labMode)) return;
     let cancelled = false;
 
     async function loadSampleLessons() {
@@ -2138,7 +2179,7 @@ export default function RendererLabPage() {
   }, [selectedRealLessonScreenKey, selectedRealLessonScreenOptions]);
 
   useEffect(() => {
-    if (labMode !== "real-lessons") return;
+    if (!usesRealLessonSamples(labMode)) return;
     setShowAll(false);
     if (!selectedRealLessonScreen) {
       setAppliedPayload(null);
@@ -2156,8 +2197,8 @@ export default function RendererLabPage() {
 
   const iframeDocument = useMemo(() => {
     if (!bundle || !activePayload) return "";
-    return buildIframeDocument(bundle, activePayload, cssOverride);
-  }, [activePayload, bundle, cssOverride]);
+    return buildIframeDocument(bundle, activePayload, cssOverride, { productionParity: isProductionIosMode });
+  }, [activePayload, bundle, cssOverride, isProductionIosMode]);
 
   const handleSelectEntry = (entry: CatalogEntry, variant: TextVariant = "medium") => {
     setLabMode("catalog");
@@ -2205,7 +2246,7 @@ export default function RendererLabPage() {
   };
 
   const handleResetJson = () => {
-    if (labMode === "real-lessons") {
+    if (usesRealLessonSamples(labMode)) {
       if (selectedRealLessonScreen) {
         setPayloadDraft(realLessonRendererPayload(selectedRealLessonScreen, theme, manifest, sampleLessons));
       }
@@ -2468,6 +2509,10 @@ export default function RendererLabPage() {
   const handleSelectLabMode = (nextLabMode: LabMode) => {
     setLabMode(nextLabMode);
     setJsonError("");
+    if (nextLabMode === "production-ios") {
+      setSource("backend");
+      setDevice("iphone");
+    }
     if (nextLabMode === "catalog") {
       if (showAll && catalogEntries.length) {
         setPayloadDraft(combinedPayload(catalogEntries, theme));
@@ -2488,21 +2533,29 @@ export default function RendererLabPage() {
 
   const frame = DEVICE_FRAMES[device];
   const FrameIcon = frame.icon;
-  const sourceLabel = source === "local" ? "Local workbench" : "Backend latest";
-  const canEditWorkbench = source === "local" && workbenchApiAvailable && !isWorkbenchMutating;
+  const sourceLabel = isProductionIosMode
+    ? "Production iOS / Backend latest"
+    : effectiveSource === "local"
+      ? "Local workbench"
+      : "Backend latest";
+  const canEditWorkbench = effectiveSource === "local" && !isProductionIosMode && workbenchApiAvailable && !isWorkbenchMutating;
   const previewTitle =
-    labMode === "real-lessons"
+    usesRealLessonSamples(labMode)
       ? selectedRealLessonScreen
         ? selectedRealLessonScreen.title
-        : "Real lesson preview"
+        : isProductionIosMode
+          ? "Production iOS preview"
+          : "Real lesson preview"
       : showAll
         ? "All catalog samples"
         : selectedEntry
           ? `${selectedEntry.cell_type}: ${selectedEntry.label} (${TEXT_VARIANT_LABELS[selectedTextVariant]})`
           : "Preview";
   const previewSubtitle =
-    labMode === "real-lessons"
-      ? selectedRealLessonScreen?.subtitle || "Reserved sample lesson screen"
+    labMode === "production-ios"
+      ? "Backend latest, randomized-stable-unlocked, root CSS only, no overrides"
+      : labMode === "real-lessons"
+        ? selectedRealLessonScreen?.subtitle || "Reserved sample lesson screen"
       : showAll
         ? `stylePolicy: ${activePayload?.stylePolicy || REAL_LESSON_STYLE_POLICY}; text: Medium`
         : `stylePolicy: ${activePayload?.stylePolicy || REAL_LESSON_STYLE_POLICY}; text: ${TEXT_VARIANT_LABELS[selectedTextVariant]}`;
@@ -2523,8 +2576,9 @@ export default function RendererLabPage() {
               <button
                 type="button"
                 onClick={() => setSource("local")}
+                disabled={isProductionIosMode}
                 className={`h-9 rounded px-3 text-sm font-medium ${
-                  source === "local" ? "bg-[#17212b] text-white shadow-sm" : "text-[#5c6e7b]"
+                  effectiveSource === "local" ? "bg-[#17212b] text-white shadow-sm" : "text-[#5c6e7b]"
                 }`}
               >
                 Local workbench
@@ -2532,8 +2586,9 @@ export default function RendererLabPage() {
               <button
                 type="button"
                 onClick={() => setSource("backend")}
+                disabled={isProductionIosMode}
                 className={`h-9 rounded px-3 text-sm font-medium ${
-                  source === "backend" ? "bg-[#17212b] text-white shadow-sm" : "text-[#5c6e7b]"
+                  effectiveSource === "backend" ? "bg-[#17212b] text-white shadow-sm" : "text-[#5c6e7b]"
                 }`}
               >
                 Backend latest
@@ -2585,6 +2640,16 @@ export default function RendererLabPage() {
           >
             <BookOpen className="h-4 w-4" />
             Real Lessons
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSelectLabMode("production-ios")}
+            className={`inline-flex h-9 items-center gap-2 rounded px-3 text-sm font-medium ${
+              labMode === "production-ios" ? "bg-white text-[#17212b] shadow-sm" : "text-[#5c6e7b]"
+            }`}
+          >
+            <MonitorSmartphone className="h-4 w-4" />
+            Production iOS
           </button>
         </div>
 
@@ -2658,7 +2723,7 @@ export default function RendererLabPage() {
                   Save
                 </button>
               </div>
-              {source === "local" && labMode === "catalog" ? (
+              {effectiveSource === "local" && labMode === "catalog" ? (
                 <div className="mt-3 border-t border-[#e1e8ee] pt-3">
                   <div className="grid grid-cols-2 gap-2">
                     <button
@@ -3176,6 +3241,15 @@ export default function RendererLabPage() {
                 selectedScreenKey={selectedRealLessonScreen?.key || selectedRealLessonScreenKey}
                 onSelectSample={setSelectedSampleId}
                 onSelectScreen={setSelectedRealLessonScreenKey}
+                title={isProductionIosMode ? "Production iOS" : "Real Lessons"}
+                subtitle={
+                  isProductionIosMode
+                    ? "Backend latest production-style samples"
+                    : sampleLessons
+                      ? `${sampleLessons.sample_count} reserved samples`
+                      : "Loading example captures"
+                }
+                icon={isProductionIosMode ? "phone" : "book"}
               />
             )}
           </aside>
@@ -3252,7 +3326,11 @@ export default function RendererLabPage() {
                 <div>
                   <h2 className="text-sm font-semibold text-[#17212b]">Payload JSON</h2>
                   <p className="text-xs text-[#6c7d89]">
-                    {labMode === "real-lessons" ? "Real lesson randomized-stable-unlocked payload" : "Local preview only"}
+                    {labMode === "production-ios"
+                      ? "Production iOS randomized-stable-unlocked payload"
+                      : labMode === "real-lessons"
+                        ? "Real lesson randomized-stable-unlocked payload"
+                        : "Local preview only"}
                   </p>
                 </div>
                 <div className="flex gap-2">
@@ -3289,14 +3367,21 @@ export default function RendererLabPage() {
             <section className="min-h-0 overflow-hidden rounded-lg border border-[#d4dde5] bg-white">
               <div className="border-b border-[#e1e8ee] px-4 py-3">
                 <h2 className="text-sm font-semibold text-[#17212b]">CSS override</h2>
-                <p className="text-xs text-[#6c7d89]">Injected after renderer.css</p>
+                <p className="text-xs text-[#6c7d89]">
+                  {isProductionIosMode ? "Disabled in Production iOS mode" : "Injected after renderer.css"}
+                </p>
               </div>
               <textarea
                 value={cssOverride}
                 onChange={(event) => setCssOverride(event.target.value)}
-                placeholder={".cell-card { outline: 2px solid rgba(79, 158, 149, .35); }"}
+                placeholder={
+                  isProductionIosMode
+                    ? "Ignored in Production iOS mode."
+                    : ".cell-card { outline: 2px solid rgba(79, 158, 149, .35); }"
+                }
                 spellCheck={false}
-                className="h-[calc(100%-58px)] min-h-[260px] w-full resize-none bg-[#fbfcfd] px-4 py-3 font-mono text-xs leading-5 text-[#15202b] outline-none"
+                disabled={isProductionIosMode}
+                className="h-[calc(100%-58px)] min-h-[260px] w-full resize-none bg-[#fbfcfd] px-4 py-3 font-mono text-xs leading-5 text-[#15202b] outline-none disabled:text-[#8a9aa6]"
               />
             </section>
           </aside>

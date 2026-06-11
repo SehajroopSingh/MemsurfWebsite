@@ -1558,7 +1558,7 @@
     "schema_version": "renderer_style_availability_v1",
     "style_count": 139,
     "style_policy": "backend-owned",
-    "version": "2026.06.06.1"
+    "version": "2026.06.11.4"
   },
   "style_availability_path": "renderer_style_availability.json",
   "supported_cell_types": [
@@ -1580,5 +1580,5 @@
     "CodeTraceCell",
     "MapRegionCell"
   ],
-  "version": "2026.06.06.1"
+  "version": "2026.06.11.4"
 }

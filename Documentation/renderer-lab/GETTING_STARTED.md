@@ -110,8 +110,10 @@ Run these before committing renderer-lab changes:
 cd /Users/sehaj/Documents/Github/MemsurfWebsite
 node --check scripts/renderer-lab-server.mjs
 node --check scripts/renderer-bundle-css.mjs
+node --check scripts/renderer-parity-check.mjs
 node --check public/renderer-workbench/current/bundle/renderer.js
 npm run renderer-bundle-css:check
+npm run renderer-parity:check
 npm run build
 git diff --check
 ```
@@ -127,3 +129,5 @@ The website workbench is not the production renderer source of truth. Production
 3. Add backend prompt/catalog/schema support if new cell types were introduced.
 4. Run backend renderer tests and Django checks.
 5. Update iOS and Android only when the production app needs support outside the dynamic web renderer path.
+
+Use Render Lab `Production iOS` mode before promotion when checking production parity. It forces backend latest, `randomized-stable-unlocked` sample payloads, flattened root CSS only, and no lab CSS overrides.

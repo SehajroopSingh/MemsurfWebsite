@@ -1,7 +1,7 @@
 {
   "source": "local-workbench",
   "renderer_id": "dynamic_gridcell",
-  "version": "2026.06.06.1",
+  "version": "2026.06.11.4",
   "schema_version": "three_step_gridcell_v1",
   "entrypoint": "index.html",
   "bundle_base_path": "/renderer-workbench/current/bundle/",
@@ -1745,7 +1745,7 @@
       "schema_version": "renderer_style_availability_v1",
       "style_count": 139,
       "style_policy": "backend-owned",
-      "version": "2026.06.06.1"
+      "version": "2026.06.11.4"
     },
     "style_availability_path": "renderer_style_availability.json",
     "supported_cell_types": [
@@ -1767,6 +1767,6 @@
       "CodeTraceCell",
       "MapRegionCell"
     ],
-    "version": "2026.06.06.1"
+    "version": "2026.06.11.4"
   }
 }

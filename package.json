@@ -9,6 +9,7 @@
     "renderer-lab:server": "node scripts/renderer-lab-server.mjs",
     "renderer-bundle-css:write": "node scripts/renderer-bundle-css.mjs --write public/renderer-workbench/current/bundle",
     "renderer-bundle-css:check": "node scripts/renderer-bundle-css.mjs --check public/renderer-workbench/current/bundle",
+    "renderer-parity:check": "node scripts/renderer-parity-check.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

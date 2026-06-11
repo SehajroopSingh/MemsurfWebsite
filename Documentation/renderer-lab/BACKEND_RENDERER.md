@@ -153,6 +153,7 @@ Before promoting or committing renderer CSS changes, run:
 ```bash
 npm run renderer-bundle-css:write
 npm run renderer-bundle-css:check
+npm run renderer-parity:check
 ```
 
 ## Promoting Website Workbench To Backend
@@ -182,7 +183,8 @@ When a website workbench renderer is approved:
    returns no matches.
 
 5. Confirm the new bundle has `renderer_style_availability.json`.
-6. Update or import the version using the backend versioning path.
+6. Run `node scripts/renderer-parity-check.mjs /path/to/backend/bundle/version` from the website repo.
+7. Update or import the version using the backend versioning path.
 
 The backend import command is:
 

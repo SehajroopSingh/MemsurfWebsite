@@ -350,12 +350,8 @@ code {
     }
 
     .triplet-item::before {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 4px;
-      border-radius: 999px;
-      background: var(--relationship-a);
+      content: none;
+      display: none;
     }
 
     .triplet-item::after {
@@ -1060,12 +1056,8 @@ code {
 }
 
 .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 4px;
-  border-radius: 999px;
-  background: var(--relationship-a);
+  content: none;
+  display: none;
 }
 
 .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item::after {

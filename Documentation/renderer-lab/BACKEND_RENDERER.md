@@ -138,15 +138,22 @@ Special cases:
 
 Website local workbench:
 
-- `public/renderer-workbench/current/bundle/renderer.css` may use `@import`.
+- `public/renderer-workbench/current/bundle/renderer.css` is generated from split CSS modules.
 - The lab page can load additional split CSS via `workbench-manifest.json` `extra_stylesheet_paths`.
 - The local server can update split CSS and manifest metadata.
 
 Backend production bundle:
 
 - Root `renderer.css` must be flattened and standalone.
-- The import command copies the source bundle; it does not flatten CSS for you.
+- The import command normalizes root `renderer.css` from split CSS before activating the bundle.
 - The ZIP may still include split CSS files, but production clients should not depend on browser-resolving those split files.
+
+Before promoting or committing renderer CSS changes, run:
+
+```bash
+npm run renderer-bundle-css:write
+npm run renderer-bundle-css:check
+```
 
 ## Promoting Website Workbench To Backend
 

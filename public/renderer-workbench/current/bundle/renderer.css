@@ -1,3 +1,4 @@
+/* This file is generated from shared/ and cells/ CSS modules. Do not edit directly. */
 
 /* begin import: shared/tokens.css */
 :root {
@@ -58,9 +59,7 @@
   --warning: #ffbf6c;
   --success: #6ad6a0;
 }
-
 /* end import: shared/tokens.css */
-
 
 /* begin import: shared/document.css */
 * {
@@ -85,9 +84,7 @@ body {
   margin: 0 auto;
   padding: 15vh var(--gridcell-root-edge) 0;
 }
-
 /* end import: shared/document.css */
-
 
 /* begin import: shared/layout.css */
 .lesson-stack {
@@ -155,9 +152,7 @@ body {
 .grid-shell.stacked {
   grid-template-columns: 1fr;
 }
-
 /* end import: shared/layout.css */
-
 
 /* begin import: shared/card-shell.css */
 .cell-card {
@@ -195,9 +190,7 @@ body {
 .grid-shell.stacked .cell-card {
   --cell-content-edge: var(--gridcell-content-edge-narrow);
 }
-
 /* end import: shared/card-shell.css */
-
 
 /* begin import: shared/sequence.css */
 .cell-card.sequence-pending {
@@ -234,6 +227,8 @@ body {
   animation-duration: var(--grid-sequence-animation-duration, 960ms) !important;
 }
 
+
+
 @keyframes gridCellGenericEnter {
   0% {
     opacity: 0;
@@ -246,9 +241,7 @@ body {
     filter: blur(0) saturate(1);
   }
 }
-
 /* end import: shared/sequence.css */
-
 
 /* begin import: shared/responsive.css */
 @media (max-width: 620px) {
@@ -271,13 +264,9 @@ body {
     transform: none;
   }
 }
-
 /* end import: shared/responsive.css */
 
-
-
 /* begin import: cells/heading/index.css */
-
 /* begin import: cells/heading/base.css */
 /* heading local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -314,10 +303,7 @@ body {
       padding-left: var(--cell-content-edge) !important;
       padding-right: var(--cell-content-edge) !important;
     }
-
 /* end import: cells/heading/base.css */
-
-
 /* begin import: cells/heading/styles/masthead.css */
 /* heading local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -334,10 +320,7 @@ body {
       border-top: 4px solid rgba(47, 143, 131, 0.34);
       padding-top: 10px;
     }
-
 /* end import: cells/heading/styles/masthead.css */
-
-
 /* begin import: cells/heading/styles/tab.css */
 /* heading local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -369,10 +352,7 @@ body {
       margin-left: 0 !important;
       padding-left: 0 !important;
     }
-
 /* end import: cells/heading/styles/tab.css */
-
-
 /* begin import: cells/heading/styles/runway.css */
 /* heading local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -400,10 +380,7 @@ body {
       border-radius: 999px;
       background: repeating-linear-gradient(90deg, rgba(123, 105, 239, 0.42) 0 12px, transparent 12px 18px);
     }
-
 /* end import: cells/heading/styles/runway.css */
-
-
 /* begin import: cells/heading/animations.css */
 /* heading local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -416,10 +393,7 @@ body {
         transform: none;
       }
 }
-
 /* end import: cells/heading/animations.css */
-
-
 /* begin import: cells/heading/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -767,15 +741,10 @@ code {
         font-size: 25px;
       }
 }
-
 /* end import: cells/heading/shared.css */
-
-
 /* end import: cells/heading/index.css */
 
-
 /* begin import: cells/image/index.css */
-
 /* begin import: cells/image/base.css */
 /* image local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -798,10 +767,7 @@ code {
       padding-left: var(--cell-content-edge) !important;
       padding-right: var(--cell-content-edge) !important;
     }
-
 /* end import: cells/image/base.css */
-
-
 /* begin import: cells/image/styles/gallery.css */
 /* image local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -823,10 +789,7 @@ code {
       border: 1px solid rgba(255,255,255,0.38);
       pointer-events: none;
     }
-
 /* end import: cells/image/styles/gallery.css */
-
-
 /* begin import: cells/image/styles/polaroid.css */
 /* image local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -845,10 +808,7 @@ code {
       transform: rotate(-1.1deg);
       box-shadow: 0 16px 30px rgba(82, 101, 135, 0.13);
     }
-
 /* end import: cells/image/styles/polaroid.css */
-
-
 /* begin import: cells/image/styles/viewport.css */
 /* image local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -868,10 +828,7 @@ code {
         linear-gradient(90deg, rgba(74, 120, 210, 0.20) 0 2px, transparent 2px calc(100% - 2px), rgba(74, 120, 210, 0.20) calc(100% - 2px)),
         linear-gradient(0deg, rgba(74, 120, 210, 0.20) 0 2px, transparent 2px calc(100% - 2px), rgba(74, 120, 210, 0.20) calc(100% - 2px));
     }
-
 /* end import: cells/image/styles/viewport.css */
-
-
 /* begin import: cells/image/animations.css */
 /* image local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -882,10 +839,7 @@ code {
         transform: none;
       }
 }
-
 /* end import: cells/image/animations.css */
-
-
 /* begin import: cells/image/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -1261,15 +1215,10 @@ code {
       margin-left: 0 !important;
       padding-left: 0 !important;
     }
-
 /* end import: cells/image/shared.css */
-
-
 /* end import: cells/image/index.css */
 
-
 /* begin import: cells/key-points/index.css */
-
 /* begin import: cells/key-points/base.css */
 /* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
 
@@ -1348,10 +1297,7 @@ code {
         0 0 0 7px rgba(126, 161, 255, 0.15),
         0 14px 28px rgba(2, 8, 20, 0.40);
     }
-
 /* end import: cells/key-points/base.css */
-
-
 /* begin import: cells/key-points/styles/orb.css */
 /* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
 
@@ -1378,8 +1324,6 @@ code {
         0 2px 6px rgba(0, 0, 0, 0.24);
     }
 /* end import: cells/key-points/styles/orb.css */
-
-
 /* begin import: cells/key-points/styles/halo.css */
 /* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
 
@@ -1433,10 +1377,7 @@ code {
         0 16px 30px rgba(2, 8, 20, 0.42),
         inset 0 1px 0 rgba(255, 255, 255, 0.10);
     }
-
 /* end import: cells/key-points/styles/halo.css */
-
-
 /* begin import: cells/key-points/styles/rail.css */
 /* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
 
@@ -1497,10 +1438,7 @@ code {
       padding-left: 12px !important;
       border-left-width: 4px !important;
     }
-
 /* end import: cells/key-points/styles/rail.css */
-
-
 /* begin import: cells/key-points/styles/marker.css */
 /* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
 
@@ -1563,10 +1501,7 @@ code {
     .keypoint-card.cell-style-marker .grid-keypoint-text {
       padding-left: 0 !important;
     }
-
 /* end import: cells/key-points/styles/marker.css */
-
-
 /* begin import: cells/key-points/animations.css */
 /* KeyPointsCell styles extracted from renderer.css. Keep shared/global gridcell rules in renderer.css. */
 
@@ -1632,10 +1567,7 @@ code {
         animation: none;
       }
     }
-
 /* end import: cells/key-points/animations.css */
-
-
 /* begin import: cells/key-points/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -2035,15 +1967,10 @@ code {
       padding-left: var(--cell-content-edge) !important;
       padding-right: var(--cell-content-edge) !important;
     }
-
 /* end import: cells/key-points/shared.css */
-
-
 /* end import: cells/key-points/index.css */
 
-
 /* begin import: cells/compare/index.css */
-
 /* begin import: cells/compare/base.css */
 /* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -2469,8 +2396,6 @@ code {
       background: transparent;
     }
 /* end import: cells/compare/base.css */
-
-
 /* begin import: cells/compare/styles/splitbeam.css */
 /* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -2486,27 +2411,87 @@ code {
       border-radius: 8px;
     }
 
-    .cell-card.compare-card.cell-style-splitbeam .compare-axis {
-      background: color-mix(in srgb, var(--accent-0) 10%, transparent);
+    .cell-card.compare-card.cell-style-splitbeam .compare-header {
+      grid-template-columns: minmax(88px, 0.56fr) minmax(0, 1fr) minmax(0, 1fr);
+      background: rgba(250, 252, 255, 0.88);
     }
 
     .cell-card.compare-card.cell-style-splitbeam .compare-row {
+      grid-template-columns: minmax(88px, 0.56fr) minmax(0, 1fr) minmax(0, 1fr);
       background:
         linear-gradient(90deg, color-mix(in srgb, var(--accent-0) 8%, transparent), transparent 46%, color-mix(in srgb, var(--accent-1) 8%, transparent));
     }
-        .cell-card.compare-card.cell-style-splitbeam .compare-header {
-      background: rgba(250, 252, 255, 0.88);
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-aspect-index {
+      display: none;
     }
-        .cell-card.compare-card.cell-style-splitbeam .compare-vs-badge span {
-      width: 34px;
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-aspect {
+      justify-content: center;
+      gap: 0;
     }
-        :root[data-theme="dark"] .cell-card.compare-card.cell-style-splitbeam .compare-header {
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-title,
+    .cell-card.compare-card.cell-style-splitbeam .compare-takeaway {
+      text-align: center;
+      padding-left: 10px !important;
+      padding-right: 10px;
+    }
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-takeaway {
+      padding: 14px 16px 16px;
+    }
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-vs-badge,
+    .cell-card.compare-card.cell-style-splitbeam .compare-axis {
+      display: none;
+    }
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-label-right,
+    .cell-card.compare-card.cell-style-splitbeam .compare-value-right {
+      border-left: 1px solid var(--compare-table-line);
+    }
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-label-text,
+    .cell-card.compare-card.cell-style-splitbeam .compare-value-inner {
+      text-wrap: balance;
+      text-align: center;
+    }
+
+    .cell-card.compare-card.cell-style-splitbeam .compare-label,
+    .cell-card.compare-card.cell-style-splitbeam .compare-value {
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card.cell-style-splitbeam .compare-header {
       background: rgba(23, 31, 45, 0.88);
     }
 
+    :root[data-theme="dark"] .cell-card.compare-card.cell-style-splitbeam .compare-label-right,
+    :root[data-theme="dark"] .cell-card.compare-card.cell-style-splitbeam .compare-value-right {
+      border-left-color: var(--compare-table-line);
+    }
+
+    @media (max-width: 620px) {
+
+      .cell-card.compare-card.cell-style-splitbeam .compare-header {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .cell-card.compare-card.cell-style-splitbeam .compare-row {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .cell-card.compare-card.cell-style-splitbeam .compare-value-left {
+        grid-column: 1;
+      }
+
+      .cell-card.compare-card.cell-style-splitbeam .compare-value-right {
+        grid-column: 2;
+      }
+    }
 /* end import: cells/compare/styles/splitbeam.css */
-
-
 /* begin import: cells/compare/styles/scorecard.css */
 /* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -2546,10 +2531,7 @@ code {
       text-transform: uppercase;
       letter-spacing: 0;
     }
-
 /* end import: cells/compare/styles/scorecard.css */
-
-
 /* begin import: cells/compare/styles/hinge.css */
 /* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -2590,10 +2572,7 @@ code {
     .cell-card.compare-card.cell-style-hinge .compare-axis {
       background: color-mix(in srgb, var(--accent-2) 14%, transparent);
     }
-
 /* end import: cells/compare/styles/hinge.css */
-
-
 /* begin import: cells/compare/responsive.css */
 /* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -2707,10 +2686,7 @@ code {
         font-size: 12.5px;
       }
 }
-
 /* end import: cells/compare/responsive.css */
-
-
 /* begin import: cells/compare/animations.css */
 /* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -2927,10 +2903,7 @@ code {
         transform: translateY(0);
       }
     }
-
 /* end import: cells/compare/animations.css */
-
-
 /* begin import: cells/compare/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -3319,13 +3292,9 @@ code {
       padding-right: 18px !important;
     }
 /* end import: cells/compare/shared.css */
-
-
 /* end import: cells/compare/index.css */
 
-
 /* begin import: cells/text/index.css */
-
 /* begin import: cells/text/card.css */
 /* TextCell card-level copy. Source rules intentionally remain in renderer.css. */
 
@@ -3385,10 +3354,7 @@ code {
       filter: none;
       pointer-events: auto;
     }
-
 /* end import: cells/text/card.css */
-
-
 /* begin import: cells/text/base.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -3676,10 +3642,7 @@ code {
     .cell-card.text-style-plate .text-cell-caption {
       padding-left: 10px !important;
     }
-
 /* end import: cells/text/base.css */
-
-
 /* begin import: cells/text/modes/orientation.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -3728,12 +3691,12 @@ code {
       backdrop-filter: var(--glass);
       -webkit-backdrop-filter: var(--glass);
       border-radius: 28px;
-      padding: 22px 22px 18px;
+      padding: 8px 20px 14px !important;
     }
 
     .cell-card.text-style-glass-card.text-mode-orientation .text-cell-orientation {
       box-sizing: border-box !important;
-      padding: 24px 30px 30px !important;
+      padding: 12px 20px 20px !important;
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       background: linear-gradient(160deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08));
@@ -3765,9 +3728,9 @@ code {
     }
 
     .cell-card.text-style-glass-card.text-mode-orientation .orientation-copy {
-      font-size: 21px;
-      line-height: 1.24;
-      font-weight: 760;
+      font-size: 17px;
+      line-height: 1.32;
+      font-weight: 500;
       letter-spacing: 0;
       text-align: center;
     }
@@ -4284,8 +4247,6 @@ code {
       }
     }
 /* end import: cells/text/modes/orientation.css */
-
-
 /* begin import: cells/text/modes/body.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -4531,10 +4492,7 @@ code {
       margin-left: 0 !important;
       padding-left: 13px !important;
     }
-
 /* end import: cells/text/modes/body.css */
-
-
 /* begin import: cells/text/modes/definition.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -4588,12 +4546,14 @@ code {
       line-height: 1.22;
       font-weight: 820;
       text-wrap: balance;
+      padding-right: 8px;
     }
 
     .cell-card.text-mode-definition .definition-copy {
       font-size: 16px;
       line-height: 1.58;
       font-weight: 560;
+      padding-right: 8px;
     }
 
     .cell-card.text-style-lexicon .definition-term {
@@ -4683,10 +4643,7 @@ code {
       padding-left: 22px !important;
       border-left-width: 7px !important;
     }
-
 /* end import: cells/text/modes/definition.css */
-
-
 /* begin import: cells/text/modes/quote.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -4849,10 +4806,7 @@ code {
       margin-left: 0 !important;
       padding-left: 0 !important;
     }
-
 /* end import: cells/text/modes/quote.css */
-
-
 /* begin import: cells/text/modes/rule.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -5183,10 +5137,7 @@ code {
     .cell-card.text-style-stamp .rule-copy-wrap {
       padding-left: 12px !important;
     }
-
 /* end import: cells/text/modes/rule.css */
-
-
 /* begin import: cells/text/modes/example.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -5516,10 +5467,7 @@ code {
     .cell-card.text-mode-example.text-style-side-note .example-stage {
       padding-left: 37px !important;
     }
-
 /* end import: cells/text/modes/example.css */
-
-
 /* begin import: cells/text/modes/warning.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -5866,10 +5814,7 @@ code {
         transform: scaleY(1);
       }
     }
-
 /* end import: cells/text/modes/warning.css */
-
-
 /* begin import: cells/text/modes/caption.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -5958,10 +5903,7 @@ code {
       margin-top: 2px;
       opacity: 0.22;
     }
-
 /* end import: cells/text/modes/caption.css */
-
-
 /* begin import: cells/text/animations.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
 
@@ -6025,10 +5967,7 @@ code {
         background-position: 0 0, 0 0;
       }
     }
-
 /* end import: cells/text/animations.css */
-
-
 /* begin import: cells/text/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -6418,13 +6357,9 @@ code {
       border-left-width: 0 !important;
     }
 /* end import: cells/text/shared.css */
-
-
 /* end import: cells/text/index.css */
 
-
 /* begin import: cells/recall-prompt/index.css */
-
 /* begin import: cells/recall-prompt/base.css */
 /* RecallPromptCell base styles copied from renderer.css. The source rules intentionally remain in renderer.css. */
 
@@ -6644,10 +6579,7 @@ code {
     .cell-card.recall-card .recall-answer-panel {
       padding-left: 18px !important;
     }
-
 /* end import: cells/recall-prompt/base.css */
-
-
 /* begin import: cells/recall-prompt/styles/peel.css */
 /* RecallPromptCell Peel style copied from renderer.css. The source rules intentionally remain in renderer.css. */
 
@@ -6664,10 +6596,7 @@ code {
         .recall-card.cell-style-peel .recall-peel.is-revealed .recall-cover {
       transform: translateX(calc(100% - 44px));
     }
-
 /* end import: cells/recall-prompt/styles/peel.css */
-
-
 /* begin import: cells/recall-prompt/styles/flashcard.css */
 /* RecallPromptCell Flashcard style copied from renderer.css. The source rules intentionally remain in renderer.css. */
 
@@ -6723,10 +6652,7 @@ code {
         linear-gradient(180deg, rgba(20, 31, 52, 0.86), rgba(18, 48, 43, 0.64)),
         var(--card-bg);
     }
-
 /* end import: cells/recall-prompt/styles/flashcard.css */
-
-
 /* begin import: cells/recall-prompt/styles/focus-lens.css */
 /* RecallPromptCell Focus Lens style copied from renderer.css. The source rules intentionally remain in renderer.css. */
 
@@ -6876,8 +6802,6 @@ code {
       border-bottom-color: rgba(221, 229, 242, 0.12);
     }
 /* end import: cells/recall-prompt/styles/focus-lens.css */
-
-
 /* begin import: cells/recall-prompt/animations.css */
 /* RecallPromptCell motion/reduced-motion styles copied from renderer.css. The source rules intentionally remain in renderer.css. */
 
@@ -6915,10 +6839,7 @@ code {
         transform: translateX(calc(100% - 44px));
       }
 }
-
 /* end import: cells/recall-prompt/animations.css */
-
-
 /* begin import: cells/recall-prompt/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -7296,15 +7217,10 @@ code {
       margin-left: 0 !important;
       padding-left: 0 !important;
     }
-
 /* end import: cells/recall-prompt/shared.css */
-
-
 /* end import: cells/recall-prompt/index.css */
 
-
 /* begin import: cells/timeline-step/index.css */
-
 /* begin import: cells/timeline-step/base.css */
 /* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -7574,8 +7490,6 @@ code {
       left: -3px !important;
     }
 /* end import: cells/timeline-step/base.css */
-
-
 /* begin import: cells/timeline-step/styles/rail.css */
 /* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -7607,8 +7521,6 @@ code {
       border-left-width: 3px !important;
     }
 /* end import: cells/timeline-step/styles/rail.css */
-
-
 /* begin import: cells/timeline-step/styles/milestone.css */
 /* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -7617,10 +7529,7 @@ code {
       transform: rotate(45deg);
       box-shadow: 0 0 0 8px rgba(123, 105, 239, 0.10);
     }
-
 /* end import: cells/timeline-step/styles/milestone.css */
-
-
 /* begin import: cells/timeline-step/styles/ticker.css */
 /* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -7639,10 +7548,7 @@ code {
       padding-left: 12px !important;
       border-left-width: 1px !important;
     }
-
 /* end import: cells/timeline-step/styles/ticker.css */
-
-
 /* begin import: cells/timeline-step/animations.css */
 /* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -7812,10 +7718,7 @@ code {
         opacity: 1;
       }
     }
-
 /* end import: cells/timeline-step/animations.css */
-
-
 /* begin import: cells/timeline-step/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -8264,15 +8167,10 @@ code {
     .timeline-card.cell-style-ticker .timeline-content {
       border-left-width: 0 !important;
     }
-
 /* end import: cells/timeline-step/shared.css */
-
-
 /* end import: cells/timeline-step/index.css */
 
-
 /* begin import: cells/key-value/index.css */
-
 /* begin import: cells/key-value/base.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -8468,8 +8366,6 @@ code {
       display: none;
     }
 /* end import: cells/key-value/base.css */
-
-
 /* begin import: cells/key-value/styles/ledger.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -8584,8 +8480,6 @@ code {
       border-left-width: 0 !important;
     }
 /* end import: cells/key-value/styles/ledger.css */
-
-
 /* begin import: cells/key-value/styles/index-card.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -8649,8 +8543,6 @@ code {
         rgba(255, 255, 255, 0.04);
     }
 /* end import: cells/key-value/styles/index-card.css */
-
-
 /* begin import: cells/key-value/styles/quiet-sheet.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -8703,8 +8595,6 @@ code {
       border-color: rgba(126, 161, 255, 0.14);
     }
 /* end import: cells/key-value/styles/quiet-sheet.css */
-
-
 /* begin import: cells/key-value/styles/priority-strip.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -8756,8 +8646,6 @@ code {
         rgba(255, 255, 255, 0.04);
     }
 /* end import: cells/key-value/styles/priority-strip.css */
-
-
 /* begin import: cells/key-value/styles/anchor-list.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -8843,8 +8731,6 @@ code {
       margin-left: 0 !important;
     }
 /* end import: cells/key-value/styles/anchor-list.css */
-
-
 /* begin import: cells/key-value/styles/highlight-sheet.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -8900,8 +8786,6 @@ code {
         rgba(255, 191, 108, 0.045);
     }
 /* end import: cells/key-value/styles/highlight-sheet.css */
-
-
 /* begin import: cells/key-value/styles/lexicon.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -8993,8 +8877,6 @@ code {
       border-left-width: 0 !important;
     }
 /* end import: cells/key-value/styles/lexicon.css */
-
-
 /* begin import: cells/key-value/styles/spec-sheet.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9057,8 +8939,6 @@ code {
       padding-left: 0 !important;
     }
 /* end import: cells/key-value/styles/spec-sheet.css */
-
-
 /* begin import: cells/key-value/styles/term-table.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9124,8 +9004,6 @@ code {
       padding-left: 0 !important;
     }
 /* end import: cells/key-value/styles/term-table.css */
-
-
 /* begin import: cells/key-value/styles/case-notes.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9238,8 +9116,6 @@ code {
       border-left-width: 0 !important;
     }
 /* end import: cells/key-value/styles/case-notes.css */
-
-
 /* begin import: cells/key-value/styles/sample-sheet.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9294,8 +9170,6 @@ code {
       border-color: rgba(126, 161, 255, 0.14);
     }
 /* end import: cells/key-value/styles/sample-sheet.css */
-
-
 /* begin import: cells/key-value/styles/worked-list.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9389,8 +9263,6 @@ code {
       padding-left: 38px !important;
     }
 /* end import: cells/key-value/styles/worked-list.css */
-
-
 /* begin import: cells/key-value/styles/chips.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9433,8 +9305,6 @@ code {
       padding-left: 10px !important;
     }
 /* end import: cells/key-value/styles/chips.css */
-
-
 /* begin import: cells/key-value/styles/specsheet.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9475,8 +9345,6 @@ code {
       padding-left: 10px !important;
     }
 /* end import: cells/key-value/styles/specsheet.css */
-
-
 /* begin import: cells/key-value/responsive.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9532,8 +9400,6 @@ code {
       }
 }
 /* end import: cells/key-value/responsive.css */
-
-
 /* begin import: cells/key-value/animations.css */
 /* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -9838,10 +9704,7 @@ code {
         transform: translateY(-50%) scale(1);
       }
     }
-
 /* end import: cells/key-value/animations.css */
-
-
 /* begin import: cells/key-value/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -10320,13 +10183,9 @@ code {
       background: rgba(255, 255, 255, 0.04) !important;
     }
 /* end import: cells/key-value/shared.css */
-
-
 /* end import: cells/key-value/index.css */
 
-
 /* begin import: cells/pair/index.css */
-
 /* begin import: cells/pair/base.css */
 /* PairCell local workbench styles. */
 
@@ -10637,10 +10496,7 @@ code {
     .relationship-cell.pair-cell.layout-classification .pair-panel-right .relationship-role::before {
       content: "\2715  " !important;
     }
-
 /* end import: cells/pair/base.css */
-
-
 /* begin import: cells/pair/styles/variants.css */
 /* PairCell local workbench copy. Source rules remain in renderer.css for safety. */
 
@@ -14993,8 +14849,6 @@ code {
       display: none !important;
     }
 /* end import: cells/pair/styles/variants.css */
-
-
 /* begin import: cells/pair/animations.css */
 /* PairCell local workbench copy. Source rules remain in renderer.css for safety. */
 
@@ -15517,10 +15371,7 @@ code {
         transform: translateY(0) scale(1);
       }
     }
-
 /* end import: cells/pair/animations.css */
-
-
 /* begin import: cells/pair/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -16466,7 +16317,7 @@ code {
     }
 
     .cell-card.pair-card.pair-style-brief-proof {
-      padding: 18px 14px !important;
+      padding: 24px 16px !important;
       border: 1px solid color-mix(in srgb, var(--relationship-b) 18%, rgba(51, 69, 104, 0.12)) !important;
       border-width: 1px !important;
       border-style: solid !important;
@@ -17026,15 +16877,10 @@ code {
 	        min-height: 26px !important;
 	      }
 }
-
 /* end import: cells/pair/shared.css */
-
-
 /* end import: cells/pair/index.css */
 
-
 /* begin import: cells/triplet/index.css */
-
 /* begin import: cells/triplet/base.css */
 /* TripletCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -17515,10 +17361,7 @@ code {
 	      --triplet-style-soft-c: color-mix(in srgb, var(--relationship-c) 18%, transparent);
       --triplet-style-line: color-mix(in srgb, var(--relationship-line) 72%, transparent);
     }
-
 /* end import: cells/triplet/base.css */
-
-
 /* begin import: cells/triplet/styles/variants.css */
 /* TripletCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -19334,8 +19177,6 @@ code {
         radial-gradient(circle at 78% 0%, var(--triplet-style-soft-c), transparent 54%) !important;
     }
 /* end import: cells/triplet/styles/variants.css */
-
-
 /* begin import: cells/triplet/styles/layouts.css */
 /* TripletCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -20280,8 +20121,6 @@ code {
         inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
     }
 /* end import: cells/triplet/styles/layouts.css */
-
-
 /* begin import: cells/triplet/animations.css */
 /* TripletCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
 
@@ -20778,6 +20617,23 @@ code {
       }
     }
 
+    @keyframes triplet-vrail-m3-pop {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.90);
+        filter: blur(8px);
+      }
+      65% {
+        opacity: 1;
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: none;
+      }
+    }
+
     @keyframes triplet-vrail-process-node {
       from {
         opacity: 0;
@@ -20807,22 +20663,22 @@ code {
     @keyframes triplet-vrail-connector-draw {
       from {
         opacity: 0;
-        clip-path: inset(0 0 100% 0);
+        transform: scaleY(0);
       }
       to {
         opacity: 0.72;
-        clip-path: inset(0 0 0 0);
+        transform: scaleY(1);
       }
     }
 
     @keyframes triplet-vrail-bridge-pop {
       from {
         opacity: 0;
-        transform: translateY(-3px) scale(0.96);
+        transform: scale(0.8);
       }
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1);
       }
     }
 
@@ -20906,10 +20762,7 @@ code {
         transform: translateY(0);
       }
     }
-
 /* end import: cells/triplet/animations.css */
-
-
 /* begin import: cells/triplet/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -22346,13 +22199,9 @@ code {
 
 }
 /* end import: cells/triplet/shared.css */
-
-
 /* end import: cells/triplet/index.css */
 
-
 /* begin import: cells/function-plot/index.css */
-
 /* begin import: cells/function-plot/card.css */
 /* FunctionPlot card shell copy. Source rules intentionally remain in renderer.css. */
 
@@ -22420,10 +22269,7 @@ code {
   filter: none;
   pointer-events: auto;
 }
-
 /* end import: cells/function-plot/card.css */
-
-
 /* begin import: cells/function-plot/base.css */
 /* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -22550,10 +22396,7 @@ code {
       font-size: 13px;
       line-height: 1.35;
     }
-
 /* end import: cells/function-plot/base.css */
-
-
 /* begin import: cells/function-plot/styles/oscilloscope.css */
 /* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -22579,10 +22422,7 @@ code {
 .function-plot-card.cell-style-oscilloscope .function-plot-tick-line {
       stroke: rgba(120, 255, 220, 0.28);
     }
-
 /* end import: cells/function-plot/styles/oscilloscope.css */
-
-
 /* begin import: cells/function-plot/styles/graphpaper.css */
 /* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -22611,10 +22451,7 @@ code {
         linear-gradient(135deg, rgba(126, 161, 255, 0.10), rgba(88, 193, 178, 0.05) 58%, rgba(255, 176, 111, 0.08));
       border-color: rgba(126, 161, 255, 0.15);
     }
-
 /* end import: cells/function-plot/styles/graphpaper.css */
-
-
 /* begin import: cells/function-plot/styles/neoncurve.css */
 /* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -22636,10 +22473,7 @@ code {
         linear-gradient(180deg, rgba(18, 24, 40, 0.76), rgba(8, 12, 22, 0.54)),
         linear-gradient(135deg, rgba(126, 161, 255, 0.12), rgba(88, 193, 178, 0.05) 48%, rgba(255, 176, 111, 0.08));
     }
-
 /* end import: cells/function-plot/styles/neoncurve.css */
-
-
 /* begin import: cells/function-plot/animations.css */
 /* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -22941,10 +22775,7 @@ code {
         transform: scale(1);
       }
     }
-
 /* end import: cells/function-plot/animations.css */
-
-
 /* begin import: cells/function-plot/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -23351,15 +23182,10 @@ code {
       padding-left: var(--cell-content-edge) !important;
       padding-right: var(--cell-content-edge) !important;
     }
-
 /* end import: cells/function-plot/shared.css */
-
-
 /* end import: cells/function-plot/index.css */
 
-
 /* begin import: cells/code-trace/index.css */
-
 /* begin import: cells/code-trace/card.css */
 /* CodeTrace card shell copy. Source rules intentionally remain in renderer.css. */
 
@@ -23426,10 +23252,7 @@ code {
   filter: none;
   pointer-events: auto;
 }
-
 /* end import: cells/code-trace/card.css */
-
-
 /* begin import: cells/code-trace/base.css */
 /* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -23513,10 +23336,7 @@ code {
       color: var(--heading);
       font-weight: 620;
     }
-
 /* end import: cells/code-trace/base.css */
-
-
 /* begin import: cells/code-trace/styles/terminal.css */
 /* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -23561,10 +23381,7 @@ code {
 .cell-card.code-trace-card.cell-style-debugger .trace-result {
       color: var(--muted) !important;
     }
-
 /* end import: cells/code-trace/styles/terminal.css */
-
-
 /* begin import: cells/code-trace/styles/diff.css */
 /* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -23579,10 +23396,7 @@ code {
     .code-trace-card.cell-style-diff .code-line.is-highlighted {
       background: linear-gradient(90deg, rgba(47, 143, 131, 0.14), rgba(214, 88, 104, 0.08));
     }
-
 /* end import: cells/code-trace/styles/diff.css */
-
-
 /* begin import: cells/code-trace/styles/debugger.css */
 /* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -23608,10 +23422,7 @@ code {
     .code-trace-card.cell-style-debugger .trace-step {
       border-left-width: 4px !important;
     }
-
 /* end import: cells/code-trace/styles/debugger.css */
-
-
 /* begin import: cells/code-trace/animations.css */
 /* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -23627,10 +23438,7 @@ code {
     filter: blur(0) saturate(1);
   }
 }
-
 /* end import: cells/code-trace/animations.css */
-
-
 /* begin import: cells/code-trace/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -24009,15 +23817,10 @@ code {
 .code-trace-card .trace-result {
       padding-left: 14px !important;
     }
-
 /* end import: cells/code-trace/shared.css */
-
-
 /* end import: cells/code-trace/index.css */
 
-
 /* begin import: cells/mini-chart/index.css */
-
 /* begin import: cells/mini-chart/card.css */
 /* mini-chart local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -24119,10 +23922,7 @@ code {
       padding-left: var(--cell-content-edge) !important;
       padding-right: var(--cell-content-edge) !important;
     }
-
 /* end import: cells/mini-chart/card.css */
-
-
 /* begin import: cells/mini-chart/base.css */
 /* mini-chart local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -24387,17 +24187,10 @@ code {
       font-size: 12px;
       line-height: 1.42;
     }
-
 /* end import: cells/mini-chart/base.css */
-
-
 /* begin import: cells/mini-chart/styles/shared.css */
 /* mini-chart local workbench copy. Source rules intentionally remain in renderer.css. */
-
-
 /* end import: cells/mini-chart/styles/shared.css */
-
-
 /* begin import: cells/mini-chart/styles/dashboard.css */
 /* mini-chart local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -24536,10 +24329,7 @@ code {
         linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(126, 161, 255, 0.08)),
         rgba(255, 255, 255, 0.03);
     }
-
 /* end import: cells/mini-chart/styles/dashboard.css */
-
-
 /* begin import: cells/mini-chart/styles/spark.css */
 /* mini-chart local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -24668,10 +24458,7 @@ code {
     :root[data-theme="dark"] .mini-chart-card.cell-style-spark .mini-chart-empty-state {
       background: transparent;
     }
-
 /* end import: cells/mini-chart/styles/spark.css */
-
-
 /* begin import: cells/mini-chart/styles/instrument.css */
 /* mini-chart local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -24914,10 +24701,7 @@ code {
     :root[data-theme="dark"] .mini-chart-card.cell-style-instrument .mini-chart-header {
       border-bottom-color: rgba(162, 183, 217, 0.10);
     }
-
 /* end import: cells/mini-chart/styles/instrument.css */
-
-
 /* begin import: cells/mini-chart/animations.css */
 /* mini-chart local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -25567,10 +25351,7 @@ code {
         transform: scale(1);
       }
     }
-
 /* end import: cells/mini-chart/animations.css */
-
-
 /* begin import: cells/mini-chart/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -26042,15 +25823,10 @@ code {
     .mini-chart-card .mini-chart {
       padding-left: 16px !important;
     }
-
 /* end import: cells/mini-chart/shared.css */
-
-
 /* end import: cells/mini-chart/index.css */
 
-
 /* begin import: cells/math-expression/index.css */
-
 /* begin import: cells/math-expression/card.css */
 /* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -26110,10 +25886,7 @@ code {
   filter: none;
   pointer-events: auto;
 }
-
 /* end import: cells/math-expression/card.css */
-
-
 /* begin import: cells/math-expression/base.css */
 /* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -26330,10 +26103,7 @@ code {
       line-height: 1.5;
       color: var(--muted);
     }
-
 /* end import: cells/math-expression/base.css */
-
-
 /* begin import: cells/math-expression/styles/chalk.css */
 /* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -26371,10 +26141,7 @@ code {
       color: #ecfff8;
       text-shadow: 0 0 16px rgba(88, 193, 178, 0.12);
     }
-
 /* end import: cells/math-expression/styles/chalk.css */
-
-
 /* begin import: cells/math-expression/styles/glass.css */
 /* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -26400,10 +26167,7 @@ code {
         inset 0 0 0 1px rgba(255, 255, 255, 0.34),
         0 12px 28px rgba(74, 120, 210, 0.10);
     }
-
 /* end import: cells/math-expression/styles/glass.css */
-
-
 /* begin import: cells/math-expression/styles/proofline.css */
 /* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -26428,10 +26192,7 @@ code {
       height: 3px;
       background: linear-gradient(90deg, var(--accent-0), var(--accent-1));
     }
-
 /* end import: cells/math-expression/styles/proofline.css */
-
-
 /* begin import: cells/math-expression/styles/signal.css */
 /* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -26449,10 +26210,7 @@ code {
     .math-expression-card.cell-style-signal .formula-operator {
       color: var(--accent-2);
     }
-
 /* end import: cells/math-expression/styles/signal.css */
-
-
 /* begin import: cells/math-expression/styles/notebook.css */
 /* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -26471,10 +26229,7 @@ code {
     .math-expression-card.cell-style-notebook .variable-symbol {
       background: color-mix(in srgb, var(--accent-3) 14%, transparent);
     }
-
 /* end import: cells/math-expression/styles/notebook.css */
-
-
 /* begin import: cells/math-expression/animations.css */
 /* math-expression local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -26680,10 +26435,7 @@ code {
         transform: translateY(0);
       }
     }
-
 /* end import: cells/math-expression/animations.css */
-
-
 /* begin import: cells/math-expression/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -27102,15 +26854,10 @@ code {
     .math-expression-card .variable-chip {
       padding-left: 14px !important;
     }
-
 /* end import: cells/math-expression/shared.css */
-
-
 /* end import: cells/math-expression/index.css */
 
-
 /* begin import: cells/map-region/index.css */
-
 /* begin import: cells/map-region/base.css */
 /* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27159,10 +26906,7 @@ code {
       padding-left: var(--cell-content-edge) !important;
       padding-right: var(--cell-content-edge) !important;
     }
-
 /* end import: cells/map-region/base.css */
-
-
 /* begin import: cells/map-region/styles/atlas.css */
 /* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27180,10 +26924,7 @@ code {
         linear-gradient(90deg, rgba(82, 101, 135, 0.10) 1px, transparent 1px);
       background-size: 28px 28px;
     }
-
 /* end import: cells/map-region/styles/atlas.css */
-
-
 /* begin import: cells/map-region/styles/radar.css */
 /* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27200,10 +26941,7 @@ code {
         #081722;
       color: rgba(245, 248, 255, 0.86);
     }
-
 /* end import: cells/map-region/styles/radar.css */
-
-
 /* begin import: cells/map-region/styles/routecard.css */
 /* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27219,10 +26957,7 @@ code {
       border: 1px dashed rgba(47, 143, 131, 0.28);
       background: rgba(47, 143, 131, 0.055);
     }
-
 /* end import: cells/map-region/styles/routecard.css */
-
-
 /* begin import: cells/map-region/animations.css */
 /* map-region local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27232,10 +26967,7 @@ code {
         transform: none;
       }
 }
-
 /* end import: cells/map-region/animations.css */
-
-
 /* begin import: cells/map-region/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -27619,15 +27351,10 @@ code {
       margin-left: 0 !important;
       padding-left: 0 !important;
     }
-
 /* end import: cells/map-region/shared.css */
-
-
 /* end import: cells/map-region/index.css */
 
-
 /* begin import: cells/process-step/index.css */
-
 /* begin import: cells/process-step/base.css */
 /* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27924,8 +27651,6 @@ code {
       border-left-width: 2px !important;
     }
 /* end import: cells/process-step/base.css */
-
-
 /* begin import: cells/process-step/styles/pipeline.css */
 /* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27943,10 +27668,7 @@ code {
         .process-card.cell-style-pipeline {
       border-left-width: 0 !important;
     }
-
 /* end import: cells/process-step/styles/pipeline.css */
-
-
 /* begin import: cells/process-step/styles/gearpath.css */
 /* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27963,10 +27685,7 @@ code {
       outline: 2px dashed rgba(47, 143, 131, 0.32);
       outline-offset: 4px;
     }
-
 /* end import: cells/process-step/styles/gearpath.css */
-
-
 /* begin import: cells/process-step/styles/handoff.css */
 /* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -27981,10 +27700,7 @@ code {
       border-radius: 14px;
       background: linear-gradient(90deg, rgba(47, 143, 131, 0.12), rgba(74, 120, 210, 0.08));
     }
-
 /* end import: cells/process-step/styles/handoff.css */
-
-
 /* begin import: cells/process-step/animations.css */
 /* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -28130,10 +27846,7 @@ code {
         stroke-dashoffset: 0;
       }
     }
-
 /* end import: cells/process-step/animations.css */
-
-
 /* begin import: cells/process-step/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -28542,13 +28255,9 @@ code {
       border-left-width: 0 !important;
     }
 /* end import: cells/process-step/shared.css */
-
-
 /* end import: cells/process-step/index.css */
 
-
 /* begin import: cells/spacer/index.css */
-
 /* begin import: cells/spacer/base.css */
 /* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -28575,10 +28284,7 @@ code {
       padding-left: var(--cell-content-edge) !important;
       padding-right: var(--cell-content-edge) !important;
     }
-
 /* end import: cells/spacer/base.css */
-
-
 /* begin import: cells/spacer/styles/breather.css */
 /* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -28592,10 +28298,7 @@ code {
       background: transparent;
       border-color: transparent;
     }
-
 /* end import: cells/spacer/styles/breather.css */
-
-
 /* begin import: cells/spacer/styles/divider.css */
 /* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -28613,10 +28316,7 @@ code {
       min-height: 1px;
       background: rgba(82, 101, 135, 0.26);
     }
-
 /* end import: cells/spacer/styles/divider.css */
-
-
 /* begin import: cells/spacer/styles/labelstrip.css */
 /* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -28637,10 +28337,7 @@ code {
     .spacer-card.cell-style-labelstrip .spacer-label {
       padding-left: 10px !important;
     }
-
 /* end import: cells/spacer/styles/labelstrip.css */
-
-
 /* begin import: cells/spacer/animations.css */
 /* spacer local workbench copy. Source rules intentionally remain in renderer.css. */
 
@@ -28650,10 +28347,7 @@ code {
         transform: none;
       }
 }
-
 /* end import: cells/spacer/animations.css */
-
-
 /* begin import: cells/spacer/shared.css */
 /* Full-isolation copied root helpers. */
 
@@ -29020,14 +28714,8 @@ code {
       margin-left: 0 !important;
       padding-left: 0 !important;
     }
-
 /* end import: cells/spacer/shared.css */
-
-
 /* end import: cells/spacer/index.css */
-
-
-/* Remove this import to undo the universal cell-edge experiment. */
 
 /* begin import: shared/universal-cell-edges.css */
 /*

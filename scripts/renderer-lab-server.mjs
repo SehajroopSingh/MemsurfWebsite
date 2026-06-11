@@ -6,6 +6,7 @@ import { mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises"
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import JSZip from "jszip";
+import { assertFlattenedRendererCss, writeFlattenedRendererCss } from "./renderer-bundle-css.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
@@ -548,6 +549,7 @@ async function validateBundleDirectory(bundleDir) {
   if (!rendererJS.includes("compactRendererStyleAvailability")) {
     throw new Error("renderer.js does not support renderer_style_availability.json metadata.");
   }
+  await assertFlattenedRendererCss(bundleDir);
 }
 
 function normalizeAvailability(availability, version) {
@@ -746,6 +748,7 @@ async function refreshCurrentMetadata() {
   const catalogPath = path.join(currentDir, "catalog.json");
   const capabilitiesPath = path.join(currentDir, "bundle", "capabilities.json");
   const indexPath = path.join(currentDir, "bundle", "index.html");
+  const bundleDir = path.join(currentDir, "bundle");
   const capabilities = await readJson(capabilitiesPath);
   const version = capabilities.version || (await readJson(path.join(currentDir, "workbench-manifest.json"))).version;
   const availability = normalizeAvailability(await readJson(availabilityPath), version);
@@ -779,6 +782,7 @@ async function refreshCurrentMetadata() {
   await writeJson(catalogPath, catalog);
   await writeJson(capabilitiesPath, capabilities);
   await writeFile(indexPath, indexHTMLWithAvailability(await readFile(indexPath, "utf8"), availability), "utf8");
+  await writeFlattenedRendererCss(bundleDir);
   await writeWorkbenchManifest(currentDir, { version, catalogEntryCount: catalog.entry_count });
 }
 

@@ -7,6 +7,8 @@
     "dev:clean": "rm -rf .next node_modules/.cache && next dev",
     "dev:renderer-lab": "node scripts/renderer-lab-dev.mjs",
     "renderer-lab:server": "node scripts/renderer-lab-server.mjs",
+    "renderer-bundle-css:write": "node scripts/renderer-bundle-css.mjs --write public/renderer-workbench/current/bundle",
+    "renderer-bundle-css:check": "node scripts/renderer-bundle-css.mjs --check public/renderer-workbench/current/bundle",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

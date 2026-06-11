@@ -109,7 +109,9 @@ Run these before committing renderer-lab changes:
 ```bash
 cd /Users/sehaj/Documents/Github/MemsurfWebsite
 node --check scripts/renderer-lab-server.mjs
+node --check scripts/renderer-bundle-css.mjs
 node --check public/renderer-workbench/current/bundle/renderer.js
+npm run renderer-bundle-css:check
 npm run build
 git diff --check
 ```

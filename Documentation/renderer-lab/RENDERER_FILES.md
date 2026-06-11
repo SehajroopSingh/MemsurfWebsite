@@ -93,7 +93,7 @@ The bundle mirrors the Django renderer bundle shape.
 Important files:
 
 - `renderer.js`: renderer runtime used inside the preview iframe.
-- `renderer.css`: root renderer stylesheet.
+- `renderer.css`: generated flattened root renderer stylesheet for backend/iOS parity.
 - `capabilities.json`: renderer metadata and supported cell types.
 - `renderer_style_availability.json`: style groups, style ids, lock state, and real lesson availability.
 - `index.html`: standalone renderer entrypoint metadata.
@@ -101,7 +101,7 @@ Important files:
 - `cells/`: per-cell CSS modules.
 - `shared/`: shared CSS modules.
 
-The lab loads `renderer.js`, `renderer.css`, KaTeX assets, and extra cell CSS from these files. The current local page does not duplicate renderer logic.
+The lab loads `renderer.js`, `renderer.css`, KaTeX assets, and extra cell CSS from these files. The current local page does not duplicate renderer logic. Treat split CSS files as the editable source of truth and regenerate `renderer.css` with `npm run renderer-bundle-css:write`.
 
 ## Cell CSS Layout
 

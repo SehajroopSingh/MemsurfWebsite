@@ -26401,7 +26401,7 @@ code {
  * Remove this file's import and manifest entries to undo the experiment.
  */
 :root {
-  --gridcell-universal-content-edge: 20px;
+  --gridcell-universal-content-edge: 12px;
 }
 
 #grid-layout-root .grid-shell .cell-card {

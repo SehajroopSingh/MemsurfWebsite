@@ -158,8 +158,11 @@
               renderMode: renderMode || layoutId,
               relation: relationshipMode,
               orientation: safeText(group.orientation) || "vertical",
+              defaultStyleId: normalizedGroup.defaultStyleId,
+              styles: normalizedGroup.styles,
               isLocked: normalizedGroup.isLocked
             });
+            return;
           }
 
           if (styleKey === "preview_relationship_style" && relationshipKind && relationshipMode) {
@@ -491,15 +494,57 @@
       }
 
       function isTripletRenderAssignmentUnlocked(choice) {
-        const assignment = (rendererStyleAvailability.tripletAssignments || []).find(function (item) {
-          return safeText(item.renderMode || item.render_mode) === safeText(choice.renderMode) &&
-            safeText(item.relation || item.relationship_mode) === safeText(choice.relation);
-        });
-        if (assignment && (assignment.isLocked === true || assignment.is_locked === true)) {
+        const source = tripletAssignmentStyleSource(choice);
+        if (!source || source.isLocked === true || source.is_locked === true) {
           return false;
         }
-        const styles = (relationshipRenderStyles.triplet || {})[choice.relation] || [];
-        return unlockedStylesForGroup(relationshipStyleAvailabilityGroup("TripletCell", choice.relation), styles).length > 0;
+        return tripletAssignmentUnlockedStyles(source).length > 0;
+      }
+
+      function tripletAssignmentAvailability(choice) {
+        const renderMode = safeText(choice && (choice.renderMode || choice.render_mode));
+        const relation = safeText(choice && (choice.relation || choice.relationship_mode));
+        return (rendererStyleAvailability.tripletAssignments || []).find(function (item) {
+          return safeText(item.renderMode || item.render_mode) === renderMode &&
+            safeText(item.relation || item.relationship_mode) === relation;
+        }) || null;
+      }
+
+      function tripletAssignmentStyleSource(choice) {
+        return tripletAssignmentAvailability(choice) || choice;
+      }
+
+      function tripletAssignmentUnlockedStyles(choice) {
+        const relation = safeText(choice && (choice.relation || choice.relationship_mode));
+        const renderMode = safeText(choice && (choice.renderMode || choice.render_mode));
+        const relationshipStyles = (relationshipRenderStyles.triplet || {})[relation] || [];
+        const assignmentGroup = {
+          defaultStyleId: safeText(choice && (choice.defaultStyleId || choice.default_style_id)),
+          styles: Array.isArray(choice && choice.styles) ? choice.styles : [],
+          isLocked: choice && (choice.isLocked === true || choice.is_locked === true)
+        };
+        const assignmentStyles = unlockedStylesForGroup(assignmentGroup, relationshipStyles);
+        if (assignmentStyles.length) {
+          return assignmentStyles;
+        }
+        const fallbackStyles = unlockedStylesForGroup(relationshipStyleAvailabilityGroup("TripletCell", relation), relationshipStyles);
+        if (fallbackStyles.length) {
+          return fallbackStyles;
+        }
+        const hasCatalogAssignments = (rendererStyleAvailability.tripletAssignments || []).length > 0;
+        return hasCatalogAssignments ? [] : (renderMode ? relationshipStyles : []);
+      }
+
+      function selectedTripletAssignmentStyle(choice, scenarioStyleKey, occurrenceOrdinal) {
+        const source = tripletAssignmentStyleSource(choice);
+        const styles = tripletAssignmentUnlockedStyles(source);
+        if (!styles.length) {
+          return "";
+        }
+        const seed = relationshipStyleSeed();
+        const stableKey = seed + "|" + safeText(scenarioStyleKey) + "|triplet-layout|" + safeText(source.renderMode || source.render_mode) + "|" + safeText(source.relation || source.relationship_mode);
+        const ordinal = styleOccurrenceOffset(occurrenceOrdinal);
+        return styles[(stableHash(stableKey) + ordinal) % styles.length] || styles[0] || "";
       }
 
       function relationshipSignatureForSlot(slot, content) {
@@ -587,7 +632,11 @@
         const seed = relationshipStyleSeed();
         const ordinal = styleOccurrenceOffset(occurrenceOrdinal);
         const unlockedAssignments = tripletRenderAssignments.filter(isTripletRenderAssignmentUnlocked);
-        const assignmentChoices = unlockedAssignments.length ? unlockedAssignments : tripletRenderAssignments;
+        const hasCatalogAssignments = (rendererStyleAvailability.tripletAssignments || []).length > 0;
+        const assignmentChoices = unlockedAssignments.length ? unlockedAssignments : (hasCatalogAssignments ? [] : tripletRenderAssignments);
+        if (!assignmentChoices.length) {
+          return null;
+        }
         const choice = assignmentChoices[
           (stableHash(seed + "|" + signature + "|triplet-render-assignment") + ordinal) % assignmentChoices.length
         ] || assignmentChoices[0] || tripletRenderAssignments[0];
@@ -595,7 +644,7 @@
           renderMode: choice.renderMode,
           relation: choice.relation,
           orientation: choice.orientation,
-          style: selectedRelationshipCellStyle("TripletCell", choice.relation, scenarioStyleKey, undefined, undefined, occurrenceOrdinal)
+          style: selectedTripletAssignmentStyle(choice, scenarioStyleKey, occurrenceOrdinal)
         };
       }
 

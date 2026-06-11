@@ -1,0 +1,7 @@
+/* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
+
+.timeline-card.cell-style-milestone .timeline-node {
+      border-radius: 4px;
+      transform: rotate(45deg);
+      box-shadow: 0 0 0 8px rgba(123, 105, 239, 0.10);
+    }

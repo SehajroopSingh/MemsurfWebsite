@@ -1,0 +1,309 @@
+/* PairCell local workbench styles. */
+
+    .cell-card.pair-card.cell-style-bridge {
+      border-color: rgba(47, 143, 131, 0.28);
+      background:
+        linear-gradient(90deg, rgba(47, 143, 131, 0.14), transparent 28%, rgba(74, 120, 210, 0.10)),
+        var(--card-bg);
+    }
+
+    .cell-card.pair-card.cell-style-mirror {
+      border-color: rgba(123, 105, 239, 0.22);
+      background:
+        linear-gradient(135deg, rgba(123, 105, 239, 0.12), transparent 34%),
+        linear-gradient(315deg, rgba(47, 143, 131, 0.10), transparent 42%),
+        var(--card-bg);
+    }
+
+.pair-card.pair-style-duet .pair-panel {
+      border-radius: 18px;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    .pair-card.cell-style-mirror .pair-panel {
+      border-radius: 18px;
+      box-shadow: inset 0 0 0 1px rgba(123, 105, 239, 0.18);
+    }
+
+    .pair-card.cell-style-mirror .pair-panel-right {
+      transform: scale(0.98);
+    }
+
+    .cell-card.pair-card {
+      padding: 0;
+      border-width: 0;
+      border-color: transparent;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .relationship-cell.pair-cell .relationship-sentence {
+      color: var(--heading);
+      font-size: 13px;
+      line-height: 1.42;
+      font-weight: 650;
+    }
+
+    .relationship-cell.pair-cell .relationship-sentence p {
+      margin: 0;
+    }
+
+    .relationship-cell.pair-cell .relationship-label {
+      position: relative;
+      margin-bottom: 7px;
+      color: var(--heading);
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 820;
+      overflow-wrap: anywhere;
+    }
+
+    .relationship-cell.pair-cell .relationship-role {
+      position: relative;
+      display: inline-flex;
+      width: fit-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: var(--relationship-a);
+      background: var(--relationship-wash-a);
+      font-size: 10px;
+      line-height: 1.1;
+      font-weight: 820;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .relationship-cell.pair-cell .pair-panel-right .relationship-role {
+      color: var(--relationship-b);
+      background: var(--relationship-wash-b);
+    }
+
+    .relationship-cell.pair-cell .relationship-body {
+      position: relative;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 560;
+      overflow-wrap: anywhere;
+    }
+
+    .relationship-cell.pair-cell .relationship-empty {
+      padding: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .pair-cell {
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    }
+
+    .pair-cell.orientation-vertical {
+      grid-template-columns: 1fr;
+    }
+
+    .pair-panel-right::before {
+      background: var(--relationship-b);
+    }
+
+    .cell-card.pair-card .pair-cell {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      isolation: isolate;
+      --pair-left-x: -18px;
+      --pair-right-x: 18px;
+      --pair-left-y: 0;
+      --pair-right-y: 0;
+      --pair-left-rotate: -0.4deg;
+      --pair-right-rotate: 0.4deg;
+      --pair-left-final: none;
+      --pair-right-final: none;
+    }
+
+    .cell-card.pair-card .pair-panel {
+      min-height: 100%;
+      border-color: rgba(82, 101, 135, 0.15);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.34)),
+        linear-gradient(135deg, var(--relationship-wash-a), var(--relationship-wash-b));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.48),
+        0 16px 34px rgba(43, 55, 84, 0.10);
+    }
+
+    :root[data-theme="dark"] .cell-card.pair-card {
+      background: transparent;
+      border-width: 0;
+      border-color: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.pair-card .pair-panel {
+      border-color: rgba(126, 161, 255, 0.16);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+        linear-gradient(135deg, rgba(88, 193, 178, 0.065), rgba(126, 161, 255, 0.05));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 18px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    .pair-diagram.orientation-horizontal {
+      grid-template-columns: minmax(0, 1fr) minmax(64px, 0.28fr) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .pair-diagram.orientation-vertical {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cell-card.pair-card .pair-panel {
+      padding-left: 14px !important;
+    }
+
+    .relationship-cell.pair-cell.layout-resolution-flow .pair-panel-right {
+      border-color: color-mix(in srgb, var(--relationship-b) 30%, var(--surface-line)) !important;
+      background:
+        linear-gradient(135deg, rgba(88, 193, 178, 0.10), rgba(255, 255, 255, 0.22)),
+        rgba(255, 255, 255, 0.24) !important;
+    }
+
+    .relationship-cell.pair-cell.layout-timeline-flow .pair-panel-left::before {
+      opacity: 0.34 !important;
+    }
+
+    .relationship-cell.pair-cell.layout-classification .pair-panel-left .relationship-role::before {
+      content: "\2713 ";
+    }
+
+    .relationship-cell.pair-cell.layout-classification .pair-panel-right .relationship-role::before {
+      content: "\2715 ";
+    }
+
+    .pair-flowline.orientation-horizontal {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      gap: 7px !important;
+    }
+
+    .pair-flow-main {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(68px, 0.30fr) minmax(0, 1fr) !important;
+      align-items: center !important;
+      column-gap: 10px !important;
+      min-width: 0 !important;
+    }
+
+    .pair-supportline {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(68px, 0.30fr) minmax(0, 1fr) !important;
+      column-gap: 10px !important;
+      min-width: 0 !important;
+    }
+
+    .pair-supportline .left-body {
+      grid-column: 1 !important;
+    }
+
+    .pair-supportline .right-body {
+      grid-column: 3 !important;
+    }
+
+    .pair-vertical-flow {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      row-gap: 7px !important;
+    }
+
+    .pair-vertical-flow .pair-flow-main,
+    .pair-support .pair-flow-main {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      row-gap: 7px !important;
+      align-items: stretch !important;
+    }
+
+    .pair-supportline-vertical {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      row-gap: 6px !important;
+      min-width: 0 !important;
+      padding-top: 2px !important;
+      border-top: 1px solid color-mix(in srgb, var(--surface-line) 75%, transparent) !important;
+    }
+
+    .pair-supportline-vertical .left-body,
+    .pair-supportline-vertical .right-body {
+      grid-column: 1 !important;
+      margin: 0 !important;
+    }
+
+    .pair-support {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) !important;
+      row-gap: 8px !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-label::before,
+    .relationship-cell.pair-cell .relationship-label::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .relationship-cell.pair-cell.pair-mode-flowline .relationship-sentence {
+      position: relative !important;
+      padding-left: 0 !important;
+      font-size: 13.5px !important;
+      line-height: 1.34 !important;
+      text-align: center !important;
+    }
+
+    .relationship-cell.pair-cell.pair-mode-flowline .relationship-sentence::before {
+      content: none !important;
+      display: none !important;
+    }
+
+    .relationship-cell.pair-cell.pair-mode-flowline .relationship-sentence p {
+      text-align: center !important;
+    }
+
+    .relationship-cell.pair-cell .relationship-role {
+      color: color-mix(in srgb, var(--relationship-b) 62%, var(--muted)) !important;
+    }
+
+    .relationship-cell.pair-cell .pair-panel {
+      position: relative !important;
+    }
+
+    .relationship-cell.pair-cell .pair-panel::before,
+    .relationship-cell.pair-cell .pair-panel::after {
+      pointer-events: none !important;
+    }
+
+    .relationship-cell.pair-cell.layout-resolution-flow .pair-panel-right {
+      background: transparent !important;
+      border: 0 !important;
+    }
+
+    .relationship-cell.pair-cell.layout-resolution-flow .pair-panel-right .relationship-label {
+      color: color-mix(in srgb, var(--relationship-b) 72%, var(--heading)) !important;
+    }
+
+    .relationship-cell.pair-cell.layout-classification .pair-panel-left .relationship-role::before {
+      content: "\2713  " !important;
+    }
+
+    .relationship-cell.pair-cell.layout-classification .pair-panel-right .relationship-role::before {
+      content: "\2715  " !important;
+    }

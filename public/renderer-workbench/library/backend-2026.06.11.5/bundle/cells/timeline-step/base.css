@@ -1,0 +1,267 @@
+/* TimelineStepCell local workbench copy extracted from renderer.css. Shared/global rules remain in renderer.css. */
+
+.cell-card.timeline-card {
+      padding: 17px 18px;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.timeline-card {
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .flow-connector-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .flow-connector-path {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .flow-connector-glow {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+      opacity: 0.24;
+    }
+
+    .timeline-flow-connector {
+      --connector-final-opacity: 0.62;
+      stroke: var(--timeline-connector);
+      stroke-width: 2.35;
+      opacity: 0.62;
+      filter: drop-shadow(0 0 7px var(--timeline-connector-glow));
+    }
+
+    .timeline-flow-connector-glow {
+      --connector-final-opacity: 0.24;
+      stroke: var(--timeline-connector);
+      stroke-width: 7;
+      filter: blur(2px);
+    }
+
+    .flow-connector-layer .flow-connector-path.flow-connector-pending,
+    .flow-connector-layer .flow-connector-glow.flow-connector-pending {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      animation: none !important;
+      marker-end: none !important;
+    }
+
+    .cell-card.timeline-card,
+    .cell-card.timeline-card[class*="cell-style-"],
+    :root[data-theme="dark"] .cell-card.timeline-card,
+    :root[data-theme="dark"] .cell-card.timeline-card[class*="cell-style-"] {
+      border: 0 !important;
+      outline: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .cell-card.timeline-card::before,
+    .cell-card.timeline-card::after {
+      display: none !important;
+      background: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .timeline-card .timeline-badge {
+      color: var(--heading);
+      background: rgba(255, 255, 255, 0.44);
+      border: 1px solid var(--surface-line);
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .timeline-card .timeline-badge {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .timeline-card .timeline-step-layout {
+      position: relative;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      min-width: 0;
+    }
+
+    .timeline-card .timeline-rail-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      min-height: 46px;
+      isolation: isolate;
+    }
+
+    .timeline-card .timeline-rail-wrap.has-incoming-node::before,
+    .timeline-card .timeline-rail-wrap.has-outgoing-node::after {
+      display: none;
+    }
+
+    .timeline-card .timeline-rail-wrap.has-incoming-node::before {
+      top: -18px;
+      height: 35px;
+    }
+
+    .timeline-card .timeline-rail-wrap.has-outgoing-node::after {
+      top: 17px;
+      bottom: -22px;
+    }
+
+    .timeline-card .timeline-node-glow {
+      position: absolute;
+      top: -3px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(26, 115, 232, 0.16);
+      filter: none;
+      opacity: 1;
+      z-index: -1;
+    }
+
+    .timeline-card .timeline-node {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      margin-top: 0;
+      border-radius: 999px;
+      background: #1a73e8;
+      border: 0;
+      box-shadow:
+        0 1px 2px rgba(60, 64, 67, 0.30),
+        0 2px 6px rgba(60, 64, 67, 0.15);
+    }
+
+    .timeline-card .timeline-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+      padding-top: 1px;
+    }
+
+    .timeline-card .timeline-topline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .timeline-card .timeline-date-chip {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      line-height: 1.2;
+      white-space: nowrap;
+      min-height: 30px;
+      padding: 7px 13px;
+      color: var(--heading);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(132, 170, 225, 0.16)),
+        rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(132, 170, 225, 0.20);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36);
+      font-size: 13px;
+      font-weight: 820;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timeline-card .timeline-event {
+      margin: 0;
+      color: var(--heading);
+      font-size: 17px;
+      line-height: 1.42;
+      font-weight: 700;
+      text-wrap: balance;
+    }
+
+    .timeline-card .timeline-title {
+      letter-spacing: 0;
+    }
+
+    .timeline-card .timeline-description {
+      margin: 0;
+      color: var(--body);
+      font-size: 15px;
+      line-height: 1.52;
+      font-weight: 530;
+    }
+
+    .timeline-card .timeline-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    :root[data-theme="dark"] .timeline-card .timeline-date-chip {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(126, 161, 255, 0.09)),
+        rgba(255, 255, 255, 0.04);
+      border-color: rgba(188, 204, 230, 0.16);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    :root[data-theme="dark"] .timeline-card .timeline-node {
+      background: #8ab4f8;
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.36),
+        0 2px 6px rgba(0, 0, 0, 0.24);
+    }
+
+    :root[data-theme="dark"] .timeline-card .timeline-node-glow {
+      background: rgba(138, 180, 248, 0.18);
+    }
+
+    @media (max-width: 620px) {
+
+      .timeline-card .timeline-description {
+        font-size: 14px;
+      }
+}
+
+    @media (max-width: 620px) {
+
+      .timeline-card .timeline-step-layout {
+        grid-template-columns: 30px minmax(0, 1fr);
+        gap: 12px;
+      }
+}
+
+    @media (max-width: 620px) {
+
+      .timeline-card .timeline-node {
+        width: 22px;
+        height: 22px;
+      }
+}
+
+    @media (max-width: 620px) {
+
+      .timeline-card .timeline-date-chip {
+        font-size: 12px;
+      }
+}
+
+    .timeline-card .timeline-node-glow {
+      left: -3px !important;
+    }

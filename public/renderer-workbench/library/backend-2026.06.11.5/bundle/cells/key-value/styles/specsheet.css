@@ -1,0 +1,38 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card.cell-style-specsheet {
+      background:
+        linear-gradient(rgba(74, 120, 210, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 120, 210, 0.10) 1px, transparent 1px),
+        var(--card-bg);
+      background-size: 18px 18px, 18px 18px, auto;
+      border-color: rgba(74, 120, 210, 0.24);
+    }
+
+    .cell-card.key-value-card.cell-style-specsheet .key-value-title {
+      min-height: 36px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 850;
+      background:
+        linear-gradient(90deg, rgba(123, 105, 239, 0.12), rgba(74, 120, 210, 0.08)),
+        rgba(255, 255, 255, 0.38);
+    }
+
+    .cell-card.key-value-card.cell-style-specsheet .key-value-cell {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px dashed rgba(74, 120, 210, 0.24);
+      background:
+        linear-gradient(rgba(74, 120, 210, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 120, 210, 0.08) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    .cell-card.key-value-card.cell-style-specsheet .key-value-row {
+      grid-template-columns: minmax(0, var(--kv-key-column, 14ch)) minmax(0, 1fr);
+    }
+
+    .cell-card.key-value-card.cell-style-specsheet .key-value-cell {
+      padding-left: 10px !important;
+    }

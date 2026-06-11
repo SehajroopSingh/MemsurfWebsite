@@ -1,0 +1,21 @@
+/* image local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.image-card {
+      padding: 14px;
+    }
+
+    .cell-card.image-card[class*="cell-style-"] {
+      --cell-style-accent: var(--accent-0);
+      --cell-style-accent-2: var(--accent-1);
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .cell-card.image-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }
+
+    .grid-shell .cell-card.image-card {
+      padding-left: var(--cell-content-edge) !important;
+      padding-right: var(--cell-content-edge) !important;
+    }

@@ -1,7 +1,7 @@
 {
   "source": "local-workbench",
   "renderer_id": "dynamic_gridcell",
-  "version": "2026.06.11.4",
+  "version": "2026.06.11.5",
   "schema_version": "three_step_gridcell_v1",
   "entrypoint": "index.html",
   "bundle_base_path": "/renderer-workbench/current/bundle/",
@@ -1767,6 +1767,6 @@
       "CodeTraceCell",
       "MapRegionCell"
     ],
-    "version": "2026.06.11.4"
+    "version": "2026.06.11.5"
   }
 }

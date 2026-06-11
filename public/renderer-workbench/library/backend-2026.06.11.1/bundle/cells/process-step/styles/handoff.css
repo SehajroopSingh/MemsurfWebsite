@@ -1,0 +1,13 @@
+/* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.process-card.cell-style-handoff {
+      border-color: rgba(47, 143, 131, 0.28);
+      background:
+        linear-gradient(90deg, rgba(47, 143, 131, 0.14), transparent 28%, rgba(74, 120, 210, 0.10)),
+        var(--card-bg);
+    }
+
+    .process-card.cell-style-handoff .process-result {
+      border-radius: 14px;
+      background: linear-gradient(90deg, rgba(47, 143, 131, 0.12), rgba(74, 120, 210, 0.08));
+    }

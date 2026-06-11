@@ -1,0 +1,43 @@
+/* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.code-trace-card.cell-style-terminal {
+      background:
+        linear-gradient(145deg, rgba(10, 16, 28, 0.92), rgba(22, 31, 48, 0.90));
+      color: rgba(245, 248, 255, 0.94);
+    }
+
+    .cell-card.code-trace-card.cell-style-terminal .eyebrow,
+.cell-card.code-trace-card.cell-style-terminal .trace-copy,
+.cell-card.code-trace-card.cell-style-terminal .trace-result,
+.cell-card.code-trace-card.cell-style-debugger .eyebrow,
+.cell-card.code-trace-card.cell-style-debugger .trace-copy,
+.cell-card.code-trace-card.cell-style-debugger .trace-result {
+      color: rgba(245, 248, 255, 0.88);
+    }
+
+    .code-trace-card.cell-style-terminal .code-block {
+      background: rgba(0, 0, 0, 0.30);
+      color: rgba(245, 248, 255, 0.92);
+    }
+
+    .code-trace-card.cell-style-terminal .code-content {
+      color: rgba(245, 248, 255, 0.92);
+    }
+
+    .code-trace-card.cell-style-terminal .code-number {
+      color: rgba(245, 248, 255, 0.54);
+    }
+
+    .cell-card.code-trace-card.cell-style-terminal,
+.cell-card.code-trace-card.cell-style-debugger {
+      color: var(--text) !important;
+    }
+
+    .cell-card.code-trace-card.cell-style-terminal .eyebrow,
+.cell-card.code-trace-card.cell-style-terminal .trace-copy,
+.cell-card.code-trace-card.cell-style-terminal .trace-result,
+.cell-card.code-trace-card.cell-style-debugger .eyebrow,
+.cell-card.code-trace-card.cell-style-debugger .trace-copy,
+.cell-card.code-trace-card.cell-style-debugger .trace-result {
+      color: var(--muted) !important;
+    }

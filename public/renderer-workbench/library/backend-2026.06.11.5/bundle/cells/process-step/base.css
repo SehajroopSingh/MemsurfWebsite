@@ -1,0 +1,294 @@
+/* ProcessStepCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.process-card {
+      padding: 18px;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.process-card {
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .flow-connector-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .flow-connector-path {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .flow-connector-glow {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+      opacity: 0.24;
+    }
+
+    .process-flow-connector {
+      --connector-final-opacity: 0.80;
+      stroke: var(--process-connector);
+      stroke-width: 3.25;
+      opacity: 0.80;
+      filter: drop-shadow(0 0 8px var(--process-connector-glow));
+    }
+
+    .process-flow-connector-glow {
+      --connector-final-opacity: 0.24;
+      stroke: var(--process-connector);
+      stroke-width: 9;
+      filter: blur(2px);
+    }
+
+    .process-flow-arrowhead {
+      fill: var(--process-connector);
+    }
+
+    .flow-connector-layer .flow-connector-path.flow-connector-pending,
+    .flow-connector-layer .flow-connector-glow.flow-connector-pending {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      animation: none !important;
+      marker-end: none !important;
+    }
+
+    .cell-card.process-card.has-incoming-connection .process-step-layout,
+.cell-card.process-card.has-outgoing-connection .process-step-layout {
+      border-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .process-card .process-step-layout {
+      position: relative;
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+      min-width: 0;
+    }
+
+    .process-card .process-step-layout.process-no-node {
+      grid-template-columns: 1fr;
+    }
+
+    .process-card .process-node-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-self: stretch;
+      min-height: 48px;
+      isolation: isolate;
+    }
+
+    .process-card .process-node-wrap.has-incoming-node::before,
+.process-card .process-node-wrap.has-outgoing-node::after {
+      content: none;
+      display: none;
+    }
+
+    .process-card .process-node-glow {
+      position: absolute;
+      top: -3px;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      background: rgba(26, 115, 232, 0.16);
+      filter: none;
+      opacity: 1;
+      z-index: -1;
+    }
+
+    .process-card .process-node {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: #1a73e8;
+      border: 0;
+      box-shadow:
+        0 1px 2px rgba(60, 64, 67, 0.30),
+        0 2px 6px rgba(60, 64, 67, 0.15);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 860;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .process-card .process-node::before {
+      content: none;
+      display: none;
+    }
+
+    :root[data-theme="dark"] .process-card .process-node {
+      color: #ffffff;
+      background: #8ab4f8;
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.36),
+        0 2px 6px rgba(0, 0, 0, 0.22);
+    }
+
+    :root[data-theme="dark"] .process-card .process-node-glow {
+      background: rgba(138, 180, 248, 0.18);
+      opacity: 1;
+    }
+
+    .process-card .process-node span {
+      transform: translateY(0.5px);
+    }
+
+    .process-card .process-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .process-card .process-action {
+      margin: 0;
+      color: var(--heading);
+      font-size: 17px;
+      line-height: 1.42;
+      font-weight: 740;
+    }
+
+    .process-card .process-result {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 13px 11px 16px;
+      border-radius: 16px;
+      color: var(--heading);
+      background:
+        linear-gradient(135deg, rgba(184, 242, 230, 0.26), rgba(132, 170, 225, 0.16)),
+        rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(132, 170, 225, 0.20);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 560;
+    }
+
+    :root[data-theme="dark"] .process-card .process-result {
+      background:
+        linear-gradient(135deg, rgba(88, 193, 178, 0.16), rgba(126, 161, 255, 0.12)),
+        rgba(255, 255, 255, 0.05);
+      border-color: rgba(126, 161, 255, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .process-card .process-result-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-0));
+      box-shadow: 0 8px 16px rgba(47, 74, 148, 0.18);
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .process-card .process-note {
+      margin: 0;
+      padding-left: 12px;
+      border-left: 2px solid rgba(132, 170, 225, 0.24);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 620px) {
+
+      .process-card .process-step-layout {
+        grid-template-columns: 40px minmax(0, 1fr);
+        gap: 12px;
+      }
+}
+
+    @media (max-width: 620px) {
+
+      .process-card .process-node {
+        width: 38px;
+        height: 38px;
+        font-size: 12px;
+      }
+}
+
+    @media (max-width: 620px) {
+
+      .process-card .process-node-glow {
+        width: 44px;
+        height: 44px;
+      }
+}
+
+    @media (max-width: 620px) {
+
+      .process-card .process-node-wrap.has-outgoing-node::after {
+        top: 38px;
+      }
+}
+
+    .cell-card.process-card.has-incoming-connection::before,
+.cell-card.process-card.has-incoming-connection::after,
+.cell-card.process-card.has-outgoing-connection::before,
+.cell-card.process-card.has-outgoing-connection::after,
+.cell-card.process-card.has-incoming-connection .process-step-layout::before,
+.cell-card.process-card.has-incoming-connection .process-step-layout::after,
+.cell-card.process-card.has-outgoing-connection .process-step-layout::before,
+.cell-card.process-card.has-outgoing-connection .process-step-layout::after,
+.cell-card.process-card .process-node-wrap.has-incoming-node::before,
+.cell-card.process-card .process-node-wrap.has-incoming-node::after,
+.cell-card.process-card .process-node-wrap.has-outgoing-node::before,
+.cell-card.process-card .process-node-wrap.has-outgoing-node::after {
+      content: none !important;
+      display: none !important;
+      opacity: 0 !important;
+      background: transparent !important;
+      background-image: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .cell-card.process-card.has-incoming-connection .process-step-layout,
+.cell-card.process-card.has-outgoing-connection .process-step-layout {
+      border-bottom: 0 !important;
+      padding-bottom: 0 !important;
+      background-image: none !important;
+    }
+
+    .process-card .process-node-glow {
+      left: -3px !important;
+    }
+
+    .process-card .process-result {
+      padding-left: 13px !important;
+    }
+
+    .process-card .process-note {
+      padding-left: 12px !important;
+      border-left-width: 2px !important;
+    }

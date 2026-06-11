@@ -36,7 +36,7 @@
         CompareCell: ["splitbeam", "scorecard", "hinge"],
         PairCell: ["duet", "bridge", "mirror"],
         KeyValueCell: ["ledger", "chips", "specsheet"],
-        TripletCell: ["cascade", "orbit", "blueprint"],
+        TripletCell: ["solve-path"],
         RecallPromptCell: ["peel", "flashcard", "focus-lens"],
         KeyPointsCell: ["orb", "halo", "rail", "marker"],
         TimelineStepCell: ["rail", "milestone", "ticker"],
@@ -67,12 +67,7 @@
           example: ["case-notes", "sample-sheet", "worked-list"]
         },
         triplet: {
-          cause_mechanism_effect: ["domino-flow", "mechanism-bridge", "ripple-chain"],
-          input_process_output: ["pipeline", "machine-flow", "transformer"],
-          problem_method_result: ["solve-path", "method-card", "outcome-lift"],
-          claim_evidence_implication: ["evidence-rail", "logic-ladder", "inference-cascade"],
-          trigger_response_outcome: ["pulse-chain", "signal-response", "reaction-path"],
-          before_change_after: ["time-slice", "change-bridge", "then-now"]
+          problem_method_result: ["solve-path"]
         }
       };
       const rendererStyleAvailability = compactRendererStyleAvailability(readRendererStyleAvailability());
@@ -444,7 +439,7 @@
           return relationshipClassToken(firstNonEmpty([props.tone, "neutral"]));
         }
         if (kind === "triplet") {
-          return relationshipClassToken(firstNonEmpty([props.relation, "cause_mechanism_effect"]));
+          return "problem_method_result";
         }
         return "";
       }
@@ -455,10 +450,7 @@
           return pairRenderMode(firstNonEmpty([props.relation, "contrast"]));
         }
         if (kind === "triplet") {
-          return firstNonEmpty([
-            normalizedTripletRenderMode(firstNonEmpty([props.render_mode, props.triplet_render_mode])),
-            relationshipStyleModeForCell(cellType, props)
-          ]);
+          return "chain-strip";
         }
         return relationshipStyleModeForCell(cellType, props);
       }
@@ -513,13 +505,10 @@
 
       function relationshipRenderAssignmentForSlot(cellType, slot, content, scenarioStyleKey, occurrenceOrdinal) {
         if (cellType === "TripletCell") {
-          const props = slot && slot.props ? slot.props : {};
-          const mode = relationshipStyleModeForCell(cellType, props);
-          const orientation = resolveTripletOrientation(props, slot, content, mode);
           return {
-            relation: mode,
-            renderMode: tripletRenderMode(mode, orientation),
-            style: selectedRelationshipCellStyle(cellType, mode, scenarioStyleKey, undefined, undefined, occurrenceOrdinal)
+            relation: "problem_method_result",
+            renderMode: "chain-strip",
+            style: "solve-path"
           };
         }
         const modeChoices = relationshipModeChoicesForCell(cellType);
@@ -2240,14 +2229,7 @@
         parallel_examples: "same pattern"
       };
 
-      const tripletConnectorFallbacks = {
-        cause_mechanism_effect: ["through", "produces"],
-        input_process_output: ["processed by", "outputs"],
-        problem_method_result: ["handled by", "produces"],
-        claim_evidence_implication: ["supported by", "implies"],
-        trigger_response_outcome: ["triggers", "leads to"],
-        before_change_after: ["changed by", "becomes"]
-      };
+
 
       function pairLayoutMode(relation) {
         switch (safeText(relation).replace(/-/g, "_")) {
@@ -2286,46 +2268,7 @@
         }
       }
 
-      function tripletLayoutMode(relation) {
-        switch (safeText(relation).replace(/-/g, "_")) {
-          case "problem_method_result":
-            return "solution-chain";
-          case "cause_mechanism_effect":
-            return "causal-chain";
-          case "input_process_output":
-            return "process-chain";
-          case "claim_evidence_implication":
-            return "reasoning-ladder";
-          case "trigger_response_outcome":
-            return "event-chain";
-          case "before_change_after":
-            return "transformation-chain";
-          default:
-            return "chain";
-        }
-      }
 
-      function tripletRenderMode(relation, orientation) {
-        const relationKey = safeText(relation).replace(/-/g, "_");
-        if (relationKey === "claim_evidence_implication" && orientation !== "horizontal") {
-          return "ladder";
-        }
-        return orientation === "horizontal" ? "chain-strip" : "vertical-rail";
-      }
-
-      function normalizedTripletRenderMode(value) {
-        const mode = relationshipClassToken(value).replace(/_/g, "-");
-        switch (mode) {
-          case "chain-strip":
-          case "vertical-rail":
-          case "ladder":
-            return mode;
-          case "reasoning-ladder":
-            return "ladder";
-          default:
-            return "";
-        }
-      }
 
       function relationshipBridgeKind(kind, relation) {
         const relationKey = safeText(relation).replace(/-/g, "_");
@@ -2741,40 +2684,10 @@
       }
 
       function tripletChainTreatment(relationshipStyle) {
-        switch (relationshipClassToken(relationshipStyle)) {
-          case "domino-flow":
-          case "pipeline":
-          case "solve-path":
-          case "evidence-rail":
-          case "pulse-chain":
-          case "time-slice":
-            return "path-waypoint";
-          case "mechanism-bridge":
-          case "machine-flow":
-          case "method-card":
-          case "logic-ladder":
-          case "signal-response":
-          case "change-bridge":
-            return "glass-flow";
-          case "ripple-chain":
-          case "transformer":
-          case "outcome-lift":
-          case "inference-cascade":
-          case "reaction-path":
-          case "then-now":
-            return "layered-lift";
-          default:
-            return "path-waypoint";
-        }
+        return "path-waypoint";
       }
 
       function tripletChainDecorHTML(treatment) {
-        if (treatment === "glass-flow") {
-          return '<div class="triplet-chain-decor triplet-chain-flow-tube" aria-hidden="true"><span></span></div>';
-        }
-        if (treatment === "layered-lift") {
-          return '<div class="triplet-chain-decor triplet-chain-layer-stack" aria-hidden="true"><span></span><span></span></div>';
-        }
         return '<div class="triplet-chain-decor triplet-chain-route" aria-hidden="true"><span></span></div>';
       }
 
@@ -2798,55 +2711,14 @@
         );
       }
 
-      function renderTripletVerticalRail(nodes, bridgeKind, layoutMode, orientation) {
-        const railHTML = nodes.map(function (node, index) {
-          const connector = index < 2
-            ? relationshipBridgeHTML("triplet", node.connectorLabel, bridgeKind, "triplet-connector-" + String(index + 1) + " triplet-rail-connector")
-            : "";
-          return (
-            '<div style="--triplet-index: ' + index + '; --triplet-connector-index: ' + index + ';">' +
-            relationshipInlineNodeHTML("triplet", node.role, node.label, "triplet-item triplet-item-" + node.ordinal + " triplet-rail-node" + node.emphasisClass, "", node.body) +
-            connector +
-            "</div>"
-          );
-        }).join("");
-
-        return (
-          '<div class="triplet-rail relationship-diagram triplet-vertical-rail orientation-' + orientation + ' layout-' + layoutMode + '">' +
-            '<div class="triplet-main-flow">' + railHTML + "</div>" +
-          "</div>"
-        );
-      }
-
-      function renderTripletLadder(nodes, bridgeKind, layoutMode, orientation) {
-        const ladderHTML = nodes.map(function (node, index) {
-          const connector = index < 2
-            ? relationshipBridgeHTML("triplet", node.connectorLabel, bridgeKind, "triplet-connector-" + String(index + 1) + " ladder-link")
-            : "";
-          return (
-            relationshipInlineNodeHTML("triplet", node.role, node.label, "triplet-item triplet-item-" + node.ordinal + " ladder-step" + node.emphasisClass, "", node.body) +
-            connector
-          );
-        }).join("");
-
-        return (
-          '<div class="triplet-rail relationship-diagram triplet-ladder orientation-' + orientation + ' layout-' + layoutMode + '">' +
-            '<div class="triplet-main-flow">' + ladderHTML + "</div>" +
-          "</div>"
-        );
-      }
-
       function renderTripletCell(content, props, slot, relationshipStyle, tripletRenderAssignment) {
         const rawItems = Array.isArray(content.items) ? content.items : [];
         const items = rawItems.filter(function (item) {
           return item && typeof item === "object";
         }).slice(0, 3);
         const connectorLabels = Array.isArray(content.connector_labels) ? content.connector_labels : [];
-        const assignment = tripletRenderAssignment || null;
-        const relation = relationshipClassToken(firstNonEmpty([assignment && assignment.relation, props.relation, "cause_mechanism_effect"]));
-        const orientation = assignment
-          ? relationshipClassToken(firstNonEmpty([assignment.orientation, "vertical"]))
-          : resolveTripletOrientation(props, slot, content, relation);
+        const relation = "problem_method_result";
+        const orientation = "horizontal";
         const tone = relationshipClassToken(firstNonEmpty([props.tone, "neutral"]));
         const roleExamples = relationshipRoleExamples("triplet", relation);
         const explicitEmphasisIndex = props && props.emphasis_index !== undefined ? numeric(props.emphasis_index, -1) : -1;
@@ -2854,26 +2726,17 @@
         const chainLabel = firstNonEmpty([content.chain_label, content.title, content.heading]);
         const relationshipSentence = firstNonEmpty([content.relationship_sentence, content.relationship_summary, content.summary]);
         const headerHTML = relationshipHeaderHTML(chainLabel, relationshipSentence);
-        const layoutMode = tripletLayoutMode(relation);
-        const requestedRenderMode = assignment
-          ? ""
-          : normalizedTripletRenderMode(firstNonEmpty([props.render_mode, props.triplet_render_mode]));
-        const renderMode = assignment
-          ? firstNonEmpty([assignment.renderMode, tripletRenderMode(relation, orientation)])
-          : firstNonEmpty([requestedRenderMode, tripletRenderMode(relation, orientation)]);
-        const bridgeKind = relationshipBridgeKind("triplet", relation);
-        const fallbackConnectors = tripletConnectorFallbacks[relation] || ["then", "then"];
-        const nodes = tripletNodeData(items, roleExamples, connectorLabels, fallbackConnectors, emphasisIndex, !!assignment);
+        const layoutMode = "solution-chain";
+        const renderMode = "chain-strip";
+        const bridgeKind = "arrow";
+        const fallbackConnectors = ["handled by", "produces"];
+        const nodes = tripletNodeData(items, roleExamples, connectorLabels, fallbackConnectors, emphasisIndex, true);
         const diagramHTML = nodes.length
-          ? renderMode === "ladder"
-            ? renderTripletLadder(nodes, bridgeKind, layoutMode, orientation)
-            : renderMode === "chain-strip"
-              ? renderTripletChainStrip(nodes, bridgeKind, layoutMode, orientation, relationshipStyle)
-              : renderTripletVerticalRail(nodes, bridgeKind, layoutMode, orientation)
-          : '<div class="triplet-rail relationship-diagram triplet-vertical-rail orientation-vertical layout-' + layoutMode + '"><div class="relationship-empty">Triplet content unavailable.</div></div>';
+          ? renderTripletChainStrip(nodes, bridgeKind, layoutMode, orientation, "solve-path")
+          : '<div class="triplet-rail relationship-diagram triplet-chain-strip orientation-horizontal layout-' + layoutMode + '"><div class="relationship-empty">Triplet content unavailable.</div></div>';
 
         return (
-          '<div class="relationship-cell triplet-cell relation-' + relation + ' orientation-' + orientation + ' layout-' + layoutMode + ' triplet-mode-' + renderMode + (renderMode === "chain-strip" ? " triplet-chain-treatment-" + tripletChainTreatment(relationshipStyle) : "") + ' tone-' + tone + ' bridge-' + bridgeKind + '" role="group">' +
+          '<div class="relationship-cell triplet-cell relation-' + relation + ' orientation-' + orientation + ' layout-' + layoutMode + ' triplet-mode-' + renderMode + ' triplet-chain-treatment-' + tripletChainTreatment("solve-path") + ' tone-' + tone + ' bridge-' + bridgeKind + '" role="group">' +
             headerHTML +
             diagramHTML +
           "</div>"

@@ -8,23 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
 const defaultBundleDir = path.join(repoRoot, "public", "renderer-workbench", "current", "bundle");
 
-const expectedTripletLayouts = [
-  {
-    layoutId: "vertical-rail",
-    relationshipMode: "input_process_output",
-    styleId: "machine-flow",
-  },
-  {
-    layoutId: "chain-strip",
-    relationshipMode: "problem_method_result",
-    styleId: "solve-path",
-  },
-  {
-    layoutId: "ladder",
-    relationshipMode: "claim_evidence_implication",
-    styleId: "evidence-rail",
-  },
-];
+const expectedTripletLayouts = [];
 
 function usage() {
   return [

@@ -1,0 +1,42 @@
+/*
+ * Active-workbench experiment: give every gridcell the same content edge.
+ * Remove this file's import and manifest entries to undo the experiment.
+ */
+:root {
+  --gridcell-universal-content-edge: 20px;
+}
+
+#grid-layout-root .grid-shell .cell-card {
+  --cell-content-edge: var(--gridcell-universal-content-edge) !important;
+  padding-left: var(--gridcell-universal-content-edge) !important;
+  padding-right: var(--gridcell-universal-content-edge) !important;
+}
+
+/*
+ * TextCell modes use nested panels and copy wrappers that otherwise stack
+ * additional right padding on top of the universal card edge.
+ */
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-body,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-definition,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-quote,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-rule,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-example,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-warning,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-cell-caption,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .text-prose,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .definition-content,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .definition-panel,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .quote-body,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .quote-attribution,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .quote-context,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .rule-header,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .rule-statement,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .rule-copy-wrap,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .example-stage,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .warning-content,
+#grid-layout-root .grid-shell .cell-card[class*="text-mode-"] .caption-copy-wrap {
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  max-width: none !important;
+  width: 100%;
+}

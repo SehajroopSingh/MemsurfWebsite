@@ -1,0 +1,110 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card.key-value-style-case-notes {
+      --cell-style-accent: var(--accent-1);
+      border-left: 6px solid var(--cell-style-accent);
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.12), transparent 48%),
+        var(--card-bg);
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-title {
+      justify-content: center;
+      background:
+        linear-gradient(90deg, rgba(74, 120, 210, 0.035), rgba(255, 255, 255, 0.10)),
+        rgba(255, 255, 255, 0.12);
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-title-marker {
+      visibility: hidden;
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-cell {
+      border-radius: 9px;
+      border-color: rgba(82, 101, 135, 0.20);
+      background: rgba(255, 255, 255, 0.56);
+      box-shadow: 0 16px 28px rgba(31, 42, 68, 0.10);
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-row {
+      display: grid;
+      grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
+      padding: 0;
+      border-top: 0 !important;
+      border-radius: 0;
+      border-inline: 0;
+      border-bottom: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
+      transform: none;
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-row::before {
+      content: none;
+      display: none;
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-key {
+      background: rgba(74, 120, 210, 0.07);
+      border-right: 1px solid rgba(74, 120, 210, 0.14);
+      padding: 11px 13px !important;
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-1);
+    }
+
+    .cell-card.key-value-card.key-value-style-case-notes .key-value-value {
+      padding: 11px 13px !important;
+      margin: 0 !important;
+      border: 0;
+      background: transparent;
+    }
+
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row,
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row:nth-child(odd),
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-case-notes .key-value-row:nth-child(even) {
+      animation-name: kv-ledger-row;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-key {
+      background: rgba(126, 161, 255, 0.09);
+      border-right-color: rgba(126, 161, 255, 0.16);
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-cell {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(82, 101, 135, 0.20);
+      box-shadow: 0 16px 28px rgba(31, 42, 68, 0.10);
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-row {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    @media (max-width: 620px) {
+
+      .cell-card.key-value-card.key-value-style-case-notes .key-value-row {
+        grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
+      }
+
+      .cell-card.key-value-card.key-value-style-case-notes .key-value-key {
+        border-right: 1px solid rgba(74, 120, 210, 0.14) !important;
+        border-bottom: 0 !important;
+      }
+
+      :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-case-notes .key-value-key {
+        border-right-color: rgba(126, 161, 255, 0.16) !important;
+      }
+}
+
+    .cell-card.key-value-card.key-value-style-case-notes {
+      border-left-width: 0 !important;
+    }

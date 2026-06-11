@@ -1210,8 +1210,12 @@ function catalogEntriesWithRenderModeStyles(entries: CatalogEntry[]): CatalogEnt
     }
     if (entry.cell_type === "TripletCell") {
       if (entry.layout_kind === "cell_style") return [];
-      if (entry.layout_kind === "relationship_mode") return [];
-      if (HIDDEN_TRIPLET_RELATIONSHIP_MODES.has(entry.render_mode || "")) return [];
+      if (entry.layout_kind === "relationship_mode" && entry.render_mode !== "problem_method_result") {
+        return [];
+      }
+      if (HIDDEN_TRIPLET_RELATIONSHIP_MODES.has(entry.render_mode || "") && entry.render_mode !== "problem_method_result") {
+        return [];
+      }
     }
     return [entry];
   });

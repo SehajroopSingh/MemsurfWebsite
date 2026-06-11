@@ -1,0 +1,20 @@
+@media (max-width: 620px) {
+  body {
+    padding-top: 2px;
+  }
+
+  #grid-layout-root {
+    padding: 0 16px;
+  }
+
+  .cell-card {
+    border-radius: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell-card[class*="cell-style-"] {
+    transition: none;
+    transform: none;
+  }
+}

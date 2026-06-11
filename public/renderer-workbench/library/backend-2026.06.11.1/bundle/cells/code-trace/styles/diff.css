@@ -1,0 +1,13 @@
+/* code-trace local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.code-trace-card.cell-style-diff {
+      border-color: rgba(47, 143, 131, 0.28);
+      background:
+        linear-gradient(90deg, rgba(47, 143, 131, 0.10), transparent 50%),
+        linear-gradient(270deg, rgba(214, 88, 104, 0.09), transparent 50%),
+        var(--card-bg);
+    }
+
+    .code-trace-card.cell-style-diff .code-line.is-highlighted {
+      background: linear-gradient(90deg, rgba(47, 143, 131, 0.14), rgba(214, 88, 104, 0.08));
+    }

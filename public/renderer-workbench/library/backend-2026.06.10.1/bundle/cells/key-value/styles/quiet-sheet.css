@@ -1,0 +1,50 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card.key-value-style-quiet-sheet .key-value-title {
+      margin-bottom: 8px;
+      border: 1px solid rgba(82, 101, 135, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.44);
+      box-shadow: 0 10px 22px rgba(31, 42, 68, 0.06);
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-title {
+      background: rgba(18, 27, 45, 0.62);
+      border-color: rgba(214, 221, 235, 0.13);
+    }
+
+    .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-cell {
+      gap: 8px;
+      overflow: visible;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-row {
+      grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
+      border: 1px solid rgba(102, 118, 146, 0.15);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.38);
+      box-shadow: 0 10px 22px rgba(31, 42, 68, 0.06);
+      overflow: hidden;
+    }
+
+    .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-row + .key-value-row {
+      border-top: 1px solid rgba(102, 118, 146, 0.15);
+    }
+
+    .cell-card.key-value-card.key-value-card-enter.key-value-style-quiet-sheet .key-value-row {
+      animation-name: kv-quiet-float;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-cell {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-quiet-sheet .key-value-row {
+      background: rgba(255, 255, 255, 0.045);
+      border-color: rgba(126, 161, 255, 0.14);
+    }

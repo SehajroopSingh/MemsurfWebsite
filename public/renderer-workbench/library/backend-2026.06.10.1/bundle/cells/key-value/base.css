@@ -1,0 +1,193 @@
+/* KeyValueCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.key-value-card .key-value-title {
+      position: relative;
+      display: grid;
+      grid-template-columns: 4px minmax(0, 1fr);
+      gap: 9px;
+      align-items: center;
+      min-height: 40px;
+      padding: 10px 12px;
+      color: var(--heading);
+      font-size: 12px;
+      font-weight: 840;
+      letter-spacing: 0;
+      line-height: 1.24;
+      border-bottom: 1px solid rgba(82, 101, 135, 0.12);
+      background: rgba(245, 247, 250, 0.72);
+    }
+
+    .cell-card.key-value-card .key-value-title-marker {
+      display: block;
+      width: 4px;
+      min-height: 20px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b));
+      box-shadow: 0 0 0 3px rgba(47, 143, 131, 0.08);
+    }
+
+    .cell-card.key-value-card .key-value-title-text {
+      display: block;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .cell-card.key-value-card .key-value-title + .key-value-row {
+      border-top: 0;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card .key-value-title {
+      border-bottom-color: rgba(214, 221, 235, 0.13);
+      background: rgba(28, 36, 48, 0.72);
+    }
+
+    .cell-card.key-value-card {
+      --relationship-a: var(--accent-0);
+      --relationship-b: var(--accent-1);
+      --relationship-c: var(--accent-2);
+      --relationship-wash-a: rgba(47, 143, 131, 0.10);
+      --relationship-wash-b: rgba(74, 120, 210, 0.09);
+      --relationship-line: rgba(47, 143, 131, 0.22);
+    }
+
+    .cell-card.key-value-card {
+      justify-content: stretch;
+      gap: 0;
+      padding: 0;
+      border: 0;
+      border-color: transparent;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      outline: none;
+      outline-offset: 0;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .cell-card.key-value-card .key-value-cell::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .cell-card.key-value-card .key-value-cell {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      min-height: 100%;
+      isolation: isolate;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--surface-line);
+      background: rgba(255, 255, 255, 0.32);
+      box-shadow:
+        0 18px 40px rgba(31, 42, 68, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.34);
+    }
+
+    .cell-card.key-value-card .key-value-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(92px, 0.42fr) minmax(0, 1fr);
+      min-width: 0;
+      border-top: 1px solid var(--surface-line);
+    }
+
+    .cell-card.key-value-card .key-value-row:first-child {
+      border-top: 0;
+    }
+
+    .cell-card.key-value-card .key-value-key,
+.cell-card.key-value-card .key-value-value {
+      position: relative;
+      min-width: 0;
+      padding: 11px 13px;
+      font-size: 13px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .cell-card.key-value-card .key-value-key {
+      display: flex;
+      align-items: center;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.26);
+      border-right: 1px solid var(--surface-line);
+      font-weight: 760;
+    }
+
+    .cell-card.key-value-card .key-value-value {
+      color: var(--heading);
+      font-weight: 620;
+    }
+
+    .cell-card.key-value-card .key-value-cell.density-compact .key-value-key,
+.cell-card.key-value-card .key-value-cell.density-compact .key-value-value {
+      padding-top: 9px;
+      padding-bottom: 9px;
+    }
+
+    .cell-card.key-value-card .key-value-empty {
+      padding: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card {
+      --relationship-wash-a: rgba(88, 193, 178, 0.08);
+      --relationship-wash-b: rgba(126, 161, 255, 0.07);
+      --relationship-line: rgba(126, 161, 255, 0.22);
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card {
+      background: transparent;
+      border-width: 0;
+      border-color: transparent;
+      box-shadow: none;
+      outline: none;
+      outline-offset: 0;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card .key-value-cell {
+      background: rgba(255, 255, 255, 0.045);
+      border-color: var(--surface-line);
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card .key-value-key {
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .cell-card.key-value-card,
+:root[data-theme="dark"] .cell-card.key-value-card {
+      border: 0;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+      outline: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .cell-card.key-value-card .key-value-cell,
+:root[data-theme="dark"] .cell-card.key-value-card .key-value-cell {
+      border: 0;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+      outline: none;
+    }
+
+    .cell-card.key-value-card .key-value-cell::before,
+:root[data-theme="dark"] .cell-card.key-value-card .key-value-cell::before {
+      display: none;
+    }

@@ -1,0 +1,15 @@
+/* heading local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.heading-card.cell-style-masthead {
+      --cell-style-accent: var(--accent-0);
+      border-top: 4px solid var(--cell-style-accent);
+      background:
+        linear-gradient(135deg, rgba(47, 143, 131, 0.13), transparent 42%),
+        var(--card-bg);
+    }
+
+        .heading-card.cell-style-masthead .heading-value {
+      font-size: 24px;
+      border-top: 4px solid rgba(47, 143, 131, 0.34);
+      padding-top: 10px;
+    }

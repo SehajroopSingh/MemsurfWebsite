@@ -1,0 +1,38 @@
+/* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.compare-card.cell-style-scorecard {
+      background:
+        linear-gradient(rgba(74, 120, 210, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 120, 210, 0.10) 1px, transparent 1px),
+        var(--card-bg);
+      background-size: 18px 18px, 18px 18px, auto;
+      border-color: rgba(74, 120, 210, 0.24);
+    }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-vs-badge span {
+      border-radius: 8px;
+    }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-row {
+      min-height: 58px;
+    }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-label-text {
+      font-weight: 860;
+    }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-table {
+      border-radius: 4px;
+      border-width: 2px;
+      box-shadow: 4px 4px 0 color-mix(in srgb, var(--accent-1) 20%, transparent);
+    }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-header,
+    .cell-card.compare-card.cell-style-scorecard .compare-row {
+      border-radius: 0;
+    }
+
+    .cell-card.compare-card.cell-style-scorecard .compare-label {
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }

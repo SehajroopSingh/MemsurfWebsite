@@ -1,0 +1,9 @@
+/* image local workbench copy. Source rules intentionally remain in renderer.css. */
+
+@media (prefers-reduced-motion: reduce) {
+      .cell-card.image-card[class*="cell-style-"],
+.cell-card.image-card.cell-style-polaroid {
+        transition: none;
+        transform: none;
+      }
+}

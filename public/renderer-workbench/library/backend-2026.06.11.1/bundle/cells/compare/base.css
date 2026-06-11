@@ -1,0 +1,423 @@
+/* CompareCell local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.compare-card {
+      --compare-title-color: color-mix(in srgb, var(--muted) 88%, var(--heading) 12%);
+      --compare-takeaway-color: color-mix(in srgb, var(--heading) 92%, #000 8%);
+      --compare-table-bg: rgba(255, 255, 255, 0.68);
+      --compare-table-line: rgba(63, 78, 105, 0.14);
+      --compare-table-line-strong: rgba(45, 58, 82, 0.20);
+      --compare-header-bg: rgba(249, 251, 254, 0.86);
+      --compare-row-bg: rgba(255, 255, 255, 0.36);
+      --compare-aspect-bg: rgba(244, 247, 251, 0.70);
+      --compare-axis: rgba(75, 88, 112, 0.34);
+      --compare-soft-shadow: rgba(18, 31, 52, 0.10);
+      isolation: isolate;
+      overflow: hidden;
+      padding: 0;
+      border-color: rgba(66, 80, 108, 0.14);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 249, 252, 0.78)),
+        var(--card-bg);
+      box-shadow:
+        0 18px 34px var(--compare-soft-shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.76);
+    }
+
+    .cell-card.compare-card::before {
+      display: none;
+    }
+
+    .cell-card.compare-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card {
+      --compare-title-color: color-mix(in srgb, var(--muted) 92%, var(--heading) 8%);
+      --compare-takeaway-color: color-mix(in srgb, var(--text) 86%, #000 14%);
+      --compare-table-bg: rgba(15, 22, 34, 0.72);
+      --compare-table-line: rgba(170, 188, 217, 0.13);
+      --compare-table-line-strong: rgba(201, 214, 234, 0.20);
+      --compare-header-bg: rgba(22, 30, 44, 0.86);
+      --compare-row-bg: rgba(255, 255, 255, 0.025);
+      --compare-aspect-bg: rgba(255, 255, 255, 0.035);
+      --compare-axis: rgba(190, 205, 226, 0.34);
+      --compare-soft-shadow: rgba(2, 8, 20, 0.34);
+      border-color: rgba(176, 195, 229, 0.12);
+      background:
+        linear-gradient(180deg, rgba(19, 28, 43, 0.90), rgba(12, 19, 31, 0.80)),
+        var(--card-bg);
+      box-shadow:
+        0 20px 44px var(--compare-soft-shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .cell-card.compare-card .compare-cell {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+      padding: 12px 0;
+      overflow: visible;
+    }
+
+    .cell-card.compare-card .compare-cell::before {
+      display: none;
+    }
+
+    .cell-card.compare-card .compare-cell > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cell-card.compare-card .compare-title {
+      margin: 0;
+      color: var(--compare-title-color);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 820;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .cell-card.compare-card .compare-table {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--compare-table-line);
+      border-radius: 15px;
+      background: var(--compare-table-bg);
+      box-shadow:
+        0 12px 24px rgba(18, 31, 52, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .cell-card.compare-card .compare-table::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      border-radius: inherit;
+      border: 1px solid var(--compare-table-line-strong);
+      opacity: 0.30;
+    }
+
+    .cell-card.compare-card .compare-table > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cell-card.compare-card .compare-header {
+      display: grid;
+      grid-template-columns: minmax(88px, 0.56fr) minmax(0, 1fr) 42px minmax(0, 1fr);
+      gap: 0;
+      align-items: stretch;
+      min-width: 0;
+      overflow: hidden;
+      border-bottom: 1px solid var(--compare-table-line-strong);
+      background: var(--compare-header-bg);
+    }
+
+    .cell-card.compare-card .compare-label,
+.cell-card.compare-card .compare-aspect,
+.cell-card.compare-card .compare-value,
+.cell-card.compare-card .compare-aspect-heading {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .cell-card.compare-card .compare-aspect-heading {
+      display: flex;
+      align-items: center;
+      min-height: 62px;
+      padding: 13px 14px;
+      color: var(--muted);
+      border-right: 1px solid var(--compare-table-line);
+      background: var(--compare-aspect-bg);
+      font-size: 10.5px;
+      line-height: 1.1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 760;
+    }
+
+    .cell-card.compare-card .compare-label {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 66px;
+      padding: 15px 17px 16px;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+      color: var(--heading);
+      font-size: 17px;
+      line-height: 1.12;
+      font-weight: 860;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .cell-card.compare-card .compare-label::before {
+      display: none;
+    }
+
+    .cell-card.compare-card .compare-label-text {
+      display: block;
+      min-width: 0;
+      text-wrap: balance;
+    }
+
+    .cell-card.compare-card .compare-label-right {
+      align-items: flex-start;
+    }
+
+    .cell-card.compare-card .compare-label-right::before {
+      display: none;
+    }
+
+    .cell-card.compare-card .compare-vs-badge {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      border-left: 1px solid var(--compare-table-line);
+      border-right: 1px solid var(--compare-table-line);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .cell-card.compare-card .compare-vs-badge::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left: 50%;
+      width: 1px;
+      border-radius: 999px;
+      background: var(--compare-axis);
+      opacity: 0.32;
+      transform: translateX(-50%);
+    }
+
+    .cell-card.compare-card .compare-vs-badge span {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 31px;
+      height: 22px;
+      border-radius: 999px;
+      color: var(--heading);
+      background: var(--compare-table-bg);
+      border: 1px solid var(--compare-table-line-strong);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.60);
+      font-size: 10px;
+      line-height: 1;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 780;
+    }
+
+    .cell-card.compare-card .compare-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      overflow: hidden;
+      background: var(--compare-row-bg);
+    }
+
+    .cell-card.compare-card .compare-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(88px, 0.56fr) minmax(0, 1fr) 42px minmax(0, 1fr);
+      gap: 0;
+      align-items: stretch;
+      min-width: 0;
+      padding: 0;
+      border-radius: 0;
+      border: 0;
+      border-top: 1px solid var(--compare-table-line);
+      background: transparent;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .cell-card.compare-card .compare-row:first-child {
+      border-top: 0;
+    }
+
+    .cell-card.compare-card .compare-row::before {
+      display: none;
+    }
+
+    .cell-card.compare-card .compare-aspect {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 52px;
+      padding: 12px 14px;
+      border-right: 1px solid var(--compare-table-line);
+      background: var(--compare-aspect-bg);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.28;
+      font-weight: 760;
+    }
+
+    .cell-card.compare-card .compare-aspect-index {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--compare-table-line);
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 780;
+    }
+
+    .cell-card.compare-card .compare-aspect-text {
+      min-width: 0;
+    }
+
+    .cell-card.compare-card .compare-value {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      min-height: 52px;
+      padding: 12px 15px;
+      border-radius: 0;
+      border: 0;
+      background: transparent;
+      color: var(--heading);
+      font-size: 13px;
+      line-height: 1.38;
+      font-weight: 610;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .cell-card.compare-card .compare-value::before {
+      display: none;
+    }
+
+    .cell-card.compare-card .compare-value-inner {
+      position: relative;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .cell-card.compare-card .compare-value-right::before {
+      display: none;
+    }
+
+    .cell-card.compare-card .compare-value-right {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .cell-card.compare-card .compare-axis {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      min-height: 52px;
+      border-left: 1px solid var(--compare-table-line);
+      border-right: 1px solid var(--compare-table-line);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .cell-card.compare-card .compare-axis::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      border-radius: 999px;
+      background: var(--compare-axis);
+      opacity: 0.28;
+      transform: translateX(-50%);
+    }
+
+    .cell-card.compare-card .compare-axis span {
+      position: relative;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--compare-table-bg);
+      border: 1px solid var(--compare-axis);
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.54);
+    }
+
+    .cell-card.compare-card .compare-takeaway {
+      position: relative;
+      margin: 0;
+      padding: 13px 18px 2px;
+      border-top: 1px solid var(--compare-table-line);
+      background: transparent;
+      color: var(--compare-takeaway-color);
+      font-size: 13px;
+      line-height: 1.42;
+      font-weight: 680;
+    }
+
+    .cell-card.compare-card .compare-takeaway::before {
+      display: none;
+    }
+
+    .cell-card.compare-card .compare-empty {
+      padding: 14px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card .compare-table {
+      box-shadow:
+        0 14px 30px rgba(2, 8, 20, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card .compare-vs-badge span {
+      background: var(--compare-table-bg);
+      border-color: var(--compare-table-line);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card .compare-row {
+      background: transparent;
+      border-color: var(--compare-table-line);
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card .compare-value {
+      color: var(--text);
+      box-shadow: none;
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card .compare-axis span {
+      box-shadow: 0 0 0 4px rgba(15, 22, 34, 0.72);
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card .compare-aspect,
+:root[data-theme="dark"] .cell-card.compare-card .compare-axis,
+:root[data-theme="dark"] .cell-card.compare-card .compare-vs-badge {
+      background: var(--compare-aspect-bg);
+    }
+
+    :root[data-theme="dark"] .cell-card.compare-card .compare-empty {
+      background: transparent;
+    }

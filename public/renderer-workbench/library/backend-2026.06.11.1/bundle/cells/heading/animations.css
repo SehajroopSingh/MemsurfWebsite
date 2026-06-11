@@ -1,0 +1,11 @@
+/* heading local workbench copy. Source rules intentionally remain in renderer.css. */
+
+.cell-card.heading-card.sequence-active.cell-style-runway {
+      animation-duration: 520ms;
+    }
+@media (prefers-reduced-motion: reduce) {
+      .cell-card.heading-card[class*="cell-style-"] {
+        transition: none;
+        transform: none;
+      }
+}

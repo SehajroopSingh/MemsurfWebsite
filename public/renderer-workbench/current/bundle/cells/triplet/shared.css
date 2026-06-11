@@ -361,8 +361,8 @@ code {
     }
 
     .triplet-item-3 .relationship-role {
-      color: var(--relationship-b);
-      background: var(--relationship-wash-b);
+      color: inherit;
+      background: transparent;
     }
 
     .triplet-connector {
@@ -1076,8 +1076,8 @@ code {
 
 .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item-2 .relationship-role,
 .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item-3 .relationship-role {
-  color: var(--relationship-b);
-  background: var(--relationship-wash-b);
+  color: inherit;
+  background: transparent;
 }
 
 .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-label {
@@ -1098,8 +1098,8 @@ code {
   margin-bottom: 6px;
   padding: 3px 7px;
   border-radius: 999px;
-  color: var(--relationship-a);
-  background: var(--relationship-wash-a);
+  color: var(--muted);
+  background: transparent;
   font-size: 10px;
   line-height: 1.1;
   font-weight: 820;

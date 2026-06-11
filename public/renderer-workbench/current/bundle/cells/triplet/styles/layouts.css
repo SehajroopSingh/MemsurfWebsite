@@ -354,7 +354,6 @@
 
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-role {
       margin-bottom: 7px !important;
-      color: color-mix(in srgb, var(--muted) 78%, var(--heading)) !important;
       font-size: 10px !important;
       line-height: 1 !important;
       font-weight: 720 !important;

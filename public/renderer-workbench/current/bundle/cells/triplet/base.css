@@ -53,8 +53,8 @@
     }
 
     .triplet-item-2 .relationship-role {
-      color: var(--relationship-b);
-      background: rgba(74, 120, 210, 0.10);
+      color: inherit;
+      background: transparent;
     }
 
     .triplet-cell {
@@ -407,7 +407,6 @@
       box-shadow: 0 0 0 7px color-mix(in srgb, var(--item-accent) 12%, transparent) !important;
     }
 
-    .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-chain-treatment-path-waypoint .relationship-role,
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-chain-treatment-path-waypoint .relationship-label,
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-chain-treatment-path-waypoint .relationship-body {
       padding-left: 22px !important;

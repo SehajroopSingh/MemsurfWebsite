@@ -1289,7 +1289,7 @@
           "style_id": "pipeline"
         },
         {
-          "is_locked": true,
+          "is_locked": false,
           "label": "Machine Flow",
           "real_lesson_enabled": false,
           "style_id": "machine-flow"
@@ -1442,7 +1442,7 @@
       "cell_type": "TripletCell",
       "default_style_id": "machine-flow",
       "group_id": "triplet-layout:vertical-rail",
-      "is_locked": false,
+      "is_locked": true,
       "layout_id": "vertical-rail",
       "layout_kind": "triplet_layout",
       "layout_label": "Vertical Rail mode",
@@ -1461,7 +1461,7 @@
         {
           "is_locked": false,
           "label": "Machine Flow",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "machine-flow"
         },
         {
@@ -1476,7 +1476,7 @@
       "cell_type": "TripletCell",
       "default_style_id": "solve-path",
       "group_id": "triplet-layout:chain-strip",
-      "is_locked": false,
+      "is_locked": true,
       "layout_id": "chain-strip",
       "layout_kind": "triplet_layout",
       "layout_label": "Chain Strip mode",
@@ -1489,7 +1489,7 @@
         {
           "is_locked": false,
           "label": "Solve Path",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "solve-path"
         },
         {
@@ -1510,7 +1510,7 @@
       "cell_type": "TripletCell",
       "default_style_id": "evidence-rail",
       "group_id": "triplet-layout:ladder",
-      "is_locked": false,
+      "is_locked": true,
       "layout_id": "ladder",
       "layout_kind": "triplet_layout",
       "layout_label": "Reasoning Ladder mode",
@@ -1523,7 +1523,7 @@
         {
           "is_locked": false,
           "label": "Evidence Rail",
-          "real_lesson_enabled": true,
+          "real_lesson_enabled": false,
           "style_id": "evidence-rail"
         },
         {

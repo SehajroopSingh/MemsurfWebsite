@@ -16937,8 +16937,8 @@ code {
     }
 
     .triplet-item-2 .relationship-role {
-      color: var(--relationship-b);
-      background: rgba(74, 120, 210, 0.10);
+      color: inherit;
+      background: transparent;
     }
 
     .triplet-cell {
@@ -17291,7 +17291,6 @@ code {
       box-shadow: 0 0 0 7px color-mix(in srgb, var(--item-accent) 12%, transparent) !important;
     }
 
-    .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-chain-treatment-path-waypoint .relationship-role,
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-chain-treatment-path-waypoint .relationship-label,
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-chain-treatment-path-waypoint .relationship-body {
       padding-left: 22px !important;
@@ -19531,7 +19530,6 @@ code {
 
     .cell-card.triplet-card .relationship-cell.triplet-cell.triplet-mode-chain-strip .relationship-role {
       margin-bottom: 7px !important;
-      color: color-mix(in srgb, var(--muted) 78%, var(--heading)) !important;
       font-size: 10px !important;
       line-height: 1 !important;
       font-weight: 720 !important;
@@ -21124,8 +21122,8 @@ code {
     }
 
     .triplet-item-3 .relationship-role {
-      color: var(--relationship-b);
-      background: var(--relationship-wash-b);
+      color: inherit;
+      background: transparent;
     }
 
     .triplet-connector {
@@ -21839,8 +21837,8 @@ code {
 
 .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item-2 .relationship-role,
 .cell-card.triplet-card .relationship-cell.triplet-cell .triplet-item-3 .relationship-role {
-  color: var(--relationship-b);
-  background: var(--relationship-wash-b);
+  color: inherit;
+  background: transparent;
 }
 
 .cell-card.triplet-card .relationship-cell.triplet-cell .relationship-label {
@@ -21861,8 +21859,8 @@ code {
   margin-bottom: 6px;
   padding: 3px 7px;
   border-radius: 999px;
-  color: var(--relationship-a);
-  background: var(--relationship-wash-a);
+  color: var(--muted);
+  background: transparent;
   font-size: 10px;
   line-height: 1.1;
   font-weight: 820;

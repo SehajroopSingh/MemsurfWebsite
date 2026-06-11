@@ -146,8 +146,8 @@ function assertTripletLayoutAvailability(styleAvailability, failures) {
     if (!group) continue;
 
     assertCondition(
-      group.is_locked === false,
-      `TripletCell layout group ${group.group_id} must be unlocked.`,
+      group.is_locked === true,
+      `TripletCell layout group ${group.group_id} must stay locked for real lessons.`,
       failures,
     );
     assertCondition(
@@ -156,12 +156,17 @@ function assertTripletLayoutAvailability(styleAvailability, failures) {
       failures,
     );
 
-    const enabledStyles = (Array.isArray(group.styles) ? group.styles : []).filter(
-      (style) => style?.is_locked === false && style?.real_lesson_enabled === true,
-    );
+    const unlockedStyles = (Array.isArray(group.styles) ? group.styles : []).filter((style) => style?.is_locked === false);
     assertCondition(
-      enabledStyles.length === 1 && enabledStyles[0]?.style_id === expected.styleId,
-      `TripletCell layout group ${group.group_id} must expose only ${expected.styleId} for real lessons.`,
+      unlockedStyles.length === 1 && unlockedStyles[0]?.style_id === expected.styleId,
+      `TripletCell layout group ${group.group_id} must keep only ${expected.styleId} unlocked for preview/import validity.`,
+      failures,
+    );
+
+    const enabledStyles = (Array.isArray(group.styles) ? group.styles : []).filter((style) => style?.real_lesson_enabled === true);
+    assertCondition(
+      enabledStyles.length === 0,
+      `TripletCell layout group ${group.group_id} must not expose real-lesson styles.`,
       failures,
     );
   }
@@ -208,13 +213,15 @@ async function main() {
   );
 
   assertCondition(
-    rendererJs.includes("function tripletAssignmentAvailability"),
-    "renderer.js must use tripletAssignmentAvailability for randomized TripletCell layouts.",
+    !rendererJs.includes("tripletAssignmentAvailability") &&
+      !rendererJs.includes("tripletRenderAssignmentForSlot") &&
+      !rendererJs.includes("triplet-render-assignment"),
+    "renderer.js must not contain the special randomized TripletCell layout assignment path.",
     failures,
   );
   assertCondition(
-    !rendererJs.includes('style: selectedRelationshipCellStyle("TripletCell"'),
-    'renderer.js must not assign randomized TripletCell style with selectedRelationshipCellStyle("TripletCell").',
+    rendererJs.includes("selectedRelationshipCellStyle(cellType, mode, scenarioStyleKey"),
+    "renderer.js must assign TripletCell styles through the normal unlocked relationship style path.",
     failures,
   );
 

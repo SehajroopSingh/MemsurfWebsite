@@ -1,6 +1,6 @@
 {
   "default_lock_policy": "deterministic-unlocked-rotation",
-  "group_count": 36,
+  "group_count": 30,
   "groups": [
     {
       "cell_type": "TextCell",
@@ -419,18 +419,6 @@
           "label": "Duet",
           "real_lesson_enabled": true,
           "style_id": "duet"
-        },
-        {
-          "is_locked": true,
-          "label": "Bridge",
-          "real_lesson_enabled": false,
-          "style_id": "bridge"
-        },
-        {
-          "is_locked": true,
-          "label": "Mirror",
-          "real_lesson_enabled": false,
-          "style_id": "mirror"
         }
       ]
     },
@@ -867,222 +855,6 @@
           "label": "Duet",
           "real_lesson_enabled": true,
           "style_id": "duet"
-        },
-        {
-          "is_locked": true,
-          "label": "Mirror",
-          "real_lesson_enabled": false,
-          "style_id": "mirror"
-        },
-        {
-          "is_locked": true,
-          "label": "Shared Rail",
-          "real_lesson_enabled": false,
-          "style_id": "shared-rail"
-        }
-      ]
-    },
-    {
-      "cell_type": "PairCell",
-      "default_style_id": "versus-split",
-      "group_id": "relationship:pair:contrast",
-      "is_locked": false,
-      "layout_id": "contrast",
-      "layout_kind": "relationship_mode",
-      "layout_label": "Contrast mode",
-      "orientation": "",
-      "relationship_kind": "pair",
-      "relationship_mode": "contrast",
-      "render_mode": "",
-      "style_key": "preview_relationship_style",
-      "styles": [
-        {
-          "is_locked": false,
-          "label": "Versus Split",
-          "real_lesson_enabled": true,
-          "style_id": "versus-split"
-        },
-        {
-          "is_locked": true,
-          "label": "Opposing Corners",
-          "real_lesson_enabled": false,
-          "style_id": "opposing-corners"
-        },
-        {
-          "is_locked": true,
-          "label": "Tension Line",
-          "real_lesson_enabled": false,
-          "style_id": "tension-line"
-        }
-      ]
-    },
-    {
-      "cell_type": "PairCell",
-      "default_style_id": "then-now",
-      "group_id": "relationship:pair:before_after",
-      "is_locked": false,
-      "layout_id": "before_after",
-      "layout_kind": "relationship_mode",
-      "layout_label": "Before After mode",
-      "orientation": "",
-      "relationship_kind": "pair",
-      "relationship_mode": "before_after",
-      "render_mode": "",
-      "style_key": "preview_relationship_style",
-      "styles": [
-        {
-          "is_locked": false,
-          "label": "Then Now",
-          "real_lesson_enabled": true,
-          "style_id": "then-now"
-        },
-        {
-          "is_locked": true,
-          "label": "Transition Track",
-          "real_lesson_enabled": false,
-          "style_id": "transition-track"
-        },
-        {
-          "is_locked": true,
-          "label": "Wipe",
-          "real_lesson_enabled": false,
-          "style_id": "wipe"
-        }
-      ]
-    },
-    {
-      "cell_type": "PairCell",
-      "default_style_id": "diagnosis-fix",
-      "group_id": "relationship:pair:problem_solution",
-      "is_locked": false,
-      "layout_id": "problem_solution",
-      "layout_kind": "relationship_mode",
-      "layout_label": "Problem Solution mode",
-      "orientation": "",
-      "relationship_kind": "pair",
-      "relationship_mode": "problem_solution",
-      "render_mode": "",
-      "style_key": "preview_relationship_style",
-      "styles": [
-        {
-          "is_locked": false,
-          "label": "Diagnosis Fix",
-          "real_lesson_enabled": true,
-          "style_id": "diagnosis-fix"
-        },
-        {
-          "is_locked": true,
-          "label": "Lock Key",
-          "real_lesson_enabled": false,
-          "style_id": "lock-key"
-        },
-        {
-          "is_locked": true,
-          "label": "Repair Card",
-          "real_lesson_enabled": false,
-          "style_id": "repair-card"
-        }
-      ]
-    },
-    {
-      "cell_type": "PairCell",
-      "default_style_id": "ripple",
-      "group_id": "relationship:pair:cause_effect",
-      "is_locked": false,
-      "layout_id": "cause_effect",
-      "layout_kind": "relationship_mode",
-      "layout_label": "Cause Effect mode",
-      "orientation": "",
-      "relationship_kind": "pair",
-      "relationship_mode": "cause_effect",
-      "render_mode": "",
-      "style_key": "preview_relationship_style",
-      "styles": [
-        {
-          "is_locked": false,
-          "label": "Ripple",
-          "real_lesson_enabled": true,
-          "style_id": "ripple"
-        },
-        {
-          "is_locked": true,
-          "label": "Domino",
-          "real_lesson_enabled": false,
-          "style_id": "domino"
-        },
-        {
-          "is_locked": true,
-          "label": "Causal Arrow",
-          "real_lesson_enabled": false,
-          "style_id": "causal-arrow"
-        }
-      ]
-    },
-    {
-      "cell_type": "PairCell",
-      "default_style_id": "check-cross",
-      "group_id": "relationship:pair:example_nonexample",
-      "is_locked": false,
-      "layout_id": "example_nonexample",
-      "layout_kind": "relationship_mode",
-      "layout_label": "Example Nonexample mode",
-      "orientation": "",
-      "relationship_kind": "pair",
-      "relationship_mode": "example_nonexample",
-      "render_mode": "",
-      "style_key": "preview_relationship_style",
-      "styles": [
-        {
-          "is_locked": false,
-          "label": "Check Cross",
-          "real_lesson_enabled": true,
-          "style_id": "check-cross"
-        },
-        {
-          "is_locked": true,
-          "label": "Sample Filter",
-          "real_lesson_enabled": false,
-          "style_id": "sample-filter"
-        },
-        {
-          "is_locked": true,
-          "label": "Green Red",
-          "real_lesson_enabled": false,
-          "style_id": "green-red"
-        }
-      ]
-    },
-    {
-      "cell_type": "PairCell",
-      "default_style_id": "brief-proof",
-      "group_id": "relationship:pair:claim_evidence",
-      "is_locked": false,
-      "layout_id": "claim_evidence",
-      "layout_kind": "relationship_mode",
-      "layout_label": "Claim Evidence mode",
-      "orientation": "",
-      "relationship_kind": "pair",
-      "relationship_mode": "claim_evidence",
-      "render_mode": "",
-      "style_key": "preview_relationship_style",
-      "styles": [
-        {
-          "is_locked": false,
-          "label": "Brief Proof",
-          "real_lesson_enabled": true,
-          "style_id": "brief-proof"
-        },
-        {
-          "is_locked": true,
-          "label": "Citation Stack",
-          "real_lesson_enabled": false,
-          "style_id": "citation-stack"
-        },
-        {
-          "is_locked": true,
-          "label": "Argument Line",
-          "real_lesson_enabled": false,
-          "style_id": "argument-line"
         }
       ]
     },
@@ -1247,7 +1019,7 @@
   ],
   "renderer_id": "dynamic_gridcell",
   "schema_version": "renderer_style_availability_v1",
-  "style_count": 111,
+  "style_count": 89,
   "style_policy": "backend-owned",
   "version": "2026.06.11.5"
 }

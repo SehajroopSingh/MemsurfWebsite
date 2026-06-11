@@ -431,6 +431,9 @@
       }
 
       function relationshipStyleModeForCell(cellType, props) {
+        if (cellType === "PairCell") {
+          return "parallel_examples";
+        }
         const kind = relationshipCellKind(cellType);
         if (kind === "pair") {
           return relationshipClassToken(firstNonEmpty([props.relation, "contrast"]));
@@ -445,6 +448,9 @@
       }
 
       function relationshipRenderModeForCell(cellType, props) {
+        if (cellType === "PairCell") {
+          return "divider";
+        }
         const kind = relationshipCellKind(cellType);
         if (kind === "pair") {
           return pairRenderMode(firstNonEmpty([props.relation, "contrast"]));
@@ -504,6 +510,13 @@
       }
 
       function relationshipRenderAssignmentForSlot(cellType, slot, content, scenarioStyleKey, occurrenceOrdinal) {
+        if (cellType === "PairCell") {
+          return {
+            relation: "parallel_examples",
+            renderMode: "divider",
+            style: "duet"
+          };
+        }
         if (cellType === "TripletCell") {
           return {
             relation: "problem_method_result",
@@ -2231,42 +2244,7 @@
 
 
 
-      function pairLayoutMode(relation) {
-        switch (safeText(relation).replace(/-/g, "_")) {
-          case "cause_effect":
-            return "directional-flow";
-          case "problem_solution":
-            return "resolution-flow";
-          case "before_after":
-            return "timeline-flow";
-          case "example_nonexample":
-            return "classification";
-          case "claim_evidence":
-            return "support";
-          case "parallel_examples":
-            return "mirror";
-          default:
-            return "divider-contrast";
-        }
-      }
 
-      function pairRenderMode(relation) {
-        switch (safeText(relation).replace(/-/g, "_")) {
-          case "cause_effect":
-          case "problem_solution":
-          case "before_after":
-            return "flowline";
-          case "claim_evidence":
-            return "support";
-          case "parallel_examples":
-            return "divider";
-          case "example_nonexample":
-            return "divider";
-          case "contrast":
-          default:
-            return "divider";
-        }
-      }
 
 
 
@@ -2583,7 +2561,7 @@
         const left = content.left && typeof content.left === "object" ? content.left : {};
         const right = content.right && typeof content.right === "object" ? content.right : {};
         const assignment = relationshipAssignment || null;
-        const relation = relationshipClassToken(firstNonEmpty([assignment && assignment.relation, props.relation, "contrast"]));
+        const relation = "parallel_examples";
         const tone = relationshipClassToken(firstNonEmpty([props.tone, "neutral"]));
         const roleExamples = relationshipRoleExamples("pair", relation);
         const leftRole = assignment ? firstNonEmpty([roleExamples[0], left.role]) : firstNonEmpty([left.role, roleExamples[0]]);
@@ -2592,20 +2570,14 @@
         const rightLabel = firstNonEmpty([right.label]);
         const leftBody = relationshipDetailText(left);
         const rightBody = relationshipDetailText(right);
-        const connectorLabel = assignment
-          ? firstNonEmpty([pairConnectorFallbacks[relation], content.connector_label])
-          : firstNonEmpty([content.connector_label, pairConnectorFallbacks[relation]]);
+        const connectorLabel = firstNonEmpty([content.connector_label, "same pattern"]);
         const relationshipSentence = firstNonEmpty([content.relationship_sentence, content.relationship_summary, content.summary]);
         const headerHTML = relationshipHeaderHTML("", relationshipSentence);
-        const layoutMode = pairLayoutMode(relation);
-        const renderMode = pairRenderMode(relation);
+        const layoutMode = "mirror";
+        const renderMode = "divider";
         const orientation = resolvePairOrientation(props, slot, relation, connectorLabel);
-        const bridgeKind = relationshipBridgeKind("pair", relation);
-        const diagramHTML = renderMode === "support"
-          ? renderPairSupport(left, right, leftRole, rightRole, leftLabel, rightLabel, leftBody, rightBody, connectorLabel, bridgeKind, orientation, layoutMode, relationshipStyle)
-          : renderMode === "flowline"
-            ? renderPairFlowline(left, right, leftRole, rightRole, leftLabel, rightLabel, leftBody, rightBody, connectorLabel, bridgeKind, orientation, layoutMode)
-            : renderPairDivider(left, right, leftRole, rightRole, leftLabel, rightLabel, leftBody, rightBody, connectorLabel, bridgeKind, orientation, layoutMode);
+        const bridgeKind = "no-arrow";
+        const diagramHTML = renderPairDivider(left, right, leftRole, rightRole, leftLabel, rightLabel, leftBody, rightBody, connectorLabel, bridgeKind, orientation, layoutMode);
 
         return (
           '<div class="relationship-cell pair-cell relation-' + relation + ' orientation-' + orientation + ' layout-' + layoutMode + ' pair-mode-' + renderMode + ' tone-' + tone + ' bridge-' + bridgeKind + '" role="group" aria-label="' + escapeHTML(leftLabel + " and " + rightLabel) + '">' +

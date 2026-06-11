@@ -13,7 +13,7 @@
   "schema_version": "three_step_gridcell_v1",
   "style_availability": {
     "default_lock_policy": "deterministic-unlocked-rotation",
-    "group_count": 36,
+    "group_count": 30,
     "groups": [
       {
         "cell_type": "TextCell",
@@ -1260,7 +1260,7 @@
     ],
     "renderer_id": "dynamic_gridcell",
     "schema_version": "renderer_style_availability_v1",
-    "style_count": 111,
+    "style_count": 89,
     "style_policy": "backend-owned",
     "version": "2026.06.11.4"
   },

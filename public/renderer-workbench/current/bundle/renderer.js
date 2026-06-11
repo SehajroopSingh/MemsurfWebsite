@@ -2730,7 +2730,7 @@
         const renderMode = "chain-strip";
         const bridgeKind = "arrow";
         const fallbackConnectors = ["handled by", "produces"];
-        const nodes = tripletNodeData(items, roleExamples, connectorLabels, fallbackConnectors, emphasisIndex, true);
+        const nodes = tripletNodeData(items, roleExamples, connectorLabels, fallbackConnectors, emphasisIndex, false);
         const diagramHTML = nodes.length
           ? renderTripletChainStrip(nodes, bridgeKind, layoutMode, orientation, "solve-path")
           : '<div class="triplet-rail relationship-diagram triplet-chain-strip orientation-horizontal layout-' + layoutMode + '"><div class="relationship-empty">Triplet content unavailable.</div></div>';

@@ -11,7 +11,7 @@
     }
 
     .cell-card.key-value-card.key-value-style-spec-sheet .key-value-cell {
-      border-radius: 8px;
+      border-radius: 12px;
       border-style: dashed;
       border-color: rgba(74, 120, 210, 0.28);
       background:

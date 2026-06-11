@@ -20,6 +20,7 @@
     .cell-card.key-value-card.cell-style-chips .key-value-cell {
       display: block;
       padding: 10px;
+      border-radius: 12px;
     }
 
     .cell-card.key-value-card.cell-style-chips .key-value-title {

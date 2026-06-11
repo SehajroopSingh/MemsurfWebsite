@@ -15,7 +15,7 @@
     }
 
     .cell-card.key-value-card.key-value-style-index-card .key-value-cell {
-      border-radius: 18px 18px 14px 14px;
+      border-radius: 12px;
       border-color: rgba(255, 191, 108, 0.28);
       background:
         radial-gradient(circle at 18px 16px, rgba(255, 191, 108, 0.40) 0 4px, transparent 5px),

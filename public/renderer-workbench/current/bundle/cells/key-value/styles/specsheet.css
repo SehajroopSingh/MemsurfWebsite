@@ -21,7 +21,7 @@
 
     .cell-card.key-value-card.cell-style-specsheet .key-value-cell {
       padding: 10px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px dashed rgba(74, 120, 210, 0.24);
       background:
         linear-gradient(rgba(74, 120, 210, 0.08) 1px, transparent 1px),

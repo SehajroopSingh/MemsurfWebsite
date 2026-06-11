@@ -8,7 +8,7 @@
     }
 
     .cell-card.key-value-card.key-value-style-priority-strip .key-value-cell {
-      border-radius: 22px;
+      border-radius: 12px;
       border-color: rgba(47, 143, 131, 0.22);
       background:
         linear-gradient(90deg, rgba(47, 143, 131, 0.18), transparent 54px),

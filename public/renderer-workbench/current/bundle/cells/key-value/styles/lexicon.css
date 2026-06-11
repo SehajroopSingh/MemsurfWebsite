@@ -20,7 +20,7 @@
     }
 
     .cell-card.key-value-card.key-value-style-lexicon .key-value-cell {
-      border-radius: 9px;
+      border-radius: 12px;
       border-color: rgba(82, 101, 135, 0.20);
       background: rgba(255, 255, 255, 0.56);
       box-shadow: 0 16px 28px rgba(31, 42, 68, 0.10);

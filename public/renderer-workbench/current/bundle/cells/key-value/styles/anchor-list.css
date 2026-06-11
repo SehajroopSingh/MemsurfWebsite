@@ -18,64 +18,39 @@
     }
 
     .cell-card.key-value-card.key-value-style-anchor-list .key-value-cell {
-      overflow: visible;
-      border: 0;
-      background: transparent;
-      box-shadow: none;
-      padding-left: 22px;
-    }
-
-    .cell-card.key-value-card.key-value-style-anchor-list .key-value-cell::before {
-      content: "";
-      position: absolute;
-      left: 9px;
-      top: 16px;
-      bottom: 16px;
-      width: 2px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, var(--relationship-a), var(--relationship-b));
-      opacity: 0.52;
+      overflow: hidden;
+      border: 1px solid rgba(47, 143, 131, 0.14);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.44);
+      box-shadow: 0 12px 24px rgba(31, 42, 68, 0.07);
     }
 
     .cell-card.key-value-card.key-value-style-anchor-list .key-value-row {
       grid-template-columns: minmax(0, var(--kv-key-column, 12ch)) minmax(0, 1fr);
-      margin-bottom: 8px;
-      border: 1px solid rgba(47, 143, 131, 0.14);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.44);
-      box-shadow: 0 12px 24px rgba(31, 42, 68, 0.07);
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
       overflow: visible;
+      margin-bottom: 0;
     }
 
-    .cell-card.key-value-card.key-value-style-anchor-list .key-value-row::before {
-      content: "";
-      position: absolute;
-      left: -18px;
-      top: 50%;
-      width: 10px;
-      height: 10px;
-      transform: translateY(-50%);
-      border-radius: 999px;
-      background: var(--relationship-a);
-      box-shadow:
-        0 0 0 5px rgba(47, 143, 131, 0.10),
-        0 0 0 1px rgba(255, 255, 255, 0.82);
-    }
-
-    .cell-card.key-value-card.key-value-card-enter.key-value-style-anchor-list .key-value-row::before {
-      animation: kv-anchor-pulse 620ms cubic-bezier(0.18, 0.86, 0.24, 1) both;
-      animation-delay: calc(140ms + var(--kv-row-index, 0) * 78ms);
+    .cell-card.key-value-card.key-value-style-anchor-list .key-value-row + .key-value-row {
+      border-top: 1px solid rgba(47, 143, 131, 0.14);
     }
 
     :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-anchor-list .key-value-cell {
-      background: transparent;
-      border-color: transparent;
-      box-shadow: none;
+      background: rgba(255, 255, 255, 0.045);
+      border-color: rgba(126, 161, 255, 0.14);
     }
 
     :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-anchor-list .key-value-row {
-      background: rgba(255, 255, 255, 0.045);
-      border-color: rgba(126, 161, 255, 0.14);
+      background: transparent;
+      border-color: transparent;
+    }
+
+    :root[data-theme="dark"] .cell-card.key-value-card.key-value-style-anchor-list .key-value-row + .key-value-row {
+      border-top: 1px solid rgba(126, 161, 255, 0.14);
     }
 
     .cell-card.key-value-card.key-value-style-anchor-list .key-value-title {

@@ -26,7 +26,7 @@ export default function StoreBadges({
     <div className="w-full sm:w-auto flex flex-col gap-3 items-center">
       <div className="w-full sm:w-auto flex flex-row gap-3 sm:gap-4 sm:gap-6 justify-center items-center">
         <a
-          href="https://apps.apple.com/us/app/id6745132314"
+          href="/download?src=website"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => handleClick('app_store')}

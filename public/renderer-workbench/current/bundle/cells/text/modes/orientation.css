@@ -600,3 +600,75 @@
         transform: scale(1);
       }
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-orientation.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-orientation.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .text-cell-orientation {
+  box-sizing: border-box;
+  min-height: 100%;
+  justify-content: center;
+  gap: 16px;
+  padding: clamp(10px, 3vw, 20px) 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .orientation-copy-wrap {
+  align-items: center;
+  width: min(100%, 44rem);
+  margin-inline: auto;
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .orientation-copy {
+  margin: 0;
+  color: var(--bw-primary);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(17px, 4.5vw, 20px);
+  line-height: 1.42;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .text-cell-orientation::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--bw-primary);
+  opacity: 0.18;
+}
+/* renderer-workbench-style:end style_id=black-white */

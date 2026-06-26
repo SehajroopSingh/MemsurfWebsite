@@ -4246,6 +4246,78 @@ code {
         transform: scale(1);
       }
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-orientation.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-orientation.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .text-cell-orientation {
+  box-sizing: border-box;
+  min-height: 100%;
+  justify-content: center;
+  gap: 16px;
+  padding: clamp(10px, 3vw, 20px) 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .orientation-copy-wrap {
+  align-items: center;
+  width: min(100%, 44rem);
+  margin-inline: auto;
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .orientation-copy {
+  margin: 0;
+  color: var(--bw-primary);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(17px, 4.5vw, 20px);
+  line-height: 1.42;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.cell-card.text-mode-orientation.text-style-black-white .text-cell-orientation::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--bw-primary);
+  opacity: 0.18;
+}
+/* renderer-workbench-style:end style_id=black-white */
 /* end import: cells/text/modes/orientation.css */
 /* begin import: cells/text/modes/body.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
@@ -4492,6 +4564,73 @@ code {
       margin-left: 0 !important;
       padding-left: 13px !important;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-body.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-body.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-body.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-body.text-style-black-white {
+  justify-content: flex-start;
+}
+
+.cell-card.text-mode-body.text-style-black-white .text-cell-body,
+.cell-card.text-mode-body.text-style-black-white .text-prose {
+  gap: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cell-card.text-mode-body.text-style-black-white .text-body-editorial {
+  margin: 0 0 0.9em;
+  color: var(--bw-primary);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(15.5px, 4vw, 17px);
+  line-height: 1.68;
+  font-weight: 450;
+  letter-spacing: -0.006em;
+}
+
+.cell-card.text-mode-body.text-style-black-white .text-body-editorial:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 620px) {
+  .cell-card.text-mode-body.text-style-black-white .text-prose {
+    column-count: 1;
+  }
+}
+/* renderer-workbench-style:end style_id=black-white */
 /* end import: cells/text/modes/body.css */
 /* begin import: cells/text/modes/definition.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
@@ -4643,6 +4782,83 @@ code {
       padding-left: 22px !important;
       border-left-width: 7px !important;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-definition.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-definition.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-definition.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-definition.text-style-black-white .definition-content {
+  gap: 11px;
+}
+
+.cell-card.text-mode-definition.text-style-black-white .text-cell-kicker {
+  color: var(--bw-muted);
+  font-size: 10.5px;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cell-card.text-mode-definition.text-style-black-white .definition-panel {
+  gap: 9px;
+  padding: clamp(14px, 3.5vw, 17px);
+  border: 1px solid var(--bw-line);
+  border-radius: 15px;
+  background: var(--bw-nested);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.cell-card.text-mode-definition.text-style-black-white .definition-term {
+  margin: 0;
+  padding: 0;
+  color: var(--bw-primary);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(19px, 5vw, 22px);
+  line-height: 1.22;
+  font-weight: 780;
+  letter-spacing: -0.02em;
+}
+
+.cell-card.text-mode-definition.text-style-black-white .definition-copy {
+  margin: 0;
+  padding: 0;
+  color: var(--bw-primary);
+  font-size: clamp(15px, 3.9vw, 16px);
+  line-height: 1.6;
+  font-weight: 480;
+}
+/* renderer-workbench-style:end style_id=black-white */
 /* end import: cells/text/modes/definition.css */
 /* begin import: cells/text/modes/quote.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
@@ -4806,6 +5022,107 @@ code {
       margin-left: 0 !important;
       padding-left: 0 !important;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-quote.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-quote.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-quote.text-style-black-white .text-cell-quote {
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 8px 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--bw-line);
+  border-radius: 11px;
+  background: var(--bw-nested);
+  box-shadow: none;
+  color: var(--bw-primary);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-body {
+  grid-column: 2;
+  margin: 0;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-copy {
+  margin: 0;
+  color: var(--bw-primary);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(16px, 4.2vw, 18px);
+  line-height: 1.55;
+  font-weight: 630;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-attribution,
+.cell-card.text-mode-quote.text-style-black-white .quote-context {
+  grid-column: 2;
+  margin: 0;
+  color: var(--bw-muted);
+  text-align: right;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-attribution {
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 740;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-attribution::before {
+  content: "— ";
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-context {
+  font-size: 12.5px;
+  line-height: 1.45;
+  font-weight: 480;
+}
+/* renderer-workbench-style:end style_id=black-white */
 /* end import: cells/text/modes/quote.css */
 /* begin import: cells/text/modes/rule.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
@@ -5137,6 +5454,101 @@ code {
     .cell-card.text-style-stamp .rule-copy-wrap {
       padding-left: 12px !important;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-rule.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-rule.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-rule.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-rule.text-style-black-white .text-cell-rule {
+  gap: 13px;
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-header {
+  gap: 9px;
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-icon {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border: 1px solid var(--bw-line);
+  border-radius: 999px;
+  background: var(--bw-nested);
+  box-shadow: none;
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-icon-core {
+  width: 8px;
+  height: 8px;
+  background: var(--bw-primary);
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-kicker {
+  color: var(--bw-muted);
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-header-line {
+  height: 1px;
+  background: var(--bw-line);
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-statement {
+  grid-template-columns: 4px minmax(0, 1fr);
+  gap: 13px;
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-anchor {
+  width: 4px;
+  border-radius: 999px;
+  background: var(--bw-primary);
+  box-shadow: none;
+  opacity: 0.22;
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-stamp-mark {
+  display: none;
+}
+
+.cell-card.text-mode-rule.text-style-black-white .rule-copy {
+  margin: 0;
+  color: var(--bw-primary);
+  font-size: clamp(16px, 4.1vw, 18px);
+  line-height: 1.5;
+  font-weight: 680;
+  letter-spacing: -0.012em;
+}
+/* renderer-workbench-style:end style_id=black-white */
 /* end import: cells/text/modes/rule.css */
 /* begin import: cells/text/modes/example.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
@@ -5467,6 +5879,103 @@ code {
     .cell-card.text-mode-example.text-style-side-note .example-stage {
       padding-left: 37px !important;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-example.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-example.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-example.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-example.text-style-black-white .text-cell-example {
+  gap: 12px;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-topline {
+  gap: 8px;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-dot {
+  width: 9px;
+  height: 9px;
+  border: 0;
+  background: var(--bw-primary);
+  box-shadow: none;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-kicker {
+  color: var(--bw-muted);
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-title {
+  color: var(--bw-primary);
+  font-size: clamp(16px, 4.1vw, 18px);
+  line-height: 1.25;
+  font-weight: 740;
+  letter-spacing: -0.015em;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-story-frames {
+  display: none;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-stage {
+  padding: clamp(13px, 3.5vw, 16px) clamp(14px, 3.8vw, 17px);
+  border: 1px solid var(--bw-line);
+  border-radius: 15px;
+  background: var(--bw-nested);
+  box-shadow: none;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-stage::before {
+  top: 12px;
+  bottom: 12px;
+  left: -1px;
+  width: 3px;
+  background: var(--bw-primary);
+  opacity: 0.32;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-proof-rail {
+  display: none;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-copy {
+  margin: 0;
+  color: var(--bw-primary);
+  font-size: clamp(14.5px, 3.8vw, 16px);
+  line-height: 1.58;
+  font-weight: 480;
+}
+/* renderer-workbench-style:end style_id=black-white */
 /* end import: cells/text/modes/example.css */
 /* begin import: cells/text/modes/warning.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
@@ -5814,6 +6323,94 @@ code {
         transform: scaleY(1);
       }
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-warning.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-warning.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-warning.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-warning.text-style-black-white .text-cell-warning {
+  gap: 11px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cell-card.text-mode-warning.text-style-black-white .warning-head {
+  gap: 9px;
+}
+
+.cell-card.text-mode-warning.text-style-black-white .warning-icon {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--bw-line);
+  border-radius: 11px;
+  background: var(--bw-nested);
+  box-shadow: none;
+  color: var(--bw-primary);
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.cell-card.text-mode-warning.text-style-black-white .warning-kicker {
+  color: var(--bw-muted);
+  font-size: 10.5px;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cell-card.text-mode-warning.text-style-black-white .warning-content {
+  padding: clamp(13px, 3.5vw, 16px);
+  border: 1px solid var(--bw-line);
+  border-radius: 15px;
+  background: var(--bw-nested);
+  box-shadow: none;
+}
+
+.cell-card.text-mode-warning.text-style-black-white .warning-copy {
+  margin: 0;
+  color: var(--bw-primary);
+  font-size: clamp(14.5px, 3.8vw, 16px);
+  line-height: 1.58;
+  font-weight: 520;
+}
+
+.cell-card.text-mode-warning.text-style-black-white .warning-ornament {
+  display: none;
+}
+/* renderer-workbench-style:end style_id=black-white */
 /* end import: cells/text/modes/warning.css */
 /* begin import: cells/text/modes/caption.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */
@@ -5903,6 +6500,96 @@ code {
       margin-top: 2px;
       opacity: 0.22;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-caption.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-caption.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-caption.text-style-black-white {
+  padding: clamp(13px, 3.5vw, 16px) !important;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .text-cell-caption {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 5px 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-rule {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  width: 22px;
+  height: 2px;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: var(--bw-primary);
+  opacity: 0.28;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-label {
+  display: block;
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--bw-muted);
+  font-size: 9.5px;
+  line-height: 1.2;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-copy-wrap {
+  grid-column: 2;
+  grid-row: 2;
+  gap: 0;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-copy {
+  margin: 0;
+  color: var(--bw-muted);
+  font-size: clamp(12px, 3.2vw, 13.5px);
+  line-height: 1.5;
+  font-style: normal;
+  font-weight: 480;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-film-holes {
+  display: none;
+}
+/* renderer-workbench-style:end style_id=black-white */
 /* end import: cells/text/modes/caption.css */
 /* begin import: cells/text/animations.css */
 /* TextCell styles copied from renderer.css for local workbench overrides. */

@@ -183,7 +183,7 @@
     "public/renderer-workbench/current/bundle/renderer_style_availability.json",
     "public/renderer-workbench/current/catalog.json"
   ],
-  "catalog_entry_count": 179,
+  "catalog_entry_count": 126,
   "cell_definition_count": 0,
   "capabilities": {
     "accepts_unknown_cell_types": true,
@@ -200,7 +200,7 @@
     "schema_version": "three_step_gridcell_v1",
     "style_availability": {
       "default_lock_policy": "deterministic-unlocked-rotation",
-      "group_count": 44,
+      "group_count": 30,
       "groups": [
         {
           "cell_type": "TextCell",
@@ -251,6 +251,12 @@
               "label": "Corner Focus",
               "real_lesson_enabled": false,
               "style_id": "corner-focus"
+            },
+            {
+              "style_id": "black-white",
+              "label": "Black / White",
+              "is_locked": true,
+              "real_lesson_enabled": false
             }
           ]
         },
@@ -291,6 +297,12 @@
               "label": "Briefing",
               "real_lesson_enabled": false,
               "style_id": "briefing"
+            },
+            {
+              "style_id": "black-white",
+              "label": "Black / White",
+              "is_locked": true,
+              "real_lesson_enabled": false
             }
           ]
         },
@@ -325,6 +337,12 @@
               "label": "Ribbon",
               "real_lesson_enabled": false,
               "style_id": "ribbon"
+            },
+            {
+              "style_id": "black-white",
+              "label": "Black / White",
+              "is_locked": true,
+              "real_lesson_enabled": false
             }
           ]
         },
@@ -359,6 +377,12 @@
               "label": "Signal",
               "real_lesson_enabled": false,
               "style_id": "signal"
+            },
+            {
+              "style_id": "black-white",
+              "label": "Black / White",
+              "is_locked": true,
+              "real_lesson_enabled": false
             }
           ]
         },
@@ -393,6 +417,12 @@
               "label": "Stamp",
               "real_lesson_enabled": false,
               "style_id": "stamp"
+            },
+            {
+              "style_id": "black-white",
+              "label": "Black / White",
+              "is_locked": true,
+              "real_lesson_enabled": false
             }
           ]
         },
@@ -427,6 +457,12 @@
               "label": "Side Note",
               "real_lesson_enabled": false,
               "style_id": "side-note"
+            },
+            {
+              "style_id": "black-white",
+              "label": "Black / White",
+              "is_locked": true,
+              "real_lesson_enabled": false
             }
           ]
         },
@@ -461,6 +497,12 @@
               "label": "Quiet Rule",
               "real_lesson_enabled": false,
               "style_id": "quiet-rule"
+            },
+            {
+              "style_id": "black-white",
+              "label": "Black / White",
+              "is_locked": true,
+              "real_lesson_enabled": false
             }
           ]
         },
@@ -495,6 +537,12 @@
               "label": "Whisper",
               "real_lesson_enabled": false,
               "style_id": "whisper"
+            },
+            {
+              "style_id": "black-white",
+              "label": "Black / White",
+              "is_locked": true,
+              "real_lesson_enabled": false
             }
           ]
         },
@@ -619,18 +667,6 @@
               "label": "Duet",
               "real_lesson_enabled": true,
               "style_id": "duet"
-            },
-            {
-              "is_locked": true,
-              "label": "Bridge",
-              "real_lesson_enabled": false,
-              "style_id": "bridge"
-            },
-            {
-              "is_locked": true,
-              "label": "Mirror",
-              "real_lesson_enabled": false,
-              "style_id": "mirror"
             }
           ]
         },
@@ -670,7 +706,7 @@
         },
         {
           "cell_type": "TripletCell",
-          "default_style_id": "cascade",
+          "default_style_id": "solve-path",
           "group_id": "cell:TripletCell",
           "is_locked": false,
           "layout_id": "default",
@@ -684,21 +720,9 @@
           "styles": [
             {
               "is_locked": false,
-              "label": "Cascade",
+              "label": "Solve Path",
               "real_lesson_enabled": true,
-              "style_id": "cascade"
-            },
-            {
-              "is_locked": true,
-              "label": "Orbit",
-              "real_lesson_enabled": false,
-              "style_id": "orbit"
-            },
-            {
-              "is_locked": true,
-              "label": "Blueprint",
-              "real_lesson_enabled": false,
-              "style_id": "blueprint"
+              "style_id": "solve-path"
             }
           ]
         },
@@ -1079,222 +1103,6 @@
               "label": "Duet",
               "real_lesson_enabled": true,
               "style_id": "duet"
-            },
-            {
-              "is_locked": true,
-              "label": "Mirror",
-              "real_lesson_enabled": false,
-              "style_id": "mirror"
-            },
-            {
-              "is_locked": true,
-              "label": "Shared Rail",
-              "real_lesson_enabled": false,
-              "style_id": "shared-rail"
-            }
-          ]
-        },
-        {
-          "cell_type": "PairCell",
-          "default_style_id": "versus-split",
-          "group_id": "relationship:pair:contrast",
-          "is_locked": false,
-          "layout_id": "contrast",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Contrast mode",
-          "orientation": "",
-          "relationship_kind": "pair",
-          "relationship_mode": "contrast",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Versus Split",
-              "real_lesson_enabled": true,
-              "style_id": "versus-split"
-            },
-            {
-              "is_locked": true,
-              "label": "Opposing Corners",
-              "real_lesson_enabled": false,
-              "style_id": "opposing-corners"
-            },
-            {
-              "is_locked": true,
-              "label": "Tension Line",
-              "real_lesson_enabled": false,
-              "style_id": "tension-line"
-            }
-          ]
-        },
-        {
-          "cell_type": "PairCell",
-          "default_style_id": "then-now",
-          "group_id": "relationship:pair:before_after",
-          "is_locked": false,
-          "layout_id": "before_after",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Before After mode",
-          "orientation": "",
-          "relationship_kind": "pair",
-          "relationship_mode": "before_after",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Then Now",
-              "real_lesson_enabled": true,
-              "style_id": "then-now"
-            },
-            {
-              "is_locked": true,
-              "label": "Transition Track",
-              "real_lesson_enabled": false,
-              "style_id": "transition-track"
-            },
-            {
-              "is_locked": true,
-              "label": "Wipe",
-              "real_lesson_enabled": false,
-              "style_id": "wipe"
-            }
-          ]
-        },
-        {
-          "cell_type": "PairCell",
-          "default_style_id": "diagnosis-fix",
-          "group_id": "relationship:pair:problem_solution",
-          "is_locked": false,
-          "layout_id": "problem_solution",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Problem Solution mode",
-          "orientation": "",
-          "relationship_kind": "pair",
-          "relationship_mode": "problem_solution",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Diagnosis Fix",
-              "real_lesson_enabled": true,
-              "style_id": "diagnosis-fix"
-            },
-            {
-              "is_locked": true,
-              "label": "Lock Key",
-              "real_lesson_enabled": false,
-              "style_id": "lock-key"
-            },
-            {
-              "is_locked": true,
-              "label": "Repair Card",
-              "real_lesson_enabled": false,
-              "style_id": "repair-card"
-            }
-          ]
-        },
-        {
-          "cell_type": "PairCell",
-          "default_style_id": "ripple",
-          "group_id": "relationship:pair:cause_effect",
-          "is_locked": false,
-          "layout_id": "cause_effect",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Cause Effect mode",
-          "orientation": "",
-          "relationship_kind": "pair",
-          "relationship_mode": "cause_effect",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Ripple",
-              "real_lesson_enabled": true,
-              "style_id": "ripple"
-            },
-            {
-              "is_locked": true,
-              "label": "Domino",
-              "real_lesson_enabled": false,
-              "style_id": "domino"
-            },
-            {
-              "is_locked": true,
-              "label": "Causal Arrow",
-              "real_lesson_enabled": false,
-              "style_id": "causal-arrow"
-            }
-          ]
-        },
-        {
-          "cell_type": "PairCell",
-          "default_style_id": "check-cross",
-          "group_id": "relationship:pair:example_nonexample",
-          "is_locked": false,
-          "layout_id": "example_nonexample",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Example Nonexample mode",
-          "orientation": "",
-          "relationship_kind": "pair",
-          "relationship_mode": "example_nonexample",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Check Cross",
-              "real_lesson_enabled": true,
-              "style_id": "check-cross"
-            },
-            {
-              "is_locked": true,
-              "label": "Sample Filter",
-              "real_lesson_enabled": false,
-              "style_id": "sample-filter"
-            },
-            {
-              "is_locked": true,
-              "label": "Green Red",
-              "real_lesson_enabled": false,
-              "style_id": "green-red"
-            }
-          ]
-        },
-        {
-          "cell_type": "PairCell",
-          "default_style_id": "brief-proof",
-          "group_id": "relationship:pair:claim_evidence",
-          "is_locked": false,
-          "layout_id": "claim_evidence",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Claim Evidence mode",
-          "orientation": "",
-          "relationship_kind": "pair",
-          "relationship_mode": "claim_evidence",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Brief Proof",
-              "real_lesson_enabled": true,
-              "style_id": "brief-proof"
-            },
-            {
-              "is_locked": true,
-              "label": "Citation Stack",
-              "real_lesson_enabled": false,
-              "style_id": "citation-stack"
-            },
-            {
-              "is_locked": true,
-              "label": "Argument Line",
-              "real_lesson_enabled": false,
-              "style_id": "argument-line"
             }
           ]
         },
@@ -1436,74 +1244,6 @@
         },
         {
           "cell_type": "TripletCell",
-          "default_style_id": "domino-flow",
-          "group_id": "relationship:triplet:cause_mechanism_effect",
-          "is_locked": false,
-          "layout_id": "cause_mechanism_effect",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Cause Mechanism Effect mode",
-          "orientation": "",
-          "relationship_kind": "triplet",
-          "relationship_mode": "cause_mechanism_effect",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Domino Flow",
-              "real_lesson_enabled": true,
-              "style_id": "domino-flow"
-            },
-            {
-              "is_locked": true,
-              "label": "Mechanism Bridge",
-              "real_lesson_enabled": false,
-              "style_id": "mechanism-bridge"
-            },
-            {
-              "is_locked": true,
-              "label": "Ripple Chain",
-              "real_lesson_enabled": false,
-              "style_id": "ripple-chain"
-            }
-          ]
-        },
-        {
-          "cell_type": "TripletCell",
-          "default_style_id": "pipeline",
-          "group_id": "relationship:triplet:input_process_output",
-          "is_locked": false,
-          "layout_id": "input_process_output",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Input Process Output mode",
-          "orientation": "",
-          "relationship_kind": "triplet",
-          "relationship_mode": "input_process_output",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Pipeline",
-              "real_lesson_enabled": true,
-              "style_id": "pipeline"
-            },
-            {
-              "is_locked": true,
-              "label": "Machine Flow",
-              "real_lesson_enabled": false,
-              "style_id": "machine-flow"
-            },
-            {
-              "is_locked": true,
-              "label": "Transformer",
-              "real_lesson_enabled": false,
-              "style_id": "transformer"
-            }
-          ]
-        },
-        {
-          "cell_type": "TripletCell",
           "default_style_id": "solve-path",
           "group_id": "relationship:triplet:problem_method_result",
           "is_locked": false,
@@ -1521,231 +1261,15 @@
               "label": "Solve Path",
               "real_lesson_enabled": true,
               "style_id": "solve-path"
-            },
-            {
-              "is_locked": true,
-              "label": "Method Card",
-              "real_lesson_enabled": false,
-              "style_id": "method-card"
-            },
-            {
-              "is_locked": true,
-              "label": "Outcome Lift",
-              "real_lesson_enabled": false,
-              "style_id": "outcome-lift"
-            }
-          ]
-        },
-        {
-          "cell_type": "TripletCell",
-          "default_style_id": "evidence-rail",
-          "group_id": "relationship:triplet:claim_evidence_implication",
-          "is_locked": false,
-          "layout_id": "claim_evidence_implication",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Claim Evidence Implication mode",
-          "orientation": "",
-          "relationship_kind": "triplet",
-          "relationship_mode": "claim_evidence_implication",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Evidence Rail",
-              "real_lesson_enabled": true,
-              "style_id": "evidence-rail"
-            },
-            {
-              "is_locked": true,
-              "label": "Logic Ladder",
-              "real_lesson_enabled": false,
-              "style_id": "logic-ladder"
-            },
-            {
-              "is_locked": true,
-              "label": "Inference Cascade",
-              "real_lesson_enabled": false,
-              "style_id": "inference-cascade"
-            }
-          ]
-        },
-        {
-          "cell_type": "TripletCell",
-          "default_style_id": "pulse-chain",
-          "group_id": "relationship:triplet:trigger_response_outcome",
-          "is_locked": false,
-          "layout_id": "trigger_response_outcome",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Trigger Response Outcome mode",
-          "orientation": "",
-          "relationship_kind": "triplet",
-          "relationship_mode": "trigger_response_outcome",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Pulse Chain",
-              "real_lesson_enabled": true,
-              "style_id": "pulse-chain"
-            },
-            {
-              "is_locked": true,
-              "label": "Signal Response",
-              "real_lesson_enabled": false,
-              "style_id": "signal-response"
-            },
-            {
-              "is_locked": true,
-              "label": "Reaction Path",
-              "real_lesson_enabled": false,
-              "style_id": "reaction-path"
-            }
-          ]
-        },
-        {
-          "cell_type": "TripletCell",
-          "default_style_id": "time-slice",
-          "group_id": "relationship:triplet:before_change_after",
-          "is_locked": false,
-          "layout_id": "before_change_after",
-          "layout_kind": "relationship_mode",
-          "layout_label": "Before Change After mode",
-          "orientation": "",
-          "relationship_kind": "triplet",
-          "relationship_mode": "before_change_after",
-          "render_mode": "",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Time Slice",
-              "real_lesson_enabled": true,
-              "style_id": "time-slice"
-            },
-            {
-              "is_locked": true,
-              "label": "Change Bridge",
-              "real_lesson_enabled": false,
-              "style_id": "change-bridge"
-            },
-            {
-              "is_locked": true,
-              "label": "Then Now",
-              "real_lesson_enabled": false,
-              "style_id": "then-now"
-            }
-          ]
-        },
-        {
-          "cell_type": "TripletCell",
-          "default_style_id": "machine-flow",
-          "group_id": "triplet-layout:vertical-rail",
-          "is_locked": false,
-          "layout_id": "vertical-rail",
-          "layout_kind": "triplet_layout",
-          "layout_label": "Vertical Rail mode",
-          "orientation": "vertical",
-          "relationship_kind": "triplet",
-          "relationship_mode": "input_process_output",
-          "render_mode": "vertical-rail",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": true,
-              "label": "Pipeline",
-              "real_lesson_enabled": false,
-              "style_id": "pipeline"
-            },
-            {
-              "is_locked": false,
-              "label": "Machine Flow",
-              "real_lesson_enabled": true,
-              "style_id": "machine-flow"
-            },
-            {
-              "is_locked": true,
-              "label": "Transformer",
-              "real_lesson_enabled": false,
-              "style_id": "transformer"
-            }
-          ]
-        },
-        {
-          "cell_type": "TripletCell",
-          "default_style_id": "solve-path",
-          "group_id": "triplet-layout:chain-strip",
-          "is_locked": false,
-          "layout_id": "chain-strip",
-          "layout_kind": "triplet_layout",
-          "layout_label": "Chain Strip mode",
-          "orientation": "vertical",
-          "relationship_kind": "triplet",
-          "relationship_mode": "problem_method_result",
-          "render_mode": "chain-strip",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Solve Path",
-              "real_lesson_enabled": true,
-              "style_id": "solve-path"
-            },
-            {
-              "is_locked": true,
-              "label": "Method Card",
-              "real_lesson_enabled": false,
-              "style_id": "method-card"
-            },
-            {
-              "is_locked": true,
-              "label": "Outcome Lift",
-              "real_lesson_enabled": false,
-              "style_id": "outcome-lift"
-            }
-          ]
-        },
-        {
-          "cell_type": "TripletCell",
-          "default_style_id": "evidence-rail",
-          "group_id": "triplet-layout:ladder",
-          "is_locked": false,
-          "layout_id": "ladder",
-          "layout_kind": "triplet_layout",
-          "layout_label": "Reasoning Ladder mode",
-          "orientation": "vertical",
-          "relationship_kind": "triplet",
-          "relationship_mode": "claim_evidence_implication",
-          "render_mode": "ladder",
-          "style_key": "preview_relationship_style",
-          "styles": [
-            {
-              "is_locked": false,
-              "label": "Evidence Rail",
-              "real_lesson_enabled": true,
-              "style_id": "evidence-rail"
-            },
-            {
-              "is_locked": true,
-              "label": "Logic Ladder",
-              "real_lesson_enabled": false,
-              "style_id": "logic-ladder"
-            },
-            {
-              "is_locked": true,
-              "label": "Inference Cascade",
-              "real_lesson_enabled": false,
-              "style_id": "inference-cascade"
             }
           ]
         }
       ],
       "renderer_id": "dynamic_gridcell",
       "schema_version": "renderer_style_availability_v1",
-      "style_count": 139,
+      "style_count": 97,
       "style_policy": "backend-owned",
-      "version": "2026.06.11.4"
+      "version": "2026.06.11.5"
     },
     "style_availability_path": "renderer_style_availability.json",
     "supported_cell_types": [

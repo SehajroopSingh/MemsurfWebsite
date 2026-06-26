@@ -22,14 +22,14 @@
       const isRandomizedStableUnlockedPolicy = stylePolicy === randomizedStableUnlockedStylePolicy || requestedStylePolicy === legacyFirstOnlyStylePolicy;
       const gridcellRenderStyles = {
         TextCell: {
-          orientation: ["glass-card", "edge-note", "frosted-panel", "notification", "paper-note", "corner-focus"],
-          body: ["editorial", "dropcap", "notebook", "briefing"],
-          definition: ["lexicon", "specimen", "ribbon"],
-          quote: ["aperture", "margin", "signal"],
-          rule: ["compass", "circuit", "stamp"],
-          example: ["detached-title", "center-focus", "side-note"],
-          warning: ["floating-label", "center-focus", "quiet-rule"],
-          caption: ["plate", "filmstrip", "whisper"]
+          orientation: ["glass-card", "edge-note", "frosted-panel", "notification", "paper-note", "corner-focus", "black-white"],
+          body: ["editorial", "dropcap", "notebook", "briefing", "black-white"],
+          definition: ["lexicon", "specimen", "ribbon", "black-white"],
+          quote: ["aperture", "margin", "signal", "black-white"],
+          rule: ["compass", "circuit", "stamp", "black-white"],
+          example: ["detached-title", "center-focus", "side-note", "black-white"],
+          warning: ["floating-label", "center-focus", "quiet-rule", "black-white"],
+          caption: ["plate", "filmstrip", "whisper", "black-white"]
         },
         HeadingCell: ["masthead", "tab", "runway"],
         ImageCell: ["gallery", "polaroid", "viewport"],

@@ -22,7 +22,7 @@ Renderer lab work usually touches one or more of:
 Use the full local workbench command when browser actions need to save files:
 
 ```bash
-npm run dev:renderer-lab
+o
 ```
 
 Use plain Next dev only for read-only preview:

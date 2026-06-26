@@ -85,3 +85,93 @@
       margin-top: 2px;
       opacity: 0.22;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-caption.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-caption.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-caption.text-style-black-white {
+  padding: clamp(13px, 3.5vw, 16px) !important;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .text-cell-caption {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 5px 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-rule {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: start;
+  width: 22px;
+  height: 2px;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: var(--bw-primary);
+  opacity: 0.28;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-label {
+  display: block;
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--bw-muted);
+  font-size: 9.5px;
+  line-height: 1.2;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-copy-wrap {
+  grid-column: 2;
+  grid-row: 2;
+  gap: 0;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-copy {
+  margin: 0;
+  color: var(--bw-muted);
+  font-size: clamp(12px, 3.2vw, 13.5px);
+  line-height: 1.5;
+  font-style: normal;
+  font-weight: 480;
+}
+
+.cell-card.text-mode-caption.text-style-black-white .caption-film-holes {
+  display: none;
+}
+/* renderer-workbench-style:end style_id=black-white */

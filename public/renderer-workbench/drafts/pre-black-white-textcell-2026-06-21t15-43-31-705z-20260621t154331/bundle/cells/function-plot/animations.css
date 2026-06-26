@@ -1,0 +1,300 @@
+/* function-plot local workbench copy. Source rules intentionally remain in renderer.css. */
+
+@keyframes gridCellGenericEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+    filter: blur(8px) saturate(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0) saturate(1);
+  }
+}
+
+.cell-card.function-plot-card.sequence-active[data-animation-profile="function-plot"] {
+      animation: gridCellGenericEnter var(--grid-cell-enter-duration, 760ms) cubic-bezier(0.2, 0.84, 0.22, 1) both;
+      pointer-events: auto;
+      will-change: opacity, transform, filter;
+    }
+
+    .cell-card.function-plot-card.cell-style-neoncurve .function-curve {
+      filter: drop-shadow(0 0 8px rgba(74, 120, 210, 0.34));
+    }
+
+    .function-plot-card.cell-style-neoncurve .function-curve {
+      filter: drop-shadow(0 0 9px rgba(74, 120, 210, 0.45));
+      stroke-width: 3.4;
+    }
+
+    .cell-card.function-plot-card.sequence-active.cell-style-neoncurve {
+      animation-duration: 520ms;
+    }
+
+    .function-plot-card .function-plot-grid-line,
+.function-plot-card .function-plot-tick-line {
+      stroke: color-mix(in srgb, var(--axis-line) 68%, transparent);
+      stroke-width: 1.35;
+      stroke-linecap: round;
+      opacity: 0;
+    }
+
+    .function-plot-card .function-plot-axis-line {
+      stroke: var(--axis-line);
+      stroke-width: 1.45;
+      stroke-linecap: round;
+      opacity: 0;
+    }
+
+    .function-plot-card .function-axis-label {
+      opacity: 0;
+      fill: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .function-plot-card .function-curve-glow {
+      stroke-width: 9;
+      opacity: 0.16;
+      filter: blur(0.2px);
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+
+    .function-plot-card .function-curve {
+      stroke-width: 3.35;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      transition: opacity 180ms ease, stroke-width 180ms ease, filter 180ms ease;
+    }
+
+    .function-plot-card .function-curve.is-muted {
+      opacity: 0.28;
+      stroke-width: 2.2;
+    }
+
+    .function-plot-card .function-curve.is-active {
+      opacity: 1;
+      stroke-width: 4.1;
+      filter: drop-shadow(0 6px 12px color-mix(in srgb, var(--plot-color) 28%, transparent));
+    }
+
+    .function-plot-card .function-curve-glow.is-muted {
+      opacity: 0.06;
+    }
+
+    .function-plot-card .function-curve-glow.is-active {
+      opacity: 0.24;
+    }
+
+    .function-plot-card .function-marker-group {
+      --plot-color: var(--accent-0);
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .cell-card.function-plot-card.sequence-active .function-plot-grid-line,
+.cell-card.function-plot-card.sequence-active .function-plot-tick-line {
+      animation: function-grid-enter 520ms ease-out var(--grid-delay, 0ms) both;
+    }
+
+    .cell-card.function-plot-card.sequence-active .function-plot-axis-line {
+      animation: function-axis-enter 560ms cubic-bezier(0.2, 0.8, 0.2, 1) 90ms both;
+    }
+
+    .cell-card.function-plot-card.sequence-active .function-axis-label {
+      animation: function-axis-label-enter 460ms ease-out 180ms both;
+    }
+
+    .cell-card.function-plot-card.sequence-active .function-curve,
+.cell-card.function-plot-card.sequence-active .function-curve-glow {
+      animation: function-curve-draw 900ms cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0ms) forwards;
+    }
+
+    .cell-card.function-plot-card.sequence-active .function-marker-group {
+      animation: function-marker-pop 520ms cubic-bezier(0.18, 1.35, 0.28, 1) var(--marker-delay, 0ms) both;
+    }
+
+    .cell-card.function-plot-card.sequence-complete .function-plot-grid-line,
+.cell-card.function-plot-card.sequence-complete .function-plot-tick-line,
+.cell-card.function-plot-card.sequence-complete .function-plot-axis-line,
+.cell-card.function-plot-card.sequence-complete .function-axis-label,
+.cell-card.function-plot-card.sequence-complete .function-marker-group {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    .cell-card.function-plot-card.sequence-complete .function-curve,
+.cell-card.function-plot-card.sequence-complete .function-curve-glow {
+      stroke-dashoffset: 0;
+      animation: none;
+    }
+
+    .function-plot-card .function-plot-guide {
+      opacity: 0;
+      background: color-mix(in srgb, var(--plot-active-color) 42%, transparent);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .function-plot-card .function-plot-guide.is-visible {
+      opacity: 1;
+    }
+
+    .function-plot-card .function-plot-guide-x {
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      transform: translateX(-50%);
+    }
+
+    .function-plot-card .function-plot-guide-y {
+      left: 0;
+      right: 0;
+      height: 1px;
+      transform: translateY(-50%);
+    }
+
+    .function-plot-card .function-plot-tangent {
+      position: absolute;
+      z-index: 3;
+      width: 66px;
+      height: 2px;
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.36);
+      transition: opacity 150ms ease;
+      transform-origin: center;
+    }
+
+    .function-plot-card .function-plot-tangent.is-visible {
+      opacity: 0.72;
+    }
+
+    .function-plot-card .function-plot-probe {
+      z-index: 4;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.86);
+      box-shadow:
+        0 0 0 7px color-mix(in srgb, var(--plot-active-color) 16%, transparent),
+        0 8px 18px rgba(15, 23, 42, 0.18);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.86);
+      transition: opacity 140ms ease, transform 140ms cubic-bezier(0.18, 1.35, 0.28, 1);
+    }
+
+    .function-plot-card .function-plot-probe.is-visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .function-plot-card .function-plot-tooltip {
+      position: absolute;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 3px 12px;
+      min-width: 142px;
+      max-width: min(238px, calc(100% - 24px));
+      padding: 9px 11px;
+      border-radius: 12px;
+      color: var(--text);
+      background: var(--card-bg-strong);
+      border: 1px solid var(--surface-line);
+      box-shadow:
+        0 16px 34px rgba(15, 23, 42, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      opacity: 0;
+      transform: translateY(5px) scale(0.97);
+      pointer-events: none;
+      transition: opacity 140ms ease, transform 140ms ease;
+      backdrop-filter: var(--glass);
+      -webkit-backdrop-filter: var(--glass);
+    }
+
+    .function-plot-card .function-plot-tooltip.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .function-plot-card .function-plot-grid-line,
+.function-plot-card .function-plot-tick-line,
+.function-plot-card .function-plot-axis-line,
+.function-plot-card .function-axis-label,
+.function-plot-card .function-curve,
+.function-plot-card .function-curve-glow,
+.function-plot-card .function-marker-group {
+        animation: none;
+        opacity: 1;
+        stroke-dashoffset: 0;
+        transform: none;
+      }
+}
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .function-plot-card .function-curve,
+.function-plot-card .function-curve-glow,
+.function-plot-card .function-plot-guide,
+.function-plot-card .function-plot-tangent,
+.function-plot-card .function-plot-probe,
+.function-plot-card .function-plot-tooltip {
+        transition: none;
+      }
+}
+
+    @keyframes function-grid-enter {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes function-axis-enter {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes function-axis-label-enter {
+      from {
+        opacity: 0;
+        transform: translateY(3px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes function-curve-draw {
+      from {
+        stroke-dashoffset: 1;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes function-marker-pop {
+      from {
+        opacity: 0;
+        transform: scale(0.62);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }

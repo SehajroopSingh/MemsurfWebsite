@@ -159,3 +159,104 @@
       margin-left: 0 !important;
       padding-left: 0 !important;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-quote.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-quote.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-quote.text-style-black-white .text-cell-quote {
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 8px 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--bw-line);
+  border-radius: 11px;
+  background: var(--bw-nested);
+  box-shadow: none;
+  color: var(--bw-primary);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-body {
+  grid-column: 2;
+  margin: 0;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-copy {
+  margin: 0;
+  color: var(--bw-primary);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(16px, 4.2vw, 18px);
+  line-height: 1.55;
+  font-weight: 630;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-attribution,
+.cell-card.text-mode-quote.text-style-black-white .quote-context {
+  grid-column: 2;
+  margin: 0;
+  color: var(--bw-muted);
+  text-align: right;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-attribution {
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 740;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-attribution::before {
+  content: "— ";
+}
+
+.cell-card.text-mode-quote.text-style-black-white .quote-context {
+  font-size: 12.5px;
+  line-height: 1.45;
+  font-weight: 480;
+}
+/* renderer-workbench-style:end style_id=black-white */

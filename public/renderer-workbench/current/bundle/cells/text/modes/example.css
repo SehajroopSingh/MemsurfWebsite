@@ -326,3 +326,100 @@
     .cell-card.text-mode-example.text-style-side-note .example-stage {
       padding-left: 37px !important;
     }
+
+/* renderer-workbench-style:start style_id=black-white */
+.cell-card.text-mode-example.text-style-black-white {
+  --bw-card: #ffffff;
+  --bw-nested: #f2f2f2;
+  --bw-primary: #111111;
+  --bw-muted: #666666;
+  --bw-line: rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(16px, 4vw, 20px) !important;
+  border: 1px solid var(--bw-line) !important;
+  border-radius: 20px !important;
+  background: var(--bw-card) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: var(--bw-primary);
+}
+
+:root[data-theme="dark"] .cell-card.text-mode-example.text-style-black-white {
+  --bw-card: #242424;
+  --bw-nested: #333333;
+  --bw-primary: #ffffff;
+  --bw-muted: #a7a7a7;
+  --bw-line: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+.cell-card.text-mode-example.text-style-black-white .text-cell {
+  color: var(--bw-primary);
+}
+
+.cell-card.text-mode-example.text-style-black-white .text-cell-example {
+  gap: 12px;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-topline {
+  gap: 8px;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-dot {
+  width: 9px;
+  height: 9px;
+  border: 0;
+  background: var(--bw-primary);
+  box-shadow: none;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-kicker {
+  color: var(--bw-muted);
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-title {
+  color: var(--bw-primary);
+  font-size: clamp(16px, 4.1vw, 18px);
+  line-height: 1.25;
+  font-weight: 740;
+  letter-spacing: -0.015em;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-story-frames {
+  display: none;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-stage {
+  padding: clamp(13px, 3.5vw, 16px) clamp(14px, 3.8vw, 17px);
+  border: 1px solid var(--bw-line);
+  border-radius: 15px;
+  background: var(--bw-nested);
+  box-shadow: none;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-stage::before {
+  top: 12px;
+  bottom: 12px;
+  left: -1px;
+  width: 3px;
+  background: var(--bw-primary);
+  opacity: 0.32;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-proof-rail {
+  display: none;
+}
+
+.cell-card.text-mode-example.text-style-black-white .example-copy {
+  margin: 0;
+  color: var(--bw-primary);
+  font-size: clamp(14.5px, 3.8vw, 16px);
+  line-height: 1.58;
+  font-weight: 480;
+}
+/* renderer-workbench-style:end style_id=black-white */

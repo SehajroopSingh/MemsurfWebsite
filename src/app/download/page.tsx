@@ -2,7 +2,7 @@
 
 import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { initAmplitude, trackEvent, getAmplitude } from '@/lib/amplitude'
+import { initAmplitude, trackEvent, flushEvents } from '@/lib/amplitude'
 
 function DownloadRedirect() {
   const params = useSearchParams()
@@ -13,25 +13,18 @@ function DownloadRedirect() {
 
   useEffect(() => {
     const run = async () => {
-      // 1. Initialize Amplitude browser SDK
+      // 1. Initialize Amplitude browser SDK (both primary and secondary)
       initAmplitude()
 
-      // 2. Track event
+      // 2. Track event on both workspaces
       trackEvent('Download Link Clicked', {
         source: src,
         campaign,
         creator,
       })
 
-      // 3. Flush events to ensure tracking goes through before redirecting
-      const amplitudeInstance = getAmplitude()
-      if (amplitudeInstance && typeof amplitudeInstance.flush === 'function') {
-        try {
-          await amplitudeInstance.flush().promise
-        } catch (err) {
-          console.error('Failed to flush Amplitude events:', err)
-        }
-      }
+      // 3. Flush events on both workspaces to ensure delivery before redirect
+      await flushEvents()
 
       // 4. Redirect to the App Store
       window.location.href = 'https://apps.apple.com/us/app/memsurf/id6745132314'

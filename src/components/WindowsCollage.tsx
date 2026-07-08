@@ -1207,7 +1207,7 @@ function MobileCollageBrandFooter() {
         data-node-id="398:338"
       >
         <Image
-          src="/logos/memsurf-logo.svg"
+          src="/logos/butterfly-no-shadow-transparent-cropped.png"
           alt="MemSurf logo"
           fill
           className="object-contain object-center"
@@ -1905,7 +1905,7 @@ export default function WindowsCollage({
             </motion.p>
             <img
               data-collage-brand-footer
-              src="/logos/memsurf-logo.svg"
+              src="/logos/butterfly-no-shadow-transparent-cropped.png"
               alt="MemSurf logo"
               className="pointer-events-none absolute"
               style={{

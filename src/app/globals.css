@@ -5,34 +5,72 @@
 /* Force rebuild */
 
 :root {
-  --background: #08131d;
-  --foreground: #ffffff;
-  /* App dark palette (aligned with iOS AppPalette.Blobby + web surfaces) */
-  --app-canvas: #08131d;
-  --app-surface: #0f2133;
-  --app-surface-elevated: #152a40;
-  --app-border: #1f3d5c;
-  --app-text: #ffffff;
-  --app-text-muted: #cbd5e1;
-  --app-mint: #4f9e95;
-  --app-soft-blue: #5376ab;
-  --app-violet: #6b57a8;
-  --app-lavender: #8c65c6;
-  --app-mint-highlight: #77c2b7;
-  --app-blue-highlight: #7196cf;
-  --app-lavender-highlight: #a580da;
-  --app-mint-dark: #438a81;
-  --app-blue-shadow: #3f6196;
-  --app-periwinkle: #7a73b2;
-  --app-mint-bright: #8fe1d4;
-  --app-blue-bright: #89b0eb;
-  --app-lilac: #b08ae4;
+  --background: #f5f5f5;
+  --foreground: #121212;
+  --app-canvas: #f5f5f5;
+  --app-surface: #ffffff;
+  --app-surface-elevated: #f0f0f0;
+  --app-border: rgba(0, 0, 0, 0.08);
+  --app-border-strong: rgba(0, 0, 0, 0.15);
+  --app-text: #121212;
+  --app-text-muted: #5c5c5c;
+  --app-action: #121212;
+  --app-action-text: #ffffff;
+  --app-success: #16a34a;
+  --app-danger: #dc2626;
+  --app-warning: #b45309;
+  --app-gold: #a16207;
+  --app-blue: #2563eb;
+  --app-lavender: #6d28d9;
+  --app-aqua: #0f766e;
+  --app-mint: var(--app-aqua);
+  --app-soft-blue: var(--app-blue);
+  --app-violet: var(--app-lavender);
+  --app-mint-highlight: #0f766e;
+  --app-blue-highlight: #2563eb;
+  --app-lavender-highlight: #6d28d9;
+  --app-mint-dark: #0b5f59;
+  --app-blue-shadow: #1d4ed8;
+  --app-periwinkle: #6d28d9;
+  --app-mint-bright: #14b8a6;
+  --app-blue-bright: #3b82f6;
+  --app-lilac: #7c3aed;
+  --font-collage-tagline: "Bradley Hand", "Comic Sans MS", cursive;
+  --font-collage-note: "Marker Felt", "Bradley Hand", "Comic Sans MS", cursive;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #08131d;
+    --background: #121212;
     --foreground: #ffffff;
+    --app-canvas: #121212;
+    --app-surface: #242424;
+    --app-surface-elevated: #333333;
+    --app-border: rgba(255, 255, 255, 0.07);
+    --app-border-strong: rgba(255, 255, 255, 0.16);
+    --app-text: #ffffff;
+    --app-text-muted: #a7a7a7;
+    --app-action: #ffffff;
+    --app-action-text: #121212;
+    --app-success: #59c77c;
+    --app-danger: #ef6b73;
+    --app-warning: #e7a85f;
+    --app-gold: #d6b96f;
+    --app-blue: #6ea8ff;
+    --app-lavender: #bca7ff;
+    --app-aqua: #73e0d1;
+    --app-mint: var(--app-aqua);
+    --app-soft-blue: var(--app-blue);
+    --app-violet: var(--app-lavender);
+    --app-mint-highlight: #73e0d1;
+    --app-blue-highlight: #6ea8ff;
+    --app-lavender-highlight: #bca7ff;
+    --app-mint-dark: #4eb9ae;
+    --app-blue-shadow: #4e8ce6;
+    --app-periwinkle: #bca7ff;
+    --app-mint-bright: #8ef4e8;
+    --app-blue-bright: #91bdff;
+    --app-lilac: #cab8ff;
   }
 }
 
@@ -61,7 +99,7 @@ html {
   scroll-behavior: smooth;
   background: var(--background);
   min-height: 100%;
-  color-scheme: dark;
+  color-scheme: light dark;
   overflow-x: hidden;
 }
 

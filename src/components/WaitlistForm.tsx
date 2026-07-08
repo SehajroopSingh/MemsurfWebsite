@@ -8,15 +8,17 @@ import { liquidGlassSurfaceStyle } from '@/lib/liquidGlass'
 
 type WaitlistFormProps = {
   source?: string
+  variant?: 'glass' | 'youlearn'
 }
 
-export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistFormProps) {
+export default function WaitlistForm({ source = 'homepage_waitlist', variant = 'glass' }: WaitlistFormProps) {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState('')
   const { track } = useAmplitude()
   const shouldReduceMotion = useReducedMotion()
+  const usesYouLearnStyle = variant === 'youlearn'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -83,16 +85,20 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
   if (isSuccess) {
     return (
       <motion.div
-        className="group relative w-full overflow-hidden rounded-[1.75rem] border border-emerald-300/35 p-5 text-center"
-        style={liquidGlassSurfaceStyle}
+        className={`group relative w-full overflow-hidden rounded-[1.75rem] border p-5 text-center ${
+          usesYouLearnStyle
+            ? 'border-app-border bg-app-surface text-app-text'
+            : 'border-emerald-300/35'
+        }`}
+        style={usesYouLearnStyle ? undefined : liquidGlassSurfaceStyle}
         initial={shouldReduceMotion ? false : { opacity: 0, y: 10, scale: 0.98 }}
         animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
         transition={{ type: 'spring', stiffness: 420, damping: 28 }}
       >
-        <LiquidGlassOverlays roundedClassName="rounded-[1.75rem]" />
+        {usesYouLearnStyle ? null : <LiquidGlassOverlays roundedClassName="rounded-[1.75rem]" />}
         <div className="relative z-10">
-          <h4 className="mb-1 font-semibold text-emerald-200">Thank you!</h4>
-          <p className="text-sm text-emerald-100/90">You have successfully joined our subscriber list.</p>
+          <h4 className={`mb-1 font-semibold ${usesYouLearnStyle ? 'text-app-success' : 'text-emerald-200'}`}>Thank you!</h4>
+          <p className={`text-sm ${usesYouLearnStyle ? 'text-app-textMuted' : 'text-emerald-100/90'}`}>You have successfully joined our subscriber list.</p>
         </div>
       </motion.div>
     )
@@ -112,18 +118,28 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
         whileHover={shouldReduceMotion || isLoading ? undefined : { y: -2 }}
         transition={{ type: 'spring', stiffness: 420, damping: 24 }}
       >
-        <div className="pointer-events-none absolute -inset-3 hidden rounded-[2rem] bg-[radial-gradient(circle_at_18%_20%,rgba(143,225,212,0.20),transparent_34%),radial-gradient(circle_at_82%_10%,rgba(137,176,235,0.18),transparent_32%)] blur-xl sm:block" />
+        {usesYouLearnStyle ? null : (
+          <div className="pointer-events-none absolute -inset-3 hidden rounded-[2rem] bg-[radial-gradient(circle_at_18%_20%,rgba(143,225,212,0.20),transparent_34%),radial-gradient(circle_at_82%_10%,rgba(137,176,235,0.18),transparent_32%)] blur-xl sm:block" />
+        )}
         <div
-          className="group relative w-full overflow-hidden rounded-full border border-transparent transition-[border-color,box-shadow] duration-300 hover:border-app-mint/70 focus-within:border-app-mint/80 focus-within:ring-2 focus-within:ring-app-mint/75 focus-within:ring-offset-2 focus-within:ring-offset-app-canvas sm:flex-1"
-          style={liquidGlassSurfaceStyle}
+          className={`group relative w-full overflow-hidden rounded-full border transition-[border-color,box-shadow] duration-300 focus-within:ring-2 focus-within:ring-app-text focus-within:ring-offset-2 focus-within:ring-offset-app-canvas sm:flex-1 ${
+            usesYouLearnStyle
+              ? 'border-app-border bg-app-surfaceElevated'
+              : 'border-transparent hover:border-app-mint/70 focus-within:border-app-mint/80'
+          }`}
+          style={usesYouLearnStyle ? undefined : liquidGlassSurfaceStyle}
         >
-          <LiquidGlassOverlays />
+          {usesYouLearnStyle ? null : <LiquidGlassOverlays />}
           <motion.input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="relative z-10 h-14 w-full border-0 bg-transparent px-5 text-base text-white outline-none placeholder:text-white/55 sm:h-14 sm:pr-40 sm:text-base disabled:cursor-not-allowed disabled:opacity-70"
+            className={`relative z-10 h-14 w-full border-0 bg-transparent px-5 text-base outline-none sm:h-14 sm:pr-40 sm:text-base disabled:cursor-not-allowed disabled:opacity-70 ${
+              usesYouLearnStyle
+                ? 'text-app-text placeholder:text-app-textMuted'
+                : 'text-white placeholder:text-white/55'
+            }`}
             whileFocus={shouldReduceMotion ? undefined : { scale: 1.005 }}
             transition={{ type: 'spring', stiffness: 420, damping: 28 }}
             disabled={isLoading}
@@ -133,16 +149,20 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
         <motion.button
           type="submit"
           disabled={isLoading}
-          className="group relative flex h-14 w-full min-w-[8.5rem] items-center justify-center overflow-hidden rounded-full border border-transparent px-6 text-base font-semibold text-white transition-colors duration-300 hover:border-app-mint/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-mint/75 focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas disabled:cursor-not-allowed disabled:opacity-60 sm:absolute sm:right-2 sm:top-2 sm:bottom-2 sm:h-auto sm:w-auto sm:text-base"
-          style={liquidGlassSurfaceStyle}
+          className={`group relative flex h-14 w-full min-w-[8.5rem] items-center justify-center overflow-hidden rounded-full border px-6 text-base font-semibold transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-text focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas disabled:cursor-not-allowed disabled:opacity-60 sm:absolute sm:right-2 sm:top-2 sm:bottom-2 sm:h-auto sm:w-auto sm:text-base ${
+            usesYouLearnStyle
+              ? 'border-transparent bg-[var(--app-action)] text-[var(--app-action-text)]'
+              : 'border-transparent text-white hover:border-app-mint/70'
+          }`}
+          style={usesYouLearnStyle ? undefined : liquidGlassSurfaceStyle}
           whileHover={shouldReduceMotion || isLoading ? undefined : { scale: 1.04 }}
           whileTap={shouldReduceMotion || isLoading ? undefined : { scale: 0.96 }}
           transition={{ type: 'spring', stiffness: 520, damping: 22 }}
         >
-          <LiquidGlassOverlays />
+          {usesYouLearnStyle ? null : <LiquidGlassOverlays />}
           <span className="relative z-10 flex items-center justify-center">
             {isLoading ? (
-              <span className="inline-block w-8 h-8 rounded-full border-2 border-white/80 border-t-transparent animate-spin" />
+              <span className="inline-block w-8 h-8 rounded-full border-2 border-current border-t-transparent animate-spin" />
             ) : (
               'Subscribe'
             )}
@@ -151,7 +171,7 @@ export default function WaitlistForm({ source = 'homepage_waitlist' }: WaitlistF
       </motion.div>
       {error && (
         <motion.p
-          className="mt-2 text-sm text-red-300"
+          className={`mt-2 text-sm ${usesYouLearnStyle ? 'text-app-danger' : 'text-red-300'}`}
           initial={shouldReduceMotion ? false : { opacity: 0, y: -4 }}
           animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         >

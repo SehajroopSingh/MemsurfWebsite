@@ -46,7 +46,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 backdrop-blur-sm">
+    <footer className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
       <div className="py-16 lg:py-20">
         {/* Bottom Bar */}
         <div className="border-t border-app-border pt-8">
@@ -58,12 +58,14 @@ export default function Footer() {
                 className="mb-6 inline-flex items-center gap-3"
                 onClick={() => trackFooterNav('logo', '/', 'brand')}
               >
-                <img
-                  src="/memsurf-logo.svg"
-                  alt=""
-                  className="h-9 w-9"
-                />
-                <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-app-softBlue via-app-lavender to-app-lilac bg-clip-text text-transparent">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-app-border bg-app-surfaceElevated">
+                  <img
+                    src="/logos/butterfly-no-shadow-transparent-cropped.png"
+                    alt=""
+                    className="h-7 w-7 object-contain"
+                  />
+                </span>
+                <span className="text-2xl font-bold tracking-tight text-app-text">
                   MemSurf
                 </span>
               </Link>
@@ -82,7 +84,7 @@ export default function Footer() {
                     <li key={index}>
                       <Link
                         href={link.href}
-                        className="text-base font-semibold text-app-textMuted/90 hover:text-app-lavenderHi transition-colors lg:text-sm lg:font-medium"
+                        className="text-base font-semibold text-app-textMuted/90 hover:text-app-text transition-colors lg:text-sm lg:font-medium"
                         onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'company')}
                       >
                         {link.name}
@@ -99,7 +101,7 @@ export default function Footer() {
                     <li key={index}>
                       <Link
                         href={link.href}
-                        className="text-base font-semibold text-app-textMuted/90 hover:text-app-lavenderHi transition-colors lg:text-sm lg:font-medium"
+                        className="text-base font-semibold text-app-textMuted/90 hover:text-app-text transition-colors lg:text-sm lg:font-medium"
                         onClick={() => trackFooterNav(link.name.toLowerCase(), link.href, 'legal')}
                       >
                         {link.name}

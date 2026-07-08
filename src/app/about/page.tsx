@@ -32,37 +32,40 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="min-h-screen flex flex-col">
-        <Navigation />
-        <section className="flex-1 pt-24 pb-16 bg-transparent">
+      <main className="min-h-screen flex flex-col bg-app-canvas">
+        <Navigation variant="youlearn" />
+        <section className="flex-1 pt-36 pb-20 sm:pt-44 sm:pb-24">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-app-text mb-6">
-              About MemSurf
-            </h1>
-          <p className="text-app-textMuted text-lg mb-4">
-            MemSurf is an adaptive learning platform that helps you turn any content
-            into interactive quizzes, and master knowledge with spaced repetition.
-          </p>
-          <h2 className="text-2xl font-semibold text-app-text mt-10 mb-4">
-            Our Mission
-          </h2>
-          <p className="text-app-textMuted text-lg mb-4">
-            Our mission is to make high-quality, active learning accessible to everyone—
-            from students and professionals to lifelong learners. We&apos;re building tools
-            that fit naturally into your existing workflows so you can learn faster and
-            remember more.
-          </p>
-          <h2 className="text-2xl font-semibold text-app-text mt-8 mb-3">
-            How It Works
-          </h2>
-          <p className="text-app-textMuted text-lg">
-            MemSurf uses AI to process your content, extract key concepts, generate 
-            interactive quizzes, and schedule reviews at the optimal time — right before 
-            you would forget. This approach, grounded in cognitive science, turns passive 
-            consumption into durable mastery.
-          </p>
-        </div>
-      </section>
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="text-5xl font-bold leading-tight tracking-normal text-app-text sm:text-6xl">
+                About MemSurf
+              </h1>
+              <p className="mt-5 text-lg leading-relaxed text-app-textMuted sm:text-xl">
+                MemSurf turns the information you already care about into structured practice that helps it stick.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-4">
+              <section className="rounded-[28px] border border-app-border bg-app-surface p-6 sm:p-8">
+                <h2 className="text-2xl font-semibold tracking-tight text-app-text">
+                  Our Mission
+                </h2>
+                <p className="mt-4 text-lg leading-relaxed text-app-textMuted">
+                  Our mission is to make high-quality, active learning accessible to everyone, from students and professionals to lifelong learners. We&apos;re building tools that fit naturally into your existing workflows so you can learn faster and remember more.
+                </p>
+              </section>
+
+              <section className="rounded-[28px] border border-app-border bg-app-surface p-6 sm:p-8">
+                <h2 className="text-2xl font-semibold tracking-tight text-app-text">
+                  How It Works
+                </h2>
+                <p className="mt-4 text-lg leading-relaxed text-app-textMuted">
+                  MemSurf uses AI to process your content, extract key concepts, generate interactive quizzes, and schedule reviews at the optimal time, right before you would forget. This approach turns passive consumption into durable mastery.
+                </p>
+              </section>
+            </div>
+          </div>
+        </section>
         <Footer />
       </main>
     </>

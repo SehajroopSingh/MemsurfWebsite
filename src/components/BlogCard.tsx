@@ -15,9 +15,9 @@ export default function BlogCard({ article }: BlogCardProps) {
       href={`/blog/${article.slug}`}
       className="group block"
     >
-      <div className="bg-transparent overflow-hidden">
+      <div className="h-full overflow-hidden rounded-[24px] border border-app-border bg-app-surface p-3 transition-colors hover:bg-app-surfaceElevated">
         {/* Image */}
-        <div className="relative w-full aspect-[16/10] overflow-hidden bg-app-surface rounded-lg mb-4 border border-app-border/50">
+        <div className="relative w-full aspect-[16/10] overflow-hidden bg-app-surfaceElevated rounded-2xl mb-4 border border-app-border">
           <Image
             src={article.image}
             alt={article.title}
@@ -28,8 +28,8 @@ export default function BlogCard({ article }: BlogCardProps) {
         </div>
         
         {/* Content */}
-        <div>
-          <h3 className="text-lg font-semibold text-app-text mb-2 group-hover:text-app-mintHi transition-colors">
+        <div className="px-1 pb-1">
+          <h3 className="text-lg font-semibold text-app-text mb-2 transition-colors group-hover:text-app-text">
             {article.title}
           </h3>
           <p className="text-sm text-app-textMuted/80">
@@ -40,4 +40,3 @@ export default function BlogCard({ article }: BlogCardProps) {
     </Link>
   )
 }
-

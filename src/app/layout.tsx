@@ -1,24 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Nanum_Brush_Script, Nanum_Pen_Script } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import { AmplitudeProvider } from '@/components/AmplitudeProvider'
 import BlobbyBackgroundProvider from '@/components/BlobbyBackgroundProvider'
 
 const inter = Inter({ subsets: ['latin'] })
-
-/** Used for collage tagline cursive; exposed as CSS var for client components. */
-const collageTaglineScript = Nanum_Brush_Script({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-collage-tagline',
-})
-
-/** Used for collage note copy; exposed as CSS var for client components. */
-const collageNoteScript = Nanum_Pen_Script({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-collage-note',
-})
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.com'
 
@@ -33,6 +19,18 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '48x48' },
+      { url: '/favicon-48.png', type: 'image/png', sizes: '48x48' },
+      { url: '/icon.png', type: 'image/png', sizes: '512x512' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-icon.png', type: 'image/png', sizes: '180x180' },
+      { url: '/apple-touch-icon.png', type: 'image/png', sizes: '180x180' },
+    ],
   },
   openGraph: {
     type: 'website',
@@ -63,7 +61,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#08131d',
+  themeColor: '#121212',
 }
 
 export default function RootLayout({
@@ -82,7 +80,9 @@ export default function RootLayout({
         url: siteUrl,
         logo: {
           '@type': 'ImageObject',
-          url: `${siteUrl}/memsurf-logo.svg`,
+          url: `${siteUrl}/logos/butterfly-icon-512.png`,
+          width: 512,
+          height: 512,
         },
         sameAs: [
           'https://x.com/memsurf',
@@ -113,7 +113,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.className} ${collageTaglineScript.variable} ${collageNoteScript.variable}`}>
+      <body className={inter.className}>
         <BlobbyBackgroundProvider>
           <AmplitudeProvider>
             {children}

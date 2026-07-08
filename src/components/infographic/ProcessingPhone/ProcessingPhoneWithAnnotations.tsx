@@ -42,8 +42,8 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative"
                     style={{ opacity: bullet1Opacity, y: bullet1Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-softBlue/55 md:block" />
-                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-blueBright">We Do the Heavy Lifting</p>
+                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-borderStrong md:block" />
+                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-text">We Do the Heavy Lifting</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         Just send in the material. Our agent reads, listens, and analyzes the content for you, extracting the exact concepts you need to understand.
                     </p>
@@ -53,8 +53,8 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     style={{ opacity: connector1Opacity, y: connector1Y }}
                     className="flex flex-col items-center self-stretch"
                 >
-                    <div className="w-[1px] h-6 bg-gradient-to-b from-app-softBlue/50 to-app-mint/50" />
-                    <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-t-app-mint/50 border-l-transparent border-r-transparent" />
+                    <div className="w-[1px] h-6 bg-app-borderStrong" />
+                    <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-t-app-borderStrong border-l-transparent border-r-transparent" />
                 </motion.div>
 
                 {/* Bullet 2 */}
@@ -62,8 +62,8 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative"
                     style={{ opacity: bullet2Opacity, y: bullet2Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-mint/50 md:block" />
-                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-mintBright">Custom Lesson Plans</p>
+                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-borderStrong md:block" />
+                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-text">Custom Lesson Plans</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         We take those insights and organize them for you. Instead of a messy wall of text, you get a clean, step-by-step lesson plan that&apos;s easy to digest in minutes.
                     </p>
@@ -73,8 +73,8 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     style={{ opacity: connector2Opacity, y: connector2Y }}
                     className="flex flex-col items-center self-stretch"
                 >
-                    <div className="w-[1px] h-6 bg-gradient-to-b from-app-mint/50 to-app-lavender/45" />
-                    <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-t-app-lavender/50 border-l-transparent border-r-transparent" />
+                    <div className="w-[1px] h-6 bg-app-borderStrong" />
+                    <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-t-[7px] border-t-app-borderStrong border-l-transparent border-r-transparent" />
                 </motion.div>
 
                 {/* Bullet 3 */}
@@ -82,8 +82,8 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
                     className="relative"
                     style={{ opacity: bullet3Opacity, y: bullet3Y }}
                 >
-                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-lavender/50 md:block" />
-                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-lilac">Quizzes That Adapt</p>
+                    <span className="absolute right-full top-[16px] mr-4 hidden h-px w-16 bg-app-borderStrong md:block" />
+                    <p className="font-semibold text-lg sm:text-xl tracking-wide text-app-text">Quizzes That Adapt</p>
                     <p className="leading-relaxed mt-1 text-app-textMuted text-sm sm:text-base">
                         Start easy, finish strong. Our quizzes adapt to your progress-beginning with simple questions to build momentum, and slowly getting more challenging as you master the material.
                     </p>
@@ -92,5 +92,4 @@ export default function ProcessingPhoneWithAnnotations({ progress }: ProcessingP
         </div>
     )
 }
-
 

@@ -48,33 +48,33 @@ export default function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="min-h-screen flex flex-col bg-transparent">
-      <Navigation />
-      <section className="flex-1 pt-24 pb-16">
+      <main className="min-h-screen flex flex-col bg-app-canvas">
+      <Navigation variant="youlearn" />
+      <section className="flex-1 pt-36 pb-20 sm:pt-44 sm:pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Page Header */}
-          <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-app-text">
-              Blogs
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h1 className="text-5xl font-bold leading-tight tracking-normal text-app-text sm:text-6xl">
+              Blog
             </h1>
-            <p className="text-lg text-app-textMuted mt-4">
+            <p className="text-lg leading-relaxed text-app-textMuted mt-5 sm:text-xl">
               Discover insights on learning, memory, and effective study techniques.
             </p>
           </div>
 
           {/* Blog Grid */}
           {posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {posts.map((article) => (
                 <BlogCard key={article.slug} article={article} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-16">
+            <div className="rounded-[28px] border border-app-border bg-app-surface py-16 text-center">
               <p className="text-app-textMuted text-lg mb-2">
                 No articles yet.
               </p>
-              <p className="text-app-textMuted/70 text-sm">
+              <p className="text-app-textMuted text-sm">
                 Check back soon for new content.
               </p>
             </div>
@@ -89,4 +89,3 @@ export default function BlogPage() {
     </>
   )
 }
-

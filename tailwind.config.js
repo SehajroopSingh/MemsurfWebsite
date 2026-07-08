@@ -16,8 +16,17 @@ module.exports = {
           surface: 'var(--app-surface)',
           surfaceElevated: 'var(--app-surface-elevated)',
           border: 'var(--app-border)',
+          borderStrong: 'var(--app-border-strong)',
           text: 'var(--app-text)',
           textMuted: 'var(--app-text-muted)',
+          action: 'var(--app-action)',
+          actionText: 'var(--app-action-text)',
+          success: 'var(--app-success)',
+          danger: 'var(--app-danger)',
+          warning: 'var(--app-warning)',
+          gold: 'var(--app-gold)',
+          blue: 'var(--app-blue)',
+          aqua: 'var(--app-aqua)',
           mint: 'var(--app-mint)',
           softBlue: 'var(--app-soft-blue)',
           violet: 'var(--app-violet)',
@@ -47,4 +56,3 @@ module.exports = {
   darkMode: 'class',
   plugins: [],
 }
-

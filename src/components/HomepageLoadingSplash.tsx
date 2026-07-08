@@ -1,30 +1,108 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 type HomepageLoadingSplashProps = {
   onLogoReady: () => void
 }
 
+const LAUNCH_VIDEO_SRC = '/videos/launch-butterfly.mp4#t=0.6'
+const LAUNCH_VIDEO_START_SECONDS = 0.6
+const LAUNCH_EDGE_BACKGROUND = '#f6fbfb'
+const LAUNCH_VIDEO_WIDTH = 1280
+const LAUNCH_VIDEO_HEIGHT = 720
+const DEFAULT_DEVICE_PIXEL_RATIO = 2
+
+function getLaunchDevicePixelRatio() {
+  if (typeof window === 'undefined') {
+    return DEFAULT_DEVICE_PIXEL_RATIO
+  }
+
+  return Math.max(window.devicePixelRatio || 1, 1)
+}
+
 export default function HomepageLoadingSplash({ onLogoReady }: HomepageLoadingSplashProps) {
   const shouldReduceMotion = useReducedMotion()
   const reduceMotion = Boolean(shouldReduceMotion)
-  const [entered, setEntered] = useState(reduceMotion)
+  const hasMarkedReadyRef = useRef(false)
+  const hasRevealedVideoRef = useRef(false)
+  const [devicePixelRatio, setDevicePixelRatio] = useState(getLaunchDevicePixelRatio)
 
   useEffect(() => {
-    if (reduceMotion) {
-      setEntered(true)
+    const updateDevicePixelRatio = () => {
+      setDevicePixelRatio(getLaunchDevicePixelRatio())
+    }
+
+    updateDevicePixelRatio()
+    window.addEventListener('resize', updateDevicePixelRatio)
+
+    return () => {
+      window.removeEventListener('resize', updateDevicePixelRatio)
+    }
+  }, [])
+
+  const markReady = useCallback(() => {
+    if (hasMarkedReadyRef.current) {
       return
     }
-    const frame = window.requestAnimationFrame(() => setEntered(true))
-    return () => window.cancelAnimationFrame(frame)
-  }, [reduceMotion])
+
+    hasMarkedReadyRef.current = true
+    onLogoReady()
+  }, [onLogoReady])
+
+  const revealVideo = useCallback((video: HTMLVideoElement) => {
+    if (hasRevealedVideoRef.current) {
+      return
+    }
+
+    hasRevealedVideoRef.current = true
+    markReady()
+
+    if (reduceMotion) {
+      video.pause()
+      return
+    }
+
+    const playResult = video.play()
+    if (playResult) {
+      playResult.catch(() => {
+        video.pause()
+      })
+    }
+  }, [markReady, reduceMotion])
+
+  useEffect(() => {
+    const fallbackTimer = window.setTimeout(markReady, 1800)
+    return () => window.clearTimeout(fallbackTimer)
+  }, [markReady])
+
+  const handleLoadedMetadata = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = event.currentTarget
+
+    try {
+      if (video.duration > LAUNCH_VIDEO_START_SECONDS) {
+        video.currentTime = LAUNCH_VIDEO_START_SECONDS
+      } else {
+        revealVideo(video)
+      }
+    } catch {
+      // Some browsers can reject precise media seeks during startup; playback still works.
+      revealVideo(video)
+    }
+  }, [revealVideo])
+
+  const handleLoadedData = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = event.currentTarget
+    if (video.currentTime >= LAUNCH_VIDEO_START_SECONDS - 0.05) {
+      revealVideo(video)
+    }
+  }, [revealVideo])
 
   return (
     <motion.div
       className="fixed inset-0 z-[70] flex items-center justify-center pointer-events-auto isolate [contain:strict]"
+      style={{ backgroundColor: LAUNCH_EDGE_BACKGROUND }}
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -32,22 +110,33 @@ export default function HomepageLoadingSplash({ onLogoReady }: HomepageLoadingSp
       aria-label="Loading MemSurf"
       role="status"
     >
-      <div
-        className={`will-change-transform transition-[transform,opacity] duration-500 ease-out motion-reduce:transition-none ${
-          entered ? 'scale-100 opacity-100' : 'scale-[0.94] opacity-0'
-        }`}
-      >
-        <Image
-          src="/memsurf-logo.svg"
-          alt="MemSurf"
-          width={280}
-          height={280}
-          priority
-          className="h-[min(280px,52vw)] w-[min(280px,52vw)] drop-shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
-          onLoad={onLogoReady}
-          onError={onLogoReady}
-        />
-      </div>
+      <video
+        aria-hidden="true"
+        width={LAUNCH_VIDEO_WIDTH}
+        height={LAUNCH_VIDEO_HEIGHT}
+        className="h-auto w-auto object-contain"
+        style={{
+          aspectRatio: '16 / 9',
+          width: `min(100vw, ${LAUNCH_VIDEO_WIDTH / devicePixelRatio}px)`,
+          maxWidth: `min(100vw, ${LAUNCH_VIDEO_WIDTH / devicePixelRatio}px)`,
+          maxHeight: `min(100vh, ${LAUNCH_VIDEO_HEIGHT / devicePixelRatio}px)`,
+        }}
+        src={LAUNCH_VIDEO_SRC}
+        muted
+        playsInline
+        autoPlay={!reduceMotion}
+        preload="auto"
+        onLoadedMetadata={handleLoadedMetadata}
+        onLoadedData={handleLoadedData}
+        onSeeked={(event) => revealVideo(event.currentTarget)}
+        onPlaying={(event) => revealVideo(event.currentTarget)}
+        onTimeUpdate={(event) => {
+          if (event.currentTarget.currentTime >= LAUNCH_VIDEO_START_SECONDS - 0.05) {
+            revealVideo(event.currentTarget)
+          }
+        }}
+        onError={markReady}
+      />
     </motion.div>
   )
 }

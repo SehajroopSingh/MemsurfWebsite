@@ -23,9 +23,14 @@ export function useBlobbyBackground() {
 
 export default function BlobbyBackgroundProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const [mode, setBackgroundMode] = useState<BlobbyBackgroundMode>(() =>
-    pathname === '/' ? 'loading' : 'idle',
-  )
+  const usesFlatBackground =
+    pathname === '/' ||
+    pathname === '/about' ||
+    pathname === '/team' ||
+    pathname === '/blog' ||
+    pathname === '/download' ||
+    pathname.startsWith('/blog/')
+  const [mode, setBackgroundMode] = useState<BlobbyBackgroundMode>('idle')
   const value = useMemo(
     () => ({
       mode,
@@ -36,7 +41,7 @@ export default function BlobbyBackgroundProvider({ children }: { children: React
 
   return (
     <BlobbyBackgroundContext.Provider value={value}>
-      <BlobbyBackground mode={mode} />
+      {usesFlatBackground ? null : <BlobbyBackground mode={mode} />}
       {children}
     </BlobbyBackgroundContext.Provider>
   )

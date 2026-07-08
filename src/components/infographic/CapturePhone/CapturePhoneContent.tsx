@@ -29,7 +29,7 @@ export default function CapturePhoneContent({
                     layout
                     className={`w-full relative transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col items-center
                         ${animationStage === 'combining' ? 'p-1 rounded-3xl border-2 border-app-border bg-app-surface h-full' : 'h-auto'}
-                        ${['condensing', 'context', 'settings', 'create_button', 'button_click', 'flash', 'processing'].includes(animationStage) ? 'w-full bg-app-surface rounded-2xl shadow-xl border border-app-border p-3 flex flex-col' : 'w-full'}
+                        ${['condensing', 'context', 'settings', 'create_button', 'button_click', 'flash', 'processing'].includes(animationStage) ? 'w-full bg-app-surface rounded-2xl shadow-sm border border-app-border p-3 flex flex-col' : 'w-full'}
                     `}
                 >
                     {/* CONDENSED STATE (Summary Card) */}
@@ -45,11 +45,11 @@ export default function CapturePhoneContent({
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.28, ease: 'easeOut', delay: 0.12 }}
                             >
-                                <p className="text-base font-bold text-white mb-2">Combined Text</p>
+                                <p className="text-base font-bold text-app-text mb-2">Combined Text</p>
                                 <div className="space-y-1.5">
-                                    <div className="h-1.5 w-full bg-app-softBlue/35 rounded-full" />
-                                    <div className="h-1.5 w-3/4 bg-app-softBlue/30 rounded-full" />
-                                    <div className="h-1.5 w-1/2 bg-app-softBlue/25 rounded-full" />
+                                    <div className="h-1.5 w-full bg-app-textMuted/40 rounded-full" />
+                                    <div className="h-1.5 w-3/4 bg-app-textMuted/32 rounded-full" />
+                                    <div className="h-1.5 w-1/2 bg-app-textMuted/24 rounded-full" />
                                 </div>
                                 <p className="text-app-textMuted text-base mt-2 font-medium tracking-widest">...</p>
                             </motion.div>
@@ -66,7 +66,7 @@ export default function CapturePhoneContent({
                                         initial={{ opacity: 0, scale: 0.9, height: '80%' }}
                                         animate={{ opacity: 1, scale: 1, height: '100%' }}
                                         exit={{ opacity: 0 }}
-                                        className="absolute inset-0 bg-app-softBlue/12 rounded-[2rem] border border-app-border shadow-sm z-10 w-full"
+                                        className="absolute inset-0 bg-app-surface rounded-[2rem] border border-app-borderStrong shadow-sm z-10 w-full"
                                     />
                                 )}
                             </AnimatePresence>
@@ -93,7 +93,7 @@ export default function CapturePhoneContent({
                                                 <div className={item.color.split(' ')[0]}>{item.icon}</div>
                                             </div>
                                             <div className="flex-1 min-w-0 text-left">
-                                                <p className="text-lg font-semibold text-white truncate">{item.label}</p>
+                                                <p className="text-lg font-semibold text-app-text truncate">{item.label}</p>
                                             </div>
                                         </motion.div>
                                     </motion.div>
@@ -125,7 +125,7 @@ export default function CapturePhoneContent({
                                         >
                                             &quot;{contextText}&quot;
                                             {isTypingContext ? (
-                                                <span className="inline-block w-0.5 h-4 ml-0.5 bg-app-softBlue animate-pulse align-middle" />
+                                                <span className="inline-block w-0.5 h-4 ml-0.5 bg-[var(--app-action)] animate-pulse align-middle" />
                                             ) : null}
                                         </motion.p>
                                     ) : (
@@ -137,7 +137,7 @@ export default function CapturePhoneContent({
                                             transition={{ duration: 0.28, ease: 'easeOut' }}
                                             className="flex flex-col items-center justify-center"
                                         >
-                                            <div className="w-10 h-10 rounded-full bg-app-surfaceElevated flex items-center justify-center mb-2 text-app-mint">
+                                            <div className="w-10 h-10 rounded-full bg-app-surfaceElevated flex items-center justify-center mb-2 text-app-text">
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
                                                     <path d="M12 5v14M5 12h14" />
                                                 </svg>
@@ -165,7 +165,7 @@ export default function CapturePhoneContent({
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.3, ease: 'easeOut', delay: 0.18 }}
-                                    className="mb-2 text-center text-sm font-bold text-white"
+                                    className="mb-2 text-center text-sm font-bold text-app-text"
                                 >
                                     Scheduling Options
                                 </motion.p>
@@ -192,7 +192,7 @@ export default function CapturePhoneContent({
                                                 }}
                                                 className={`h-[38px] rounded-xl border px-2 text-center text-xs font-bold transition-colors duration-300 ${
                                                     isActive
-                                                        ? 'border-app-softBlue bg-app-softBlue text-white shadow-[0_0_18px_rgba(96,165,250,0.28)]'
+                                                        ? 'border-app-borderStrong bg-app-surface text-app-text shadow-sm'
                                                         : 'border-app-border bg-app-surfaceElevated text-app-textMuted'
                                                 }`}
                                             >
@@ -218,9 +218,9 @@ export default function CapturePhoneContent({
                                 exit={{ opacity: 0, scale: 0.96, y: 8 }}
                                 className="pointer-events-none absolute bottom-5 left-6 right-6 z-50"
                             >
-                                <div className={`w-full rounded-xl py-2.5 text-center text-sm font-bold shadow-md transition-all duration-75
-                                    ${animationStage === 'button_click' ? 'bg-app-blueDark scale-95' : 'bg-app-softBlue'}
-                                    text-white
+                                <div className={`w-full rounded-xl py-2.5 text-center text-sm font-bold shadow-sm transition-all duration-75
+                                    ${animationStage === 'button_click' ? 'scale-95 opacity-85' : ''}
+                                    bg-[var(--app-action)] text-[var(--app-action-text)]
                                 `}>
                                     Create Capture
                                 </div>

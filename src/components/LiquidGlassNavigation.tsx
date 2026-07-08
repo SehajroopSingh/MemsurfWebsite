@@ -232,14 +232,18 @@ export default function LiquidGlassNavigation({}: LiquidGlassNavigationProps) {
                 href="/"
                 className="inline-flex h-full items-center justify-center px-[5%]"
               >
-                <div className="flex h-full items-center" style={{ filter: 'drop-shadow(0 0 12px rgba(139, 176, 235, 0.4))' }}>
+                <div className="flex h-full items-center">
+                  <img
+                    src="/logos/butterfly-no-shadow-transparent-cropped.png"
+                    alt="MemSurf logo"
+                    className="h-9 w-9 object-contain"
+                  />
                   <svg
                     viewBox="0 0 89 54"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-[58%] w-auto min-h-6 max-h-9"
-                    role="img"
-                    aria-label="MemSurf logo"
+                    className="hidden"
+                    aria-hidden="true"
                   >
                     <path
                       fillRule="evenodd"

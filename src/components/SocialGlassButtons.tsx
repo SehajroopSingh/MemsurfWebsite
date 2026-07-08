@@ -7,6 +7,7 @@ import { liquidGlassSurfaceStyle } from '@/lib/liquidGlass'
 
 type SocialGlassButtonsProps = {
   className?: string
+  variant?: 'glass' | 'youlearn'
 }
 
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -37,53 +38,59 @@ const socialLinks = [
     href: 'https://discord.gg/vV2YgzXArg',
     external: true,
     isPill: true,
-    icon: (
-      <img
-        src="/logos/189-1890026_discord-discord-logo-black-png.png.png"
-        alt=""
-        className="relative z-10 h-8 w-8 object-contain invert transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10"
-      />
-    ),
+    icon: (variant: 'glass' | 'youlearn') =>
+      variant === 'youlearn' ? (
+        <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-app-surfaceElevated text-sm font-black text-app-text transition-transform duration-300 group-hover:scale-105 sm:h-9 sm:w-9">
+          D
+        </span>
+      ) : (
+        <img
+          src="/logos/189-1890026_discord-discord-logo-black-png.png.png"
+          alt=""
+          className="relative z-10 h-8 w-8 object-contain invert transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10"
+        />
+      ),
   },
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/company/memsurf/',
     external: true,
     isPill: false,
-    icon: <Linkedin className={circleSocialIconClassName} />,
+    icon: () => <Linkedin className={circleSocialIconClassName} />,
   },
   {
     label: 'TikTok',
     href: 'https://www.tiktok.com/@memsurf',
     external: true,
     isPill: false,
-    icon: <TikTokIcon className={circleSocialIconClassName} />,
+    icon: () => <TikTokIcon className={circleSocialIconClassName} />,
   },
   {
     label: 'X',
     href: 'https://x.com/memsurf',
     external: true,
     isPill: false,
-    icon: <XIcon className={circleSocialIconClassName} />,
+    icon: () => <XIcon className={circleSocialIconClassName} />,
   },
   {
     label: 'Instagram',
     href: 'https://www.instagram.com/memsurfai/',
     external: true,
     isPill: false,
-    icon: <InstagramIcon className={circleSocialIconClassName} />,
+    icon: () => <InstagramIcon className={circleSocialIconClassName} />,
   },
   {
     label: 'Email',
     href: 'mailto:contact@memsurf.com',
     external: false,
     isPill: false,
-    icon: <Mail className={circleSocialIconClassName} />,
+    icon: () => <Mail className={circleSocialIconClassName} />,
   },
 ]
 
-export default function SocialGlassButtons({ className = '' }: SocialGlassButtonsProps) {
+export default function SocialGlassButtons({ className = '', variant = 'glass' }: SocialGlassButtonsProps) {
   const shouldReduceMotion = useReducedMotion()
+  const usesYouLearnStyle = variant === 'youlearn'
 
   const socialContainerVariants = shouldReduceMotion
     ? undefined
@@ -132,7 +139,11 @@ export default function SocialGlassButtons({ className = '' }: SocialGlassButton
 
   return (
     <motion.div
-      className={`flex flex-row gap-2 sm:gap-4 md:gap-5 justify-start items-center w-fit px-4 sm:px-4 flex-nowrap ${className}`}
+      className={`flex items-center ${
+        usesYouLearnStyle
+          ? 'w-full max-w-full flex-wrap justify-center gap-3 px-0'
+          : 'w-fit flex-row flex-nowrap justify-start gap-2 px-4 sm:gap-4 sm:px-4 md:gap-5'
+      } ${className}`}
       initial={shouldReduceMotion ? false : 'hidden'}
       whileInView={shouldReduceMotion ? undefined : 'visible'}
       viewport={{ once: true, amount: 0.45 }}
@@ -147,21 +158,27 @@ export default function SocialGlassButtons({ className = '' }: SocialGlassButton
           aria-label={link.label}
           custom={index}
           variants={socialButtonVariants}
-          whileHover={shouldReduceMotion ? undefined : { y: -5, scale: 1.06 }}
+          whileHover={shouldReduceMotion ? undefined : { y: usesYouLearnStyle ? -2 : -5, scale: usesYouLearnStyle ? 1.025 : 1.06 }}
           whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
           transition={{ type: 'spring', stiffness: 520, damping: 20 }}
-          className={`group relative flex overflow-hidden rounded-full border border-transparent text-white/85 items-center justify-center transition-colors duration-300 hover:border-app-mint/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-mint/75 focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas ${
-            link.isPill
+          className={`group relative flex overflow-hidden rounded-full border items-center justify-center transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-text focus-visible:ring-offset-2 focus-visible:ring-offset-app-canvas ${
+            usesYouLearnStyle
+              ? 'border-app-border bg-app-surface text-app-text hover:bg-app-surfaceElevated'
+              : 'border-transparent text-white/85 hover:border-app-mint/70 hover:text-white'
+          } ${
+            usesYouLearnStyle
+              ? 'h-14 w-14 min-h-14 min-w-14 flex-none sm:h-16 sm:w-16 sm:min-h-16 sm:min-w-16'
+              : link.isPill
               ? 'h-16 flex-[1.45] gap-2 px-4 sm:flex-none sm:h-20 sm:min-w-[10.5rem] sm:px-6 md:h-20'
               : // Perfect circles at every breakpoint; scale up toward desktop 80×80 reference.
                 'flex-none aspect-square h-14 w-14 min-h-14 min-w-14 sm:h-16 sm:w-16 sm:min-h-16 sm:min-w-16 md:h-20 md:w-20 md:min-h-20 md:min-w-20'
           }`}
-          style={liquidGlassSurfaceStyle}
+          style={usesYouLearnStyle ? undefined : liquidGlassSurfaceStyle}
         >
-          <LiquidGlassOverlays />
-          {link.icon}
-          {link.isPill && (
-            <span className="relative z-10 hidden text-base font-semibold tracking-normal text-white sm:inline">
+          {usesYouLearnStyle ? null : <LiquidGlassOverlays />}
+          {link.icon(variant)}
+          {link.isPill && !usesYouLearnStyle && (
+            <span className={`relative z-10 hidden text-base font-semibold tracking-normal sm:inline ${usesYouLearnStyle ? 'text-app-text' : 'text-white'}`}>
               Discord
             </span>
           )}

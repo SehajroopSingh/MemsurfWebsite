@@ -9,31 +9,29 @@ import { Linkedin, ArrowRight } from 'lucide-react'
 
 const founderPanelClass = [
     'flex flex-col items-center gap-6',
-    'rounded-[2.5rem] border border-app-lavender/35',
-    'bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18',
-    'p-5 sm:p-6 md:p-8 shadow-lg ring-1 ring-app-mint/10',
+    'rounded-[28px] border border-app-border bg-app-surface',
+    'p-5 shadow-sm sm:p-6 md:p-8',
 ].join(' ')
 
 const founderImageClass = [
     'relative aspect-square w-56 sm:w-64 overflow-hidden rounded-full',
-    'border-[6px] border-white bg-white shadow-md',
+    'border border-app-border bg-app-surfaceElevated shadow-sm',
 ].join(' ')
 
 const founderNameClass = 'text-2xl font-bold text-app-text'
 
 export default function TeamPage() {
     return (
-        <main className="min-h-screen bg-transparent text-app-text selection:bg-app-softBlue/30">
-            <Navigation />
+        <main className="min-h-screen bg-app-canvas text-app-text selection:bg-app-text/20">
+            <Navigation variant="youlearn" />
 
-            <section className="relative pt-28 pb-16 bg-gradient-to-b from-app-surface/80 via-transparent to-transparent">
-                <div className="absolute inset-x-0 -top-32 h-64 bg-[radial-gradient(circle_at_top,_rgba(83,118,171,0.22),_transparent_55%)] pointer-events-none" />
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <p className="text-sm font-semibold text-app-softBlue uppercase tracking-[0.2em] mb-4">
+            <section className="pt-36 pb-14 sm:pt-44 sm:pb-16">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <p className="text-sm font-semibold text-app-textMuted uppercase tracking-[0.18em] mb-4">
                         Meet the founders
                     </p>
-                    <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-app-text">
-                        Built by learners,
+                    <h1 className="text-5xl font-bold leading-tight tracking-normal mb-5 text-app-text md:text-6xl">
+                        Built by learners,{' '}
                         <br />
                         for learners.
                     </h1>
@@ -61,12 +59,12 @@ export default function TeamPage() {
                             <div className="space-y-4">
                                 <div className="text-center">
                                     <h3 className={founderNameClass}>Sehaj Singh</h3>
-                                    <p className="text-app-softBlue font-semibold uppercase tracking-[0.14em] text-xs mt-1">
+                                    <p className="text-app-textMuted font-semibold uppercase tracking-[0.14em] text-xs mt-1">
                                         Founder & CEO
                                     </p>
                                 </div>
 
-                                <div className="prose prose-lg prose-invert max-w-none space-y-4 text-app-textMuted">
+                                <div className="max-w-none space-y-4 text-base leading-relaxed text-app-textMuted sm:text-lg">
                                     <p>
                                         Hi, I’m Sehajroop, founder and CEO of MemSurf, and a lifelong learner with a mild intolerance for forgetting things I know I’ve already learned.
                                     </p>
@@ -77,7 +75,7 @@ export default function TeamPage() {
                                         I don’t think learning should be about endless consumption. It should be about mastery, being able to recall, connect, and actually use what you have learned when it matters. MemSurf grew out of an obsession with cognitive science and AI and a belief that memory, while fragile, is highly trainable. With the right reinforcement, what would normally fade can become durable. By combining intelligent processing with effortless spaced repetition, MemSurf provides a timely jolt of reinforcement for memories on the verge of fading, helping knowledge stay accessible when it matters.
                                     </p>
                                     <p>
-                                        If this problem resonates with you, we are probably thinking about the same things. I would love to hear how you learn, forget, and try again.
+                                        If this problem resonates with you, we are probably thinking about the same things. I would love to hear how you study, forget, and try again.
                                     </p>
                                 </div>
 
@@ -85,7 +83,7 @@ export default function TeamPage() {
                                     <Link
                                         href="https://www.linkedin.com/in/sehajroop-singh/"
                                         target="_blank"
-                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-app-softBlue text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
+                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--app-action)] text-[var(--app-action-text)] font-semibold shadow-sm transition hover:opacity-[0.86]"
                                     >
                                         <Linkedin className="w-5 h-5" />
                                         <span>Connect on LinkedIn</span>
@@ -109,12 +107,12 @@ export default function TeamPage() {
                             <div className="space-y-4">
                                 <div className="text-center">
                                     <h3 className={founderNameClass}>Alessia Canuto</h3>
-                                    <p className="text-app-softBlue font-semibold uppercase tracking-[0.14em] text-xs mt-1">
+                                    <p className="text-app-textMuted font-semibold uppercase tracking-[0.14em] text-xs mt-1">
                                         Co-founder & COO
                                     </p>
                                 </div>
 
-                                <div className="prose prose-lg prose-invert max-w-none space-y-4 text-app-textMuted">
+                                <div className="max-w-none space-y-4 text-base leading-relaxed text-app-textMuted sm:text-lg">
                                     <p>Hi, I'm Alessia, co-founder and COO of MemSurf.</p>
                                     <p>
                                         I've spent most of my career in consulting, policy, and strategy roles, trying to understand why so many systems do not work the way they are supposed to, and why the people who need them most usually get the short end of the stick.
@@ -137,7 +135,7 @@ export default function TeamPage() {
                                     <Link
                                         href="https://www.linkedin.com/in/alessia-canuto-451a84226"
                                         target="_blank"
-                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-app-softBlue text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
+                                        className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--app-action)] text-[var(--app-action-text)] font-semibold shadow-sm transition hover:opacity-[0.86]"
                                     >
                                         <Linkedin className="w-5 h-5" />
                                         <span>Connect on LinkedIn</span>
@@ -153,13 +151,13 @@ export default function TeamPage() {
             <section className="py-16 border-t border-app-border">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl font-semibold tracking-tight text-app-text">Get in touch</h2>
-                    <p className="text-lg text-app-textMuted mb-8">
+                    <p className="mt-3 text-lg text-app-textMuted mb-8">
                         Have questions about MemSurf or want to collaborate? We would love to hear from you.
                     </p>
                     <div className="flex justify-center">
                         <Link
                             href="mailto:contact@memsurf.com"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-app-softBlue text-white font-semibold shadow-sm hover:opacity-90 transition-opacity"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--app-action)] text-[var(--app-action-text)] font-semibold shadow-sm transition hover:opacity-[0.86]"
                         >
                             <span>Email us</span>
                             <ArrowRight className="w-4 h-4" />

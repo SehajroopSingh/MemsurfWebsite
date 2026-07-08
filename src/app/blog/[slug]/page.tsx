@@ -93,7 +93,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       url: siteUrl,
       logo: {
         '@type': 'ImageObject',
-        url: `${siteUrl}/logos/memsurf-logo.png`,
+        url: `${siteUrl}/logos/butterfly-icon-512.png`,
       },
     },
     mainEntityOfPage: {
@@ -109,9 +109,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="min-h-screen flex flex-col bg-transparent">
-        <Navigation />
-        <section className="flex-1 pt-24 pb-16">
+      <main className="min-h-screen flex flex-col bg-app-canvas">
+        <Navigation variant="youlearn" />
+        <section className="flex-1 pt-36 pb-20 sm:pt-44 sm:pb-24">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <BlogArticleTemplate article={post} content={post.content} />
           </div>
@@ -121,4 +121,3 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     </>
   )
 }
-

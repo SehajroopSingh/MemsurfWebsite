@@ -11,20 +11,10 @@ import RawContentTransition from './RawContentTransition'
 import ProcessingPhoneWithAnnotations from './ProcessingPhone/ProcessingPhoneWithAnnotations'
 import PracticeScrollShowcase from './PracticeScrollShowcase'
 import { useTimeProgress } from '../../hooks/useTimeProgress'
-import WindowsCollage from '../WindowsCollage'
 import VideoOverlayContainer from './VideoOverlayContainer'
 import ChatGptIntegrationSection from './ChatGptIntegrationSection'
-import RandomizedTextReveal from '../ui/RandomizedTextReveal'
 
-type WorkflowAnimationProps = {
-    onCollageReady?: () => void
-    onCollageLoadProgress?: (loaded: number, total: number) => void
-}
-
-export default function WorkflowAnimation({
-    onCollageReady,
-    onCollageLoadProgress,
-}: WorkflowAnimationProps) {
+export default function WorkflowAnimation() {
     // --- SETTINGS CYCLING LOGIC ---
     const [settingsState, setSettingsState] = useState({
         depthStage: 0,
@@ -148,24 +138,8 @@ export default function WorkflowAnimation({
 
     return (
         <div className="w-full flex flex-col items-center">
-            <WindowsCollage
-                workflowHeroCopy
-                onReady={onCollageReady}
-                onLoadProgress={onCollageLoadProgress}
-            />
-
             {/* HOW IT WORKS Section — [3] */}
-            <div className="w-full mt-32 md:mt-10 lg:mt-14 flex h-fit flex-col items-center gap-10 md:gap-14 lg:gap-12">
-                {/* 3a — HOW IT WORKS heading */}
-                <div
-                    id="how-it-works"
-                    className="flex h-fit w-full shrink-0 justify-center z-40 scroll-mt-24"
-                >
-                    <h1 className="text-5xl font-bold text-white tracking-tight text-center">
-                        <RandomizedTextReveal text="HOW IT WORKS" />
-                    </h1>
-                </div>
-
+            <div className="w-full mt-16 md:mt-10 lg:mt-14 flex h-fit flex-col items-center gap-10 md:gap-14 lg:gap-12">
                 {/* 3b — Capture */}
                 <div
                     id="capture-section"
@@ -188,12 +162,12 @@ export default function WorkflowAnimation({
 
                                 {/* Desktop Text Area (Hidden on mobile) */}
                                 <div className="hidden lg:flex col-start-1 col-end-2 row-start-1 flex-col justify-center pr-8 z-10 pl-6 min-w-0 overflow-hidden">
-                                    <div className="space-y-4 text-left drop-shadow-lg">
-                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-app-softBlue">Universal Input</p>
-                                        <h2 className="text-[40px] font-bold text-white leading-tight">
+                                    <div className="space-y-4 text-left">
+                                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-app-textMuted">Universal Input</p>
+                                        <h2 className="text-[40px] font-bold text-app-text leading-tight">
                                             The agent meets you where your information lives.
                                         </h2>
-                                        <p className="text-xl md:text-lg text-gray-300 max-w-xl">
+                                        <p className="text-xl md:text-lg text-app-textMuted max-w-xl">
                                             Paste it. Upload it. Record it. Connect it. The agent knows what to do with it.
                                         </p>
                                     </div>
@@ -201,10 +175,9 @@ export default function WorkflowAnimation({
 
                                 {/* Phone + Background Container (Right Side) */}
                                 <div className="relative col-start-2 col-end-3 row-start-1 z-20 flex h-fit w-full min-w-0 max-w-[960px] flex-col items-center justify-start lg:pt-0">
-                                    {/* Capture stage — lavender + blue wash (app palette) */}
-                                    <div className="relative flex h-fit w-full min-w-0 max-w-[960px] flex-col overflow-visible rounded-[2.5rem] border-[6px] border-app-lavender/45 bg-gradient-to-br from-app-lavender/22 via-app-surfaceElevated/95 to-app-softBlue/18 shadow-lg ring-2 ring-app-softBlue/25 ring-offset-0">
+                                    <div className="relative flex h-fit w-full min-w-0 max-w-[960px] flex-col overflow-visible rounded-[2.5rem] border border-app-border bg-app-surface shadow-[0_16px_48px_rgba(0,0,0,0.08)]">
                                         <div className="flex w-full flex-col items-center gap-2 px-5 pt-6 pb-3 text-center sm:gap-3 sm:px-6 sm:pt-8 sm:pb-4">
-                                            <p className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright tracking-wide drop-shadow-sm sm:whitespace-nowrap">
+                                            <p className="text-3xl font-semibold text-app-text tracking-wide sm:whitespace-nowrap">
                                                 Input from any source
                                             </p>
                                             <p className="text-xl text-app-textMuted max-w-xl lg:hidden">
@@ -280,7 +253,7 @@ export default function WorkflowAnimation({
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="max-w-full px-4 text-center text-3xl font-semibold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-app-lilac via-app-mintBright to-app-blueBright mb-6 drop-shadow-sm sm:whitespace-nowrap lg:mb-8">
+                            <h2 className="max-w-full px-4 text-center text-3xl font-semibold tracking-wide text-app-text mb-6 sm:whitespace-nowrap lg:mb-8">
                                 Your Agent Designs The Learning
                             </h2>
 
@@ -291,19 +264,19 @@ export default function WorkflowAnimation({
                                 <div className="relative col-start-1 col-end-2 row-start-1 z-20 flex h-fit w-full min-w-0 max-w-[620px] justify-center sm:min-w-[620px]">
 
                                     {/* Phone Content with Purple Card Wrapper */}
-                                    <div className="relative flex h-fit w-full min-w-0 max-w-[620px] items-center justify-center rounded-[2.5rem] border-[6px] border-app-lavender/45 bg-app-canvas/40 px-4 py-10 shadow-lg ring-2 ring-app-softBlue/25 ring-offset-0 sm:min-w-[620px] z-20">
+                                    <div className="relative flex h-fit w-full min-w-0 max-w-[620px] items-center justify-center rounded-[2.5rem] border border-app-border bg-app-surface px-4 py-10 shadow-[0_16px_48px_rgba(0,0,0,0.08)] sm:min-w-[620px] z-20">
                                         <ProcessingPhoneWithAnnotations progress={phone2Progress} />
                                     </div>
                                 </div>
 
                                 {/* Text Area (Right Side) */}
                                 <div className="flex col-start-2 col-end-3 row-start-1 flex-col justify-center pr-0 lg:pr-4 z-10 pl-0 lg:pl-6 min-w-0 overflow-hidden mb-8 lg:mb-0">
-                                    <div className="space-y-4 text-center lg:text-left px-4 lg:px-0 drop-shadow-lg">
-                                        <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-app-mint">YOUR LEARNING ARCHITECT</p>
-                                        <h2 className="hidden md:block text-[40px] font-bold text-white leading-tight">
+                                    <div className="space-y-4 text-center lg:text-left px-4 lg:px-0">
+                                        <p className="hidden lg:block text-sm font-semibold uppercase tracking-[0.3em] text-app-textMuted">YOUR LEARNING ARCHITECT</p>
+                                        <h2 className="hidden md:block text-[40px] font-bold text-app-text leading-tight">
                                             Your Material, Made Learnable.
                                         </h2>
-                                        <p className="text-xl md:text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">
+                                        <p className="text-xl md:text-lg text-app-textMuted max-w-xl mx-auto lg:mx-0">
                                             Send in the content and your agent gets to work. It pulls out what matters, builds the lessons and quizzes, then fits them into your schedule based on your pace, priorities, and progress.
                                         </p>
                                     </div>

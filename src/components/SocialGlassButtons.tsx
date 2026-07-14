@@ -34,24 +34,6 @@ const circleSocialIconClassName =
 
 const socialLinks = [
   {
-    label: 'Discord',
-    href: 'https://discord.gg/vV2YgzXArg',
-    external: true,
-    isPill: true,
-    icon: (variant: 'glass' | 'youlearn') =>
-      variant === 'youlearn' ? (
-        <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-app-surfaceElevated text-sm font-black text-app-text transition-transform duration-300 group-hover:scale-105 sm:h-9 sm:w-9">
-          D
-        </span>
-      ) : (
-        <img
-          src="/logos/189-1890026_discord-discord-logo-black-png.png.png"
-          alt=""
-          className="relative z-10 h-8 w-8 object-contain invert transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10"
-        />
-      ),
-  },
-  {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/company/memsurf/',
     external: true,
@@ -176,12 +158,7 @@ export default function SocialGlassButtons({ className = '', variant = 'glass' }
           style={usesYouLearnStyle ? undefined : liquidGlassSurfaceStyle}
         >
           {usesYouLearnStyle ? null : <LiquidGlassOverlays />}
-          {link.icon(variant)}
-          {link.isPill && !usesYouLearnStyle && (
-            <span className={`relative z-10 hidden text-base font-semibold tracking-normal sm:inline ${usesYouLearnStyle ? 'text-app-text' : 'text-white'}`}>
-              Discord
-            </span>
-          )}
+          {link.icon()}
         </motion.a>
       ))}
     </motion.div>

@@ -29,6 +29,7 @@ export default function BlobbyBackgroundProvider({ children }: { children: React
     pathname === '/team' ||
     pathname === '/blog' ||
     pathname === '/download' ||
+    pathname === '/coming-soon' ||
     pathname.startsWith('/blog/')
   const [mode, setBackgroundMode] = useState<BlobbyBackgroundMode>('idle')
   const value = useMemo(

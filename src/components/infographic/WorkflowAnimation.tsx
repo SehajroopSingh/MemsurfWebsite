@@ -7,7 +7,6 @@ import { steps } from './constants'
 import StaticSourceIcons from './CapturePhone/StaticSourceIcons'
 import CapturePhoneContent from './CapturePhone/CapturePhoneContent'
 import CapturePhoneScaleFrame from './CapturePhone/CapturePhoneScaleFrame'
-import RawContentTransition from './RawContentTransition'
 import ProcessingPhoneWithAnnotations from './ProcessingPhone/ProcessingPhoneWithAnnotations'
 import PracticeScrollShowcase from './PracticeScrollShowcase'
 import { useTimeProgress } from '../../hooks/useTimeProgress'
@@ -221,11 +220,6 @@ export default function WorkflowAnimation() {
                             </div>
                         </motion.div>
                     </div>
-                </div>
-
-                {/* 3c — Transition (zero flow height; scroll animation only) */}
-                <div className="relative h-0 w-full shrink-0 overflow-visible z-[50] pointer-events-none">
-                    <RawContentTransition />
                 </div>
 
                 {/* 3d — Processing */}

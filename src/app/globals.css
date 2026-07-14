@@ -92,6 +92,18 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .theme-adaptive-icon {
+    filter: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  @layer utilities {
+    .theme-adaptive-icon {
+      filter: invert(1);
+    }
+  }
 }
 
 /* Smooth scrolling */

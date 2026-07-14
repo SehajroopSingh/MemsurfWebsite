@@ -141,7 +141,7 @@ export default function ChatGptIntegrationSection() {
                                 layout
                                 src="/logos/OpenAI-black-monoblossom.svg"
                                 alt="OpenAI Logo"
-                                className="w-20 h-20 md:w-24 md:h-24 origin-center invert"
+                                className="theme-adaptive-icon w-20 h-20 md:w-24 md:h-24 origin-center"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1, scale: isMobile ? 1.1 : 1.3 }}
                                 transition={{
@@ -156,7 +156,7 @@ export default function ChatGptIntegrationSection() {
                                 variants={containerVariants}
                                 initial="hidden"
                                 animate={isTextTyping ? "visible" : "hidden"}
-                                className="text-4xl md:text-6xl font-bold text-white leading-tight flex flex-wrap"
+                                className="text-4xl md:text-6xl font-bold text-app-text leading-tight flex flex-wrap"
                             >
                                 {words.map((word, wordIndex) => (
                                     <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.25em]">
@@ -199,9 +199,9 @@ export default function ChatGptIntegrationSection() {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
-                                        className="absolute inset-0 flex items-center justify-center z-40 px-8 py-12 pointer-events-none"
+                                        className="absolute inset-0 z-40 flex items-center justify-center px-4 py-8 pointer-events-none sm:px-8 sm:py-12"
                                     >
-                                        <div className="flex flex-col gap-6 max-w-3xl">
+                                        <div className="flex max-w-3xl flex-col gap-5 rounded-[28px] border border-app-border bg-app-surface/90 p-5 shadow-sm backdrop-blur-sm sm:gap-6 sm:p-7">
                                             {bullets.map((bullet, index) => (
                                                 <motion.div
                                                     key={index}
@@ -211,7 +211,7 @@ export default function ChatGptIntegrationSection() {
                                                     className="flex items-start gap-4"
                                                 >
                                                     <div className="w-2 h-2 rounded-full bg-app-textMuted mt-2.5 shrink-0" />
-                                                    <p className="text-xl md:text-3xl font-medium text-white leading-relaxed">
+                                                    <p className="text-xl md:text-3xl font-medium text-app-text leading-relaxed">
                                                         {bullet}
                                                     </p>
                                                 </motion.div>
@@ -224,13 +224,13 @@ export default function ChatGptIntegrationSection() {
                                 {isOverlayTextVisible && (
                                     <motion.div
                                         key="final-text"
-                                        className="absolute inset-0 flex items-center justify-center z-40 pointer-events-none"
+                                        className="absolute inset-0 z-40 flex items-center justify-center px-4 pointer-events-none"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -20 }}
                                         transition={{ duration: 0.6 }}
                                     >
-                                        <p className="text-3xl md:text-5xl font-medium text-white text-center px-4">
+                                        <p className="max-w-3xl rounded-[28px] border border-app-border bg-app-surface/90 px-6 py-5 text-center text-3xl font-medium text-app-text shadow-sm backdrop-blur-sm md:text-5xl">
                                             From any chat, send to MemSurf.
                                         </p>
                                     </motion.div>
@@ -254,7 +254,7 @@ export default function ChatGptIntegrationSection() {
                                     layout
                                     src="/logos/OpenAI-black-monoblossom.svg"
                                     alt="OpenAI Logo"
-                                    className="w-20 h-20 md:w-24 md:h-24 invert"
+                                    className="theme-adaptive-icon w-20 h-20 md:w-24 md:h-24"
                                     initial={{ scale: 0, rotate: -180 }}
                                     animate={{
                                         scale: isMobile ? 1.1 : 1.3, // Bigger scale, capped on all viewports

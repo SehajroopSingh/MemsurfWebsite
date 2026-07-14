@@ -7,6 +7,7 @@ import WaitlistForm from '@/components/WaitlistForm'
 import ScrollTracker from '@/components/ScrollTracker'
 import SocialGlassButtons from '@/components/SocialGlassButtons'
 import WorkflowAnimation from '@/components/infographic/WorkflowAnimation'
+import AppleLogoIcon from '@/components/AppleLogoIcon'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://memsurf.com'
 
@@ -89,8 +90,9 @@ export default function Home() {
                   href="/download?src=website"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-14 items-center justify-center rounded-full bg-[var(--app-action)] px-8 text-base font-bold text-[var(--app-action-text)] shadow-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
+                  className="inline-flex h-14 items-center justify-center gap-2.5 rounded-full bg-[var(--app-action)] px-8 text-base font-bold text-[var(--app-action-text)] shadow-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
                 >
+                  <AppleLogoIcon className="h-5 w-5" />
                   Download for iPhone
                 </a>
                 <a

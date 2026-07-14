@@ -93,16 +93,11 @@ body {
     text-wrap: balance;
   }
 
-  .theme-adaptive-icon {
-    filter: none;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  @layer utilities {
-    .theme-adaptive-icon {
-      filter: invert(1);
-    }
+  .openai-theme-mark {
+    display: inline-block;
+    background-color: var(--app-text);
+    -webkit-mask: url('/logos/OpenAI-black-monoblossom.svg') center / contain no-repeat;
+    mask: url('/logos/OpenAI-black-monoblossom.svg') center / contain no-repeat;
   }
 }
 

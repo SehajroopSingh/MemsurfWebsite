@@ -136,12 +136,12 @@ export default function ChatGptIntegrationSection() {
                     {/* Only render Icon here when in header state */}
                     {isHeaderState && (
                         <div className="flex items-center gap-8 ml-4">
-                            <motion.img
+                            <motion.span
                                 layoutId="openai-icon"
                                 layout
-                                src="/logos/OpenAI-black-monoblossom.svg"
-                                alt="OpenAI Logo"
-                                className="theme-adaptive-icon w-20 h-20 md:w-24 md:h-24 origin-center"
+                                role="img"
+                                aria-label="OpenAI Logo"
+                                className="openai-theme-mark w-20 h-20 md:w-24 md:h-24 origin-center"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1, scale: isMobile ? 1.1 : 1.3 }}
                                 transition={{
@@ -249,12 +249,12 @@ export default function ChatGptIntegrationSection() {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                             >
-                                <motion.img
+                                <motion.span
                                     layoutId="openai-icon"
                                     layout
-                                    src="/logos/OpenAI-black-monoblossom.svg"
-                                    alt="OpenAI Logo"
-                                    className="theme-adaptive-icon w-20 h-20 md:w-24 md:h-24"
+                                    role="img"
+                                    aria-label="OpenAI Logo"
+                                    className="openai-theme-mark w-20 h-20 md:w-24 md:h-24"
                                     initial={{ scale: 0, rotate: -180 }}
                                     animate={{
                                         scale: isMobile ? 1.1 : 1.3, // Bigger scale, capped on all viewports
